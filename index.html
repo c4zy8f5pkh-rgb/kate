@@ -6,213 +6,258 @@
 <title>這就是人生</title>
 
 <style>
-
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:"Segoe UI","Microsoft JhengHei",sans-serif;
 }
 
 body{
-    background:#081220;
-    color:white;
+    font-family:"Segoe UI","Microsoft JhengHei",sans-serif;
+    background:#0f172a;
+    color:#fff;
     display:flex;
     min-height:100vh;
 }
 
-/* 左側導航 */
+/* 左側 */
 
 .sidebar{
-    width:220px*
+    width:220px;
     background:#111827;
-    borde*-right:1px solid #273449;
-    padd*ng:24px;
+    padding:24px;
+    border-right:1px solid #374151;
 }
 
 .logo{
-    font-size:4*px;
+    font-size:36px;
     text-align:center;
 }
 
-.sit*-name{
+.site-name{
     text-align:center;
-    *ont-size:18px;
-    font-weight:700*
+    font-size:20px;
+    font-weight:bold;
     margin:10px 0 30px;
 }
 
-.menu{*    display:flex;
-    flex-directi*n:column;
+.menu{
+    display:flex;
+    flex-direction:column;
     gap:10px;
 }
 
-.menu-i*em{
-    background:#1b273a;
-    pa*ding:14px;
-    border-radius:12px;*    cursor:pointer;
-    transition*.2s;
+.menu-item{
+    background:#1f2937;
+    padding:14px;
+    border-radius:12px;
 }
 
 .menu-item:hover{
-    background:#2c3f5b;
+    background:#334155;
 }
 
-/* 主內容 */
+/* 右側 */
 
 .main{
-   *flex:1;
+    flex:1;
     padding:35px;
 }
 
-.titl*{
-    font*size:40px;
-    font-weight:800;
+.header{
+    margin-bottom:25px;
 }
-*.subtitle{
-    margin-top:10px;
-  * color:#94a**8;
-    font-size:16px*
+
+.header h1{
+    font-size:34px;
+    margin-bottom:8px;
+}
+
+.subtitle{
+    color:#94a3b8;
 }
 
 /* KPI */
 
-.cards{
+.stats{
     display:grid;
-   *grid-template-columns:repeat(4,1fr*;
-    gap:15px;
-    margin-top:25p*;
+    grid-template-columns:repeat(4,1fr);
+    gap:16px;
 }
 
 .card{
-    background:#1b273a*
+    background:#1e293b;
     border-radius:16px;
-    paddi*g:20px;
+    padding:20px;
 }
 
 .card-title{
-    color:*cbd5e1;
-    font-size:14*x;
-}
-
-.card-number{
-*   margin-top:10px;
-    font*size:32px;
-    font-weight:700;
-}
-*.red{color:#ef4444;}
-.yellow{color*#*bbf24;}
-.green{color:#22c55e;}
-.bl*e{color:#60a5fa;}
-
-/* 區塊 */
-
-*section{
-    background:#1b273a;
- *  border-radius:16px;
-    padding:*4px;
-    margin-top:20px;
-*
-
-.section-title{
-    font-size:22*x;
-    font-weight:700;
-    margin*bottom:15px;
-*
-
-.section ul{
-    margin-left:20p*;
-}
-
-.section li{
-    margin-botto*:10px;
-    font-size:*6px;
-}
-
-.focus{
-    border-left:**x solid #fbbf24;
-}
-
-.note{
-    mar*in-top:16px;
-    color:#94a3*8;
+    color:#cbd5e1;
     font-size:14px;
 }
 
-**edia(max-width:1100px){
+.card-number{
+    font-size:30px;
+    font-weight:bold;
+    margin-top:10px;
+}
 
-    body{*        flex-direction:column;
-   *}
+.red{color:#ef4444;}
+.yellow{color:#f59e0b;}
+.green{color:#22c55e;}
+.blue{color:#60a5fa;}
 
-    .sidebar{
-        width:100*;
+/* 區塊 */
+
+.panel{
+    background:#1e293b;
+    border-radius:16px;
+    padding:24px;
+    margin-top:20px;
+}
+
+.panel h2{
+    font-size:22px;
+    margin-bottom:15px;
+}
+
+.panel ul{
+    margin-left:20px;
+}
+
+.panel li{
+    margin-bottom:10px;
+    line-height:1.5;
+}
+
+.focus{
+    border-left:4px solid #fbbf24;
+}
+
+.note{
+    margin-top:15px;
+    color:#94a3b8;
+}
+
+/* RWD */
+
+@media(max-width:1100px){
+
+    body{
+        flex-direction:column;
     }
 
-    .cards{
-        grid-*emplate-columns:repeat(2,1fr);
-   *}
+    .sidebar{
+        width:100%;
+    }
 
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
 }
 
 @media(max-width:700px){
 
-  * .cards{
-        grid-template-col*mns:1fr;
+    .stats{
+        grid-template-columns:1fr;
     }
-
 }
-
 </style>
-
-</hea*>
+</head>
 
 <body>
 
-<!-- 左側 -->
+<div class="sidebar">
 
-<div class*"sidebar">
+    <div class="logo">🍃</div>
 
-    <div class="logo">*�</div>
-
-    <div class="site-name*>
+    <div class="site-name">
         這就是人生
     </div>
 
-    <d*v class="menu">
+    <div class="menu">
 
-        <div clas**"menu-item">
-            🏠 Dashbo*rd
-        </div>
+        <div class="menu-item">🏠 Dashboard</div>
 
-        <div cl*ss="menu-item">
-            📦 料號管*
-        </div>
+        <div class="menu-item">📦 料號管理</div>
 
-        <div clas*="menu-item">
-            🔄 BOM中心*        </div>
+        <div class="menu-item">🔄 BOM中心</div>
 
-        <div class*"menu-item">
-            📅 行事曆
-  *     </div>
+        <div class="menu-item">📅 行事曆</div>
+
+        <div class="menu-item">📊 Excel 匯入</div>
 
     </div>
 
 </div>
 
-<*-- 中間 -->
-
 <div class="main">
 
-   *<div class="title">
-        🍃 這就是*生
+    <div class="header">
+
+        <h1>🍃 這就是人生</h1>
+
+        <div class="subtitle">
+            每天追料號、追 BOM、追進度，但人生還是要繼續。
+        </div>
+
     </div>
 
-    <div class="subt*tle">
-        每天追料號、追 BOM、追進度，但人生還*要繼續。
+    <div class="stats">
+
+        <div class="card">
+            <div class="card-title">待處理</div>
+            <div class="card-number red">12</div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">本週到期</div>
+            <div class="card-number yellow">6</div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">已完成</div>
+            <div class="card-number green">35</div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">總料號</div>
+            <div class="card-number blue">128</div>
+        </div>
+
     </div>
 
-    <!-- KPI -->
-*    <div class="cards">
+    <div class="panel">
 
-        <*iv class="card">
-            <div *
+        <h2>✅ 今日待辦</h2>
+
+        <ul>
+            <li>ECR-TW260705</li>
+            <li>6HK1CONN001 待核價</li>
+            <li>6HK1CONN002 待核價</li>
+            <li>BOM 建立確認</li>
+            <li>客戶 Label 確認</li>
+        </ul>
+
+    </div>
+
+    <div class="panel focus">
+
+        <h2>📍 今日焦點</h2>
+
+        <ul>
+            <li>🔴 ECR-TW260705</li>
+            <li>🟡 6HK1603H032 尚未建立系統</li>
+            <li>🟠 本週到期案件 6 件</li>
+        </ul>
+
+        <div class="note">
+            建議優先處理 ECR 與 BOM 相關工作。
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
