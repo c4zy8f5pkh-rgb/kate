@@ -1,26 +1,50 @@
-<div class="sidebar">
-    🍃 這就是人生
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    Dashboard
-    料號管理
-    BOM中心
-    行事曆
-</div>
+<title>這就是人生</title>
 
-<div class="content">
+<style>
 
-    待處理
-    本週到期
-    已完成
-    總料號
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI,sans-serif;
+}
 
-    今日待辦
+body{
+    background:#0b1220;
+    color:white;
+    display:flex;
+    min-height:100vh;
+}
 
-</div>
+/* 左側選單 */
 
-<div class="right-panel">
+.sidebar{
+    width:250px;
+    background:#111827;
+    border-right:1px solid #374151;
+    padding:20px;
+}
 
-    AI 建議
+.logo{
+    font-size:24px;
+    font-weight:bold;
+    margin-bottom:30px;
+}
 
-</div>
-``
+.menu a{
+    display:block;
+    color:white;
+    text-decoration:none;
+    padding:12px;
+    border-radius:10px;
+    margin-bottom:8px;
+}
+
+.menu a:hover{
+    background:#1f2937
