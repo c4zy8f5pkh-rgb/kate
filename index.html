@@ -50,4 +50,244 @@ border-radius:10px;
 background:#1f2937;
 }
 
+.main{
+flex:1;
+padding:30px;
+overflow:auto;
+}
 
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:30px;
+}
+
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+}
+
+.card{
+background:#1f2937;
+padding:25px;
+border-radius:15px;
+}
+
+.card h3{
+color:#9ca3af;
+margin-bottom:10px;
+}
+
+.number{
+font-size:40px;
+font-weight:bold;
+}
+
+.red{
+color:#ef4444;
+}
+
+.yellow{
+color:#f59e0b;
+}
+
+.green{
+color:#22c55e;
+}
+
+.blue{
+color:#60a5fa;
+}
+
+.section{
+display:grid;
+grid-template-columns:2fr 1fr;
+gap:20px;
+margin-top:25px;
+}
+
+.panel{
+background:#1f2937;
+padding:25px;
+border-radius:15px;
+}
+
+.panel h2{
+margin-bottom:15px;
+}
+
+ul{
+padding-left:20px;
+}
+
+li{
+margin-bottom:10px;
+}
+
+.ai{
+background:#312e81;
+}
+
+button{
+background:#2563eb;
+color:white;
+border:none;
+padding:12px 20px;
+border-radius:10px;
+cursor:pointer;
+}
+
+button:hover{
+background:#1d4ed8;
+}
+
+@media(max-width:900px){
+
+body{
+flex-direction:column;
+}
+
+.sidebar{
+width:100%;
+height:auto;
+}
+
+.section{
+grid-template-columns:1fr;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<div class="logo">
+🤖 Kate AI
+</div>
+
+<div class="menu">
+
+#>
+
+#
+
+#🔄 BOM中心</a>
+
+#📅 行事曆</a>
+
+#📄 Excel匯入</a>
+
+#
+
+#⚙️ 設定</a>
+
+</div>
+
+</div>
+
+<div class="main">
+
+<div class="header">
+
+<div>
+<h1>Kate AI 工作中心</h1>
+<p>料號管理 × BOM追蹤 × 行事曆</p>
+</div>
+
+<div>
+📅 2026/07/24
+</div>
+
+</div>
+
+<div class="cards">
+
+<div class="card">
+<h3>🔴 待處理</h3>
+<div class="number red">12</div>
+</div>
+
+<div class="card">
+<h3>🟡 本週到期</h3>
+<div class="number yellow">6</div>
+</div>
+
+<div class="card">
+<h3>🟢 已完成</h3>
+<div class="number green">35</div>
+</div>
+
+<div class="card">
+<h3>📦 總料號</h3>
+<div class="number blue">128</div>
+</div>
+
+</div>
+
+<div class="section">
+
+<div class="panel">
+
+<h2>✅ 今日待辦</h2>
+
+<ul>
+
+<li>ECR-TW260705</li>
+
+<li>6HK1CONN001 待核價</li>
+
+<li>6HK1CONN002 待核價</li>
+
+<li>BOM 建立確認</li>
+
+<li>客戶 Label 確認</li>
+
+</ul>
+
+</div>
+
+<div class="panel ai">
+
+<h2>🤖 AI 建議</h2>
+
+<p>
+目前有 2 筆 BOM 變更超過 3 天未更新。
+</p>
+
+<br>
+
+<p>
+建議優先追蹤：
+</p>
+
+<br>
+
+<p>
+• ECR-TW260705
+</p>
+
+<p>
+• 6HK1603H032 尚未建立系統
+</p>
+
+<br>
+
+<button>
+詢問 AI
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>
