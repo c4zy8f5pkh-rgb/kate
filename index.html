@@ -1,184 +1,54 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta charset="utf-8">
 <title>這就是人生</title>
 
 <style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:"Segoe UI",sans-serif;
-}
-
 body{
     background:#0b1220;
     color:white;
-    display:flex;
-    min-height:100vh;
+    font-family:Arial;
+    padding:40px;
 }
 
-/* 左側 */
-
-.sidebar{
-    width:240px;
-    background:#111827;
-    border-right:1px solid #374151;
+.box{
+    background:#1e293b;
     padding:20px;
-}
-
-.logo{
-    font-size:28px;
-    font-weight:bold;
-    margin-bottom:30px;
-}
-
-.menu a{
-    display:block;
-    color:white;
-    text-decoration:none;
-    padding:12px;
-    margin-bottom:8px;
-    border-radius:10px;
-}
-
-.menu a:hover{
-    background:#1f2937;
-}
-
-/* 中間 */
-
-.main{
-    flex:1;
-    padding:30px;
-}
-
-.header h1{
-    font-size:42px;
-    margin-bottom:10px;
-}
-
-.subtitle{
-    color:#94a3b8;
-}
-
-.cards{
-    margin-top:25px;
-    display:grid;
-    grid-template-columns:repeat(2,minmax(220px,1fr));
-    gap:20px;
-}
-
-.card{
-    background:#1e293b;
-    border-radius:16px;
-    padding:25px;
-}
-
-.card h3{
-    margin-bottom:10px;
-}
-
-.number{
-    font-size:42px;
-    font-weight:bold;
-}
-
-.red{color:#ef4444;}
-.yellow{color:#f59e0b;}
-.green{color:#22c55e;}
-.blue{color:#60a5fa;}
-
-.todo{
-    margin-top:25px;
-    background:#1e293b;
-    padding:25px;
-    border-radius:16px;
-}
-
-.todo ul{
-    margin-top:15px;
-    margin-left:25px;
-}
-
-.todo li{
-    margin-bottom:10px;
-}
-
-/* 右側 */
-
-.right{
-    width:300px;
-    background:#312e81;
-    padding:25px;
-}
-
-.right h2{
-    margin-bottom:20px;
-}
-
-.right ul{
-    margin-left:20px;
-    margin-top:15px;
-}
-
-.right li{
-    margin-bottom:10px;
-}
-
-.button{
-    width:100%;
+    border-radius:15px;
     margin-top:20px;
-    padding:12px;
-    border:none;
-    border-radius:10px;
-    background:#2563eb;
-    color:white;
-    cursor:pointer;
 }
-
-.button:hover{
-    background:#1d4ed8;
-}
-
-@media(max-width:1000px){
-
-    body{
-        flex-direction:column;
-    }
-
-    .sidebar{
-        width:100%;
-    }
-
-    .right{
-        width:100%;
-    }
-
-    .cards{
-        grid-template-columns:1fr;
-    }
-}
-
 </style>
+
 </head>
 
 <body>
 
-<!-- 左側選單 -->
+<h1>🍃 這就是人生</h1>
 
-<div class="sidebar">
+<p>
+每天追料號、追 BOM、追進度，但人生還是要繼續。
+</p>
 
-    <div class="logo">
-        🍃 這就是人生
-    </div>
+<div class="box">
 
-    <div class="menu">
+<h2>待處理</h2>
 
-        ">🏠 Dashboard</a>
+<p>12</p>
 
-      
+</div>
+
+<div class="box">
+
+<h2>今日待辦</h2>
+
+<ul>
+<li>ECR-TW260705</li>
+<li>6HK1CONN001</li>
+<li>BOM建立確認</li>
+</ul>
+
+</div>
+
+</body>
+</html>
