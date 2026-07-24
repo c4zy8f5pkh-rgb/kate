@@ -16,7 +16,7 @@
 }
 
 body{
-    background:#0f172a;
+    background:#0b1220;
     color:white;
     display:flex;
     min-height:100vh;
@@ -37,11 +37,11 @@ body{
 
 .menu a{
     display:block;
+    padding:12px;
+    margin-bottom:8px;
     color:white;
     text-decoration:none;
-    padding:12px;
     border-radius:10px;
-    margin-bottom:8px;
 }
 
 .menu a:hover{
@@ -99,7 +99,7 @@ body{
     color:#60a5fa;
 }
 
-.section{
+.content{
     margin-top:25px;
     display:grid;
     grid-template-columns:2fr 1fr;
@@ -117,22 +117,78 @@ body{
 }
 
 .panel ul{
-    padding-left:25px;
+    margin-left:25px;
 }
 
 .panel li{
-    margin-bottom:10px;
+    margin-bottom:12px;
 }
 
-.ai-panel{
+.ai-box{
     background:#312e81;
 }
 
-.btn{
+.button{
     margin-top:20px;
     background:#2563eb;
-    border:none;
     color:white;
+    border:none;
     padding:12px 20px;
     border-radius:10px;
-    cursor
+    cursor:pointer;
+}
+
+.button:hover{
+    background:#1d4ed8;
+}
+
+.quote{
+    margin-top:25px;
+    color:#cbd5e1;
+    font-style:italic;
+}
+
+@media(max-width:900px){
+
+    body{
+        flex-direction:column;
+    }
+
+    .sidebar{
+        width:100%;
+    }
+
+    .content{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+
+    <div class="logo">
+        🍃 這就是人生
+    </div>
+
+    <div class="menu">
+
+        index.html
+
+        parts.html>
+
+        bom.html>
+
+        calendar.html📅 行事曆</a>
+
+        #📄 Excel匯入</a>
+
+        #
+
+        #
+
+   
