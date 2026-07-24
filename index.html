@@ -6,6 +6,7 @@
 <title>這就是人生</title>
 
 <style>
+
 *{
     margin:0;
     padding:0;
@@ -15,77 +16,203 @@
 
 body{
     background:#081220;
-    color:#fff;
-    display:grid;
-    grid-template-columns:180px 1fr 320px;
+    color:white;
+    display:flex;
     min-height:100vh;
 }
 
-/* 左側 */
+/* 左側導航 */
+
 .sidebar{
-    background:#101827;
-    border-right:1px solid #263143;
-    padding:24px 16px;
+    width:220px*
+    background:#111827;
+    borde*-right:1px solid #273449;
+    padd*ng:24px;
 }
 
 .logo{
+    font-size:4*px;
     text-align:center;
-    font-size:42px;
 }
 
-.site-name{
+.sit*-name{
     text-align:center;
-    font-size:18px;
-    font-weight:700;
-    margin:12px 0 24px;
+    *ont-size:18px;
+    font-weight:700*
+    margin:10px 0 30px;
 }
 
-.menu{
-    display:flex;
-    flex-direction:column;
-    gap:8px;
+.menu{*    display:flex;
+    flex-directi*n:column;
+    gap:10px;
 }
 
-.menu a{
-    color:white;
-    text-decoration:none;
-    padding:12px;
-    border-radius:12px;
-    font-size:15px;
+.menu-i*em{
+    background:#1b273a;
+    pa*ding:14px;
+    border-radius:12px;*    cursor:pointer;
+    transition*.2s;
 }
 
-.menu a:hover{
-    background:#1f2937;
+.menu-item:hover{
+    background:#2c3f5b;
 }
 
-/* 中間 */
+/* 主內容 */
+
 .main{
-    padding:30px;
+   *flex:1;
+    padding:35px;
 }
 
-.title{
-    font-size:38px;
+.titl*{
+    font*size:40px;
     font-weight:800;
 }
-
-.subtitle{
-    margin-top:8px;
-    color:#94a3b8;
-    font-size:17px;
+*.subtitle{
+    margin-top:10px;
+  * color:#94a**8;
+    font-size:16px*
 }
 
-.stats{
-    margin-top:24px;
+/* KPI */
+
+.cards{
     display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:16px;
+   *grid-template-columns:repeat(4,1fr*;
+    gap:15px;
+    margin-top:25p*;
 }
 
 .card{
-    background:#1c2940;
+    background:#1b273a*
     border-radius:16px;
-    padding:20px;
+    paddi*g:20px;
 }
 
 .card-title{
-    font-size
+    color:*cbd5e1;
+    font-size:14*x;
+}
+
+.card-number{
+*   margin-top:10px;
+    font*size:32px;
+    font-weight:700;
+}
+*.red{color:#ef4444;}
+.yellow{color*#*bbf24;}
+.green{color:#22c55e;}
+.bl*e{color:#60a5fa;}
+
+/* 區塊 */
+
+*section{
+    background:#1b273a;
+ *  border-radius:16px;
+    padding:*4px;
+    margin-top:20px;
+*
+
+.section-title{
+    font-size:22*x;
+    font-weight:700;
+    margin*bottom:15px;
+*
+
+.section ul{
+    margin-left:20p*;
+}
+
+.section li{
+    margin-botto*:10px;
+    font-size:*6px;
+}
+
+.focus{
+    border-left:**x solid #fbbf24;
+}
+
+.note{
+    mar*in-top:16px;
+    color:#94a3*8;
+    font-size:14px;
+}
+
+**edia(max-width:1100px){
+
+    body{*        flex-direction:column;
+   *}
+
+    .sidebar{
+        width:100*;
+    }
+
+    .cards{
+        grid-*emplate-columns:repeat(2,1fr);
+   *}
+
+}
+
+@media(max-width:700px){
+
+  * .cards{
+        grid-template-col*mns:1fr;
+    }
+
+}
+
+</style>
+
+</hea*>
+
+<body>
+
+<!-- 左側 -->
+
+<div class*"sidebar">
+
+    <div class="logo">*�</div>
+
+    <div class="site-name*>
+        這就是人生
+    </div>
+
+    <d*v class="menu">
+
+        <div clas**"menu-item">
+            🏠 Dashbo*rd
+        </div>
+
+        <div cl*ss="menu-item">
+            📦 料號管*
+        </div>
+
+        <div clas*="menu-item">
+            🔄 BOM中心*        </div>
+
+        <div class*"menu-item">
+            📅 行事曆
+  *     </div>
+
+    </div>
+
+</div>
+
+<*-- 中間 -->
+
+<div class="main">
+
+   *<div class="title">
+        🍃 這就是*生
+    </div>
+
+    <div class="subt*tle">
+        每天追料號、追 BOM、追進度，但人生還*要繼續。
+    </div>
+
+    <!-- KPI -->
+*    <div class="cards">
+
+        <*iv class="card">
+            <div *
