@@ -1,111 +1,296 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Kate Worksheet </title>
+<title>Kate AI 工作中心</title>
 
 <style>
 
-body{
+*{
     margin:0;
+    padding:0;
+    box-sizing:border-box;
     font-family:"Segoe UI",sans-serif;
-    background:#111827;
+}
+
+body{
+    background:#0f172a;
     color:white;
+    display:flex;
+    min-height:100vh;
+}
+
+/* 左側選單 */
+
+.sidebar{
+    width:250px;
+    background:#111827;
+    padding:20px;
+    border-right:1px solid #374151;
+}
+
+.logo{
+    font-size:32px;
+    font-weight:bold;
+    margin-bottom:30px;
+}
+
+.menu a{
+    display:block;
+    color:white;
+    text-decoration:none;
+    padding:12px;
+    border-radius:10px;
+    margin-bottom:8px;
+}
+
+.menu a:hover{
+    background:#1f2937;
+}
+
+/* 主要內容 */
+
+.main{
+    flex:1;
+    padding:30px;
 }
 
 .header{
-    background:#0f172a;
-    padding:20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
 }
 
-.container{
-    padding:20px;
+.subtitle{
+    margin-top:10px;
+    color:#94a3b8;
 }
 
 .cards{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
     gap:20px;
 }
 
 .card{
-    background:#1f2937;
-    border-radius:15px;
-    padding:20px;
+    background:#1e293b;
+    padding:25px;
+    border-radius:20px;
 }
 
 .card h3{
-    margin:0;
+    margin-bottom:15px;
 }
 
 .number{
-    font-size:36px;
+    font-size:48px;
     font-weight:bold;
-    margin-top:10px;
 }
 
-.red{color:#ef4444;}
-.yellow{color:#f59e0b;}
-.green{color:#22c55e;}
-.blue{color:#60a5fa;}
+.red{
+    color:#ef4444;
+}
+
+.yellow{
+    color:#f59e0b;
+}
+
+.green{
+    color:#22c55e;
+}
+
+.blue{
+    color:#60a5fa;
+}
+
+.section{
+    margin-top:25px;
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:20px;
+}
 
 .panel{
-    background:#1f2937;
+    background:#1e293b;
+    padding:25px;
+    border-radius:20px;
+}
+
+.panel h2{
+    margin-bottom:20px;
+}
+
+.panel ul{
+    padding-left:25px;
+}
+
+.panel li{
+    margin-bottom:10px;
+}
+
+.ai-panel{
+    background:#312e81;
+}
+
+.ai-btn{
     margin-top:20px;
-    padding:20px;
-    border-radius:15px;
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:12px 20px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.ai-btn:hover{
+    background:#1d4ed8;
+}
+
+@media(max-width:900px){
+
+    body{
+        flex-direction:column;
+    }
+
+    .sidebar{
+        width:100%;
+    }
+
+    .section{
+        grid-template-columns:1fr;
+    }
+
 }
 
 </style>
-
 </head>
 
 <body>
 
-<div class="menu">
-<a#📦 料號管理</a>
-#🔄 BOM中心</a>
-#
-#📄 Excel匯入</a>
-#🤖 AI辨識</a>
-#⚙️ 設定</a>
-</div>
+<!-- 左側選單 -->
 
-<div class="container">
+<div class="sidebar">
 
-<div class="cards">
+    <div class="logo">
+        🤖 Kate AI
+    </div>
 
-<div class="card">
-<h3>🔴 待處理</h3>
-<div class="number red">12</div>
-</div>
+    <div class="menu">
 
-<div class="card">
-<h3>🟡 本週到期</h3>
-<div class="number yellow">6</div>
-</div>
+        index.html
 
-<div class="card">
-<h3>🟢 已完成</h3>
-<div class="number green">35</div>
-</div>
+        parts.html>
 
-<div class="card">
-<h3>📦 總料號</h3>
-<div class="number blue">128</div>
-</div>
+        bom.html>
+
+        calendar.html📅 行事曆</a>
+
+        #📄 Excel匯入</a>
+
+        #🤖 AI辨識</a>
+
+        #>
+
+    </div>
 
 </div>
 
-<div class="panel">
+<!-- 主內容 -->
 
-<h2>✅ 今日待辦</h2>
+<div class="main">
 
-<ul>
-<li>ECR-TW260705</li>
-<li>6HK1CONN001 待核價</li>
-<li>6HK1CONN002 待核價</li>
-<li>BOM 建立確認</li>
-<li>客
+    <div class="header">
+
+        <div>
+            <h1>Kate AI 工作中心</h1>
+
+            <div class="subtitle">
+                料號追蹤 × BOM管理 × 行事曆
+            </div>
+        </div>
+
+        <div>
+            📅 2026/07/24
+        </div>
+
+    </div>
+
+    <!-- Dashboard -->
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>🔴 待處理</h3>
+            <div class="number red">12</div>
+        </div>
+
+        <div class="card">
+            <h3>🟡 本週到期</h3>
+            <div class="number yellow">6</div>
+        </div>
+
+        <div class="card">
+            <h3>🟢 已完成</h3>
+            <div class="number green">35</div>
+        </div>
+
+        <div class="card">
+            <h3>📦 總料號</h3>
+            <div class="number blue">128</div>
+        </div>
+
+    </div>
+
+    <!-- 下半部 -->
+
+    <div class="section">
+
+        <div class="panel">
+
+            <h2>✅ 今日待辦</h2>
+
+            <ul>
+                <li>ECR-TW260705</li>
+                <li>6HK1CONN001 待核價</li>
+                <li>6HK1CONN002 待核價</li>
+                <li>BOM 建立確認</li>
+                <li>客戶 Label 確認</li>
+            </ul>
+
+        </div>
+
+        <div class="panel ai-panel">
+
+            <h2>🤖 AI 建議</h2>
+
+            <p>
+                目前有 2 筆 BOM 變更超過 3 天未更新。
+            </p>
+
+            <br>
+
+            <p><b>建議優先追蹤：</b></p>
+
+            <br>
+
+            <ul>
+                <li>ECR-TW260705</li>
+                <li>6HK1603H032 尚未建立系統</li>
+            </ul>
+
+            <button class="ai-btn">
+                詢問 AI
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
