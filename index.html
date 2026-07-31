@@ -15,10 +15,10 @@
 }
 
 body{
-    background:#081224;
-    color:white;
     display:flex;
     min-height:100vh;
+    background:#0f172a;
+    color:white;
 }
 
 /* 左側 */
@@ -26,244 +26,39 @@ body{
 .sidebar{
     width:220px;
     background:#111827;
-    border-right:1px solid #1e293b;
     padding:20px;
+    border-right:1px solid #374151;
 }
 
 .logo{
     text-align:center;
-    font-size:40px;
+    font-size:42px;
 }
 
 .site-name{
     text-align:center;
-    font-size:20px;
-    font-weight:700;
     margin:10px 0 30px;
+    font-size:18px;
+    font-weight:bold;
 }
 
-.menu{
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-}
-
-.menu-item{
+.menu a{
+    display:block;
     background:#1f2937;
+    color:white;
+    text-decoration:none;
     padding:14px;
-    border-radius:14px;
-    cursor:pointer;
-    transition:.2s;
+    margin-bottom:10px;
+    border-radius:12px;
+    transition:0.2s;
 }
 
-.menu-item:hover{
+.menu a:hover{
     background:#334155;
 }
 
-/* 主內容 */
+/* 主畫面 */
 
 .main{
     flex:1;
-    max-width:1200px;
-    padding:30px;
-}
-
-.title{
-    font-size:40px;
-    font-weight:800;
-}
-
-.subtitle{
-    color:#94a3b8;
-    margin-top:8px;
-}
-
-/* KPI */
-
-.stats{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:18px;
-    margin-top:24px;
-}
-
-.card{
-    background:#172338;
-    border-radius:20px;
-    padding:24px;
-}
-
-.card-title{
-    color:#cbd5e1;
-    font-size:15px;
-}
-
-.card-number{
-    margin-top:10px;
-    font-size:36px;
-    font-weight:700;
-}
-
-.red{color:#ef4444;}
-.yellow{color:#fbbf24;}
-.green{color:#22c55e;}
-.blue{color:#60a5fa;}
-
-/* 區塊 */
-
-.section{
-    background:#172338;
-    border-radius:20px;
-    padding:24px;
-    margin-top:20px;
-}
-
-.section-title{
-    font-size:24px;
-    font-weight:700;
-    margin-bottom:16px;
-}
-
-.section ul{
-    margin-left:22px;
-}
-
-.section li{
-    margin-bottom:12px;
-    line-height:1.6;
-}
-
-.focus{
-    border-left:4px solid #fbbf24;
-}
-
-.note{
-    margin-top:15px;
-    color:#94a3b8;
-}
-
-/* 手機 */
-
-@media(max-width:900px){
-
-    body{
-        flex-direction:column;
-    }
-
-    .sidebar{
-        width:100%;
-    }
-
-    .stats{
-        grid-template-columns:1fr;
-    }
-
-}
-
-</style>
-</head>
-
-<body>
-
-<div class="sidebar">
-
-    <div class="logo">🍃</div>
-
-    <div class="site-name">
-        這就是人生
-    </div>
-
-    <div class="menu">
-
-        <div class="menu-item">
-            🏠 Dashboard
-        </div>
-
-        <div class="menu-item">
-            📦 料號管理
-        </div>
-
-        <div class="menu-item">
-            🔄 BOM中心
-        </div>
-
-        <div class="menu-item">
-            📅 行事曆
-        </div>
-
-    </div>
-
-</div>
-
-<div class="main">
-
-    <div class="title">
-        🍃 這就是人生
-    </div>
-
-    <div class="subtitle">
-        每天追料號、追 BOM、追進度，但人生還是要繼續。
-    </div>
-
-    <div class="stats">
-
-        <div class="card">
-            <div class="card-title">🔴 待處理</div>
-            <div class="card-number red">12</div>
-        </div>
-
-        <div class="card">
-            <div class="card-title">🟡 本週到期</div>
-            <div class="card-number yellow">6</div>
-        </div>
-
-        <div class="card">
-            <div class="card-title">🟢 已完成</div>
-            <div class="card-number green">35</div>
-        </div>
-
-        <div class="card">
-            <div class="card-title">📦 總料號</div>
-            <div class="card-number blue">128</div>
-        </div>
-
-    </div>
-
-    <div class="section">
-
-        <div class="section-title">
-            ✅ 今日待辦
-        </div>
-
-        <ul>
-            <li>ECR-TW260705</li>
-            <li>6HK1CONN001 待核價</li>
-            <li>6HK1CONN002 待核價</li>
-            <li>BOM 建立確認</li>
-            <li>客戶 Label 確認</li>
-        </ul>
-
-    </div>
-
-    <div class="section focus">
-
-        <div class="section-title">
-            📍 今日焦點
-        </div>
-
-        <ul>
-            <li>🔴 ECR-TW260705</li>
-            <li>🟡 6HK1603H032 尚未建立系統</li>
-            <li>🟠 本週到期案件 6 件</li>
-        </ul>
-
-        <div class="note">
-            建議優先處理 ECR 與 BOM 建立相關工作。
-        </div>
-
-    </div>
-
-</div>
-
-</body>
-</html>
+    
