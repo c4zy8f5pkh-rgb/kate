@@ -3,7 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI 圖片辨識</title>
+
+<title>AI 圖片辨識中心</title>
+
+<script src="https://unpkgt.js@5/dist/tesseract.min.jsscript>
 
 <style>
 
@@ -27,8 +30,8 @@ h1{
 .upload-box{
     background:#172338;
     border:2px dashed #60a5fa;
-    border-radius:18px;
-    padding:50px;
+    border-radius:20px;
+    padding:40px;
     text-align:center;
 }
 
@@ -39,93 +42,56 @@ h1{
 .preview{
     margin-top:20px;
     max-width:100%;
+    max-height:400px;
     border-radius:12px;
     display:none;
 }
 
 .result{
-    margin-top:20px;
     background:#172338;
-    border-radius:18px;
+    border-radius:20px;
     padding:20px;
+    margin-top:20px;
 }
 
 .result h2{
     margin-bottom:15px;
 }
 
-.result-item{
-    margin-bottom:10px;
+.loading{
+    color:#fbbf24;
+    margin-top:15px;
+}
+
+textarea{
+    width:100%;
+    min-height:250px;
+    margin-top:15px;
+    border:none;
+    border-radius:10px;
+    padding:15px;
+    background:#0f172a;
+    color:white;
+    resize:vertical;
+}
+
+.info{
+    margin-top:15px;
+    line-height:1.8;
+}
+
+button{
+    background:#2563eb;
+    color:white;
+    border:none;
+    border-radius:10px;
+    padding:12px 20px;
+    margin-top:15px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#1d4ed8;
 }
 
 </style>
-
-</head>
-<body>
-
-<h1>🤖 AI 圖片辨識中心</h1>
-
-<div class="upload-box">
-
-    <h2>上傳圖片</h2>
-
-    <p>
-        支援 Outlook、Teams、Excel、SAP 截圖
-    </p>
-
-    <input type="file" id="imageInput" accept="image/*">
-
-    <br>
-
-    <img id="preview" class="preview">
-
-</div>
-
-<div class="result">
-
-    <h2>辨識結果</h2>
-
-    <div class="result-item">
-        料號：等待辨識
-    </div>
-
-    <div class="result-item">
-        狀態：-
-    </div>
-
-    <div class="result-item">
-        負責人：-
-    </div>
-
-    <div class="result-item">
-        到期日：-
-    </div>
-
-</div>
-
-<script>
-
-const imageInput =
-document.getElementById("imageInput");
-
-const preview =
-document.getElementById("preview");
-
-imageInput.addEventListener("change", function(event){
-
-    const file = event.target.files[0];
-
-    if(!file){
-        return;
-    }
-
-    preview.src = URL.createObjectURL(file);
-
-    preview.style.display = "block";
-
-});
-
-</script>
-
-</body>
-</html>
