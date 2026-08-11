@@ -228,20 +228,67 @@ $("checkQ").onclick=()=>{
 $("nextQ").onclick=nq;
 function ng(){g=makeGrammar();$("gZh").textContent=g[0];$("gInput").value="";$("gFeedback").textContent="";$("gExplain").innerHTML="";$("gFocus").textContent=g[2].focus;$("gWords").textContent="本題字庫："+g[2].verb+" / "+g[2].obj;}
 $("tense").onchange=ng;$("nextG").onclick=ng;$("checkG").onclick=()=>{
- let yours=$("gInput").value,ans=g[1],ok=norm(yours)===norm(ans);stats.total++;
- if(ok){stats.correct++;stats.stars+=2;$("gFeedback").className="good";$("gFeedback").textContent="✓ 正確";$("gExplain").innerHTML='<div class="explainBox">句型和單字都正確。🔊 再聽一次完整句子。</div>';speakEnglish(ans);}
- else{
-   let t=$("tense").value,explain="";
-   const low=norm(yours);
-   if(t==="past" && (low.includes(" yesterday")||g[0].includes("昨天"))) explain="題目有「昨天」，要注意主要動詞必須使用過去式。";
-   if(t==="continuous") explain="「正在…」使用現在進行式：<b>be 動詞 + V-ing</b>。例如 I am studying。";
-   if(t==="goingto") explain="「打算／要做的計畫」使用 <b>be going to + 原形動詞</b>，不是直接把動詞變成 -ing。";
-   if(t==="present") explain="現在式遇到 <b>He / She / It</b>，一般動詞通常要做第三人稱單數變化，例如 go → goes。";
-   if(!yours.trim()) explain="你還沒有輸入答案。先觀察題目的時間線索和主詞，再決定句型。";
-   stats.wrongs.push(["文法",g[0],yours,ans,explain.replace(/<[^>]+>/g,"")]);
-   $("gFeedback").className="bad";$("gFeedback").textContent="✗ 這題需要修正";
-   $("gExplain").innerHTML='<div class="explainBox"><b>錯在哪？</b><br>'+explain+'<br>✅ 參考答案：<b>'+ans+'</b><br><span class="muted">本題練習字庫：'+g[2].verb+' / '+g[2].obj+'</span><br><button class="speakBtn" onclick="speakEnglish(\''+ans.replace(/'/g,"\'")+'\')">🔊 聽完整句子</button></div>';
- } save();
+  const yours=$("gInput").value.trim();
+  const ans=g[1];
+  const ok=norm(yours)===norm(ans);
+  stats.total++;
+
+  if(ok){
+    stats.correct++; stats.stars+=2;
+    $("gFeedback").className="good";
+    $("gFeedback").textContent="✓ 正確";
+    $("gExplain").innerHTML='<div class="explainBox">做對了！句型和動詞變化都正確。<br><button class="speakBtn" onclick="speakEnglish('+JSON.stringify(ans)+')">🔊 聽完整句子</button></div>';
+  }else{
+    const t=$("tense").value;
+    let title="句子需要修正", explain="", memory="";
+    const low=yours.toLowerCase();
+
+    if(!yours){
+      title="還沒有作答";
+      explain="先找題目中的「主詞」和「時間線索」，再決定動詞要怎麼變化。";
+      memory="先看主詞，再看時間。";
+    }else if(t==="present"){
+      const startsI=/^i\s/i.test(yours);
+      const badI=startsI && /\b(studies|goes|plays|reads|watches|eats|drinks|walks|runs|swims|cooks|washes|helps|opens|cleans|writes|speaks|listens|learns)\b/i.test(yours);
+      if(badI){
+        title="主詞 I 的動詞用錯了";
+        explain="主詞是 <b>I</b>，現在式要用「動詞原形」，不能使用第三人稱單數的 <b>-s / -es</b> 變化。";
+        memory="I / You / We / They → 動詞原形；He / She / It → 動詞通常加 s / es。";
+      }else{
+        title="現在式動詞變化要再確認";
+        explain="現在式要先看主詞。<b>I / You / We / They</b> 後面用動詞原形；<b>He / She / It</b> 後面的動詞通常要加 <b>-s / -es</b>。";
+        memory="先看主詞，再決定動詞要不要加 s。";
+      }
+    }else if(t==="past"){
+      title="過去式動詞需要修正";
+      explain="題目表示已經發生的事情，主要動詞要使用<b>過去式</b>。看到 yesterday、last night 等時間字，要想到過去式。";
+      memory="yesterday / last ... → 過去式。";
+    }else if(t==="continuous"){
+      title="現在進行式結構需要修正";
+      explain="「正在做……」要使用 <b>be 動詞 + V-ing</b>。例如：I am studying / He is playing。";
+      memory="正在做 → am / is / are + V-ing。";
+    }else if(t==="goingto"){
+      title="未來計畫句型需要修正";
+      explain="「打算／計畫要做」使用 <b>be going to + 動詞原形</b>。例如：I am going to study tomorrow。";
+      memory="未來計畫 → be going to + 原形動詞。";
+    }
+
+    stats.wrongs.push(["文法",g[0],yours,ans,title+"："+memory]);
+    $("gFeedback").className="bad";
+    $("gFeedback").textContent="✗ 再看一次下面的提醒";
+    $("gExplain").innerHTML=
+      '<div class="explainBox">'+
+      '<b>🔎 錯在哪？ '+title+'</b><br>'+
+      explain+
+      '<hr style="border:0;border-top:1px solid #ead9aa;margin:10px 0">'+
+      '你的答案：<b>'+escapeHtml(yours||"（未作答）")+'</b><br>'+
+      '✅ 正確答案：<b>'+escapeHtml(ans)+'</b><br>'+
+      '💡 <b>記住：</b>'+memory+'<br>'+
+      '<button class="speakBtn" style="margin-top:10px" id="speakCorrectSentence">🔊 聽正確句子</button>'+
+      '</div>';
+    setTimeout(()=>{const b=$("speakCorrectSentence"); if(b)b.onclick=()=>speakEnglish(ans);},0);
+  }
+  save();
 }
 function renderWrong(){$("wrongBody").innerHTML=stats.wrongs.slice().reverse().map(x=>`<tr><td>${x[0]}</td><td>${x[1]}</td><td>${x[2]||"—"}</td><td>${x[3]}</td><td>${x[4]||"再看一次正確答案"}</td></tr>`).join("")||'<tr><td colspan="5">目前沒有錯題</td></tr>'}
 function renderWords(){$("wordCount").textContent=`（${words.length} 筆）`;$("wordBody").innerHTML=words.map(w=>`<tr><td>${w.en}</td><td>${w.zh}</td><td>${w.pos}</td></tr>`).join("")}
@@ -264,4 +311,5 @@ const PIN_KEY="english_parent_pin";function getParentPin(){return localStorage.g
 document.querySelectorAll(".goPage").forEach(b=>b.onclick=()=>document.querySelector(`nav button[data-page="${b.dataset.go}"]`).click());
 update();showWord();nq();ng();
 </script>
-</body></html>
+</body></htmlfunction escapeHtml(x){return String(x).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));}
+>
