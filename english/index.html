@@ -3,7 +3,372 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>英文學習基地 V5.3</title>
+<style><!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>英文學習基地 V5.4</title>
 <style>
+:root{
+ --bg:#f4f7fb;--panel:#fff;--ink:#263248;--muted:#7b879b;--line:#e7ebf2;
+ --blue:#617be8;--blue2:#eef2ff;--green:#3ca77a;--orange:#eea13a;--red:#d95d73;
+ --shadow:0 10px 30px rgba(38,50,72,.07)
+}
+*{box-sizing:border-box}
+body{font-family:"Microsoft JhengHei","Noto Sans TC",Arial,sans-serif;margin:0;background:var(--bg);color:var(--ink)}
+header{padding:22px max(24px,calc((100% - 1180px)/2));background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}
+.headrow{display:flex;align-items:center;justify-content:space-between;gap:20px}
+h1{margin:0;font-size:24px} small,.muted{color:var(--muted)}
+nav{display:flex;gap:7px;flex-wrap:wrap;margin-top:16px}
+button{font:inherit;border:0;border-radius:12px;padding:10px 14px;cursor:pointer;transition:.18s}
+nav button{background:transparent;color:#536079}
+nav button:hover{background:var(--blue2);color:#4258bf}
+nav button.navactive{background:var(--blue2);color:#4258bf;font-weight:700}
+.primary{background:var(--blue);color:white;box-shadow:0 5px 12px rgba(97,123,232,.18)}
+.primary:hover{transform:translateY(-1px)}
+.ghost{background:var(--blue2);color:#4258bf}
+main{max-width:1180px;margin:auto;padding:30px 24px 50px}
+.page{display:none}.page.active{display:block}
+.pageTitle{display:flex;justify-content:space-between;align-items:flex-end;margin:5px 0 18px}
+.pageTitle h2{font-size:27px;margin:0 0 5px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:20px;margin:14px 0;box-shadow:var(--shadow)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.statcard{min-height:125px;position:relative;overflow:hidden}
+.statcard .ico{font-size:25px;margin-bottom:14px}.stat{font-size:30px;font-weight:800;margin-top:5px}
+.taskrow{display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:14px;padding:15px 4px;border-bottom:1px solid #f0f2f6}
+.taskrow:last-child{border:0}.taskico{width:40px;height:40px;border-radius:12px;background:var(--blue2);display:grid;place-items:center;font-size:20px}
+.progress{height:9px;background:#edf0f5;border-radius:999px;overflow:hidden;margin-top:8px}.progress>div{height:100%;background:var(--blue);width:0}
+.wordwrap{max-width:720px;margin:25px auto}
+.word{font-size:50px;font-weight:850;text-align:center;margin:44px 10px 15px;letter-spacing:.3px}
+.meaning{font-size:27px;text-align:center}.wordactions{text-align:center;margin:30px 0 15px}
+input,select{font:inherit;padding:12px 13px;border:1px solid #dbe0e9;border-radius:11px;background:white;outline:none}
+input:focus,select:focus{border-color:#9aacef;box-shadow:0 0 0 3px #eef2ff}
+.answer{width:100%;box-sizing:border-box;font-size:18px}
+.good{color:var(--green);font-weight:700}.bad{color:var(--red);font-weight:700}
+table{width:100%;border-collapse:collapse}td,th{padding:11px 10px;border-bottom:1px solid #eef0f4;text-align:left}th{font-size:13px;color:#68758a;background:#fafbfc;position:sticky;top:0}
+.tablebox{max-height:540px;overflow:auto;border:1px solid var(--line);border-radius:14px}
+.managebar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.countpill{display:inline-block;background:#edf8f3;color:#23785a;border-radius:999px;padding:6px 10px;font-size:13px;font-weight:700}
+.hero{background:linear-gradient(135deg,#f1f4ff,#fff);padding:24px;border-radius:22px;border:1px solid #e7ebf7;margin-bottom:18px}
+.hero h2{margin:0 0 7px;font-size:29px}.hero p{margin:0;color:var(--muted)}
+@media(max-width:850px){.grid{grid-template-columns:1fr 1fr}header{position:static}.managebar input{width:100%}}
+@media(max-width:520px){main{padding:18px 12px}.grid{grid-template-columns:1fr}.word{font-size:39px}nav{overflow-x:auto;flex-wrap:nowrap}nav button{white-space:nowrap}.card{border-radius:16px}}
+.pinOverlay{position:fixed;inset:0;background:rgba(27,36,54,.48);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}.pinOverlay.show{display:flex}.pinBox{width:min(390px,100%);background:#fff;border-radius:22px;padding:26px;text-align:center}.pinInput{font-size:28px;letter-spacing:12px;text-align:center;width:190px;margin:10px auto 16px}.pinActions{display:flex;gap:10px;justify-content:center}.parentLogout{float:right}
+.modeBadge{display:inline-flex;align-items:center;gap:6px;background:#fff7e8;color:#956311;border-radius:999px;padding:7px 11px;font-size:13px;font-weight:700}
+.speakBtn{background:#edf8f3;color:#23785a;font-weight:700}
+.explainBox{font-size:17px;margin-top:14px;padding:14px 16px;border-radius:14px;background:#fff4d6;border:1px solid #f3dfad;line-height:1.65}
+.explainBox b{color:#8a5c00}
+.sourceTag{display:inline-block;background:#eef2ff;color:#4258bf;border-radius:999px;padding:5px 9px;font-size:12px;font-weight:700;margin-bottom:10px}
+.quizMeta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.miniTag{background:#f3f5f8;color:#647187;border-radius:999px;padding:5px 9px;font-size:12px}
+</style>
+</head>
+<body>
+<header><div class="headrow"><div><h1>📘 我的英文學習基地</h1><small>每天一點點，英文慢慢變簡單</small></div><div style="display:flex;gap:8px;flex-wrap:wrap"><span class="countpill">509 基礎字庫</span><span class="modeBadge">🔊 發音＋錯題解析</span><span class="modeBadge" style="background:#efe9ff;color:#6446b5">V5.4</span></div></div>
+<nav>
+<button data-page="home">🏠 今日任務</button><button data-page="words">🧠 單字卡</button>
+<button data-page="quiz">✍️ 中翻英</button><button data-page="grammar">🧩 文法</button>
+<button data-page="wrong">🔁 錯題本</button><button data-page="parent" id="parentNav">🔒 家長專區</button>
+</nav>
+</header>
+<div id="pinOverlay" class="pinOverlay"><div class="pinBox"><div style="font-size:38px">🔒</div><h3>家長專區</h3><p>請輸入 4 位數家長 PIN</p><input id="pinInput" class="pinInput" type="password" inputmode="numeric" maxlength="4"><div id="pinMsg" class="bad"></div><div class="pinActions"><button class="ghost" id="pinCancel">取消</button><button class="primary" id="pinEnter">進入</button></div><p class="muted" style="font-size:12px">初始 PIN：2580</p></div></div><main>
+<section id="home" class="page active">
+<div class="hero"><h2>今天要學什麼？ 👋</h2><p>先完成今天的任務，再複習昨天的錯題。</p></div>
+<div class="grid">
+<div class="card statcard"><div class="ico">🧠</div><div class="muted">今日單字</div><div class="stat">10</div></div>
+<div class="card statcard"><div class="ico">✏️</div><div class="muted">今日題數</div><div class="stat">15</div></div>
+<div class="card statcard"><div class="ico">🎯</div><div class="muted">答對率</div><div class="stat" id="acc">0%</div></div>
+<div class="card statcard"><div class="ico">⭐</div><div class="muted">累積星星</div><div class="stat" id="stars">0 ⭐</div></div>
+</div>
+<div class="card"><h3>今日任務</h3>
+<div class="taskrow"><div class="taskico">🧠</div><div><b>單字複習</b><div class="muted">10 個單字</div></div><button class="ghost goPage" data-go="words">開始</button></div>
+<div class="taskrow"><div class="taskico">✍️</div><div><b>中翻英</b><div class="muted">10 題</div></div><button class="ghost goPage" data-go="quiz">開始</button></div>
+<div class="taskrow"><div class="taskico">🧩</div><div><b>文法練習</b><div class="muted">5 題</div></div><button class="ghost goPage" data-go="grammar">開始</button></div>
+</div>
+</section>
+
+<section id="words" class="page">
+<div class="card wordwrap">
+<div class="word" id="wEn"></div><div class="meaning" id="wZh" style="display:none"></div>
+<p class="muted" style="text-align:center" id="wPos"></p>
+<div class="wordactions"><button class="speakBtn" id="speakWord">🔊 聽發音</button> <button class="primary" id="flip">看答案</button> <button class="ghost" id="nextWord">下一個</button></div>
+<p class="muted" style="text-align:center">點「聽發音」會使用平板／瀏覽器內建的英文語音。</p>
+</div>
+</section>
+
+<section id="quiz" class="page">
+<div class="card"><h2>中翻英</h2><div class="sourceTag">題目來源：家長專區單字庫</div><h3 id="qZh"></h3>
+<input id="qInput" class="answer" placeholder="輸入英文"><p><button class="primary" id="checkQ">送出</button> <button class="ghost" id="nextQ">下一題</button></p>
+<div id="qFeedback"></div><div id="qExplain"></div></div>
+</section>
+
+<section id="grammar" class="page">
+<div class="card"><h2>文法中翻英</h2><p class="muted">請直接把中文句子翻成英文。答錯後才會顯示提示與錯誤原因。</p>
+<select id="tense"><option value="present">現在式</option><option value="past">過去式</option><option value="continuous">現在進行式</option><option value="goingto">be going to 未來計畫</option></select>
+<div class="quizMeta" id="gMeta" style="display:none"><span class="miniTag" id="gFocus"></span><span class="miniTag" id="gWords"></span></div><h3 id="gZh"></h3><input id="gInput" class="answer" placeholder="翻譯成英文">
+<p><button class="primary" id="checkG">送出</button> <button class="ghost" id="nextG">下一題</button></p><div id="gFeedback"></div><div id="gExplain"></div></div>
+</section>
+
+<section id="wrong" class="page"><div class="card"><h2>錯題本</h2><table><thead><tr><th>類型</th><th>題目</th><th>你的答案</th><th>正確答案</th><th>錯誤提醒</th></tr></thead><tbody id="wrongBody"></tbody></table></div></section>
+
+<section id="parent" class="page">
+<div class="hero"><button class="ghost parentLogout" id="parentLogout">🔒 離開家長模式</button><h2>⚙️ 家長管理</h2><p>新增課文、管理字庫與備份學習資料；單字變化會影響後續單字與文法出題。</p></div><div class="card"><h3>🔐 家長 PIN</h3><div class="managebar"><input id="newPin" type="password" inputmode="numeric" maxlength="4" placeholder="新的 4 位數 PIN"><button class="ghost" id="savePin">儲存 PIN</button></div></div><div class="card"><h3>新增課文單字</h3><p class="muted">先用最簡單的方式追加課文單字；資料會留在這台電腦的瀏覽器。</p>
+<input id="newEn" placeholder="English"><input id="newZh" placeholder="中文"><select id="newPos"><option>n.</option><option>v.</option><option>adj.</option><option>adv.</option><option>phr.</option></select>
+<button class="primary" id="addWord">新增</button></div>
+<div class="card"><button class="ghost" id="backup">匯出備份</button> <input type="file" id="restoreFile" accept=".json"><button class="ghost" id="restore">還原備份</button></div>
+<div class="card"><h3>目前單字庫 <span class="countpill" id="wordCount"></span></h3><p class="muted">內建國中基礎字庫。新增課文單字後，單字測驗會直接納入；可用於文法句型的動詞／名詞也會逐步納入自動出題。</p><div class="tablebox"><p><button class="ghost" id="reset509">重新載入內建 509 筆</button></p><table><thead><tr><th>英文</th><th>中文</th><th>詞性</th></tr></thead><tbody id="wordBody"></tbody></table></div></div>
+</section>
+</main>
+
+<script>
+const seed=[{"en": "ability", "zh": "能力", "pos": "n."}, {"en": "able", "zh": "能夠的", "pos": "adj."}, {"en": "about", "zh": "關於；大約", "pos": "prep./adv."}, {"en": "above", "zh": "在…上方", "pos": "prep./adv."}, {"en": "absent", "zh": "缺席的", "pos": "adj."}, {"en": "accept", "zh": "接受", "pos": "v."}, {"en": "accident", "zh": "意外；事故", "pos": "n."}, {"en": "across", "zh": "穿過；在對面", "pos": "prep./adv."}, {"en": "act", "zh": "行動；表演", "pos": "v."}, {"en": "action", "zh": "行動", "pos": "n."}, {"en": "activity", "zh": "活動", "pos": "n."}, {"en": "actor", "zh": "男演員", "pos": "n."}, {"en": "actress", "zh": "女演員", "pos": "n."}, {"en": "afraid", "zh": "害怕的", "pos": "adj."}, {"en": "after", "zh": "在…之後", "pos": "prep."}, {"en": "afternoon", "zh": "下午", "pos": "n."}, {"en": "again", "zh": "再一次", "pos": "adv."}, {"en": "age", "zh": "年齡", "pos": "n."}, {"en": "ago", "zh": "以前", "pos": "adv."}, {"en": "agree", "zh": "同意", "pos": "v."}, {"en": "air", "zh": "空氣", "pos": "n."}, {"en": "airport", "zh": "機場", "pos": "n."}, {"en": "all", "zh": "全部", "pos": "adj./pron."}, {"en": "almost", "zh": "幾乎", "pos": "adv."}, {"en": "alone", "zh": "獨自的；獨自地", "pos": "adj./adv."}, {"en": "along", "zh": "沿著", "pos": "prep./adv."}, {"en": "already", "zh": "已經", "pos": "adv."}, {"en": "also", "zh": "也", "pos": "adv."}, {"en": "always", "zh": "總是", "pos": "adv."}, {"en": "amazing", "zh": "令人驚奇的", "pos": "adj."}, {"en": "angry", "zh": "生氣的", "pos": "adj."}, {"en": "animal", "zh": "動物", "pos": "n."}, {"en": "another", "zh": "另一個", "pos": "adj./pron."}, {"en": "answer", "zh": "回答；答案", "pos": "v./n."}, {"en": "any", "zh": "任何的", "pos": "adj."}, {"en": "anyone", "zh": "任何人", "pos": "pron."}, {"en": "anything", "zh": "任何事物", "pos": "pron."}, {"en": "apartment", "zh": "公寓", "pos": "n."}, {"en": "apple", "zh": "蘋果", "pos": "n."}, {"en": "April", "zh": "四月", "pos": "n."}, {"en": "area", "zh": "地區；區域", "pos": "n."}, {"en": "arm", "zh": "手臂", "pos": "n."}, {"en": "around", "zh": "在周圍；大約", "pos": "prep./adv."}, {"en": "arrive", "zh": "到達", "pos": "v."}, {"en": "art", "zh": "藝術；美術", "pos": "n."}, {"en": "ask", "zh": "詢問；要求", "pos": "v."}, {"en": "August", "zh": "八月", "pos": "n."}, {"en": "aunt", "zh": "阿姨；姑姑；嬸嬸", "pos": "n."}, {"en": "autumn", "zh": "秋天", "pos": "n."}, {"en": "away", "zh": "離開；在遠處", "pos": "adv."}, {"en": "baby", "zh": "嬰兒", "pos": "n."}, {"en": "back", "zh": "背部；回去", "pos": "n./adv."}, {"en": "bad", "zh": "壞的", "pos": "adj."}, {"en": "bag", "zh": "袋子；包包", "pos": "n."}, {"en": "bakery", "zh": "麵包店", "pos": "n."}, {"en": "ball", "zh": "球", "pos": "n."}, {"en": "banana", "zh": "香蕉", "pos": "n."}, {"en": "bank", "zh": "銀行", "pos": "n."}, {"en": "baseball", "zh": "棒球", "pos": "n."}, {"en": "basket", "zh": "籃子", "pos": "n."}, {"en": "basketball", "zh": "籃球", "pos": "n."}, {"en": "bathroom", "zh": "浴室；廁所", "pos": "n."}, {"en": "beach", "zh": "海灘", "pos": "n."}, {"en": "beautiful", "zh": "美麗的", "pos": "adj."}, {"en": "because", "zh": "因為", "pos": "conj."}, {"en": "become", "zh": "變成", "pos": "v."}, {"en": "bed", "zh": "床", "pos": "n."}, {"en": "bedroom", "zh": "臥室", "pos": "n."}, {"en": "before", "zh": "在…之前", "pos": "prep./conj."}, {"en": "begin", "zh": "開始", "pos": "v."}, {"en": "behind", "zh": "在…後面", "pos": "prep."}, {"en": "believe", "zh": "相信", "pos": "v."}, {"en": "below", "zh": "在…下方", "pos": "prep./adv."}, {"en": "beside", "zh": "在…旁邊", "pos": "prep."}, {"en": "best", "zh": "最好的", "pos": "adj."}, {"en": "better", "zh": "較好的", "pos": "adj."}, {"en": "between", "zh": "在…之間", "pos": "prep."}, {"en": "bicycle", "zh": "腳踏車", "pos": "n."}, {"en": "big", "zh": "大的", "pos": "adj."}, {"en": "bike", "zh": "腳踏車", "pos": "n."}, {"en": "bird", "zh": "鳥", "pos": "n."}, {"en": "birthday", "zh": "生日", "pos": "n."}, {"en": "black", "zh": "黑色的；黑色", "pos": "adj./n."}, {"en": "blue", "zh": "藍色的；藍色", "pos": "adj./n."}, {"en": "boat", "zh": "船", "pos": "n."}, {"en": "body", "zh": "身體", "pos": "n."}, {"en": "book", "zh": "書", "pos": "n."}, {"en": "boring", "zh": "無聊的", "pos": "adj."}, {"en": "born", "zh": "出生的", "pos": "adj."}, {"en": "both", "zh": "兩者都", "pos": "pron./adj."}, {"en": "bottle", "zh": "瓶子", "pos": "n."}, {"en": "box", "zh": "盒子", "pos": "n."}, {"en": "boy", "zh": "男孩", "pos": "n."}, {"en": "bread", "zh": "麵包", "pos": "n."}, {"en": "break", "zh": "打破；休息", "pos": "v./n."}, {"en": "breakfast", "zh": "早餐", "pos": "n."}, {"en": "bring", "zh": "帶來", "pos": "v."}, {"en": "brother", "zh": "兄弟", "pos": "n."}, {"en": "brown", "zh": "棕色的；棕色", "pos": "adj./n."}, {"en": "build", "zh": "建造", "pos": "v."}, {"en": "building", "zh": "建築物", "pos": "n."}, {"en": "bus", "zh": "公車", "pos": "n."}, {"en": "busy", "zh": "忙碌的", "pos": "adj."}, {"en": "buy", "zh": "購買", "pos": "v."}, {"en": "cake", "zh": "蛋糕", "pos": "n."}, {"en": "call", "zh": "打電話；稱呼", "pos": "v."}, {"en": "camera", "zh": "相機", "pos": "n."}, {"en": "camp", "zh": "露營", "pos": "v./n."}, {"en": "can", "zh": "能；可以", "pos": "aux."}, {"en": "candy", "zh": "糖果", "pos": "n."}, {"en": "car", "zh": "汽車", "pos": "n."}, {"en": "care", "zh": "關心；照顧", "pos": "v./n."}, {"en": "careful", "zh": "小心的", "pos": "adj."}, {"en": "carry", "zh": "攜帶；搬運", "pos": "v."}, {"en": "cat", "zh": "貓", "pos": "n."}, {"en": "catch", "zh": "抓住；趕上", "pos": "v."}, {"en": "chair", "zh": "椅子", "pos": "n."}, {"en": "chance", "zh": "機會", "pos": "n."}, {"en": "change", "zh": "改變；零錢", "pos": "v./n."}, {"en": "cheap", "zh": "便宜的", "pos": "adj."}, {"en": "check", "zh": "檢查", "pos": "v."}, {"en": "child", "zh": "小孩", "pos": "n."}, {"en": "children", "zh": "孩子們", "pos": "n."}, {"en": "choose", "zh": "選擇", "pos": "v."}, {"en": "city", "zh": "城市", "pos": "n."}, {"en": "class", "zh": "班級；課", "pos": "n."}, {"en": "classmate", "zh": "同學", "pos": "n."}, {"en": "classroom", "zh": "教室", "pos": "n."}, {"en": "clean", "zh": "乾淨的；清理", "pos": "adj./v."}, {"en": "climb", "zh": "攀爬", "pos": "v."}, {"en": "clock", "zh": "時鐘", "pos": "n."}, {"en": "close", "zh": "關閉；靠近的", "pos": "v./adj."}, {"en": "clothes", "zh": "衣服", "pos": "n."}, {"en": "cloud", "zh": "雲", "pos": "n."}, {"en": "cloudy", "zh": "多雲的", "pos": "adj."}, {"en": "club", "zh": "社團；俱樂部", "pos": "n."}, {"en": "coat", "zh": "外套", "pos": "n."}, {"en": "coffee", "zh": "咖啡", "pos": "n."}, {"en": "cold", "zh": "冷的；感冒", "pos": "adj./n."}, {"en": "color", "zh": "顏色", "pos": "n."}, {"en": "come", "zh": "來", "pos": "v."}, {"en": "computer", "zh": "電腦", "pos": "n."}, {"en": "cook", "zh": "烹飪；廚師", "pos": "v./n."}, {"en": "cool", "zh": "涼爽的；酷的", "pos": "adj."}, {"en": "correct", "zh": "正確的", "pos": "adj."}, {"en": "cost", "zh": "花費；價格", "pos": "v./n."}, {"en": "country", "zh": "國家；鄉村", "pos": "n."}, {"en": "cousin", "zh": "堂／表兄弟姊妹", "pos": "n."}, {"en": "cry", "zh": "哭", "pos": "v."}, {"en": "cup", "zh": "杯子", "pos": "n."}, {"en": "cut", "zh": "切", "pos": "v."}, {"en": "dance", "zh": "跳舞", "pos": "v."}, {"en": "dangerous", "zh": "危險的", "pos": "adj."}, {"en": "dark", "zh": "黑暗的", "pos": "adj."}, {"en": "date", "zh": "日期；約會", "pos": "n."}, {"en": "daughter", "zh": "女兒", "pos": "n."}, {"en": "day", "zh": "一天；白天", "pos": "n."}, {"en": "December", "zh": "十二月", "pos": "n."}, {"en": "decide", "zh": "決定", "pos": "v."}, {"en": "delicious", "zh": "美味的", "pos": "adj."}, {"en": "desk", "zh": "書桌", "pos": "n."}, {"en": "dictionary", "zh": "字典", "pos": "n."}, {"en": "different", "zh": "不同的", "pos": "adj."}, {"en": "difficult", "zh": "困難的", "pos": "adj."}, {"en": "dinner", "zh": "晚餐", "pos": "n."}, {"en": "dirty", "zh": "髒的", "pos": "adj."}, {"en": "doctor", "zh": "醫生", "pos": "n."}, {"en": "dog", "zh": "狗", "pos": "n."}, {"en": "door", "zh": "門", "pos": "n."}, {"en": "down", "zh": "向下", "pos": "adv."}, {"en": "draw", "zh": "畫", "pos": "v."}, {"en": "dream", "zh": "夢；夢想", "pos": "n./v."}, {"en": "drink", "zh": "喝；飲料", "pos": "v./n."}, {"en": "drive", "zh": "開車", "pos": "v."}, {"en": "driver", "zh": "駕駛", "pos": "n."}, {"en": "early", "zh": "早的；提早", "pos": "adj./adv."}, {"en": "easy", "zh": "容易的", "pos": "adj."}, {"en": "eat", "zh": "吃", "pos": "v."}, {"en": "egg", "zh": "蛋", "pos": "n."}, {"en": "eight", "zh": "八", "pos": "num."}, {"en": "eighteen", "zh": "十八", "pos": "num."}, {"en": "eleven", "zh": "十一", "pos": "num."}, {"en": "else", "zh": "其他", "pos": "adv."}, {"en": "email", "zh": "電子郵件", "pos": "n./v."}, {"en": "end", "zh": "結束；末端", "pos": "n./v."}, {"en": "English", "zh": "英文；英語的", "pos": "n./adj."}, {"en": "enjoy", "zh": "享受；喜歡", "pos": "v."}, {"en": "enough", "zh": "足夠的", "pos": "adj./adv."}, {"en": "evening", "zh": "晚上；傍晚", "pos": "n."}, {"en": "every", "zh": "每一個", "pos": "adj."}, {"en": "everyone", "zh": "每個人", "pos": "pron."}, {"en": "everything", "zh": "每件事", "pos": "pron."}, {"en": "example", "zh": "例子", "pos": "n."}, {"en": "excited", "zh": "興奮的", "pos": "adj."}, {"en": "exciting", "zh": "令人興奮的", "pos": "adj."}, {"en": "exercise", "zh": "運動；練習", "pos": "n./v."}, {"en": "expensive", "zh": "昂貴的", "pos": "adj."}, {"en": "eye", "zh": "眼睛", "pos": "n."}, {"en": "face", "zh": "臉", "pos": "n."}, {"en": "family", "zh": "家庭", "pos": "n."}, {"en": "famous", "zh": "有名的", "pos": "adj."}, {"en": "far", "zh": "遠的；遠地", "pos": "adj./adv."}, {"en": "farm", "zh": "農場", "pos": "n."}, {"en": "farmer", "zh": "農夫", "pos": "n."}, {"en": "fast", "zh": "快的；快速地", "pos": "adj./adv."}, {"en": "father", "zh": "父親", "pos": "n."}, {"en": "February", "zh": "二月", "pos": "n."}, {"en": "feel", "zh": "感覺", "pos": "v."}, {"en": "festival", "zh": "節慶", "pos": "n."}, {"en": "few", "zh": "少數的", "pos": "adj."}, {"en": "fifteen", "zh": "十五", "pos": "num."}, {"en": "fifty", "zh": "五十", "pos": "num."}, {"en": "find", "zh": "找到；發現", "pos": "v."}, {"en": "fine", "zh": "很好；晴朗的", "pos": "adj."}, {"en": "finish", "zh": "完成", "pos": "v."}, {"en": "fire", "zh": "火", "pos": "n."}, {"en": "first", "zh": "第一；首先", "pos": "adj./adv."}, {"en": "fish", "zh": "魚", "pos": "n."}, {"en": "five", "zh": "五", "pos": "num."}, {"en": "floor", "zh": "地板；樓層", "pos": "n."}, {"en": "flower", "zh": "花", "pos": "n."}, {"en": "fly", "zh": "飛", "pos": "v."}, {"en": "food", "zh": "食物", "pos": "n."}, {"en": "foot", "zh": "腳", "pos": "n."}, {"en": "football", "zh": "足球；美式足球", "pos": "n."}, {"en": "for", "zh": "為了；給", "pos": "prep."}, {"en": "forget", "zh": "忘記", "pos": "v."}, {"en": "four", "zh": "四", "pos": "num."}, {"en": "fourteen", "zh": "十四", "pos": "num."}, {"en": "free", "zh": "免費的；自由的", "pos": "adj."}, {"en": "Friday", "zh": "星期五", "pos": "n."}, {"en": "friend", "zh": "朋友", "pos": "n."}, {"en": "friendly", "zh": "友善的", "pos": "adj."}, {"en": "from", "zh": "從；來自", "pos": "prep."}, {"en": "front", "zh": "前面", "pos": "n."}, {"en": "fruit", "zh": "水果", "pos": "n."}, {"en": "full", "zh": "滿的；飽的", "pos": "adj."}, {"en": "fun", "zh": "樂趣；有趣的", "pos": "n./adj."}, {"en": "funny", "zh": "好笑的", "pos": "adj."}, {"en": "game", "zh": "遊戲；比賽", "pos": "n."}, {"en": "garden", "zh": "花園", "pos": "n."}, {"en": "get", "zh": "得到；變得", "pos": "v."}, {"en": "girl", "zh": "女孩", "pos": "n."}, {"en": "give", "zh": "給", "pos": "v."}, {"en": "glad", "zh": "高興的", "pos": "adj."}, {"en": "glass", "zh": "玻璃；玻璃杯", "pos": "n."}, {"en": "go", "zh": "去", "pos": "v."}, {"en": "good", "zh": "好的", "pos": "adj."}, {"en": "grandfather", "zh": "祖父；外祖父", "pos": "n."}, {"en": "grandmother", "zh": "祖母；外祖母", "pos": "n."}, {"en": "great", "zh": "很棒的；偉大的", "pos": "adj."}, {"en": "green", "zh": "綠色的；綠色", "pos": "adj./n."}, {"en": "grow", "zh": "成長；種植", "pos": "v."}, {"en": "guess", "zh": "猜", "pos": "v."}, {"en": "hair", "zh": "頭髮", "pos": "n."}, {"en": "half", "zh": "一半", "pos": "n./adj."}, {"en": "hand", "zh": "手", "pos": "n."}, {"en": "happy", "zh": "快樂的", "pos": "adj."}, {"en": "hard", "zh": "困難的；努力地", "pos": "adj./adv."}, {"en": "have", "zh": "有", "pos": "v."}, {"en": "head", "zh": "頭", "pos": "n."}, {"en": "health", "zh": "健康", "pos": "n."}, {"en": "healthy", "zh": "健康的", "pos": "adj."}, {"en": "hear", "zh": "聽見", "pos": "v."}, {"en": "help", "zh": "幫助", "pos": "v./n."}, {"en": "here", "zh": "這裡", "pos": "adv."}, {"en": "high", "zh": "高的", "pos": "adj."}, {"en": "history", "zh": "歷史", "pos": "n."}, {"en": "holiday", "zh": "假日", "pos": "n."}, {"en": "home", "zh": "家", "pos": "n./adv."}, {"en": "homework", "zh": "家庭作業", "pos": "n."}, {"en": "hope", "zh": "希望", "pos": "v./n."}, {"en": "hospital", "zh": "醫院", "pos": "n."}, {"en": "hot", "zh": "熱的", "pos": "adj."}, {"en": "hotel", "zh": "旅館", "pos": "n."}, {"en": "hour", "zh": "小時", "pos": "n."}, {"en": "house", "zh": "房子", "pos": "n."}, {"en": "how", "zh": "如何；多麼", "pos": "adv."}, {"en": "hundred", "zh": "一百", "pos": "num."}, {"en": "hungry", "zh": "餓的", "pos": "adj."}, {"en": "important", "zh": "重要的", "pos": "adj."}, {"en": "inside", "zh": "在裡面", "pos": "prep./adv."}, {"en": "interesting", "zh": "有趣的", "pos": "adj."}, {"en": "January", "zh": "一月", "pos": "n."}, {"en": "job", "zh": "工作；職業", "pos": "n."}, {"en": "July", "zh": "七月", "pos": "n."}, {"en": "June", "zh": "六月", "pos": "n."}, {"en": "keep", "zh": "保持；保留", "pos": "v."}, {"en": "kind", "zh": "種類；親切的", "pos": "n./adj."}, {"en": "kitchen", "zh": "廚房", "pos": "n."}, {"en": "know", "zh": "知道；認識", "pos": "v."}, {"en": "large", "zh": "大的", "pos": "adj."}, {"en": "last", "zh": "最後的；上一個", "pos": "adj."}, {"en": "late", "zh": "遲的；晚地", "pos": "adj./adv."}, {"en": "learn", "zh": "學習", "pos": "v."}, {"en": "leave", "zh": "離開", "pos": "v."}, {"en": "left", "zh": "左邊的；左邊", "pos": "adj./n."}, {"en": "leg", "zh": "腿", "pos": "n."}, {"en": "lesson", "zh": "課；課程", "pos": "n."}, {"en": "library", "zh": "圖書館", "pos": "n."}, {"en": "life", "zh": "生命；生活", "pos": "n."}, {"en": "light", "zh": "光；輕的", "pos": "n./adj."}, {"en": "like", "zh": "喜歡；像", "pos": "v./prep."}, {"en": "listen", "zh": "聽", "pos": "v."}, {"en": "little", "zh": "小的；少量的", "pos": "adj."}, {"en": "live", "zh": "居住；生活", "pos": "v."}, {"en": "long", "zh": "長的", "pos": "adj."}, {"en": "look", "zh": "看", "pos": "v."}, {"en": "love", "zh": "愛；喜愛", "pos": "v./n."}, {"en": "lunch", "zh": "午餐", "pos": "n."}, {"en": "make", "zh": "製作；使得", "pos": "v."}, {"en": "man", "zh": "男人", "pos": "n."}, {"en": "many", "zh": "許多的", "pos": "adj."}, {"en": "March", "zh": "三月", "pos": "n."}, {"en": "market", "zh": "市場", "pos": "n."}, {"en": "May", "zh": "五月", "pos": "n."}, {"en": "maybe", "zh": "也許", "pos": "adv."}, {"en": "meal", "zh": "一餐", "pos": "n."}, {"en": "meet", "zh": "遇見；見面", "pos": "v."}, {"en": "minute", "zh": "分鐘", "pos": "n."}, {"en": "Monday", "zh": "星期一", "pos": "n."}, {"en": "money", "zh": "錢", "pos": "n."}, {"en": "month", "zh": "月", "pos": "n."}, {"en": "moon", "zh": "月亮", "pos": "n."}, {"en": "morning", "zh": "早上", "pos": "n."}, {"en": "mother", "zh": "母親", "pos": "n."}, {"en": "movie", "zh": "電影", "pos": "n."}, {"en": "much", "zh": "許多；很", "pos": "adj./adv."}, {"en": "museum", "zh": "博物館", "pos": "n."}, {"en": "music", "zh": "音樂", "pos": "n."}, {"en": "must", "zh": "必須", "pos": "aux."}, {"en": "name", "zh": "名字", "pos": "n."}, {"en": "near", "zh": "在附近；近的", "pos": "prep./adj."}, {"en": "need", "zh": "需要", "pos": "v."}, {"en": "never", "zh": "從不", "pos": "adv."}, {"en": "new", "zh": "新的", "pos": "adj."}, {"en": "next", "zh": "下一個的", "pos": "adj."}, {"en": "nice", "zh": "好的；親切的", "pos": "adj."}, {"en": "night", "zh": "夜晚", "pos": "n."}, {"en": "nine", "zh": "九", "pos": "num."}, {"en": "nineteen", "zh": "十九", "pos": "num."}, {"en": "noon", "zh": "中午", "pos": "n."}, {"en": "north", "zh": "北方", "pos": "n."}, {"en": "November", "zh": "十一月", "pos": "n."}, {"en": "now", "zh": "現在", "pos": "adv."}, {"en": "number", "zh": "數字；號碼", "pos": "n."}, {"en": "October", "zh": "十月", "pos": "n."}, {"en": "office", "zh": "辦公室", "pos": "n."}, {"en": "often", "zh": "常常", "pos": "adv."}, {"en": "old", "zh": "老的；舊的", "pos": "adj."}, {"en": "one", "zh": "一", "pos": "num."}, {"en": "open", "zh": "打開；開著的", "pos": "v./adj."}, {"en": "orange", "zh": "橘子；橘色", "pos": "n./adj."}, {"en": "other", "zh": "其他的", "pos": "adj."}, {"en": "outside", "zh": "在外面", "pos": "adv./prep."}, {"en": "page", "zh": "頁", "pos": "n."}, {"en": "paper", "zh": "紙", "pos": "n."}, {"en": "parent", "zh": "父母之一", "pos": "n."}, {"en": "park", "zh": "公園；停車", "pos": "n./v."}, {"en": "party", "zh": "派對", "pos": "n."}, {"en": "pay", "zh": "付款", "pos": "v."}, {"en": "people", "zh": "人們", "pos": "n."}, {"en": "person", "zh": "人", "pos": "n."}, {"en": "phone", "zh": "電話", "pos": "n."}, {"en": "picture", "zh": "圖片；照片", "pos": "n."}, {"en": "place", "zh": "地方", "pos": "n."}, {"en": "plan", "zh": "計畫", "pos": "n./v."}, {"en": "play", "zh": "玩；演奏", "pos": "v."}, {"en": "please", "zh": "請", "pos": "adv."}, {"en": "police", "zh": "警察", "pos": "n."}, {"en": "poor", "zh": "貧窮的；可憐的", "pos": "adj."}, {"en": "popular", "zh": "受歡迎的", "pos": "adj."}, {"en": "practice", "zh": "練習", "pos": "n./v."}, {"en": "pretty", "zh": "漂亮的；相當", "pos": "adj./adv."}, {"en": "problem", "zh": "問題", "pos": "n."}, {"en": "question", "zh": "問題；題目", "pos": "n."}, {"en": "quick", "zh": "快速的", "pos": "adj."}, {"en": "quiet", "zh": "安靜的", "pos": "adj."}, {"en": "rain", "zh": "雨；下雨", "pos": "n./v."}, {"en": "rainy", "zh": "下雨的", "pos": "adj."}, {"en": "read", "zh": "閱讀", "pos": "v."}, {"en": "ready", "zh": "準備好的", "pos": "adj."}, {"en": "really", "zh": "真的；非常", "pos": "adv."}, {"en": "remember", "zh": "記得", "pos": "v."}, {"en": "restaurant", "zh": "餐廳", "pos": "n."}, {"en": "right", "zh": "右邊；正確的", "pos": "n./adj."}, {"en": "river", "zh": "河流", "pos": "n."}, {"en": "road", "zh": "道路", "pos": "n."}, {"en": "room", "zh": "房間", "pos": "n."}, {"en": "run", "zh": "跑", "pos": "v."}, {"en": "sad", "zh": "難過的", "pos": "adj."}, {"en": "Saturday", "zh": "星期六", "pos": "n."}, {"en": "school", "zh": "學校", "pos": "n."}, {"en": "sea", "zh": "海", "pos": "n."}, {"en": "season", "zh": "季節", "pos": "n."}, {"en": "see", "zh": "看見", "pos": "v."}, {"en": "September", "zh": "九月", "pos": "n."}, {"en": "seven", "zh": "七", "pos": "num."}, {"en": "seventeen", "zh": "十七", "pos": "num."}, {"en": "shop", "zh": "商店；購物", "pos": "n./v."}, {"en": "short", "zh": "短的；矮的", "pos": "adj."}, {"en": "should", "zh": "應該", "pos": "aux."}, {"en": "show", "zh": "展示；節目", "pos": "v./n."}, {"en": "sick", "zh": "生病的", "pos": "adj."}, {"en": "sister", "zh": "姊妹", "pos": "n."}, {"en": "six", "zh": "六", "pos": "num."}, {"en": "sixteen", "zh": "十六", "pos": "num."}, {"en": "sleep", "zh": "睡覺", "pos": "v."}, {"en": "slow", "zh": "慢的", "pos": "adj."}, {"en": "small", "zh": "小的", "pos": "adj."}, {"en": "snow", "zh": "雪；下雪", "pos": "n./v."}, {"en": "so", "zh": "所以；如此", "pos": "conj./adv."}, {"en": "some", "zh": "一些", "pos": "adj."}, {"en": "sometimes", "zh": "有時候", "pos": "adv."}, {"en": "son", "zh": "兒子", "pos": "n."}, {"en": "song", "zh": "歌曲", "pos": "n."}, {"en": "soon", "zh": "很快；不久", "pos": "adv."}, {"en": "sorry", "zh": "抱歉的", "pos": "adj."}, {"en": "south", "zh": "南方", "pos": "n."}, {"en": "speak", "zh": "說；講", "pos": "v."}, {"en": "sport", "zh": "運動", "pos": "n."}, {"en": "spring", "zh": "春天", "pos": "n."}, {"en": "stand", "zh": "站立", "pos": "v."}, {"en": "start", "zh": "開始", "pos": "v."}, {"en": "station", "zh": "車站", "pos": "n."}, {"en": "stay", "zh": "停留", "pos": "v."}, {"en": "still", "zh": "仍然", "pos": "adv."}, {"en": "stop", "zh": "停止；車站", "pos": "v./n."}, {"en": "store", "zh": "商店", "pos": "n."}, {"en": "story", "zh": "故事", "pos": "n."}, {"en": "street", "zh": "街道", "pos": "n."}, {"en": "student", "zh": "學生", "pos": "n."}, {"en": "study", "zh": "讀書；研究", "pos": "v."}, {"en": "summer", "zh": "夏天", "pos": "n."}, {"en": "sun", "zh": "太陽", "pos": "n."}, {"en": "Sunday", "zh": "星期日", "pos": "n."}, {"en": "sunny", "zh": "晴朗的", "pos": "adj."}, {"en": "supermarket", "zh": "超級市場", "pos": "n."}, {"en": "swim", "zh": "游泳", "pos": "v."}, {"en": "table", "zh": "桌子", "pos": "n."}, {"en": "take", "zh": "拿；帶；花費", "pos": "v."}, {"en": "talk", "zh": "說話；交談", "pos": "v."}, {"en": "tall", "zh": "高的", "pos": "adj."}, {"en": "teacher", "zh": "老師", "pos": "n."}, {"en": "tell", "zh": "告訴", "pos": "v."}, {"en": "ten", "zh": "十", "pos": "num."}, {"en": "thank", "zh": "感謝", "pos": "v."}, {"en": "thing", "zh": "事情；東西", "pos": "n."}, {"en": "think", "zh": "想；認為", "pos": "v."}, {"en": "thirteen", "zh": "十三", "pos": "num."}, {"en": "three", "zh": "三", "pos": "num."}, {"en": "Thursday", "zh": "星期四", "pos": "n."}, {"en": "time", "zh": "時間；次數", "pos": "n."}, {"en": "tired", "zh": "疲倦的", "pos": "adj."}, {"en": "today", "zh": "今天", "pos": "n./adv."}, {"en": "together", "zh": "一起", "pos": "adv."}, {"en": "tomorrow", "zh": "明天", "pos": "n./adv."}, {"en": "too", "zh": "也；太", "pos": "adv."}, {"en": "train", "zh": "火車", "pos": "n."}, {"en": "travel", "zh": "旅行", "pos": "v."}, {"en": "tree", "zh": "樹", "pos": "n."}, {"en": "trip", "zh": "旅行", "pos": "n."}, {"en": "Tuesday", "zh": "星期二", "pos": "n."}, {"en": "twelve", "zh": "十二", "pos": "num."}, {"en": "twenty", "zh": "二十", "pos": "num."}, {"en": "two", "zh": "二", "pos": "num."}, {"en": "uncle", "zh": "叔叔；舅舅；伯伯", "pos": "n."}, {"en": "under", "zh": "在…下面", "pos": "prep."}, {"en": "understand", "zh": "了解", "pos": "v."}, {"en": "usually", "zh": "通常", "pos": "adv."}, {"en": "vacation", "zh": "假期", "pos": "n."}, {"en": "vegetable", "zh": "蔬菜", "pos": "n."}, {"en": "very", "zh": "非常", "pos": "adv."}, {"en": "visit", "zh": "拜訪；參觀", "pos": "v."}, {"en": "wait", "zh": "等待", "pos": "v."}, {"en": "walk", "zh": "走路", "pos": "v."}, {"en": "want", "zh": "想要", "pos": "v."}, {"en": "warm", "zh": "溫暖的", "pos": "adj."}, {"en": "wash", "zh": "洗", "pos": "v."}, {"en": "watch", "zh": "觀看；手錶", "pos": "v./n."}, {"en": "water", "zh": "水", "pos": "n."}, {"en": "way", "zh": "方法；道路", "pos": "n."}, {"en": "Wednesday", "zh": "星期三", "pos": "n."}, {"en": "week", "zh": "星期；週", "pos": "n."}, {"en": "weekend", "zh": "週末", "pos": "n."}, {"en": "welcome", "zh": "歡迎", "pos": "v./adj."}, {"en": "well", "zh": "很好地；健康的", "pos": "adv./adj."}, {"en": "west", "zh": "西方", "pos": "n."}, {"en": "what", "zh": "什麼", "pos": "pron."}, {"en": "when", "zh": "何時", "pos": "adv."}, {"en": "where", "zh": "哪裡", "pos": "adv."}, {"en": "which", "zh": "哪一個", "pos": "pron."}, {"en": "white", "zh": "白色的；白色", "pos": "adj./n."}, {"en": "who", "zh": "誰", "pos": "pron."}, {"en": "why", "zh": "為什麼", "pos": "adv."}, {"en": "wind", "zh": "風", "pos": "n."}, {"en": "window", "zh": "窗戶", "pos": "n."}, {"en": "winter", "zh": "冬天", "pos": "n."}, {"en": "woman", "zh": "女人", "pos": "n."}, {"en": "wonderful", "zh": "很棒的；精彩的", "pos": "adj."}, {"en": "work", "zh": "工作", "pos": "v./n."}, {"en": "world", "zh": "世界", "pos": "n."}, {"en": "write", "zh": "寫", "pos": "v."}, {"en": "wrong", "zh": "錯誤的", "pos": "adj."}, {"en": "year", "zh": "年", "pos": "n."}, {"en": "yellow", "zh": "黃色的；黃色", "pos": "adj./n."}, {"en": "yes", "zh": "是；好的", "pos": "adv."}, {"en": "yesterday", "zh": "昨天", "pos": "n./adv."}, {"en": "young", "zh": "年輕的", "pos": "adj."}];
+const WORDS_KEY="kid_words_v2_509";
+let savedV2=JSON.parse(localStorage.getItem(WORDS_KEY)||"null");
+let oldWords=JSON.parse(localStorage.getItem("kid_words")||"null");
+let words;
+if(savedV2){
+  words=savedV2;
+}else{
+  // 第二版第一次開啟：一定先載入完整 509 筆，再把第一版中使用者自行新增、且未重複的字併入。
+  words=seed.map(x=>({...x}));
+  if(Array.isArray(oldWords)){
+    const seen=new Set(words.map(w=>w.en.toLowerCase()));
+    oldWords.forEach(w=>{
+      if(w && w.en && w.zh && !seen.has(w.en.toLowerCase())){
+        words.push(w); seen.add(w.en.toLowerCase());
+      }
+    });
+  }
+  localStorage.setItem(WORDS_KEY,JSON.stringify(words));
+}
+let stats=JSON.parse(localStorage.getItem("kid_stats")||'{"total":0,"correct":0,"stars":0,"wrongs":[]}');
+let wi=0,q=null,g=null;
+const G={
+present:[["我每天讀英文。","I study English every day."],["他喜歡博物館。","He likes museums."],["我們住在台灣。","We live in Taiwan."]],
+past:[["我昨天去了博物館。","I went to the museum yesterday."],["他昨晚看了電視。","He watched TV last night."],["我們昨天打籃球。","We played basketball yesterday."]],
+continuous:[["我正在讀英文。","I am studying English."],["他正在看電視。","He is watching TV."],["他們正在打籃球。","They are playing basketball."]],
+goingto:[["我明天要去博物館。","I am going to go to the museum tomorrow."],["我們下週要去露營。","We are going to go camping next week."],["她今晚要做功課。","She is going to do her homework tonight."]]
+};
+
+const SENTENCE_FAMILIES = [
+  {
+    keys:["study","English"],
+    present:["我每天讀英文。","I study English every day.","現在式：I + 動詞原形","study / English"],
+    past:["我昨天讀英文。","I studied English yesterday.","過去式：study → studied","study / English"],
+    continuous:["我正在讀英文。","I am studying English.","現在進行式：am + studying","study / English"],
+    goingto:["我今晚要讀英文。","I am going to study English tonight.","未來計畫：am going to + study","study / English"]
+  },
+  {
+    keys:["visit","museum"],
+    present:["他常去博物館。","He often visits museums.","現在式：He → visits","visit / museum"],
+    past:["他昨天去了博物館。","He visited the museum yesterday.","過去式：visit → visited","visit / museum"],
+    continuous:["他正在參觀博物館。","He is visiting the museum.","現在進行式：is + visiting","visit / museum"],
+    goingto:["他明天要去博物館。","He is going to visit the museum tomorrow.","未來計畫：is going to + visit","visit / museum"]
+  },
+  {
+    keys:["play","basketball"],
+    present:["他放學後打籃球。","He plays basketball after school.","現在式：He → plays","play / basketball"],
+    past:["他昨天打籃球。","He played basketball yesterday.","過去式：play → played","play / basketball"],
+    continuous:["他正在打籃球。","He is playing basketball.","現在進行式：is + playing","play / basketball"],
+    goingto:["他明天要打籃球。","He is going to play basketball tomorrow.","未來計畫：is going to + play","play / basketball"]
+  },
+  {
+    keys:["watch","TV"],
+    present:["她每天晚上看電視。","She watches TV every evening.","現在式：She → watches","watch / TV"],
+    past:["她昨晚看了電視。","She watched TV last night.","過去式：watch → watched","watch / TV"],
+    continuous:["她正在看電視。","She is watching TV.","現在進行式：is + watching","watch / TV"],
+    goingto:["她今晚要看電視。","She is going to watch TV tonight.","未來計畫：is going to + watch","watch / TV"]
+  },
+  {
+    keys:["cook","dinner"],
+    present:["媽媽每天煮晚餐。","Mom cooks dinner every day.","現在式：Mom → cooks","cook / dinner"],
+    past:["媽媽昨天煮了晚餐。","Mom cooked dinner yesterday.","過去式：cook → cooked","cook / dinner"],
+    continuous:["媽媽正在煮晚餐。","Mom is cooking dinner.","現在進行式：is + cooking","cook / dinner"],
+    goingto:["媽媽今晚要煮晚餐。","Mom is going to cook dinner tonight.","未來計畫：is going to + cook","cook / dinner"]
+  },
+  {
+    keys:["read","book"],
+    present:["我每天睡前看書。","I read a book before bed every day.","現在式：I + read","read / book"],
+    past:["我昨晚看了一本書。","I read a book last night.","過去式：read 的拼字不變","read / book"],
+    continuous:["我正在看書。","I am reading a book.","現在進行式：am + reading","read / book"],
+    goingto:["我今晚要看書。","I am going to read a book tonight.","未來計畫：am going to + read","read / book"]
+  },
+  {
+    keys:["go","school"],
+    present:["我每天去上學。","I go to school every day.","現在式：I + go","go / school"],
+    past:["我昨天去上學。","I went to school yesterday.","過去式：go → went","go / school"],
+    continuous:["我正在去學校的路上。","I am going to school.","現在進行式：am + going","go / school"],
+    goingto:["我明天要去上學。","I am going to go to school tomorrow.","未來計畫：am going to + go","go / school"]
+  },
+  {
+    keys:["wash","car"],
+    present:["爸爸每週洗車。","Dad washes the car every week.","現在式：Dad → washes","wash / car"],
+    past:["爸爸昨天洗了車。","Dad washed the car yesterday.","過去式：wash → washed","wash / car"],
+    continuous:["爸爸正在洗車。","Dad is washing the car.","現在進行式：is + washing","wash / car"],
+    goingto:["爸爸明天要洗車。","Dad is going to wash the car tomorrow.","未來計畫：is going to + wash","wash / car"]
+  }
+];
+
+function hasWord(en){return words.some(w=>w.en.toLowerCase()===en.toLowerCase());}
+function pick(arr){return arr[Math.floor(Math.random()*arr.length)];}
+
+function makeGrammar(){
+  const tense=$("tense").value;
+  // Prefer sentence families whose core words exist in parent word bank.
+  const eligible=SENTENCE_FAMILIES.filter(f=>f.keys.every(hasWord));
+  const pool=eligible.length?eligible:SENTENCE_FAMILIES;
+  const f=pick(pool);
+  const item=f[tense];
+  return [item[0],item[1],{focus:item[2],words:item[3]}];
+}
+const $=id=>document.getElementById(id);
+function save(){localStorage.setItem(WORDS_KEY,JSON.stringify(words));localStorage.setItem("kid_stats",JSON.stringify(stats));update();}
+function update(){let a=stats.total?Math.round(stats.correct/stats.total*100):0;$("acc").textContent=a+"%";$("stars").textContent=stats.stars+" ⭐";}
+let parentUnlocked=false;function openPage(b){document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));document.querySelectorAll("nav button").forEach(n=>n.classList.remove("navactive"));b.classList.add("navactive");$(b.dataset.page).classList.add("active");}document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{if(b.dataset.page==="parent"&&!parentUnlocked){$("pinOverlay").classList.add("show");$("pinInput").value="";$("pinMsg").textContent="";return;}openPage(b);if(b.dataset.page==="wrong")renderWrong();if(b.dataset.page==="parent")renderWords();});
+
+function speakEnglish(text){
+  if(!("speechSynthesis" in window)){alert("這個瀏覽器目前不支援語音朗讀。");return;}
+  window.speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang="en-US"; u.rate=0.82; u.pitch=1;
+  const voices=window.speechSynthesis.getVoices();
+  const en=voices.find(v=>/^en(-|_)/i.test(v.lang));
+  if(en)u.voice=en;
+  window.speechSynthesis.speak(u);
+}
+function showWord(){let w=words[wi%words.length];$("wEn").textContent=w.en;$("wZh").textContent=w.zh;$("wPos").textContent=w.pos;$("wZh").style.display="none";}
+$("speakWord").onclick=()=>speakEnglish(words[wi%words.length].en);$("flip").onclick=()=>$("wZh").style.display="block";$("nextWord").onclick=()=>{wi++;showWord();}
+function weightedWord(){
+ const wrongAnswers=(stats.wrongs||[]).map(x=>Array.isArray(x)?x[3]:x.ans).filter(Boolean).map(x=>String(x).toLowerCase());
+ const boosted=words.filter(w=>wrongAnswers.includes(w.en.toLowerCase()));
+ if(boosted.length && Math.random()<0.45)return boosted[Math.floor(Math.random()*boosted.length)];
+ return words[Math.floor(Math.random()*words.length)];
+}
+function nq(){q=weightedWord();$("qZh").textContent=q.zh;$("qInput").value="";$("qFeedback").textContent="";$("qExplain").innerHTML="";}
+function norm(s){return s.trim().toLowerCase().replace(/[.!?]/g,"").replace(/\s+/g," ")}
+$("checkQ").onclick=()=>{
+ let yours=$("qInput").value,ok=norm(yours)===norm(q.en);stats.total++;
+ if(ok){stats.correct++;stats.stars++;$("qFeedback").className="good";$("qFeedback").textContent="✓ 正確";$("qExplain").innerHTML='<div class="explainBox">做對了。再按一次 🔊 聽發音，把拼字和聲音一起記住。</div>';speakEnglish(q.en);}
+ else{
+   let hint="";
+   if(!yours.trim()) hint="這題沒有輸入答案，先看正確拼字，再念一次。";
+   else if(norm(yours).replace(/\s/g,"")===norm(q.en).replace(/\s/g,"")) hint="單字本身接近正確，但空格位置需要注意。";
+   else if(Math.abs(norm(yours).length-norm(q.en).length)<=2) hint="很接近，主要是拼字錯誤。請比較每一個字母。";
+   else hint="中文意思與英文單字沒有完全對上，請重新記一次這個字。";
+   stats.wrongs.push(["中翻英",q.zh,yours,q.en,hint]);
+   $("qFeedback").className="bad";$("qFeedback").textContent="✗ 再看一次";
+   $("qExplain").innerHTML='<div class="explainBox"><b>錯在哪？</b><br>'+hint+'<br>✅ 正確答案：<b>'+q.en+'</b><br><button class="speakBtn" onclick="speakEnglish(\''+q.en.replace(/'/g,"\\'")+'\')">🔊 聽正確發音</button></div>';
+ } save();
+}
+$("nextQ").onclick=nq;
+function ng(){
+      g=makeGrammar();
+      $("gZh").textContent=g[0];
+      $("gInput").value="";
+      $("gFeedback").textContent="";
+      $("gExplain").innerHTML="";
+      $("gMeta").style.display="none";
+      $("gFocus").textContent="";
+      $("gWords").textContent="";
+    }
+$("tense").onchange=ng;$("nextG").onclick=ng;$("checkG").onclick=()=>{
+  const yours=$("gInput").value.trim();
+  const ans=g[1];
+  const ok=norm(yours)===norm(ans);
+  stats.total++;
+
+  $("gExplain").innerHTML="";
+
+  if(ok){
+    stats.correct++;
+    stats.stars+=2;
+    $("gFeedback").className="good";
+    $("gFeedback").textContent="✓ 正確";
+    $("gMeta").style.display="none";
+    // 答對不顯示單字或文法提示，避免作答前後變成抄答案。
+  }else{
+    const t=$("tense").value;
+    let title="", explain="", memory="";
+    const lower=yours.toLowerCase();
+
+    if(!yours){
+      title="還沒有作答";
+      explain="先找主詞和時間線索，再決定動詞要怎麼變化。";
+      memory="先看主詞，再看時間。";
+    }else if(t==="present"){
+      if(/^i\s+\w+s\b/i.test(yours)){
+        title="I 後面的動詞不應加 s";
+        explain="現在式中，<b>I / You / We / They</b> 後面用動詞原形；只有 <b>He / She / It</b> 通常要加 <b>-s / -es</b>。";
+        memory="I study；He studies。";
+      }else{
+        title="現在式的主詞與動詞變化要再確認";
+        explain="請檢查主詞是 I/You/We/They，還是 He/She/It，再決定動詞是否要加 s 或 es。";
+        memory="He / She / It → 動詞通常加 s / es。";
+      }
+    }else if(t==="past"){
+      title="動詞要用過去式";
+      explain="題目描述已經發生的事情，主要動詞要變成過去式。看到 yesterday、last night 等字要特別注意。";
+      memory="yesterday / last ... → 過去式。";
+    }else if(t==="continuous"){
+      title="現在進行式結構不完整";
+      explain="「正在做……」要使用 <b>be 動詞 + V-ing</b>。";
+      memory="am / is / are + V-ing。";
+    }else if(t==="goingto"){
+      title="未來計畫句型需要修正";
+      explain="「打算／計畫要做」使用 <b>be going to + 動詞原形</b>。";
+      memory="be going to + 原形動詞。";
+    }
+
+    // Some simple word-choice guidance for common answers
+    if(g[1].includes("visits") && /\bloves?\b/i.test(yours)){
+      title="動詞意思用錯了";
+      explain="這題是「去／參觀博物館」，應使用 <b>visit</b>，不是 love。";
+      memory="visit = 參觀；love = 喜愛。";
+    }
+
+    stats.wrongs.push(["文法",g[0],yours,ans,title+"："+memory]);
+    $("gFeedback").className="bad";
+    $("gFeedback").textContent="✗ 這題需要修正";
+    $("gMeta").style.display="flex";
+    $("gFocus").textContent="練習重點："+g[2].focus;
+    $("gWords").textContent="本題單字："+g[2].words;
+    $("gExplain").innerHTML=
+      '<div class="explainBox">'+
+      '<b>🔎 錯在哪？ '+title+'</b><br>'+
+      explain+
+      '<hr style="border:0;border-top:1px solid #ead9aa;margin:10px 0">'+
+      '你的答案：<b>'+escapeHtml(yours||"（未作答）")+'</b><br>'+
+      '✅ 正確答案：<b>'+escapeHtml(ans)+'</b><br>'+
+      '💡 <b>記住：</b>'+memory+'<br>'+
+      '<button class="speakBtn" style="margin-top:10px" id="speakCorrectSentence">🔊 聽正確句子</button>'+
+      '</div>';
+    setTimeout(()=>{const b=$("speakCorrectSentence");if(b)b.onclick=()=>speakEnglish(ans);},0);
+  }
+  save();
+}
+function renderWrong(){$("wrongBody").innerHTML=stats.wrongs.slice().reverse().map(x=>`<tr><td>${x[0]}</td><td>${x[1]}</td><td>${x[2]||"—"}</td><td>${x[3]}</td><td>${x[4]||"再看一次正確答案"}</td></tr>`).join("")||'<tr><td colspan="5">目前沒有錯題</td></tr>'}
+function renderWords(){$("wordCount").textContent=`（${words.length} 筆）`;$("wordBody").innerHTML=words.map(w=>`<tr><td>${w.en}</td><td>${w.zh}</td><td>${w.pos}</td></tr>`).join("")}
+$("addWord").onclick=()=>{if(!$("newEn").value.trim()||!$("newZh").value.trim())return alert("請輸入英文與中文");words.push({en:$("newEn").value.trim(),zh:$("newZh").value.trim(),pos:$("newPos").value});$("newEn").value="";$("newZh").value="";save();renderWords();}
+
+$("reset509").onclick=()=>{
+  if(confirm("要重新載入內建 509 筆單字嗎？目前自行新增的非重複單字會保留。")){
+    const current=words.slice();
+    words=seed.map(x=>({...x}));
+    const seen=new Set(words.map(w=>w.en.toLowerCase()));
+    current.forEach(w=>{if(w&&w.en&&w.zh&&!seen.has(w.en.toLowerCase())){words.push(w);seen.add(w.en.toLowerCase());}});
+    save();renderWords();showWord();nq();
+    alert("已重新載入。家長管理目前共有 "+words.length+" 筆。");
+  }
+};
+
+$("backup").onclick=()=>{let blob=new Blob([JSON.stringify({words,stats},null,2)],{type:"application/json"});let a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="英文學習網站備份.json";a.click();}
+$("restore").onclick=()=>{let f=$("restoreFile").files[0];if(!f)return;let r=new FileReader();r.onload=()=>{let d=JSON.parse(r.result);words=d.words||words;stats=d.stats||stats;save();renderWords();showWord();nq();alert("已還原")};r.readAsText(f);}
+const PIN_KEY="english_parent_pin";function getParentPin(){return localStorage.getItem(PIN_KEY)||"2580";}function tryPin(){if($("pinInput").value===getParentPin()){parentUnlocked=true;$("pinOverlay").classList.remove("show");openPage($("parentNav"));}else{$("pinMsg").textContent="PIN 不正確，請再試一次。";}}$("pinEnter").onclick=tryPin;$("pinInput").addEventListener("keydown",e=>{if(e.key==="Enter")tryPin();});$("pinCancel").onclick=()=>$("pinOverlay").classList.remove("show");$("parentLogout").onclick=()=>{parentUnlocked=false;openPage(document.querySelector('nav button[data-page="home"]'));};$("savePin").onclick=()=>{const v=$("newPin").value.trim();if(!/^\d{4}$/.test(v)){alert("請輸入 4 位數字 PIN。");return;}localStorage.setItem(PIN_KEY,v);$("newPin").value="";alert("家長 PIN 已更新。");};document.querySelector('nav button[data-page="home"]').classList.add("navactive");
+document.querySelectorAll(".goPage").forEach(b=>b.onclick=()=>document.querySelector(`nav button[data-page="${b.dataset.go}"]`).click());
+update();showWord();nq();ng();
+</script>
+</body></htmlfunction escapeHtml(x){return String(x).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));}
+>
 :root{
  --bg:#f4f7fb;--panel:#fff;--ink:#263248;--muted:#7b879b;--line:#e7ebf2;
  --blue:#617be8;--blue2:#eef2ff;--green:#3ca77a;--orange:#eea13a;--red:#d95d73;
