@@ -48,17 +48,17 @@ table{width:100%;border-collapse:collapse}td,th{padding:11px 10px;border-bottom:
 .hero h2{margin:0 0 7px;font-size:29px}.hero p{margin:0;color:var(--muted)}
 @media(max-width:850px){.grid{grid-template-columns:1fr 1fr}header{position:static}.managebar input{width:100%}}
 @media(max-width:520px){main{padding:18px 12px}.grid{grid-template-columns:1fr}.word{font-size:39px}nav{overflow-x:auto;flex-wrap:nowrap}nav button{white-space:nowrap}.card{border-radius:16px}}
-</style>
+.pinOverlay{position:fixed;inset:0;background:rgba(27,36,54,.48);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}.pinOverlay.show{display:flex}.pinBox{width:min(390px,100%);background:#fff;border-radius:22px;padding:26px;text-align:center}.pinInput{font-size:28px;letter-spacing:12px;text-align:center;width:190px;margin:10px auto 16px}.pinActions{display:flex;gap:10px;justify-content:center}.parentLogout{float:right}</style>
 </head>
 <body>
 <header><div class="headrow"><div><h1>📘 我的英文學習基地</h1><small>每天一點點，英文慢慢變簡單</small></div><span class="countpill">國中基礎字庫</span></div>
 <nav>
 <button data-page="home">🏠 今日任務</button><button data-page="words">🧠 單字卡</button>
 <button data-page="quiz">✍️ 中翻英</button><button data-page="grammar">🧩 文法</button>
-<button data-page="wrong">🔁 錯題本</button><button data-page="parent">⚙️ 家長管理</button>
+<button data-page="wrong">🔁 錯題本</button><button data-page="parent" id="parentNav">🔒 家長專區</button>
 </nav>
 </header>
-<main>
+<div id="pinOverlay" class="pinOverlay"><div class="pinBox"><div style="font-size:38px">🔒</div><h3>家長專區</h3><p>請輸入 4 位數家長 PIN</p><input id="pinInput" class="pinInput" type="password" inputmode="numeric" maxlength="4"><div id="pinMsg" class="bad"></div><div class="pinActions"><button class="ghost" id="pinCancel">取消</button><button class="primary" id="pinEnter">進入</button></div><p class="muted" style="font-size:12px">初始 PIN：2580</p></div></div><main>
 <section id="home" class="page active">
 <div class="hero"><h2>今天要學什麼？ 👋</h2><p>先完成今天的任務，再複習昨天的錯題。</p></div>
 <div class="grid">
@@ -98,7 +98,7 @@ table{width:100%;border-collapse:collapse}td,th{padding:11px 10px;border-bottom:
 <section id="wrong" class="page"><div class="card"><h2>錯題本</h2><table><thead><tr><th>類型</th><th>題目</th><th>你的答案</th><th>正確答案</th></tr></thead><tbody id="wrongBody"></tbody></table></div></section>
 
 <section id="parent" class="page">
-<div class="hero"><h2>⚙️ 家長管理</h2><p>新增課文、管理字庫與備份學習資料。</p></div><div class="card"><h3>新增課文單字</h3><p class="muted">先用最簡單的方式追加課文單字；資料會留在這台電腦的瀏覽器。</p>
+<div class="hero"><button class="ghost parentLogout" id="parentLogout">🔒 離開家長模式</button><h2>⚙️ 家長管理</h2><p>新增課文、管理字庫與備份學習資料。</p></div><div class="card"><h3>🔐 家長 PIN</h3><div class="managebar"><input id="newPin" type="password" inputmode="numeric" maxlength="4" placeholder="新的 4 位數 PIN"><button class="ghost" id="savePin">儲存 PIN</button></div></div><div class="card"><h3>新增課文單字</h3><p class="muted">先用最簡單的方式追加課文單字；資料會留在這台電腦的瀏覽器。</p>
 <input id="newEn" placeholder="English"><input id="newZh" placeholder="中文"><select id="newPos"><option>n.</option><option>v.</option><option>adj.</option><option>adv.</option><option>phr.</option></select>
 <button class="primary" id="addWord">新增</button></div>
 <div class="card"><button class="ghost" id="backup">匯出備份</button> <input type="file" id="restoreFile" accept=".json"><button class="ghost" id="restore">還原備份</button></div>
@@ -138,7 +138,7 @@ goingto:[["我明天要去博物館。","I am going to go to the museum tomorrow
 const $=id=>document.getElementById(id);
 function save(){localStorage.setItem(WORDS_KEY,JSON.stringify(words));localStorage.setItem("kid_stats",JSON.stringify(stats));update();}
 function update(){let a=stats.total?Math.round(stats.correct/stats.total*100):0;$("acc").textContent=a+"%";$("stars").textContent=stats.stars+" ⭐";}
-document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));document.querySelectorAll("nav button").forEach(n=>n.classList.remove("navactive"));b.classList.add("navactive");$(b.dataset.page).classList.add("active");if(b.dataset.page==="wrong")renderWrong();if(b.dataset.page==="parent")renderWords();});
+let parentUnlocked=false;function openPage(b){document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));document.querySelectorAll("nav button").forEach(n=>n.classList.remove("navactive"));b.classList.add("navactive");$(b.dataset.page).classList.add("active");}document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{if(b.dataset.page==="parent"&&!parentUnlocked){$("pinOverlay").classList.add("show");$("pinInput").value="";$("pinMsg").textContent="";return;}openPage(b);if(b.dataset.page==="wrong")renderWrong();if(b.dataset.page==="parent")renderWords();});
 function showWord(){let w=words[wi%words.length];$("wEn").textContent=w.en;$("wZh").textContent=w.zh;$("wPos").textContent=w.pos;$("wZh").style.display="none";}
 $("flip").onclick=()=>$("wZh").style.display="block";$("nextWord").onclick=()=>{wi++;showWord();}
 function nq(){q=words[Math.floor(Math.random()*words.length)];$("qZh").textContent=q.zh;$("qInput").value="";$("qFeedback").textContent="";}
@@ -164,7 +164,7 @@ $("reset509").onclick=()=>{
 
 $("backup").onclick=()=>{let blob=new Blob([JSON.stringify({words,stats},null,2)],{type:"application/json"});let a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="英文學習網站備份.json";a.click();}
 $("restore").onclick=()=>{let f=$("restoreFile").files[0];if(!f)return;let r=new FileReader();r.onload=()=>{let d=JSON.parse(r.result);words=d.words||words;stats=d.stats||stats;save();renderWords();showWord();nq();alert("已還原")};r.readAsText(f);}
-document.querySelector('nav button[data-page="home"]').classList.add("navactive");
+const PIN_KEY="english_parent_pin";function getParentPin(){return localStorage.getItem(PIN_KEY)||"2580";}function tryPin(){if($("pinInput").value===getParentPin()){parentUnlocked=true;$("pinOverlay").classList.remove("show");openPage($("parentNav"));}else{$("pinMsg").textContent="PIN 不正確，請再試一次。";}}$("pinEnter").onclick=tryPin;$("pinInput").addEventListener("keydown",e=>{if(e.key==="Enter")tryPin();});$("pinCancel").onclick=()=>$("pinOverlay").classList.remove("show");$("parentLogout").onclick=()=>{parentUnlocked=false;openPage(document.querySelector('nav button[data-page="home"]'));};$("savePin").onclick=()=>{const v=$("newPin").value.trim();if(!/^\d{4}$/.test(v)){alert("請輸入 4 位數字 PIN。");return;}localStorage.setItem(PIN_KEY,v);$("newPin").value="";alert("家長 PIN 已更新。");};document.querySelector('nav button[data-page="home"]').classList.add("navactive");
 document.querySelectorAll(".goPage").forEach(b=>b.onclick=()=>document.querySelector(`nav button[data-page="${b.dataset.go}"]`).click());
 update();showWord();nq();ng();
 </script>
