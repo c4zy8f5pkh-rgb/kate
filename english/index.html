@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>英文學習基地 V6.20</title>
+<title>英文學習基地 V6.21</title>
 <style>
 :root{
  --bg:#f4f7fb;--panel:#fff;--ink:#263248;--muted:#7b879b;--line:#e7ebf2;
@@ -234,7 +234,7 @@ table{width:100%;border-collapse:collapse}td,th{padding:11px 10px;border-bottom:
 <p class="muted" style="margin-top:10px">「累積星星」仍保留作為闖關等級，不會每天歸零。</p>
 </div><div class="card">
 <h3>🧪 今日資料狀態</h3>
-<p class="muted">V6.20 已把「今日任務、今日作答、今日答對率、今日星星」統一到同一套資料版本，不再讀取舊版今日統計。</p>
+<p class="muted">V6.21 已把「今日任務、今日作答、今日答對率、今日星星」統一到同一套資料版本，不再讀取舊版今日統計。</p>
 <div id="todayDataDiagnostic" class="muted"></div>
 <button class="ghost" id="clearTodayOnly" style="margin-top:10px">🧹 清除今日測試紀錄</button>
 </div><div class="card"><h3>🔐 家長 PIN</h3><div class="managebar"><input id="newPin" type="password" inputmode="numeric" maxlength="4" placeholder="新的 4 位數 PIN"><button class="ghost" id="savePin">儲存 PIN</button></div></div><div class="card"><h3>新增課文單字</h3><p class="muted">先用最簡單的方式追加課文單字；資料會留在這台電腦的瀏覽器。</p>
@@ -269,7 +269,7 @@ table{width:100%;border-collapse:collapse}td,th{padding:11px 10px;border-bottom:
 </div>
 <table><thead><tr><th>英文</th><th>中文</th><th>詞性</th><th>來源</th><th>操作</th></tr></thead><tbody id="wordBody"></tbody></table></div></div>
 </section>
-</main><div style="text-align:center;color:#a0a8b6;font-size:11px;padding:8px 0 18px">English Learning V6.20.2</div>
+</main><div style="text-align:center;color:#a0a8b6;font-size:11px;padding:8px 0 18px">English Learning V6.21.2</div>
 
 <script>
 const seed=[{"en": "ability", "zh": "能力", "pos": "n."}, {"en": "able", "zh": "能夠的", "pos": "adj."}, {"en": "about", "zh": "關於；大約", "pos": "prep./adv."}, {"en": "above", "zh": "在…上方", "pos": "prep./adv."}, {"en": "absent", "zh": "缺席的", "pos": "adj."}, {"en": "accept", "zh": "接受", "pos": "v."}, {"en": "accident", "zh": "意外；事故", "pos": "n."}, {"en": "across", "zh": "穿過；在對面", "pos": "prep./adv."}, {"en": "act", "zh": "行動；表演", "pos": "v."}, {"en": "action", "zh": "行動", "pos": "n."}, {"en": "activity", "zh": "活動", "pos": "n."}, {"en": "actor", "zh": "男演員", "pos": "n."}, {"en": "actress", "zh": "女演員", "pos": "n."}, {"en": "afraid", "zh": "害怕的", "pos": "adj."}, {"en": "after", "zh": "在…之後", "pos": "prep."}, {"en": "afternoon", "zh": "下午", "pos": "n."}, {"en": "again", "zh": "再一次", "pos": "adv."}, {"en": "age", "zh": "年齡", "pos": "n."}, {"en": "ago", "zh": "以前", "pos": "adv."}, {"en": "agree", "zh": "同意", "pos": "v."}, {"en": "air", "zh": "空氣", "pos": "n."}, {"en": "airport", "zh": "機場", "pos": "n."}, {"en": "all", "zh": "全部", "pos": "adj./pron."}, {"en": "almost", "zh": "幾乎", "pos": "adv."}, {"en": "alone", "zh": "獨自的；獨自地", "pos": "adj./adv."}, {"en": "along", "zh": "沿著", "pos": "prep./adv."}, {"en": "already", "zh": "已經", "pos": "adv."}, {"en": "also", "zh": "也", "pos": "adv."}, {"en": "always", "zh": "總是", "pos": "adv."}, {"en": "amazing", "zh": "令人驚奇的", "pos": "adj."}, {"en": "angry", "zh": "生氣的", "pos": "adj."}, {"en": "animal", "zh": "動物", "pos": "n."}, {"en": "another", "zh": "另一個", "pos": "adj./pron."}, {"en": "answer", "zh": "回答；答案", "pos": "v./n."}, {"en": "any", "zh": "任何的", "pos": "adj."}, {"en": "anyone", "zh": "任何人", "pos": "pron."}, {"en": "anything", "zh": "任何事物", "pos": "pron."}, {"en": "apartment", "zh": "公寓", "pos": "n."}, {"en": "apple", "zh": "蘋果", "pos": "n."}, {"en": "April", "zh": "四月", "pos": "n."}, {"en": "area", "zh": "地區；區域", "pos": "n."}, {"en": "arm", "zh": "手臂", "pos": "n."}, {"en": "around", "zh": "在周圍；大約", "pos": "prep./adv."}, {"en": "arrive", "zh": "到達", "pos": "v."}, {"en": "art", "zh": "藝術；美術", "pos": "n."}, {"en": "ask", "zh": "詢問；要求", "pos": "v."}, {"en": "August", "zh": "八月", "pos": "n."}, {"en": "aunt", "zh": "阿姨；姑姑；嬸嬸", "pos": "n."}, {"en": "autumn", "zh": "秋天", "pos": "n."}, {"en": "away", "zh": "離開；在遠處", "pos": "adv."}, {"en": "baby", "zh": "嬰兒", "pos": "n."}, {"en": "back", "zh": "背部；回去", "pos": "n./adv."}, {"en": "bad", "zh": "壞的", "pos": "adj."}, {"en": "bag", "zh": "袋子；包包", "pos": "n."}, {"en": "bakery", "zh": "麵包店", "pos": "n."}, {"en": "ball", "zh": "球", "pos": "n."}, {"en": "banana", "zh": "香蕉", "pos": "n."}, {"en": "bank", "zh": "銀行", "pos": "n."}, {"en": "baseball", "zh": "棒球", "pos": "n."}, {"en": "basket", "zh": "籃子", "pos": "n."}, {"en": "basketball", "zh": "籃球", "pos": "n."}, {"en": "bathroom", "zh": "浴室；廁所", "pos": "n."}, {"en": "beach", "zh": "海灘", "pos": "n."}, {"en": "beautiful", "zh": "美麗的", "pos": "adj."}, {"en": "because", "zh": "因為", "pos": "conj."}, {"en": "become", "zh": "變成", "pos": "v."}, {"en": "bed", "zh": "床", "pos": "n."}, {"en": "bedroom", "zh": "臥室", "pos": "n."}, {"en": "before", "zh": "在…之前", "pos": "prep./conj."}, {"en": "begin", "zh": "開始", "pos": "v."}, {"en": "behind", "zh": "在…後面", "pos": "prep."}, {"en": "believe", "zh": "相信", "pos": "v."}, {"en": "below", "zh": "在…下方", "pos": "prep./adv."}, {"en": "beside", "zh": "在…旁邊", "pos": "prep."}, {"en": "best", "zh": "最好的", "pos": "adj."}, {"en": "better", "zh": "較好的", "pos": "adj."}, {"en": "between", "zh": "在…之間", "pos": "prep."}, {"en": "bicycle", "zh": "腳踏車", "pos": "n."}, {"en": "big", "zh": "大的", "pos": "adj."}, {"en": "bike", "zh": "腳踏車", "pos": "n."}, {"en": "bird", "zh": "鳥", "pos": "n."}, {"en": "birthday", "zh": "生日", "pos": "n."}, {"en": "black", "zh": "黑色的；黑色", "pos": "adj./n."}, {"en": "blue", "zh": "藍色的；藍色", "pos": "adj./n."}, {"en": "boat", "zh": "船", "pos": "n."}, {"en": "body", "zh": "身體", "pos": "n."}, {"en": "book", "zh": "書", "pos": "n."}, {"en": "boring", "zh": "無聊的", "pos": "adj."}, {"en": "born", "zh": "出生的", "pos": "adj."}, {"en": "both", "zh": "兩者都", "pos": "pron./adj."}, {"en": "bottle", "zh": "瓶子", "pos": "n."}, {"en": "box", "zh": "盒子", "pos": "n."}, {"en": "boy", "zh": "男孩", "pos": "n."}, {"en": "bread", "zh": "麵包", "pos": "n."}, {"en": "break", "zh": "打破；休息", "pos": "v./n."}, {"en": "breakfast", "zh": "早餐", "pos": "n."}, {"en": "bring", "zh": "帶來", "pos": "v."}, {"en": "brother", "zh": "兄弟", "pos": "n."}, {"en": "brown", "zh": "棕色的；棕色", "pos": "adj./n."}, {"en": "build", "zh": "建造", "pos": "v."}, {"en": "building", "zh": "建築物", "pos": "n."}, {"en": "bus", "zh": "公車", "pos": "n."}, {"en": "busy", "zh": "忙碌的", "pos": "adj."}, {"en": "buy", "zh": "購買", "pos": "v."}, {"en": "cake", "zh": "蛋糕", "pos": "n."}, {"en": "call", "zh": "打電話；稱呼", "pos": "v."}, {"en": "camera", "zh": "相機", "pos": "n."}, {"en": "camp", "zh": "露營", "pos": "v./n."}, {"en": "can", "zh": "能；可以", "pos": "aux."}, {"en": "candy", "zh": "糖果", "pos": "n."}, {"en": "car", "zh": "汽車", "pos": "n."}, {"en": "care", "zh": "關心；照顧", "pos": "v./n."}, {"en": "careful", "zh": "小心的", "pos": "adj."}, {"en": "carry", "zh": "攜帶；搬運", "pos": "v."}, {"en": "cat", "zh": "貓", "pos": "n."}, {"en": "catch", "zh": "抓住；趕上", "pos": "v."}, {"en": "chair", "zh": "椅子", "pos": "n."}, {"en": "chance", "zh": "機會", "pos": "n."}, {"en": "change", "zh": "改變；零錢", "pos": "v./n."}, {"en": "cheap", "zh": "便宜的", "pos": "adj."}, {"en": "check", "zh": "檢查", "pos": "v."}, {"en": "child", "zh": "小孩", "pos": "n."}, {"en": "children", "zh": "孩子們", "pos": "n."}, {"en": "choose", "zh": "選擇", "pos": "v."}, {"en": "city", "zh": "城市", "pos": "n."}, {"en": "class", "zh": "班級；課", "pos": "n."}, {"en": "classmate", "zh": "同學", "pos": "n."}, {"en": "classroom", "zh": "教室", "pos": "n."}, {"en": "clean", "zh": "乾淨的；清理", "pos": "adj./v."}, {"en": "climb", "zh": "攀爬", "pos": "v."}, {"en": "clock", "zh": "時鐘", "pos": "n."}, {"en": "close", "zh": "關閉；靠近的", "pos": "v./adj."}, {"en": "clothes", "zh": "衣服", "pos": "n."}, {"en": "cloud", "zh": "雲", "pos": "n."}, {"en": "cloudy", "zh": "多雲的", "pos": "adj."}, {"en": "club", "zh": "社團；俱樂部", "pos": "n."}, {"en": "coat", "zh": "外套", "pos": "n."}, {"en": "coffee", "zh": "咖啡", "pos": "n."}, {"en": "cold", "zh": "冷的；感冒", "pos": "adj./n."}, {"en": "color", "zh": "顏色", "pos": "n."}, {"en": "come", "zh": "來", "pos": "v."}, {"en": "computer", "zh": "電腦", "pos": "n."}, {"en": "cook", "zh": "烹飪；廚師", "pos": "v./n."}, {"en": "cool", "zh": "涼爽的；酷的", "pos": "adj."}, {"en": "correct", "zh": "正確的", "pos": "adj."}, {"en": "cost", "zh": "花費；價格", "pos": "v./n."}, {"en": "country", "zh": "國家；鄉村", "pos": "n."}, {"en": "cousin", "zh": "堂／表兄弟姊妹", "pos": "n."}, {"en": "cry", "zh": "哭", "pos": "v."}, {"en": "cup", "zh": "杯子", "pos": "n."}, {"en": "cut", "zh": "切", "pos": "v."}, {"en": "dance", "zh": "跳舞", "pos": "v."}, {"en": "dangerous", "zh": "危險的", "pos": "adj."}, {"en": "dark", "zh": "黑暗的", "pos": "adj."}, {"en": "date", "zh": "日期；約會", "pos": "n."}, {"en": "daughter", "zh": "女兒", "pos": "n."}, {"en": "day", "zh": "一天；白天", "pos": "n."}, {"en": "December", "zh": "十二月", "pos": "n."}, {"en": "decide", "zh": "決定", "pos": "v."}, {"en": "delicious", "zh": "美味的", "pos": "adj."}, {"en": "desk", "zh": "書桌", "pos": "n."}, {"en": "dictionary", "zh": "字典", "pos": "n."}, {"en": "different", "zh": "不同的", "pos": "adj."}, {"en": "difficult", "zh": "困難的", "pos": "adj."}, {"en": "dinner", "zh": "晚餐", "pos": "n."}, {"en": "dirty", "zh": "髒的", "pos": "adj."}, {"en": "doctor", "zh": "醫生", "pos": "n."}, {"en": "dog", "zh": "狗", "pos": "n."}, {"en": "door", "zh": "門", "pos": "n."}, {"en": "down", "zh": "向下", "pos": "adv."}, {"en": "draw", "zh": "畫", "pos": "v."}, {"en": "dream", "zh": "夢；夢想", "pos": "n./v."}, {"en": "drink", "zh": "喝；飲料", "pos": "v./n."}, {"en": "drive", "zh": "開車", "pos": "v."}, {"en": "driver", "zh": "駕駛", "pos": "n."}, {"en": "early", "zh": "早的；提早", "pos": "adj./adv."}, {"en": "easy", "zh": "容易的", "pos": "adj."}, {"en": "eat", "zh": "吃", "pos": "v."}, {"en": "egg", "zh": "蛋", "pos": "n."}, {"en": "eight", "zh": "八", "pos": "num."}, {"en": "eighteen", "zh": "十八", "pos": "num."}, {"en": "eleven", "zh": "十一", "pos": "num."}, {"en": "else", "zh": "其他", "pos": "adv."}, {"en": "email", "zh": "電子郵件", "pos": "n./v."}, {"en": "end", "zh": "結束；末端", "pos": "n./v."}, {"en": "English", "zh": "英文；英語的", "pos": "n./adj."}, {"en": "enjoy", "zh": "享受；喜歡", "pos": "v."}, {"en": "enough", "zh": "足夠的", "pos": "adj./adv."}, {"en": "evening", "zh": "晚上；傍晚", "pos": "n."}, {"en": "every", "zh": "每一個", "pos": "adj."}, {"en": "everyone", "zh": "每個人", "pos": "pron."}, {"en": "everything", "zh": "每件事", "pos": "pron."}, {"en": "example", "zh": "例子", "pos": "n."}, {"en": "excited", "zh": "興奮的", "pos": "adj."}, {"en": "exciting", "zh": "令人興奮的", "pos": "adj."}, {"en": "exercise", "zh": "運動；練習", "pos": "n./v."}, {"en": "expensive", "zh": "昂貴的", "pos": "adj."}, {"en": "eye", "zh": "眼睛", "pos": "n."}, {"en": "face", "zh": "臉", "pos": "n."}, {"en": "family", "zh": "家庭", "pos": "n."}, {"en": "famous", "zh": "有名的", "pos": "adj."}, {"en": "far", "zh": "遠的；遠地", "pos": "adj./adv."}, {"en": "farm", "zh": "農場", "pos": "n."}, {"en": "farmer", "zh": "農夫", "pos": "n."}, {"en": "fast", "zh": "快的；快速地", "pos": "adj./adv."}, {"en": "father", "zh": "父親", "pos": "n."}, {"en": "February", "zh": "二月", "pos": "n."}, {"en": "feel", "zh": "感覺", "pos": "v."}, {"en": "festival", "zh": "節慶", "pos": "n."}, {"en": "few", "zh": "少數的", "pos": "adj."}, {"en": "fifteen", "zh": "十五", "pos": "num."}, {"en": "fifty", "zh": "五十", "pos": "num."}, {"en": "find", "zh": "找到；發現", "pos": "v."}, {"en": "fine", "zh": "很好；晴朗的", "pos": "adj."}, {"en": "finish", "zh": "完成", "pos": "v."}, {"en": "fire", "zh": "火", "pos": "n."}, {"en": "first", "zh": "第一；首先", "pos": "adj./adv."}, {"en": "fish", "zh": "魚", "pos": "n."}, {"en": "five", "zh": "五", "pos": "num."}, {"en": "floor", "zh": "地板；樓層", "pos": "n."}, {"en": "flower", "zh": "花", "pos": "n."}, {"en": "fly", "zh": "飛", "pos": "v."}, {"en": "food", "zh": "食物", "pos": "n."}, {"en": "foot", "zh": "腳", "pos": "n."}, {"en": "football", "zh": "足球；美式足球", "pos": "n."}, {"en": "for", "zh": "為了；給", "pos": "prep."}, {"en": "forget", "zh": "忘記", "pos": "v."}, {"en": "four", "zh": "四", "pos": "num."}, {"en": "fourteen", "zh": "十四", "pos": "num."}, {"en": "free", "zh": "免費的；自由的", "pos": "adj."}, {"en": "Friday", "zh": "星期五", "pos": "n."}, {"en": "friend", "zh": "朋友", "pos": "n."}, {"en": "friendly", "zh": "友善的", "pos": "adj."}, {"en": "from", "zh": "從；來自", "pos": "prep."}, {"en": "front", "zh": "前面", "pos": "n."}, {"en": "fruit", "zh": "水果", "pos": "n."}, {"en": "full", "zh": "滿的；飽的", "pos": "adj."}, {"en": "fun", "zh": "樂趣；有趣的", "pos": "n./adj."}, {"en": "funny", "zh": "好笑的", "pos": "adj."}, {"en": "game", "zh": "遊戲；比賽", "pos": "n."}, {"en": "garden", "zh": "花園", "pos": "n."}, {"en": "get", "zh": "得到；變得", "pos": "v."}, {"en": "girl", "zh": "女孩", "pos": "n."}, {"en": "give", "zh": "給", "pos": "v."}, {"en": "glad", "zh": "高興的", "pos": "adj."}, {"en": "glass", "zh": "玻璃；玻璃杯", "pos": "n."}, {"en": "go", "zh": "去", "pos": "v."}, {"en": "good", "zh": "好的", "pos": "adj."}, {"en": "grandfather", "zh": "祖父；外祖父", "pos": "n."}, {"en": "grandmother", "zh": "祖母；外祖母", "pos": "n."}, {"en": "great", "zh": "很棒的；偉大的", "pos": "adj."}, {"en": "green", "zh": "綠色的；綠色", "pos": "adj./n."}, {"en": "grow", "zh": "成長；種植", "pos": "v."}, {"en": "guess", "zh": "猜", "pos": "v."}, {"en": "hair", "zh": "頭髮", "pos": "n."}, {"en": "half", "zh": "一半", "pos": "n./adj."}, {"en": "hand", "zh": "手", "pos": "n."}, {"en": "happy", "zh": "快樂的", "pos": "adj."}, {"en": "hard", "zh": "困難的；努力地", "pos": "adj./adv."}, {"en": "have", "zh": "有", "pos": "v."}, {"en": "head", "zh": "頭", "pos": "n."}, {"en": "health", "zh": "健康", "pos": "n."}, {"en": "healthy", "zh": "健康的", "pos": "adj."}, {"en": "hear", "zh": "聽見", "pos": "v."}, {"en": "help", "zh": "幫助", "pos": "v./n."}, {"en": "here", "zh": "這裡", "pos": "adv."}, {"en": "high", "zh": "高的", "pos": "adj."}, {"en": "history", "zh": "歷史", "pos": "n."}, {"en": "holiday", "zh": "假日", "pos": "n."}, {"en": "home", "zh": "家", "pos": "n./adv."}, {"en": "homework", "zh": "家庭作業", "pos": "n."}, {"en": "hope", "zh": "希望", "pos": "v./n."}, {"en": "hospital", "zh": "醫院", "pos": "n."}, {"en": "hot", "zh": "熱的", "pos": "adj."}, {"en": "hotel", "zh": "旅館", "pos": "n."}, {"en": "hour", "zh": "小時", "pos": "n."}, {"en": "house", "zh": "房子", "pos": "n."}, {"en": "how", "zh": "如何；多麼", "pos": "adv."}, {"en": "hundred", "zh": "一百", "pos": "num."}, {"en": "hungry", "zh": "餓的", "pos": "adj."}, {"en": "important", "zh": "重要的", "pos": "adj."}, {"en": "inside", "zh": "在裡面", "pos": "prep./adv."}, {"en": "interesting", "zh": "有趣的", "pos": "adj."}, {"en": "January", "zh": "一月", "pos": "n."}, {"en": "job", "zh": "工作；職業", "pos": "n."}, {"en": "July", "zh": "七月", "pos": "n."}, {"en": "June", "zh": "六月", "pos": "n."}, {"en": "keep", "zh": "保持；保留", "pos": "v."}, {"en": "kind", "zh": "種類；親切的", "pos": "n./adj."}, {"en": "kitchen", "zh": "廚房", "pos": "n."}, {"en": "know", "zh": "知道；認識", "pos": "v."}, {"en": "large", "zh": "大的", "pos": "adj."}, {"en": "last", "zh": "最後的；上一個", "pos": "adj."}, {"en": "late", "zh": "遲的；晚地", "pos": "adj./adv."}, {"en": "learn", "zh": "學習", "pos": "v."}, {"en": "leave", "zh": "離開", "pos": "v."}, {"en": "left", "zh": "左邊的；左邊", "pos": "adj./n."}, {"en": "leg", "zh": "腿", "pos": "n."}, {"en": "lesson", "zh": "課；課程", "pos": "n."}, {"en": "library", "zh": "圖書館", "pos": "n."}, {"en": "life", "zh": "生命；生活", "pos": "n."}, {"en": "light", "zh": "光；輕的", "pos": "n./adj."}, {"en": "like", "zh": "喜歡；像", "pos": "v./prep."}, {"en": "listen", "zh": "聽", "pos": "v."}, {"en": "little", "zh": "小的；少量的", "pos": "adj."}, {"en": "live", "zh": "居住；生活", "pos": "v."}, {"en": "long", "zh": "長的", "pos": "adj."}, {"en": "look", "zh": "看", "pos": "v."}, {"en": "love", "zh": "愛；喜愛", "pos": "v./n."}, {"en": "lunch", "zh": "午餐", "pos": "n."}, {"en": "make", "zh": "製作；使得", "pos": "v."}, {"en": "man", "zh": "男人", "pos": "n."}, {"en": "many", "zh": "許多的", "pos": "adj."}, {"en": "March", "zh": "三月", "pos": "n."}, {"en": "market", "zh": "市場", "pos": "n."}, {"en": "May", "zh": "五月", "pos": "n."}, {"en": "maybe", "zh": "也許", "pos": "adv."}, {"en": "meal", "zh": "一餐", "pos": "n."}, {"en": "meet", "zh": "遇見；見面", "pos": "v."}, {"en": "minute", "zh": "分鐘", "pos": "n."}, {"en": "Monday", "zh": "星期一", "pos": "n."}, {"en": "money", "zh": "錢", "pos": "n."}, {"en": "month", "zh": "月", "pos": "n."}, {"en": "moon", "zh": "月亮", "pos": "n."}, {"en": "morning", "zh": "早上", "pos": "n."}, {"en": "mother", "zh": "母親", "pos": "n."}, {"en": "movie", "zh": "電影", "pos": "n."}, {"en": "much", "zh": "許多；很", "pos": "adj./adv."}, {"en": "museum", "zh": "博物館", "pos": "n."}, {"en": "music", "zh": "音樂", "pos": "n."}, {"en": "must", "zh": "必須", "pos": "aux."}, {"en": "name", "zh": "名字", "pos": "n."}, {"en": "near", "zh": "在附近；近的", "pos": "prep./adj."}, {"en": "need", "zh": "需要", "pos": "v."}, {"en": "never", "zh": "從不", "pos": "adv."}, {"en": "new", "zh": "新的", "pos": "adj."}, {"en": "next", "zh": "下一個的", "pos": "adj."}, {"en": "nice", "zh": "好的；親切的", "pos": "adj."}, {"en": "night", "zh": "夜晚", "pos": "n."}, {"en": "nine", "zh": "九", "pos": "num."}, {"en": "nineteen", "zh": "十九", "pos": "num."}, {"en": "noon", "zh": "中午", "pos": "n."}, {"en": "north", "zh": "北方", "pos": "n."}, {"en": "November", "zh": "十一月", "pos": "n."}, {"en": "now", "zh": "現在", "pos": "adv."}, {"en": "number", "zh": "數字；號碼", "pos": "n."}, {"en": "October", "zh": "十月", "pos": "n."}, {"en": "office", "zh": "辦公室", "pos": "n."}, {"en": "often", "zh": "常常", "pos": "adv."}, {"en": "old", "zh": "老的；舊的", "pos": "adj."}, {"en": "one", "zh": "一", "pos": "num."}, {"en": "open", "zh": "打開；開著的", "pos": "v./adj."}, {"en": "orange", "zh": "橘子；橘色", "pos": "n./adj."}, {"en": "other", "zh": "其他的", "pos": "adj."}, {"en": "outside", "zh": "在外面", "pos": "adv./prep."}, {"en": "page", "zh": "頁", "pos": "n."}, {"en": "paper", "zh": "紙", "pos": "n."}, {"en": "parent", "zh": "父母之一", "pos": "n."}, {"en": "park", "zh": "公園；停車", "pos": "n./v."}, {"en": "party", "zh": "派對", "pos": "n."}, {"en": "pay", "zh": "付款", "pos": "v."}, {"en": "people", "zh": "人們", "pos": "n."}, {"en": "person", "zh": "人", "pos": "n."}, {"en": "phone", "zh": "電話", "pos": "n."}, {"en": "picture", "zh": "圖片；照片", "pos": "n."}, {"en": "place", "zh": "地方", "pos": "n."}, {"en": "plan", "zh": "計畫", "pos": "n./v."}, {"en": "play", "zh": "玩；演奏", "pos": "v."}, {"en": "please", "zh": "請", "pos": "adv."}, {"en": "police", "zh": "警察", "pos": "n."}, {"en": "poor", "zh": "貧窮的；可憐的", "pos": "adj."}, {"en": "popular", "zh": "受歡迎的", "pos": "adj."}, {"en": "practice", "zh": "練習", "pos": "n./v."}, {"en": "pretty", "zh": "漂亮的；相當", "pos": "adj./adv."}, {"en": "problem", "zh": "問題", "pos": "n."}, {"en": "question", "zh": "問題；題目", "pos": "n."}, {"en": "quick", "zh": "快速的", "pos": "adj."}, {"en": "quiet", "zh": "安靜的", "pos": "adj."}, {"en": "rain", "zh": "雨；下雨", "pos": "n./v."}, {"en": "rainy", "zh": "下雨的", "pos": "adj."}, {"en": "read", "zh": "閱讀", "pos": "v."}, {"en": "ready", "zh": "準備好的", "pos": "adj."}, {"en": "really", "zh": "真的；非常", "pos": "adv."}, {"en": "remember", "zh": "記得", "pos": "v."}, {"en": "restaurant", "zh": "餐廳", "pos": "n."}, {"en": "right", "zh": "右邊；正確的", "pos": "n./adj."}, {"en": "river", "zh": "河流", "pos": "n."}, {"en": "road", "zh": "道路", "pos": "n."}, {"en": "room", "zh": "房間", "pos": "n."}, {"en": "run", "zh": "跑", "pos": "v."}, {"en": "sad", "zh": "難過的", "pos": "adj."}, {"en": "Saturday", "zh": "星期六", "pos": "n."}, {"en": "school", "zh": "學校", "pos": "n."}, {"en": "sea", "zh": "海", "pos": "n."}, {"en": "season", "zh": "季節", "pos": "n."}, {"en": "see", "zh": "看見", "pos": "v."}, {"en": "September", "zh": "九月", "pos": "n."}, {"en": "seven", "zh": "七", "pos": "num."}, {"en": "seventeen", "zh": "十七", "pos": "num."}, {"en": "shop", "zh": "商店；購物", "pos": "n./v."}, {"en": "short", "zh": "短的；矮的", "pos": "adj."}, {"en": "should", "zh": "應該", "pos": "aux."}, {"en": "show", "zh": "展示；節目", "pos": "v./n."}, {"en": "sick", "zh": "生病的", "pos": "adj."}, {"en": "sister", "zh": "姊妹", "pos": "n."}, {"en": "six", "zh": "六", "pos": "num."}, {"en": "sixteen", "zh": "十六", "pos": "num."}, {"en": "sleep", "zh": "睡覺", "pos": "v."}, {"en": "slow", "zh": "慢的", "pos": "adj."}, {"en": "small", "zh": "小的", "pos": "adj."}, {"en": "snow", "zh": "雪；下雪", "pos": "n./v."}, {"en": "so", "zh": "所以；如此", "pos": "conj./adv."}, {"en": "some", "zh": "一些", "pos": "adj."}, {"en": "sometimes", "zh": "有時候", "pos": "adv."}, {"en": "son", "zh": "兒子", "pos": "n."}, {"en": "song", "zh": "歌曲", "pos": "n."}, {"en": "soon", "zh": "很快；不久", "pos": "adv."}, {"en": "sorry", "zh": "抱歉的", "pos": "adj."}, {"en": "south", "zh": "南方", "pos": "n."}, {"en": "speak", "zh": "說；講", "pos": "v."}, {"en": "sport", "zh": "運動", "pos": "n."}, {"en": "spring", "zh": "春天", "pos": "n."}, {"en": "stand", "zh": "站立", "pos": "v."}, {"en": "start", "zh": "開始", "pos": "v."}, {"en": "station", "zh": "車站", "pos": "n."}, {"en": "stay", "zh": "停留", "pos": "v."}, {"en": "still", "zh": "仍然", "pos": "adv."}, {"en": "stop", "zh": "停止；車站", "pos": "v./n."}, {"en": "store", "zh": "商店", "pos": "n."}, {"en": "story", "zh": "故事", "pos": "n."}, {"en": "street", "zh": "街道", "pos": "n."}, {"en": "student", "zh": "學生", "pos": "n."}, {"en": "study", "zh": "讀書；研究", "pos": "v."}, {"en": "summer", "zh": "夏天", "pos": "n."}, {"en": "sun", "zh": "太陽", "pos": "n."}, {"en": "Sunday", "zh": "星期日", "pos": "n."}, {"en": "sunny", "zh": "晴朗的", "pos": "adj."}, {"en": "supermarket", "zh": "超級市場", "pos": "n."}, {"en": "swim", "zh": "游泳", "pos": "v."}, {"en": "table", "zh": "桌子", "pos": "n."}, {"en": "take", "zh": "拿；帶；花費", "pos": "v."}, {"en": "talk", "zh": "說話；交談", "pos": "v."}, {"en": "tall", "zh": "高的", "pos": "adj."}, {"en": "teacher", "zh": "老師", "pos": "n."}, {"en": "tell", "zh": "告訴", "pos": "v."}, {"en": "ten", "zh": "十", "pos": "num."}, {"en": "thank", "zh": "感謝", "pos": "v."}, {"en": "thing", "zh": "事情；東西", "pos": "n."}, {"en": "think", "zh": "想；認為", "pos": "v."}, {"en": "thirteen", "zh": "十三", "pos": "num."}, {"en": "three", "zh": "三", "pos": "num."}, {"en": "Thursday", "zh": "星期四", "pos": "n."}, {"en": "time", "zh": "時間；次數", "pos": "n."}, {"en": "tired", "zh": "疲倦的", "pos": "adj."}, {"en": "today", "zh": "今天", "pos": "n./adv."}, {"en": "together", "zh": "一起", "pos": "adv."}, {"en": "tomorrow", "zh": "明天", "pos": "n./adv."}, {"en": "too", "zh": "也；太", "pos": "adv."}, {"en": "train", "zh": "火車", "pos": "n."}, {"en": "travel", "zh": "旅行", "pos": "v."}, {"en": "tree", "zh": "樹", "pos": "n."}, {"en": "trip", "zh": "旅行", "pos": "n."}, {"en": "Tuesday", "zh": "星期二", "pos": "n."}, {"en": "twelve", "zh": "十二", "pos": "num."}, {"en": "twenty", "zh": "二十", "pos": "num."}, {"en": "two", "zh": "二", "pos": "num."}, {"en": "uncle", "zh": "叔叔；舅舅；伯伯", "pos": "n."}, {"en": "under", "zh": "在…下面", "pos": "prep."}, {"en": "understand", "zh": "了解", "pos": "v."}, {"en": "usually", "zh": "通常", "pos": "adv."}, {"en": "vacation", "zh": "假期", "pos": "n."}, {"en": "vegetable", "zh": "蔬菜", "pos": "n."}, {"en": "very", "zh": "非常", "pos": "adv."}, {"en": "visit", "zh": "拜訪；參觀", "pos": "v."}, {"en": "wait", "zh": "等待", "pos": "v."}, {"en": "walk", "zh": "走路", "pos": "v."}, {"en": "want", "zh": "想要", "pos": "v."}, {"en": "warm", "zh": "溫暖的", "pos": "adj."}, {"en": "wash", "zh": "洗", "pos": "v."}, {"en": "watch", "zh": "觀看；手錶", "pos": "v./n."}, {"en": "water", "zh": "水", "pos": "n."}, {"en": "way", "zh": "方法；道路", "pos": "n."}, {"en": "Wednesday", "zh": "星期三", "pos": "n."}, {"en": "week", "zh": "星期；週", "pos": "n."}, {"en": "weekend", "zh": "週末", "pos": "n."}, {"en": "welcome", "zh": "歡迎", "pos": "v./adj."}, {"en": "well", "zh": "很好地；健康的", "pos": "adv./adj."}, {"en": "west", "zh": "西方", "pos": "n."}, {"en": "what", "zh": "什麼", "pos": "pron."}, {"en": "when", "zh": "何時", "pos": "adv."}, {"en": "where", "zh": "哪裡", "pos": "adv."}, {"en": "which", "zh": "哪一個", "pos": "pron."}, {"en": "white", "zh": "白色的；白色", "pos": "adj./n."}, {"en": "who", "zh": "誰", "pos": "pron."}, {"en": "why", "zh": "為什麼", "pos": "adv."}, {"en": "wind", "zh": "風", "pos": "n."}, {"en": "window", "zh": "窗戶", "pos": "n."}, {"en": "winter", "zh": "冬天", "pos": "n."}, {"en": "woman", "zh": "女人", "pos": "n."}, {"en": "wonderful", "zh": "很棒的；精彩的", "pos": "adj."}, {"en": "work", "zh": "工作", "pos": "v./n."}, {"en": "world", "zh": "世界", "pos": "n."}, {"en": "write", "zh": "寫", "pos": "v."}, {"en": "wrong", "zh": "錯誤的", "pos": "adj."}, {"en": "year", "zh": "年", "pos": "n."}, {"en": "yellow", "zh": "黃色的；黃色", "pos": "adj./n."}, {"en": "yes", "zh": "是；好的", "pos": "adv."}, {"en": "yesterday", "zh": "昨天", "pos": "n./adv."}, {"en": "young", "zh": "年輕的", "pos": "adj."}];
@@ -356,6 +356,16 @@ function pronunciationButtons(text){
 function speakSlow(text){speakUS(text,0.72)}
 
 let BASE_WORDS=[];
+
+function escapeHtml(value){
+  return String(value==null?"":value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
 const $=id=>document.getElementById(id);
 
 const MISSION_CFG_KEY="eng_mission_cfg_v64";
@@ -424,7 +434,7 @@ function recordDailyAnswerOnce(kind,prompt,correct){
 function todayStat(){return dailyStatsAll[dayKey()]||(dailyStatsAll[dayKey()]={answered:0,correct:0,stars:0,wordDone:0})}
 function saveDailyStats(){localStorage.setItem(DAILY_STATS_KEY,JSON.stringify(dailyStatsAll))}
 function recordDailyAnswer(correct,kind){
-  // V6.20: legacy compatibility only. Daily answer counts are now recorded
+  // V6.21: legacy compatibility only. Daily answer counts are now recorded
   // once per unique question through recordDailyAnswerOnce().
   if(kind==="word" && correct){
     const d=todayStat();
@@ -564,33 +574,57 @@ function norm(s){
     .replace(/\s+/g," ");
 }
 $("checkQ").onclick=()=>{
-  const item=currentQuizWord;
-  if(!item){nq();return;}
-  const yours=$("qInput").value;
-  const ok=norm(yours)===norm(item.en);
-  stats.total++;
-  if(ok){
-    recordDailyAnswerOnce("translate", item.zh, true);
-    stats.correct++;
-    missionCredit("translate");
-    $("qFeedback").className="good";
-    $("qFeedback").innerHTML='✓ 正確'+pronunciationButtons(item.en)+
-      '<div class="explainBox" style="margin-top:12px">做對了。再聽一次，把「拼字＋聲音＋意思」一起記住。</div>';
-  }else{
-    recordDailyAnswerOnce("translate", item.zh, false);
-    let hint="";
-    if(!yours.trim()) hint="這題沒有輸入答案，先看正確拼字，再念一次。";
-    else if(norm(yours).replace(/\s/g,"")===norm(item.en).replace(/\s/g,"")) hint="單字本身接近正確，但空格位置需要注意。";
-    else if(Math.abs(norm(yours).length-norm(item.en).length)<=2) hint="很接近，主要是拼字錯誤。請比較每一個字母。";
-    else hint="中文意思與英文單字沒有完全對上，請重新記一次這個字。";
-    stats.wrongs.push(["中翻英",item.zh,yours,item.en,hint]);
-    $("qFeedback").className="bad";
-    $("qFeedback").innerHTML='✗ 再看一次'+
-      '<div class="explainBox" style="margin-top:12px"><b>錯在哪？</b><br>'+hint+
-      '<br>✅ 正確答案：<b>'+escapeHtml(item.en)+'</b>'+
-      pronunciationButtons(item.en)+'</div>';
+  try{
+    const item=currentQuizWord;
+    if(!item){nq();return;}
+    const yours=$("qInput").value;
+    const ok=norm(yours)===norm(item.en);
+    stats.total++;
+
+    if(ok){
+      recordDailyAnswerOnce("translate", item.zh, true);
+      stats.correct++;
+      missionCredit("translate");
+      $("qFeedback").className="good";
+      $("qFeedback").innerHTML=
+        '✓ 正確'+pronunciationButtons(item.en)+
+        '<div class="explainBox" style="margin-top:12px">做對了。再聽一次，把「拼字＋聲音＋意思」一起記住。</div>';
+    }else{
+      recordDailyAnswerOnce("translate", item.zh, false);
+      let hint="";
+      if(!yours.trim()){
+        hint="這題沒有輸入答案，先看正確拼字，再念一次。";
+      }else if(norm(yours).replace(/\s/g,"")===norm(item.en).replace(/\s/g,"")){
+        hint="單字本身接近正確，但空格位置需要注意。";
+      }else if(Math.abs(norm(yours).length-norm(item.en).length)<=2){
+        hint="很接近，主要是拼字錯誤。請比較每一個字母。";
+      }else{
+        hint="中文意思與英文單字沒有完全對上，請重新記一次這個字。";
+      }
+
+      stats.wrongs.push(["中翻英",item.zh,yours,item.en,hint]);
+      $("qFeedback").className="bad";
+      $("qFeedback").innerHTML=
+        '✗ 再看一次'+
+        '<div class="explainBox" style="margin-top:12px"><b>錯在哪？</b><br>'+
+        escapeHtml(hint)+
+        '<br>你的答案：<b>'+escapeHtml(yours||"（未作答）")+'</b>'+
+        '<br>✅ 正確答案：<b>'+escapeHtml(item.en)+'</b>'+
+        pronunciationButtons(item.en)+
+        '</div>';
+    }
+    save();
+    update();
+    renderMissions();
+    renderDailyDashboard();
+  }catch(err){
+    console.error("中翻英送出錯誤",err);
+    const fb=$("qFeedback");
+    if(fb){
+      fb.className="bad";
+      fb.innerHTML='<div class="explainBox"><b>系統剛剛沒有完成判定。</b><br>請按「下一題」再試一次。錯誤已被攔截，不會讓整個頁面停止。</div>';
+    }
   }
-  save();update();renderMissions();renderDailyDashboard();
 }
 $("nextQ").onclick=()=>nq();
 function ng(){g=makeGrammar();$("gZh").textContent=g.zh;$("gInput").value="";$("gFeedback").textContent="";$("gExplain").innerHTML="";$("gInput").focus();}
@@ -778,7 +812,7 @@ function renderTodayDiagnostic(){
     '日期：<b>'+dayKey()+'</b>｜今日作答：<b>'+d.answered+
     '</b>｜今日答對：<b>'+d.correct+
     '</b>｜今日星星：<b>'+d.stars+
-    '</b><br>資料版本：<b>V6.20</b>';
+    '</b><br>資料版本：<b>V6.21</b>';
 }
 if($("clearTodayOnly"))$("clearTodayOnly").onclick=()=>{
   if(!confirm("只清除今天的任務進度、今日作答、今日答對率與今日星星。累積星星、2275 單字庫、錯題本與家長設定都會保留。"))return;
@@ -789,6 +823,11 @@ if($("clearTodayOnly"))$("clearTodayOnly").onclick=()=>{
   saveMissionDay();saveDailyStats();saveAnsweredIds();
   renderMissions();renderDailyDashboard();renderLearningHistory();renderTodayDiagnostic();
 };
+
+
+if($("qInput"))$("qInput").addEventListener("keydown",function(e){
+  if(e.key==="Enter"){e.preventDefault();$("checkQ").click();}
+});
 
 document.querySelector('nav button[data-page="home"]').classList.add("navactive");
 document.querySelectorAll(".goPage").forEach(b=>b.onclick=()=>document.querySelector(`nav button[data-page="${b.dataset.go}"]`).click());
