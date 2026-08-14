@@ -5,7 +5,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<title>英文學習基地 V6.38</title>
+<title>英文學習基地 V6.39</title>
 <style>
 :root{
  --bg:#f4f7fb;--panel:#fff;--ink:#263248;--muted:#7b879b;--line:#e7ebf2;
@@ -154,10 +154,10 @@ table{width:100%;border-collapse:collapse}td,th{padding:11px 10px;border-bottom:
 </style>
 </head>
 <body>
-<header><div class="headrow"><div><h1>📘 <span id="siteTitleText">我的英文學習基地</span></h1><small>每天一點點，英文慢慢變簡單</small></div><div style="display:flex;gap:8px;flex-wrap:wrap"><span class="countpill" id="profileBadge">本機個人版</span><span class="countpill"><span id="wordBankBadge">2275 單字庫</span></span><span class="modeBadge">🔄 V6.38 核心＋個人字庫</span><span class="modeBadge">🇺🇸 美式發音＋錯題解析</span></div></div>
+<header><div class="headrow"><div><h1>📘 <span id="siteTitleText">我的英文學習基地</span></h1><small>每天一點點，英文慢慢變簡單</small></div><div style="display:flex;gap:8px;flex-wrap:wrap"><span class="countpill" id="profileBadge">本機個人版</span><span class="countpill"><span id="wordBankBadge">2275 單字庫</span></span><span class="modeBadge">🔄 V6.39 核心＋英翻中闖關</span><span class="modeBadge">🇺🇸 美式發音＋錯題解析</span></div></div>
 <nav>
 <button data-page="home">🏠 今日任務</button><button data-page="words">🧠 單字卡</button>
-<button data-page="quiz">✍️ 中翻英</button><button data-page="grammar">🧩 文法</button>
+<button data-page="quiz">✍️ 中翻英</button><button data-page="en2zh">🔤 英翻中</button><button data-page="grammar">🧩 文法</button>
 <button data-page="reading">📖 小短文</button><button data-page="context">📝 情境題</button>
 <button data-page="wrong">🔁 錯題本</button><button data-page="parent" id="parentNav">🔒 家長專區</button>
 </nav>
@@ -304,12 +304,13 @@ table{width:100%;border-collapse:collapse}td,th{padding:11px 10px;border-bottom:
 <div class="parentMissionGrid">
 <label>📝 情境題<input id="missionContext" type="number" min="0" max="50"></label>
 <label>✍️ 中翻英<input id="missionTranslate" type="number" min="0" max="50"></label>
+<label>🔤 英翻中<input id="missionEn2zh" type="number" min="0" max="50"></label>
 <label>🧩 文法練習<input id="missionGrammar" type="number" min="0" max="50"></label>
 <label>📖 小短文<input id="missionReading" type="number" min="0" max="20"></label>
 </div>
 <button class="primary" id="saveMissions">儲存今日任務</button>
 <button class="ghost" id="resetTodayMission" style="margin-left:8px">今日進度歸零</button>
-<p class="muted" style="margin-top:12px">闖關只計中翻英、文法、情境題、小短文；單字卡不計闖關。「下一題／下一個／換一篇」都不計分。</p>
+<p class="muted" style="margin-top:12px">闖關計入中翻英、英翻中、文法、情境題、小短文；單字卡不計闖關。「下一題／下一個／換一篇」都不計分。</p>
 </div><div class="card">
 <h3>📊 每日學習紀錄</h3>
 <p class="muted">首頁只顯示今天的結果；歷史資料保留在這裡，方便比較每天的作答狀況。</p>
@@ -562,13 +563,14 @@ const $=id=>document.getElementById(id);
 
 const MISSION_CFG_KEY="eng_mission_cfg_v64";
 const MISSION_DAY_KEY="eng_mission_day_v627";
-const defaultMission={translate:10,grammar:5,context:5,reading:2};
+const defaultMission={translate:10,en2zh:5,grammar:5,context:5,reading:2};
 function dayKey(){return new Date().toISOString().slice(0,10)}
 function loadMissionCfg(){
   try{
     const old=JSON.parse(localStorage.getItem(MISSION_CFG_KEY)||"{}");
     return {
       translate:Number(old.translate ?? defaultMission.translate),
+      en2zh:Number(old.en2zh ?? defaultMission.en2zh),
       grammar:Number(old.grammar ?? defaultMission.grammar),
       context:Number(old.context ?? defaultMission.context),
       reading:Number(old.reading ?? defaultMission.reading)
@@ -577,7 +579,7 @@ function loadMissionCfg(){
 }
 function loadMissionDay(){
  let d; try{d=JSON.parse(localStorage.getItem(MISSION_DAY_KEY)||"null")}catch(e){}
- if(!d||d.date!==dayKey()) d={date:dayKey(),translate:0,grammar:0,context:0,reading:0,bonus:{translate:false,grammar:false,context:false,reading:false,all:false},todayStars:0};
+ if(!d||d.date!==dayKey()) d={date:dayKey(),translate:0,en2zh:0,grammar:0,context:0,reading:0,bonus:{translate:false,en2zh:false,grammar:false,context:false,reading:false,all:false},todayStars:0};
  return d;
 }
 let missionCfg=loadMissionCfg(), missionDay=loadMissionDay();
@@ -798,7 +800,7 @@ function recordDailyAnswer(correct,kind){
 function addDailyStars(n){const d=todayStat();d.stars+=n;saveDailyStats();renderDailyDashboard()}
 function renderDailyDashboard(){
   const d=todayStat();
-  const keys=["translate","grammar","context","reading"];
+  const keys=["translate","en2zh","grammar","context","reading"];
   let completed=0,totalGoal=0;
   keys.forEach(k=>{
     const goal=Number(missionCfg[k]||0);
@@ -834,6 +836,7 @@ function renderLearningHistory(){
 function saveMissionDay(){localStorage.setItem(MISSION_DAY_KEY,JSON.stringify(missionDay))}
 function missionLabel(k){return {
   translate:["✍️","中翻英","quiz"],
+  en2zh:["🔤","英翻中","en2zh"],
   grammar:["🧩","文法練習","grammar"],
   context:["📝","情境題","context"],
   reading:["📖","小短文","reading"]
@@ -851,7 +854,7 @@ function levelFor(stars){
 }
 function renderMissions(){
  if(!$("missionRows"))return;
- const keys=["translate","grammar","context","reading"];
+ const keys=["translate","en2zh","grammar","context","reading"];
  let done=0,total=0;
  $("missionRows").innerHTML=keys.map(k=>{
    const x=missionLabel(k),goal=Number(missionCfg[k]||0),cur=Math.min(Number(missionDay[k]||0),goal);
@@ -871,12 +874,12 @@ function missionCredit(k){
  if(goal<=0||missionDay[k]>=goal)return;
  missionDay[k]++; missionDay.todayStars++; stats.stars++; addDailyStars(1);
  if(missionDay[k]>=goal&&!missionDay.bonus[k]){missionDay.bonus[k]=true;missionDay.todayStars+=3;stats.stars+=3;addDailyStars(3)}
- const active=["translate","grammar","context","reading"].filter(x=>Number(missionCfg[x]||0)>0);
+ const active=["translate","en2zh","grammar","context","reading"].filter(x=>Number(missionCfg[x]||0)>0);
  if(active.length&&active.every(x=>missionDay[x]>=missionCfg[x])&&!missionDay.bonus.all){missionDay.bonus.all=true;missionDay.todayStars+=10;stats.stars+=10;addDailyStars(10)}
  saveMissionDay();save();update();renderMissions();renderDailyDashboard();
 }
 function initMissionParent(){
- const map={missionTranslate:"translate",missionGrammar:"grammar",missionContext:"context",missionReading:"reading"};
+ const map={missionTranslate:"translate",missionEn2zh:"en2zh",missionGrammar:"grammar",missionContext:"context",missionReading:"reading"};
  Object.entries(map).forEach(([id,k])=>{if($(id))$(id).value=missionCfg[k]});
 }
 
@@ -1083,7 +1086,7 @@ function renderWords(){
  if($("wordBankBadge"))$("wordBankBadge").textContent=words.length+" 單字庫";
 };
 
-$("backup").onclick=()=>{const all={};for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);all[k]=localStorage.getItem(k)}const payload={format:"english-learning-local-backup",version:"V6.38",exportedAt:new Date().toISOString(),data:all};const blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="英文學習基地_我的版本_"+dayKey()+".json";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500);}
+$("backup").onclick=()=>{const all={};for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);all[k]=localStorage.getItem(k)}const payload={format:"english-learning-local-backup",version:"V6.39",exportedAt:new Date().toISOString(),data:all};const blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="英文學習基地_我的版本_"+dayKey()+".json";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500);}
 $("restore").onclick=()=>{const f=$("restoreFile").files[0];if(!f){alert("請先選擇備份檔。");return}const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(d&&d.format==="english-learning-local-backup"&&d.data){Object.entries(d.data).forEach(([k,v])=>{if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,String(v))})}else{if(d.words)localStorage.setItem(WORDS_KEY,JSON.stringify(d.words));if(d.stats)localStorage.setItem(STATS_KEY,JSON.stringify(d.stats))}alert("還原完成，頁面將重新整理。");location.reload()}catch(e){alert("備份檔格式不正確。")}};r.readAsText(f);}
 const PIN_KEY="english_parent_pin";function getParentPin(){return localStorage.getItem(PIN_KEY)||"2580";}function tryPin(){if($("pinInput").value===getParentPin()){parentUnlocked=true;$("pinOverlay").classList.remove("show");openPage($("parentNav"));}else{$("pinMsg").textContent="PIN 不正確，請再試一次。";}}$("pinEnter").onclick=tryPin;$("pinInput").addEventListener("keydown",e=>{if(e.key==="Enter")tryPin();});$("pinCancel").onclick=()=>$("pinOverlay").classList.remove("show");$("parentLogout").onclick=()=>{parentUnlocked=false;openPage(document.querySelector('nav button[data-page="home"]'));};$("savePin").onclick=()=>{const v=$("newPin").value.trim();if(!/^\d{4}$/.test(v)){alert("請輸入 4 位數字 PIN。");return;}localStorage.setItem(PIN_KEY,v);$("newPin").value="";alert("家長 PIN 已更新。");};
 
@@ -1092,6 +1095,7 @@ const PIN_KEY="english_parent_pin";function getParentPin(){return localStorage.g
 if($("saveMissions"))$("saveMissions").onclick=()=>{
  missionCfg={
   translate:Math.max(0,Number($("missionTranslate").value)||0),
+  en2zh:Math.max(0,Number($("missionEn2zh").value)||0),
   grammar:Math.max(0,Number($("missionGrammar").value)||0),
   context:Math.max(0,Number($("missionContext").value)||0),
   reading:Math.max(0,Number($("missionReading").value)||0)
@@ -1101,7 +1105,7 @@ if($("saveMissions"))$("saveMissions").onclick=()=>{
 };
 if($("resetTodayMission"))$("resetTodayMission").onclick=()=>{
  if(!confirm("確定只把今天的闖關進度歸零嗎？累積總星星不會清除。"))return;
- missionDay={date:dayKey(),translate:0,grammar:0,context:0,reading:0,bonus:{translate:false,grammar:false,context:false,reading:false,all:false},todayStars:0};
+ missionDay={date:dayKey(),translate:0,en2zh:0,grammar:0,context:0,reading:0,bonus:{translate:false,en2zh:false,grammar:false,context:false,reading:false,all:false},todayStars:0};
  dailyStatsAll[dayKey()]={answered:0,correct:0,stars:0,wordDone:0};
  dailyAnsweredIdsAll[dayKey()]={};
  saveDailyStats();saveAnsweredIds();
@@ -1223,7 +1227,7 @@ function renderTodayDiagnostic(){
 }
 if($("clearTodayOnly"))$("clearTodayOnly").onclick=()=>{
   if(!confirm("只清除今天的任務進度、今日作答、今日答對率與今日星星。累積星星、2275 單字庫、錯題本與家長設定都會保留。"))return;
-  missionDay={date:dayKey(),word:0,translate:0,grammar:0,reading:0,
+  missionDay={date:dayKey(),word:0,translate:0,en2zh:0,grammar:0,reading:0,
     bonus:{word:false,translate:false,grammar:false,reading:false,all:false},todayStars:0};
   dailyStatsAll[dayKey()]={answered:0,correct:0,stars:0,wordDone:0};
   dailyAnsweredIdsAll[dayKey()]={};
@@ -1660,7 +1664,7 @@ window.addEventListener("pageshow",function(){setTimeout(ensureQuizQuestion,0);}
    (aliases[String(w.en||"").toLowerCase()]||[]).forEach(x=>a.push(clean(x)));return [...new Set(a)];
  }
  function next(){const pool=(typeof getActiveWords==="function"?getActiveWords():words).filter(w=>w&&w.en&&w.zh);cur=pool[Math.floor(Math.random()*pool.length)];if(!cur)return;document.getElementById("e2zWord").textContent=cur.en;document.getElementById("e2zInput").value="";document.getElementById("e2zFeedback").innerHTML=""}
- function submit(){if(!cur)return;const inp=document.getElementById("e2zInput"),y=clean(inp.value);if(!y){document.getElementById("e2zFeedback").innerHTML='<div class="bad">請先輸入答案。</div>';return}const ok=accepted(cur).some(a=>a===y||(a.length>=2&&(a.includes(y)||y.includes(a))));const fb=document.getElementById("e2zFeedback");if(ok){fb.innerHTML='<div class="good">✅ 答對了！<br><b>'+esc(cur.en)+'</b>：'+esc(cur.zh)+'</div>';try{recordDailyAnswerOnce("en2zh",cur.en,true);markWrongImproved("英翻中",cur.en)}catch(e){}}else{fb.innerHTML='<div class="bad">❌ 再看一次：<b>'+esc(cur.en)+'</b>＝'+esc(cur.zh)+'</div>';try{recordDailyAnswerOnce("en2zh",cur.en,false);addWrongReview("英翻中",cur.en,inp.value,cur.zh,"字義／中文意思需要再確認。")}catch(e){}}try{save();renderWrong();renderDailyDashboard()}catch(e){}}
+ function submit(){if(!cur)return;const inp=document.getElementById("e2zInput"),y=clean(inp.value);if(!y){document.getElementById("e2zFeedback").innerHTML='<div class="bad">請先輸入答案。</div>';return}const ok=accepted(cur).some(a=>a===y||(a.length>=2&&(a.includes(y)||y.includes(a))));const fb=document.getElementById("e2zFeedback");if(ok){fb.innerHTML='<div class="good">✅ 答對了！<br><b>'+esc(cur.en)+'</b>：'+esc(cur.zh)+'</div>';try{recordDailyAnswerOnce("en2zh",cur.en,true);markWrongImproved("英翻中",cur.en)}catch(e){}}else{fb.innerHTML='<div class="bad">❌ 再看一次：<b>'+esc(cur.en)+'</b>＝'+esc(cur.zh)+'</div>';try{recordDailyAnswerOnce("en2zh",cur.en,false);addWrongReview("英翻中",cur.en,inp.value,cur.zh,"字義／中文意思需要再確認。")}catch(e){}}try{missionCredit("en2zh");save();renderWrong();renderDailyDashboard()}catch(e){}}
  function csvCell(v){return '"'+String(v??"").replace(/"/g,'""')+'"'}
  function exportRows(activeOnly){const rows=[["狀態","題型","題目","孩子答案","正確答案","錯誤類型／說明","複習進度"]],table=document.querySelector("#wrongBody")?.closest("table");if(!table)return rows;[...table.querySelectorAll("tbody tr")].forEach(tr=>{const state=tr.dataset.reviewState||"pending";if(activeOnly&&state==="mastered")return;const td=[...tr.querySelectorAll("td")].map(x=>x.innerText.trim());if(td.length<4)return;rows.push([state==="mastered"?"已掌握":state==="reviewing"?"複習中":"待複習",td[0],td[1],td[2],td[3],td[4]||"",tr.querySelector(".wbProgress")?.innerText||""])});return rows}
  function download(rows,name){const csv="\uFEFF"+rows.map(r=>r.map(csvCell).join(",")).join("\r\n"),blob=new Blob([csv],{type:"text/csv;charset=utf-8"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name+".csv";document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)}
