@@ -1,1 +1,276 @@
 
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>私中備考中心｜復旦 × 六和</title>
+<style>
+:root{
+  --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
+  --blue:#647be8;--blue2:#eef2ff;--green:#3aa477;--orange:#eaa13c;--red:#d45e70;
+  --nav:#273149;--shadow:0 10px 30px rgba(38,50,72,.07)
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Microsoft JhengHei","Noto Sans TC",Arial,sans-serif;background:var(--bg);color:var(--ink)}
+.app{display:grid;grid-template-columns:250px 1fr;min-height:100vh}
+aside{background:var(--nav);color:white;padding:22px 15px;position:sticky;top:0;height:100vh}
+.brand{font-size:21px;font-weight:900;padding:5px 9px 18px}
+.brand small{display:block;color:#adb8ce;font-size:12px;margin-top:5px;font-weight:500}
+nav button{width:100%;border:0;background:transparent;color:#d5dbeb;padding:12px 13px;text-align:left;border-radius:11px;margin:3px 0;cursor:pointer;font:inherit}
+nav button.active,nav button:hover{background:#3b4665;color:#fff}
+main{padding:27px;max-width:1450px;width:100%;margin:auto}
+.top{display:flex;justify-content:space-between;gap:18px;align-items:center;margin-bottom:20px}
+h1{margin:0;font-size:27px}.muted{color:var(--muted);font-size:13px}
+.badges{display:flex;gap:7px;flex-wrap:wrap}.badge{padding:7px 10px;border:1px solid var(--line);background:#fff;border-radius:999px;font-size:12px}.badge.primary{background:var(--blue2);color:#4960c6}
+.page{display:none}.page.active{display:block}
+.grid{display:grid;gap:16px}.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:repeat(2,1fr)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:var(--shadow);margin-bottom:16px}
+.card h3{margin:0 0 12px}.kpi{font-size:30px;font-weight:900;margin:4px 0}
+.tag{display:inline-block;padding:5px 8px;border-radius:999px;background:#f0f3f8;color:#5e687e;font-size:12px;margin-right:4px}
+.tag.good{background:#e9f7f0;color:#247c59}.tag.warn{background:#fff1dd;color:#9f651e}.tag.bad{background:#fde9ec;color:#a8444d}
+.btn{border:0;border-radius:11px;padding:10px 14px;background:var(--blue);color:white;cursor:pointer;font:inherit;text-decoration:none;display:inline-block}
+.btn.secondary{background:#eef1f7;color:#36415b}.btn.ghost{background:white;border:1px solid var(--line);color:#46516e}
+.progress{height:9px;background:#edf0f5;border-radius:99px;overflow:hidden}.progress span{display:block;height:100%;background:linear-gradient(90deg,#637be8,#9da9ff)}
+.callout{border-left:4px solid var(--blue);background:#f1f4ff;border-radius:12px;padding:13px 15px}
+.subject-card{cursor:pointer;transition:.18s}.subject-card:hover{transform:translateY(-2px);border-color:#cdd5fa}
+.subject-icon{font-size:30px;margin-bottom:8px}.subject-card b{font-size:18px}
+table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:10px 8px;border-bottom:1px solid var(--line);text-align:left}th{font-size:12px;color:#667085}
+input,select{width:100%;padding:10px;border:1px solid #dce2eb;border-radius:10px;font:inherit;background:white}
+label{font-size:13px;color:#616a7d;display:block;margin-bottom:5px}
+.formgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.english-frame-wrap{background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:var(--shadow)}
+.english-head{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:17px 20px;border-bottom:1px solid var(--line);background:#fbfcff}
+iframe{width:100%;height:72vh;border:0;background:#fff}
+.protect{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.protect div{background:#f8faff;border:1px solid var(--line);border-radius:13px;padding:12px}
+.task{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
+.task input{width:18px;height:18px}
+@media(max-width:950px){
+ .app{grid-template-columns:1fr}aside{height:auto;position:relative}.navrow{display:flex;overflow:auto}nav button{min-width:130px}
+ .g4,.g3,.g2,.formgrid,.protect{grid-template-columns:1fr}main{padding:16px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<aside>
+  <div class="brand">🎯 私中備考中心<small>復旦 × 六和｜小五起跑</small></div>
+  <nav class="navrow">
+    <button class="active" data-page="home">🏠 今日學習</button>
+    <button data-page="chinese">📖 國文</button>
+    <button data-page="math">🧮 數學</button>
+    <button data-page="english">🇺🇸 英文原系統</button>
+    <button data-page="history">📚 歷屆題</button>
+    <button data-page="damankuan">📘 大滿貫</button>
+    <button data-page="wrong">🔁 三科弱點</button>
+    <button data-page="parent">🔒 家長中心</button>
+  </nav>
+</aside>
+
+<main>
+<div class="top">
+  <div>
+    <h1>一個入口，三科分工。</h1>
+    <div class="muted">英文 V6.38 完整保留；國文、數學與私中訓練往外擴充。</div>
+  </div>
+  <div class="badges"><span class="badge primary">第一目標：復旦</span><span class="badge">第二目標：六和</span><span class="badge">目前：小五</span></div>
+</div>
+
+<section id="home" class="page active">
+  <div class="grid g4">
+    <div class="card"><div class="muted">今日完成率</div><div class="kpi" id="rate">0%</div><div class="progress"><span id="bar" style="width:0%"></span></div></div>
+    <div class="card"><div class="muted">今日預估時間</div><div class="kpi">40 分</div><span class="tag good">完成就停</span></div>
+    <div class="card"><div class="muted">本週優先</div><div class="kpi" style="font-size:21px">數學文字題</div><span class="tag bad">多步驟</span></div>
+    <div class="card"><div class="muted">英文狀態</div><div class="kpi" style="font-size:21px">原站保留</div><span class="tag good">V6.38</span></div>
+  </div>
+
+  <div class="grid g3">
+    <div class="card subject-card" onclick="go('chinese')"><div class="subject-icon">📖</div><b>國文</b><p class="muted">閱讀理解、字音字形、成語、推論與寫作。</p></div>
+    <div class="card subject-card" onclick="go('math')"><div class="subject-icon">🧮</div><b>數學</b><p class="muted">基礎 → 應用 → 多步驟 → 私中挑戰。</p></div>
+    <div class="card subject-card" onclick="go('english')"><div class="subject-icon">🇺🇸</div><b>英文｜保留原系統</b><p class="muted">2275 字庫、單字卡、文法、短文、情境題、錯題全部沿用。</p></div>
+  </div>
+
+  <div class="grid g2">
+    <div class="card">
+      <h3>今日任務</h3>
+      <div class="task"><input class="taskchk" type="checkbox"><div><b>數學｜文字應用 6 題</b><div class="muted">20 分鐘</div></div></div>
+      <div class="task"><input class="taskchk" type="checkbox"><div><b>國文｜閱讀理解 1 篇</b><div class="muted">15 分鐘</div></div></div>
+      <div class="task"><input class="taskchk" type="checkbox"><div><b>英文｜進原英文站完成既有任務</b><div class="muted">沿用原本英文闖關設定</div></div></div>
+    </div>
+    <div class="card">
+      <h3>這次整合不會動到什麼</h3>
+      <div class="protect">
+        <div><b>2275 字庫</b><div class="muted">不重建</div></div>
+        <div><b>英文錯題</b><div class="muted">不清空</div></div>
+        <div><b>星星／任務</b><div class="muted">原邏輯保留</div></div>
+        <div><b>家長資料</b><div class="muted">原站保留</div></div>
+      </div>
+      <div class="callout" style="margin-top:12px">這個整合版先把英文當成「既有成熟模組」，不是重新做一個英文頁。</div>
+    </div>
+  </div>
+</section>
+
+<section id="chinese" class="page">
+  <div class="grid g2">
+    <div class="card">
+      <h3>國文能力地圖</h3>
+      <table>
+        <tr><th>能力</th><th>階段</th><th>用途</th></tr>
+        <tr><td>字音字形／語詞</td><td><span class="tag good">基礎</span></td><td>課內穩定度</td></tr>
+        <tr><td>成語／語文常識</td><td><span class="tag good">基礎</span></td><td>辨義與應用</td></tr>
+        <tr><td>閱讀主旨</td><td><span class="tag warn">核心</span></td><td>找中心思想</td></tr>
+        <tr><td>閱讀推論</td><td><span class="tag bad">私中重點</span></td><td>從文本找證據推論</td></tr>
+        <tr><td>寫作</td><td><span class="tag warn">復旦準備</span></td><td>段落、敘事與表達</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>今日國文安排</h3>
+      <p>① 1 篇閱讀題組</p><p>② 5 題語詞／成語</p><p>③ 錯題若集中在推論，下次優先再出同能力不同文章。</p>
+      <div class="callout">小五目前不需要每天寫完整作文；先練段落、開頭、找素材。</div>
+    </div>
+  </div>
+</section>
+
+<section id="math" class="page">
+  <div class="grid g2">
+    <div class="card">
+      <h3>數學能力地圖</h3>
+      <table>
+        <tr><th>能力</th><th>目前策略</th></tr>
+        <tr><td>課內基礎計算</td><td>確認即可，不題海</td></tr>
+        <tr><td>題意判讀</td><td><span class="tag bad">優先</span></td></tr>
+        <tr><td>文字轉算式</td><td><span class="tag bad">優先</span></td></tr>
+        <tr><td>多步驟應用</td><td><span class="tag warn">逐步增加</span></td></tr>
+        <tr><td>私中推理／變化題</td><td>小五先少量接觸</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>每題都要標籤</h3>
+      <p><b>年級：</b>小五</p><p><b>單元：</b>分數</p><p><b>能力：</b>文字應用</p><p><b>難度：</b>L2 理解</p><p><b>錯因：</b>題意判讀</p>
+      <div class="callout">正式題庫不會只寫「數學題」，每題都必須知道它為什麼存在。</div>
+    </div>
+  </div>
+</section>
+
+<section id="english" class="page">
+  <div class="card">
+    <h3>英文不是重做，是保留。</h3>
+    <p class="muted">你之前的英文站已經有成熟的資料與學習邏輯。這一版直接把它當成完整英文模組。</p>
+    <div class="callout">為避免瀏覽器嵌入限制影響原本 localStorage，真正學習建議用「開啟英文原站」進入。原網址與原資料不被這個整合版覆蓋。</div>
+    <p style="margin-bottom:0">
+      <a class="btn" target="_blank" rel="noopener" href="https://c4zy8f5pkh-rgb.github.io/kate/english/">開啟英文原站</a>
+      <button class="btn secondary" onclick="document.getElementById('engFrame').classList.toggle('hidden')">顯示／隱藏內嵌預覽</button>
+    </p>
+  </div>
+  <div id="engFrame" class="english-frame-wrap">
+    <div class="english-head"><div><b>英文學習基地 V6.38</b><div class="muted">2275 字庫＋個人字庫｜原功能保留</div></div><span class="tag good">原系統</span></div>
+    <iframe src="https://c4zy8f5pkh-rgb.github.io/kate/english/" title="英文學習基地"></iframe>
+  </div>
+</section>
+
+<section id="history" class="page">
+  <div class="card">
+    <h3>歷屆題專區</h3>
+    <table>
+      <tr><th>學校</th><th>科目</th><th>小五現在怎麼用</th><th>正式考前怎麼用</th></tr>
+      <tr><td>復旦</td><td>國／數／英</td><td>拆題型、拆能力</td><td>完整限時卷</td></tr>
+      <tr><td>六和</td><td>國／數／英</td><td>抽題練習</td><td>完整限時卷</td></tr>
+    </table>
+    <div class="callout" style="margin-top:12px">歷屆題用來「校準」，類題用來「補洞」。不靠同一張考卷重複背答案。</div>
+  </div>
+</section>
+
+<section id="damankuan" class="page">
+  <div class="card">
+    <h3>大滿貫評量登錄</h3>
+    <div class="formgrid">
+      <div><label>日期</label><input id="dmDate" type="date"></div>
+      <div><label>科目</label><select id="dmSub"><option>數學</option><option>國文</option></select></div>
+      <div><label>單元</label><input id="dmUnit" placeholder="例如：分數"></div>
+      <div><label>分數</label><input id="dmScore" type="number" min="0" max="100"></div>
+    </div>
+    <div class="formgrid" style="margin-top:10px">
+      <div><label>錯題數</label><input id="dmWrong" type="number" min="0"></div>
+      <div><label>主要錯因</label><select id="dmReason"><option>觀念不熟</option><option>題意判讀</option><option>計算錯誤</option><option>粗心</option><option>時間不足</option></select></div>
+      <div style="grid-column:span 2"><label>備註</label><input id="dmNote" placeholder="例如：第 8、12 題不會列式"></div>
+    </div>
+    <button class="btn" style="margin-top:12px" onclick="saveDM()">儲存結果</button>
+    <table style="margin-top:15px"><thead><tr><th>日期</th><th>科目</th><th>單元</th><th>分數</th><th>錯因</th></tr></thead><tbody id="dmRows"></tbody></table>
+  </div>
+</section>
+
+<section id="wrong" class="page">
+  <div class="grid g3">
+    <div class="card"><div class="muted">國文主要弱點</div><div class="kpi" style="font-size:21px">待累積</div></div>
+    <div class="card"><div class="muted">數學主要弱點</div><div class="kpi" style="font-size:21px">文字應用</div></div>
+    <div class="card"><div class="muted">英文錯題</div><div class="kpi" style="font-size:21px">沿用原站</div></div>
+  </div>
+  <div class="card">
+    <h3>三科弱點判斷規則</h3>
+    <p>單次答錯 ≠ 弱點。</p>
+    <p>大滿貫、網站練習、歷屆題若重複出現相同問題，才升級成「優先補強」。</p>
+  </div>
+</section>
+
+<section id="parent" class="page">
+  <div class="grid g2">
+    <div class="card">
+      <h3>家長只需要看這些</h3>
+      <p>今日有沒有完成</p><p>本週真正弱點</p><p>下週需要補什麼</p><p>大滿貫／歷屆／網站是否指向同一問題</p>
+    </div>
+    <div class="card">
+      <h3>英文保護狀態</h3>
+      <p><span class="tag good">保留</span> 2275 核心＋個人字庫</p>
+      <p><span class="tag good">保留</span> 每日闖關</p>
+      <p><span class="tag good">保留</span> 錯題與複習追蹤</p>
+      <p><span class="tag good">保留</span> 家長 PIN／Excel 匯入／備份還原</p>
+      <div class="callout">目前先不把英文資料搬進新 key，避免一整批既有瀏覽器資料因改版失效。</div>
+    </div>
+  </div>
+</section>
+</main>
+</div>
+
+<script>
+const navBtns=[...document.querySelectorAll('nav button')];
+function go(id){
+  navBtns.forEach(b=>b.classList.toggle('active',b.dataset.page===id));
+  document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+navBtns.forEach(b=>b.onclick=()=>go(b.dataset.page));
+
+function todayProgress(){
+  const c=[...document.querySelectorAll('.taskchk')],done=c.filter(x=>x.checked).length;
+  const pct=Math.round(done/c.length*100);
+  document.getElementById('rate').textContent=pct+'%';
+  document.getElementById('bar').style.width=pct+'%';
+  localStorage.setItem('private_school_center_tasks',JSON.stringify(c.map(x=>x.checked)));
+}
+document.querySelectorAll('.taskchk').forEach(x=>x.onchange=todayProgress);
+try{
+ const s=JSON.parse(localStorage.getItem('private_school_center_tasks')||'null');
+ if(s)document.querySelectorAll('.taskchk').forEach((x,i)=>x.checked=!!s[i]);
+}catch(e){}
+todayProgress();
+
+document.getElementById('dmDate').value=new Date().toISOString().slice(0,10);
+function loadDM(){
+  const rows=JSON.parse(localStorage.getItem('private_school_dm_records')||'[]');
+  dmRows.innerHTML='';
+  rows.slice().reverse().forEach(r=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${r.date}</td><td>${r.sub}</td><td>${r.unit}</td><td>${r.score}</td><td>${r.reason}</td>`;
+    dmRows.appendChild(tr);
+  });
+}
+function saveDM(){
+  const r={date:dmDate.value,sub:dmSub.value,unit:dmUnit.value||'未填',score:dmScore.value||'-',wrong:dmWrong.value||0,reason:dmReason.value,note:dmNote.value};
+  const rows=JSON.parse(localStorage.getItem('private_school_dm_records')||'[]');rows.push(r);
+  localStorage.setItem('private_school_dm_records',JSON.stringify(rows));loadDM();
+}
+loadDM();
+</script>
+</body>
+</html>
