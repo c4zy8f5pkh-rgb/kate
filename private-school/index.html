@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>私中備考中心 V7.0｜復旦 × 六和</title>
+<title>私中備考中心 V8.0｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -109,6 +109,10 @@ iframe{width:100%;height:72vh;border:0;background:#fff}
 .sourceRow{display:flex;gap:7px;flex-wrap:wrap;margin:8px 0 0}
 .sourceLink{font-size:12px;text-decoration:none}
 
+
+/* V8 */
+.progressBoard{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}.progressCard{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px}.progressHead{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:8px}.progressTrack{height:10px;background:#edf0f7;border-radius:99px;overflow:hidden}.progressFill{height:100%;background:linear-gradient(90deg,#8798ff,#6678e8);border-radius:99px}.worldHero{background:linear-gradient(135deg,#eef8ff,#f9fbff);border:1px solid #d8e8f5;border-radius:22px;padding:20px}.worldMeta{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.worldArticle{font-size:17px;line-height:1.9;background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;margin:12px 0}.worldQ{background:#fbfcff;border:1px solid var(--line);border-radius:14px;padding:14px;margin:10px 0}.worldQ label{display:block;margin:7px 0}.reflectBox{background:#fffaf0;border:1px solid #ecdcb7;border-radius:16px;padding:16px;margin-top:14px}.recordRow{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.recordStatus{font-size:13px;color:#69758b}.miniSource{font-size:12px;color:#6a7589;line-height:1.6}@media(max-width:900px){.progressBoard{grid-template-columns:1fr}}
+
 @media(max-width:950px){
  .app{grid-template-columns:1fr}aside{height:auto;position:relative}.navrow{display:flex;overflow:auto}nav button{min-width:130px}
  .g4,.g3,.g2,.formgrid,.protect{grid-template-columns:1fr}main{padding:16px}
@@ -123,7 +127,7 @@ iframe{width:100%;height:72vh;border:0;background:#fff}
     <button type="button" class="active" data-page="home">🏠 今日學習</button>
     <button type="button" data-page="chinese">📖 國文</button>
     <button type="button" data-page="math">🧮 數學</button>
-    <button type="button" data-page="english">🇺🇸 英文原系統</button>
+    <button type="button" data-page="english">🇺🇸 英文</button>
     <button type="button" data-page="history">📚 歷屆題</button>
     <button type="button" data-page="damankuan">📘 大滿貫</button>
     <button type="button" data-page="wrong">🔁 三科弱點</button>
@@ -158,7 +162,8 @@ iframe{width:100%;height:72vh;border:0;background:#fff}
     </div>
   </div>
 
-  <div class="card" style="margin-top:16px">
+  <div class="card" style="margin-top:16px"><div class="practiceTop"><div><h3>📊 我的學習進度</h3><div class="muted">不是看做了多少題，而是看哪些能力慢慢變穩。</div></div><span class="tag">本週</span></div><div class="progressBoard"><div class="progressCard"><div class="progressHead"><b>📖 國文</b><span id="homeChPct">0%</span></div><div class="progressTrack"><div id="homeChBar" class="progressFill" style="width:0%"></div></div><div class="muted" style="margin-top:7px">形音義＋成語＋閱讀＋表達</div></div><div class="progressCard"><div class="progressHead"><b>🧮 數學</b><span id="homeMathPct">0%</span></div><div class="progressTrack"><div id="homeMathBar" class="progressFill" style="width:0%"></div></div><div class="muted" style="margin-top:7px">基礎＋應用＋多步驟</div></div><div class="progressCard"><div class="progressHead"><b>🇺🇸 英文</b><span>原系統</span></div><div class="progressTrack"><div class="progressFill" style="width:65%"></div></div><div class="muted" style="margin-top:7px">沿用英文 V6.38 資料</div></div></div></div>
+<div class="card" style="margin-top:16px">
     <h3>📅 一週學習節奏</h3>
     <div class="muted">每天只做一個主科，不把大滿貫、世說新語、網站練習全部塞在同一天。</div>
     <div class="weekPlan" id="weekPlan"></div>
@@ -240,6 +245,7 @@ iframe{width:100%;height:72vh;border:0;background:#fff}
   </div>
 </section>
 
+<section id="world" class="page"><div class="worldHero"><div class="muted">🌏 本週世界閱讀｜氣候與環境</div><h2 style="margin:7px 0">尼泊爾的冰川災害，和全球暖化有什麼關係？</h2><div class="worldMeta"><span class="sourceBadge original">小五改寫文章</span><span class="sourceBadge moe">閱讀理解</span><span class="sourceBadge idiom">思考＋表達</span></div><div class="muted">建議時間：15～20 分鐘。先讀文章，再答題，最後用自己的話說感想。</div></div><div class="card"><h3>先讀一讀</h3><div class="worldArticle">2026 年 8 月底，尼泊爾靠近中國西藏的喜馬拉雅山區發生嚴重洪災。高山上的冰、岩石和泥土大量崩落，衝入河谷後形成破壞力很強的洪水，許多道路、橋梁、村莊和水力發電設施受到影響。<br><br>科學家長期注意到，喜馬拉雅山區正在快速變暖。氣溫升高會讓冰川融化，也可能使原本被冰凍住的岩層與山坡變得比較不穩定。這並不表示每一場冰川災害都只有一個原因，但全球暖化會增加某些高山災害發生的風險。<br><br>對住在下游的人來說，真正重要的不只是「災害發生後去救援」，還包括提前監測冰川、觀察河流水位、建立預警系統，以及思考哪些地方不適合興建房屋或大型設施。氣候變遷看起來離我們很遠，但一座高山上的冰川改變，也可能影響山腳下許多人的生活。</div><div class="miniSource">文章為本站依 2026 年公開新聞與 ICIMOD 高山氣候資料重新撰寫，非新聞原文。</div></div><div class="card"><h3>讀完後想一想</h3><div class="worldQ"><b>1. 這篇文章主要想告訴我們什麼？</b><label><input type="radio" name="wq1" value="a"> 尼泊爾只需要多蓋一些橋</label><label><input type="radio" name="wq1" value="b"> 高山冰川災害與暖化風險、監測和預警有關</label><label><input type="radio" name="wq1" value="c"> 所有洪水都是冰川造成的</label></div><div class="worldQ"><b>2. 為什麼文章說「不能只等災害發生後才救援」？</b><label><input type="radio" name="wq2" value="a"> 因為提前監測和預警可能降低傷害</label><label><input type="radio" name="wq2" value="b"> 因為救援完全沒有用</label><label><input type="radio" name="wq2" value="c"> 因為冰川永遠不會再融化</label></div><div class="worldQ"><b>3. 「風險」在這篇文章裡最接近哪個意思？</b><label><input type="radio" name="wq3" value="a"> 一定會發生的事情</label><label><input type="radio" name="wq3" value="b"> 可能發生危險或損失的程度</label><label><input type="radio" name="wq3" value="c"> 很漂亮的自然景觀</label></div><button type="button" class="btn" id="worldCheck">檢查答案</button><div id="worldFeedback" class="feedbackBox" style="display:none"></div></div><div class="card"><h3>🎙 用自己的話說</h3><div class="reflectBox"><b>30～60 秒就好：</b><div style="margin-top:7px">「看完這篇文章，我原本不知道＿＿＿＿。現在我覺得＿＿＿＿，因為＿＿＿＿。」</div><div class="recordRow"><button type="button" class="btn" id="recordStart">開始錄音</button><button type="button" class="btn secondary" id="recordStop" disabled>停止</button><span id="recordStatus" class="recordStatus">尚未錄音</span></div><audio id="recordPlayback" controls style="display:none;width:100%;margin-top:10px"></audio><textarea id="worldReflection" class="shortWrite" placeholder="不方便錄音時，也可以打 2～3 句感想。"></textarea></div></div></section>
 <section id="math" class="page">
   <div class="childHero kidOnly">
     <div class="missionPanel">
@@ -470,6 +476,8 @@ function savePractice(){
   SafeStore.set(PS_STATS_KEY,JSON.stringify(psStats));
   SafeStore.set(PS_WRONG_KEY,JSON.stringify(psWrongs));
   renderPracticeStats();renderPracticeWrongs();
+function renderLearningProgress(){const ch=psStats.chinese||{answered:0,correct:0},mt=psStats.math||{answered:0,correct:0};const chPct=ch.answered?Math.round(ch.correct/ch.answered*100):0;const mtPct=mt.answered?Math.round(mt.correct/mt.answered*100):0;const c1=document.getElementById("homeChPct"),c2=document.getElementById("homeChBar"),m1=document.getElementById("homeMathPct"),m2=document.getElementById("homeMathBar");if(c1)c1.textContent=chPct+"%";if(c2)c2.style.width=chPct+"%";if(m1)m1.textContent=mtPct+"%";if(m2)m2.style.width=mtPct+"%";}
+renderLearningProgress();
 }
 
 function renderPracticeStats(){
@@ -640,20 +648,34 @@ if(document.getElementById("chSubmitText"))document.getElementById("chSubmitText
 renderChCounters();
 
 const mathBank=[
- {type:"分數應用",q:"一桶果汁先喝掉全部的 1/4，又喝掉剩下的 1/3。最後剩下原本的幾分之幾？",a:["1/2","0.5"],show:"1/2",why:"第一次後剩 3/4；第二次喝掉剩下的 1/3＝原本的 1/4，所以最後剩 1/2。"},
- {type:"平均",q:"四次小考成績是 80、85、90、95 分，平均幾分？",a:["87.5","87.5分"],show:"87.5",why:"(80+85+90+95) ÷ 4 = 87.5。"},
- {type:"倍數",q:"24 和 36 的最大公因數是多少？",a:["12"],show:"12",why:"24 的因數與 36 的因數中，最大的共同因數是 12。"},
- {type:"小數應用",q:"一本筆記本 37.5 元，買 4 本共多少元？",a:["150","150元"],show:"150",why:"37.5 × 4 = 150。"},
- {type:"多步驟應用",q:"一箱有 24 瓶水，學校買了 5 箱，先用了 38 瓶，還剩多少瓶？",a:["82","82瓶"],show:"82",why:"24×5=120，120−38=82。"},
- {type:"分數比較",q:"3/4 和 5/8 哪一個比較大？請輸入較大的分數。",a:["3/4"],show:"3/4",why:"3/4＝6/8，所以 6/8 > 5/8。"},
- {type:"面積",q:"長方形長 12 公分、寬 7 公分，面積是多少平方公分？",a:["84","84平方公分","84cm2","84cm²"],show:"84",why:"12×7=84。"},
- {type:"文字轉算式",q:"某數的 3/5 是 24，這個數是多少？",a:["40"],show:"40",why:"24 ÷ 3 × 5 = 40。"}
+{id:"m01",type:"整數應用",level:1,q:"一箱有 24 瓶水，買 5 箱後用了 38 瓶，還剩多少瓶？",a:["82","82瓶"],show:"82",why:"24×5=120，120−38=82。"},
+{id:"m02",type:"平均",level:1,q:"四次小考成績是 80、85、90、95 分，平均幾分？",a:["87.5","87.5分"],show:"87.5",why:"總分350，350÷4=87.5。"},
+{id:"m03",type:"因數倍數",level:1,q:"24 和 36 的最大公因數是多少？",a:["12"],show:"12",why:"兩數共同因數中最大的是12。"},
+{id:"m04",type:"小數應用",level:1,q:"一本筆記本 37.5 元，買 4 本共多少元？",a:["150","150元"],show:"150",why:"37.5×4=150。"},
+{id:"m05",type:"分數比較",level:1,q:"3/4 和 5/8 哪一個比較大？請輸入較大的分數。",a:["3/4"],show:"3/4",why:"3/4＝6/8，大於5/8。"},
+{id:"m06",type:"面積",level:1,q:"長方形長 12 公分、寬 7 公分，面積是多少平方公分？",a:["84","84平方公分","84cm2","84cm²"],show:"84",why:"12×7=84。"},
+{id:"m07",type:"文字轉算式",level:2,q:"某數的 3/5 是 24，這個數是多少？",a:["40"],show:"40",why:"24÷3×5=40。"},
+{id:"m08",type:"分數應用",level:2,q:"一桶果汁先喝掉全部的 1/4，又喝掉剩下的 1/3。最後剩下原本的幾分之幾？",a:["1/2","0.5"],show:"1/2",why:"先剩3/4，再喝掉其中1/3，也就是原本1/4，因此剩1/2。"},
+{id:"m09",type:"多步驟",level:2,q:"一盒彩色筆有 18 枝，買 6 盒後平均分給 9 人，每人幾枝？",a:["12","12枝"],show:"12",why:"18×6=108，108÷9=12。"},
+{id:"m10",type:"時間",level:1,q:"電影下午 2:35 開始，播放 1 小時 45 分，幾點結束？",a:["4:20","16:20","下午4:20","下午4點20分"],show:"下午 4:20",why:"2:35＋1:45＝4:20。"},
+{id:"m11",type:"單位換算",level:1,q:"2.5 公尺等於多少公分？",a:["250","250公分"],show:"250",why:"2.5×100＝250。"},
+{id:"m12",type:"周長",level:1,q:"正方形邊長 9 公分，周長是多少公分？",a:["36","36公分"],show:"36",why:"9×4＝36。"},
+{id:"m13",type:"多步驟",level:2,q:"商店有 240 顆糖，每 8 顆裝一袋，已經賣出 17 袋，還剩多少顆？",a:["104","104顆"],show:"104",why:"240−8×17＝104。"},
+{id:"m14",type:"小數應用",level:2,q:"每公斤蘋果 68.5 元，買 2 公斤要多少元？",a:["137","137元"],show:"137",why:"68.5×2＝137。"},
+{id:"m15",type:"分數應用",level:2,q:"一條繩子長 12 公尺，用掉全長的 1/3，還剩多少公尺？",a:["8","8公尺"],show:"8",why:"12×1/3＝4，剩8公尺。"},
+{id:"m16",type:"平均",level:2,q:"5 個人的平均體重是 36 公斤，5 人總體重是多少公斤？",a:["180","180公斤"],show:"180",why:"36×5＝180。"},
+{id:"m17",type:"邏輯推理",level:3,q:"有一個兩位數，十位數是個位數的 2 倍，兩個數字相加是 9。這個兩位數是多少？",a:["63"],show:"63",why:"個位3、十位6。"},
+{id:"m18",type:"多步驟",level:3,q:"校外教學有 156 人，每輛遊覽車最多坐 40 人，至少需要幾輛車？",a:["4","4輛"],show:"4",why:"156÷40＝3餘36，所以需要4輛。"},
+{id:"m19",type:"圖表概念",level:2,q:"小明一週閱讀時間：週一20分、週二35分、週三25分、週四40分、週五30分。五天共閱讀多少分鐘？",a:["150","150分鐘"],show:"150",why:"20+35+25+40+30＝150。"},
+{id:"m20",type:"分數應用",level:3,q:"一本書第一天看了全書的 2/5，第二天看了剩下部分的 1/3。兩天共看了全書的幾分之幾？",a:["3/5","0.6"],show:"3/5",why:"第二天看3/5的1/3＝1/5，共看3/5。"}
 ];
 let mathCurrent=null, mathStreak=0, mathTodayCount=0;
 
+const MATH_QUEUE_KEY="private_school_math_queue_v8";function mathDayKey(){return new Date().toLocaleDateString("sv-SE")}function newMathQueue(){return {date:mathDayKey(),shown:[],answers:{}}}function loadMathQueue(){try{const x=JSON.parse(SafeStore.get(MATH_QUEUE_KEY,"null"));return (!x||x.date!==mathDayKey())?newMathQueue():x}catch(e){return newMathQueue()}}let mathQueue=loadMathQueue();function saveMathQueue(){SafeStore.set(MATH_QUEUE_KEY,JSON.stringify(mathQueue))}function chooseMathQuestion(){const pool=mathBank.filter(x=>!mathQueue.shown.includes(x.id));if(!pool.length)return null;let candidates=pool;if(mathCurrent){const varied=pool.filter(x=>x.type!==mathCurrent.type);if(varied.length)candidates=varied}const item=candidates[Math.floor(Math.random()*candidates.length)];mathQueue.shown.push(item.id);saveMathQueue();return item;}
 function normMath(v){return String(v||"").trim().toLowerCase().replace(/\s+/g,"").replace(/平方公分/g,"平方公分")}
 function nextMath(){
-  mathCurrent=mathBank[Math.floor(Math.random()*mathBank.length)];
+  mathCurrent=chooseMathQuestion();
+  if(!mathCurrent){document.getElementById("mathQuestion").innerHTML="🎉 今天的數學題已全部完成，不再重複出題。";document.getElementById("mathInput").style.display="none";document.getElementById("mathStart").style.display="none";document.getElementById("mathSubmit").style.display="none";document.getElementById("mathNext").style.display="none";document.getElementById("mathTypeTag").textContent="今日完成";return;}
   mathTodayCount++;
   const mtc=document.getElementById("mathTodayCount");if(mtc)mtc.textContent="今日 "+mathTodayCount+" 題";
   document.getElementById("mathTypeTag").textContent=mathCurrent.type;
@@ -670,7 +692,7 @@ function submitMath(){
   const inp=document.getElementById("mathInput"),v=inp.value.trim();if(!v)return;
   const ok=mathCurrent.a.some(x=>normMath(x)===normMath(v));
   psStats.math.answered++;if(ok){psStats.math.correct++;mathStreak++;}else{mathStreak=0;} const ms=document.getElementById("mathStreak");if(ms)ms.textContent="連續答對 "+mathStreak;
-  if(!ok)addPracticeWrong("數學",mathCurrent.type,mathCurrent.q,v,mathCurrent.show);
+  mathQueue.answers[mathCurrent.id]=ok?"correct":"wrong";saveMathQueue();if(!ok)addPracticeWrong("數學",mathCurrent.type,mathCurrent.q,v,mathCurrent.show);
   const f=document.getElementById("mathFeedback");f.style.display="block";f.innerHTML=(ok?"✅ 答對了。":"❌ 這題答錯。正確答案：<b>"+mathCurrent.show+"</b>")+"<br>"+mathCurrent.why;
   inp.disabled=true;document.getElementById("mathSubmit").style.display="none";document.getElementById("mathNext").style.display="";
   savePractice();
@@ -802,6 +824,7 @@ if(document.getElementById("parentModeToggle"))document.getElementById("parentMo
   }
   document.documentElement.setAttribute("data-app-ready","1");
 })();
+if(document.getElementById("worldCheck"))document.getElementById("worldCheck").onclick=()=>{const ans={wq1:"b",wq2:"a",wq3:"b"};let score=0;Object.entries(ans).forEach(([n,v])=>{const el=document.querySelector(`input[name="${n}"]:checked`);if(el&&el.value===v)score++});const f=document.getElementById("worldFeedback");f.style.display="block";f.innerHTML=`你答對 ${score} / 3 題。<br>${score===3?"✅ 很好，你已抓到文章的主旨與因果關係。":"🔎 再回文章找『暖化、風險、監測與預警』這幾個關鍵字。"}`};let mediaRecorder=null,recordChunks=[];const rs=document.getElementById("recordStart"),reStop=document.getElementById("recordStop"),rstatus=document.getElementById("recordStatus"),play=document.getElementById("recordPlayback");if(rs)rs.onclick=async()=>{if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){rstatus.textContent="此瀏覽器不支援錄音，可改用文字感想。";return}try{const stream=await navigator.mediaDevices.getUserMedia({audio:true});recordChunks=[];mediaRecorder=new MediaRecorder(stream);mediaRecorder.ondataavailable=e=>{if(e.data.size)recordChunks.push(e.data)};mediaRecorder.onstop=()=>{const blob=new Blob(recordChunks,{type:mediaRecorder.mimeType||"audio/webm"});play.src=URL.createObjectURL(blob);play.style.display="block";stream.getTracks().forEach(t=>t.stop());rstatus.textContent="✅ 錄音完成，可以播放聽聽看。"};mediaRecorder.start();rs.disabled=true;reStop.disabled=false;rstatus.textContent="🎙 錄音中…"}catch(e){rstatus.textContent="無法取得麥克風權限，可改用文字感想。"}};if(reStop)reStop.onclick=()=>{if(mediaRecorder&&mediaRecorder.state!=="inactive"){mediaRecorder.stop();rs.disabled=false;reStop.disabled=true}};
 </script>
 
 </body>
