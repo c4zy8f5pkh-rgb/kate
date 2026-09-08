@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>私中備考中心 V6.3｜復旦 × 六和</title>
+<title>私中備考中心 V7.0｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -101,6 +101,14 @@ iframe{width:100%;height:72vh;border:0;background:#fff}
 .parentMode .kidOnly{display:none}
 @media(max-width:800px){.childHero{grid-template-columns:1fr}}
 
+
+.sourceBadge{display:inline-flex;align-items:center;gap:5px;padding:5px 9px;border-radius:999px;font-size:12px;border:1px solid var(--line);background:#fff;color:#5e6a7f}
+.sourceBadge.moe{background:#eef8f2;border-color:#cfe7d7;color:#2f6b49}
+.sourceBadge.idiom{background:#fff5e8;border-color:#efd9b6;color:#8a5a1f}
+.sourceBadge.original{background:#f2f4ff;border-color:#d9defa;color:#5868aa}
+.sourceRow{display:flex;gap:7px;flex-wrap:wrap;margin:8px 0 0}
+.sourceLink{font-size:12px;text-decoration:none}
+
 @media(max-width:950px){
  .app{grid-template-columns:1fr}aside{height:auto;position:relative}.navrow{display:flex;overflow:auto}nav button{min-width:130px}
  .g4,.g3,.g2,.formgrid,.protect{grid-template-columns:1fr}main{padding:16px}
@@ -184,6 +192,7 @@ iframe{width:100%;height:72vh;border:0;background:#fff}
   </div>
 
   <div class="card kidOnly">
+    <div class="kidTip" style="margin-bottom:12px">知識題會標示教育部來源；閱讀、句子與寫作則標示「原創題」。</div>
     <div class="practiceTop">
       <div>
         <h3>國文實戰</h3>
@@ -198,13 +207,13 @@ iframe{width:100%;height:72vh;border:0;background:#fff}
       <button type="button" class="topicChip" data-filter="字形">字形</button>
       <button type="button" class="topicChip" data-filter="字義">字義</button>
       <button type="button" class="topicChip" data-filter="成語">成語</button>
-      <button type="button" class="topicChip" data-filter="短文閱讀">短文</button>
-      <button type="button" class="topicChip" data-filter="閱讀推論">推論</button>
-      <button type="button" class="topicChip" data-filter="句子重組">句子</button>
+      <button type="button" class="topicChip" data-filter="短文閱讀">短文閱讀</button>
+      <button type="button" class="topicChip" data-filter="閱讀推論">閱讀推論</button>
+      <button type="button" class="topicChip" data-filter="句子重組">句子重組</button>
       <button type="button" class="topicChip" data-filter="短寫作">短寫作</button>
     </div>
 
-    <div id="chQuestion" class="questionBox">按「開始國文練習」出題。</div>
+    <div id="chQuestion" class="questionBox">按「開始國文練習」出題。</div><div id="chSourceRow" class="sourceRow"></div>
     <div id="chChoices" class="choiceGrid"></div>
     <div id="chExtra"></div>
     <div id="chFeedback" class="feedbackBox" style="display:none"></div>
@@ -488,26 +497,21 @@ function renderPracticeWrongs(){
 }
 
 const chineseBank=[
-{id:"ch01",type:"字音",q:"下列「倔強」的讀音何者正確？",choices:["ㄐㄩㄝˊ ㄐㄧㄤˋ","ㄑㄩ ㄑㄧㄤˊ","ㄐㄩㄝˋ ㄐㄧㄤ"],a:0,why:"「倔強」讀作 ㄐㄩㄝˊ ㄐㄧㄤˋ。"},
-{id:"ch02",type:"字形",q:"下列哪一個詞語的字形完全正確？",choices:["再接再勵","再接再厲","再接再礪"],a:1,why:"正確是「再接再厲」。"},
-{id:"ch03",type:"字義",q:"「一目了然」中的「了然」最接近哪個意思？",choices:["完全明白","立刻離開","非常驚訝"],a:0,why:"「了然」指清楚明白。"},
-{id:"ch04",type:"成語",q:"下列哪個成語最適合形容「做事很仔細，不放過任何小地方」？",choices:["一絲不苟","三心二意","粗枝大葉"],a:0,why:"一絲不苟就是做事認真細密。"},
-{id:"ch05",type:"成語",q:"事情還沒開始，他就一直擔心一定會失敗。最適合哪個成語？",choices:["杞人憂天","胸有成竹","水到渠成"],a:0,why:"杞人憂天比喻不必要的憂慮。"},
-{id:"ch06",type:"短文閱讀",q:"小芸第一次做蛋糕失敗了，第二次調整溫度，第三次重新控制時間，最後終於成功。這段最主要想表達？",choices:["做蛋糕很浪費時間","從失敗中修正才能進步","烤箱越熱越好"],a:1,why:"重點是她不斷從失敗中修正方法。"},
-{id:"ch07",type:"閱讀推論",q:"老師把考卷發下來後，小雯沒有先看分數，而是先把錯題圈起來。最能看出她？",choices:["只在乎分數","重視找出自己的問題","不想知道成績"],a:1,why:"先找錯題，表示她重視檢討與改進。"},
-{id:"ch08",type:"短文閱讀",q:"社區原本有一塊荒地，居民一起整理、種花、設置座椅。幾個月後，這裡成了大家散步聊天的地方。最適合的標題是？",choices:["荒地變公園","居民不愛整理","花朵很難種"],a:0,why:"主旨是荒地經整理後成為大家休閒的地方。"},
-{id:"ch09",type:"閱讀推論",q:"媽媽把雨傘放到小安書包旁，並提醒他「今天放學別急著走」。最可能的原因是？",choices:["今天可能會下雨","媽媽要他住學校","小安忘了鉛筆"],a:0,why:"雨傘與提醒放學別急著走，是天候變化的線索。"},
-{id:"ch10",type:"句子重組",q:"把下面詞語排成通順句子：①完成作業 ②小明 ③才出去玩 ④先",textAnswer:"小明先完成作業才出去玩",why:"語序應為主詞＋先做的事＋才做的事。"},
-{id:"ch11",type:"句子重組",q:"把下面詞語排成通順句子：①因為下雨 ②取消了 ③比賽 ④所以",textAnswer:"因為下雨所以比賽取消了",why:"「因為……所以……」是常見因果句型。"},
-{id:"ch12",type:"短寫作",q:"請用 2～3 句話寫出：如果你是故事中的小芸，你第三次做蛋糕前會提醒自己什麼？",open:true,why:"重點是能寫出具體、完整、有前後關係的句子。"},
-{id:"ch13",type:"短寫作",q:"請用 2～3 句話描述一次你『原本不會，後來學會』的經驗。",open:true,why:"不要求漂亮詞藻，重點是事情說得清楚。"},
-{id:"ch14",type:"字音",q:"「剎那」的「剎」應讀作？",choices:["ㄕㄚ","ㄔㄚˋ","ㄕㄚˋ"],a:1,why:"「剎那」讀作 ㄔㄚˋ ㄋㄚˋ。"},
-{id:"ch15",type:"字形",q:"下列哪一個詞語的字形完全正確？",choices:["迫不急待","迫不及待","迫不即待"],a:1,why:"正確寫法是「迫不及待」。"},
-{id:"ch16",type:"字義",q:"「共識」最接近哪個意思？",choices:["共同的看法或決定","彼此爭吵","一個人的意見"],a:0,why:"共識是多數人形成共同看法。"},
-{id:"ch17",type:"成語",q:"做事情照著固定步驟，不慌不忙，最適合哪個成語？",choices:["按部就班","手忙腳亂","一知半解"],a:0,why:"按部就班指依照條理和步驟進行。"},
-{id:"ch18",type:"短文閱讀",q:"爸爸每週日都帶小恩去市場。小恩學會比較價格、觀察食材，也逐漸知道家裡每天的餐點是怎麼準備的。這段主要在說？",choices:["市場裡的人很多","陪家人買菜也能學到生活知識","星期日不能待在家"],a:1,why:"重點是孩子從買菜過程學到生活能力。"},
-{id:"ch19",type:"閱讀推論",q:"小凱每次借書前都先看目錄，讀完後還會寫一句心得。最合理的推論是？",choices:["他有固定的閱讀方法","他不喜歡閱讀","他只看封面"],a:0,why:"看目錄、寫心得都是有策略的閱讀行為。"},
-{id:"ch20",type:"句子重組",q:"把下面詞語排成通順句子：①大家 ②合作 ③完成 ④終於 ⑤任務",textAnswer:"大家合作終於完成任務",why:"先主詞，再動作與結果。"}
+{id:"ch01",type:"字音",q:"下列「倔強」的讀音何者正確？",choices:["ㄐㄩㄝˊ ㄐㄧㄤˋ","ㄑㄩ ㄑㄧㄤˊ","ㄐㄩㄝˋ ㄐㄧㄤ"],a:0,why:"「倔強」讀作 ㄐㄩㄝˊ ㄐㄧㄤˋ。",source:"教育部《國語辭典簡編本》",sourceType:"moe",sourceUrl:"https://dict.concised.moe.edu.tw/dictView.jsp?ID=24118"},
+{id:"ch02",type:"字音",q:"「剎那」的「剎」應讀作？",choices:["ㄕㄚ","ㄔㄚˋ","ㄕㄚˋ"],a:1,why:"「剎那」讀作 ㄔㄚˋ ㄋㄚˋ，表示極短的時間。",source:"教育部《國語辭典簡編本》",sourceType:"moe",sourceUrl:"https://dict.concised.moe.edu.tw/dictView.jsp?ID=31623&la=0&powerMode=0"},
+{id:"ch03",type:"字義",q:"「一目了然」中的「了然」最接近哪個意思？",choices:["清楚明白","立刻離開","非常驚訝"],a:0,why:"「了然」就是清楚、明瞭。",source:"教育部《國語辭典簡編本》",sourceType:"moe",sourceUrl:"https://dict.concised.moe.edu.tw/dictView.jsp?ID=14417&la=0&powerMode=0"},
+{id:"ch04",type:"字義",q:"「大家經過討論後達成共識。」其中「共識」最接近哪個意思？",choices:["共同認可的觀念或想法","彼此爭吵","某一個人的意見"],a:0,why:"「共識」指共同認可的觀念或想法。",source:"教育部《國語辭典簡編本》",sourceType:"moe",sourceUrl:"https://dict.concised.moe.edu.tw/dictView.jsp?ID=17898&la=0&powerMode=0"},
+{id:"ch05",type:"字形",q:"下列哪一個詞語的字形完全正確？",choices:["迫不急待","迫不及待","迫不即待"],a:1,why:"正確寫法是「迫不及待」，意思是情況或時間急切，不能再等。",source:"教育部《國語辭典簡編本》",sourceType:"moe",sourceUrl:"https://dict.concised.moe.edu.tw/dictView.jsp?ID=2454&la=0&powerMode=0"},
+{id:"ch06",type:"成語",q:"下列哪個成語最適合形容「做事非常認真，一點也不馬虎」？",choices:["一絲不苟","三心二意","粗枝大葉"],a:0,why:"「一絲不苟」形容做事認真，一點也不馬虎。",source:"教育部《成語典》",sourceType:"idiom",sourceUrl:"https://dict.idioms.moe.edu.tw/idiomView.jsp?ID=-237&la=0&webMd=1"},
+{id:"ch07",type:"成語",q:"事情還沒開始，他就一直擔心一定會失敗。最適合哪個成語？",choices:["杞人憂天","胸有成竹","水到渠成"],a:0,why:"「杞人憂天」比喻缺乏根據且不必要的憂慮。",source:"教育部《成語典》",sourceType:"idiom",sourceUrl:"https://dict.idioms.moe.edu.tw/idiomView.jsp?ID=37&webMd=1"},
+{id:"ch08",type:"成語",q:"老師要大家按照步驟，一步一步完成實驗。最適合哪個成語？",choices:["按部就班","手忙腳亂","自相矛盾"],a:0,why:"「按部就班」比喻做事依照一定的層次、步驟進行。",source:"教育部《成語典》",sourceType:"idiom",sourceUrl:"https://dict.idioms.moe.edu.tw/idiomView.jsp?ID=-279&la=0&webMd=1"},
+{id:"ch09",type:"短文閱讀",q:"小芸第一次做蛋糕失敗了，第二次調整溫度，第三次重新控制時間，最後終於成功。這段最主要想表達？",choices:["做蛋糕很浪費時間","從失敗中修正才能進步","烤箱越熱越好"],a:1,why:"重點是她不斷從失敗中修正方法，最後成功。",source:"原創閱讀題",sourceType:"original"},
+{id:"ch10",type:"閱讀推論",q:"老師把考卷發下來後，小雯沒有先看分數，而是先把錯題圈起來。最能看出她？",choices:["只在乎分數","重視找出自己的問題","不想知道成績"],a:1,why:"先找錯題，表示她重視檢討與改進。",source:"原創閱讀題",sourceType:"original"},
+{id:"ch11",type:"短文閱讀",q:"社區原本有一塊荒地，居民一起整理、種花、設置座椅。幾個月後，這裡成了大家散步聊天的地方。最適合的標題是？",choices:["荒地變公園","居民不愛整理","花朵很難種"],a:0,why:"主旨是荒地經整理後成為大家休閒的地方。",source:"原創閱讀題",sourceType:"original"},
+{id:"ch12",type:"閱讀推論",q:"媽媽把雨傘放到小安書包旁，並提醒他「今天放學別急著走」。最可能的原因是？",choices:["今天可能會下雨","媽媽要他住學校","小安忘了鉛筆"],a:0,why:"雨傘與提醒放學別急著走，是天候變化的線索。",source:"原創閱讀題",sourceType:"original"},
+{id:"ch13",type:"句子重組",q:"把下面詞語排成通順句子：①完成作業 ②小明 ③才出去玩 ④先",textAnswer:"小明先完成作業才出去玩",why:"語序應為主詞＋先做的事＋才做的事。",source:"原創語感題",sourceType:"original"},
+{id:"ch14",type:"句子重組",q:"把下面詞語排成通順句子：①因為下雨 ②取消了 ③比賽 ④所以",textAnswer:"因為下雨所以比賽取消了",why:"「因為……所以……」是常見因果句型。",source:"原創語感題",sourceType:"original"},
+{id:"ch15",type:"短寫作",q:"請用 2～3 句話描述一次你「原本不會，後來學會」的經驗。",open:true,why:"不要求漂亮詞藻，重點是把事情說清楚、有前後關係。",source:"原創表達題",sourceType:"original"}
 ];
 let chCurrent=null,chLocked=false;
 
@@ -558,6 +562,16 @@ function resetChInput(){
   extra.innerHTML="";
   document.getElementById("chSubmitText").style.display="none";
 }
+
+function renderChineseSource(item){
+  const row=document.getElementById("chSourceRow");
+  if(!row)return;
+  if(!item){row.innerHTML="";return;}
+  const cls=item.sourceType==="idiom"?"idiom":(item.sourceType==="moe"?"moe":"original");
+  const link=item.sourceUrl?`<a class="sourceLink" href="${item.sourceUrl}" target="_blank" rel="noopener">查看來源 ↗</a>`:"";
+  row.innerHTML=`<span class="sourceBadge ${cls}">📚 ${item.source||"題目來源"}</span>${link}`;
+}
+
 function nextChinese(){
   chCurrent=chooseChineseQuestion();chLocked=false;resetChInput();
   const q=document.getElementById("chQuestion"),choices=document.getElementById("chChoices"),
@@ -565,11 +579,11 @@ function nextChinese(){
   fb.style.display="none";document.getElementById("chNext").style.display="none";
   document.getElementById("chStart").style.display="none";
   if(!chCurrent){
-    q.innerHTML="🎉 這個分類今天已經完成了。可以換別的題型，或今天先休息。";
+    q.innerHTML="🎉 這個分類今天已經完成了。可以換別的題型，或今天先休息。";renderChineseSource(null);
     choices.innerHTML="";document.getElementById("chTypeTag").textContent="完成";renderChCounters();return;
   }
   document.getElementById("chTypeTag").textContent=chCurrent.type;
-  q.textContent=chCurrent.q;choices.innerHTML="";
+  q.textContent=chCurrent.q;choices.innerHTML="";renderChineseSource(chCurrent);
   if(chCurrent.choices){
     choices.innerHTML=chCurrent.choices.map((c,i)=>`<button class="choiceBtn" data-ch="${i}">${String.fromCharCode(65+i)}. ${c}</button>`).join("");
   }else{
