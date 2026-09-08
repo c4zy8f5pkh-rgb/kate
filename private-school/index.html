@@ -61,6 +61,24 @@ iframe{width:100%;height:72vh;border:0;background:#fff}
 .miniStats>div{background:#f8faff;border:1px solid var(--line);border-radius:13px;padding:12px}
 .miniStats b{display:block;font-size:23px;margin-top:3px}
 
+
+.weekPlan{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin-top:14px}
+.dayCard{background:#fff;border:1px solid var(--line);border-radius:16px;padding:13px;min-height:150px;position:relative}
+.dayCard.today{border:2px solid var(--blue);background:#f4f6ff;box-shadow:0 7px 20px rgba(99,123,232,.10)}
+.dayName{font-weight:900;font-size:16px;margin-bottom:8px}
+.daySubject{font-size:13px;font-weight:800;margin-bottom:7px}
+.dayTask{font-size:13px;line-height:1.65;color:#58657a}
+.todayMark{position:absolute;right:9px;top:9px;font-size:11px;background:var(--blue);color:white;padding:4px 7px;border-radius:999px}
+.todayFocus{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
+.focusBox{background:linear-gradient(135deg,#f3f5ff,#fff);border:1px solid #dfe5fb;border-radius:18px;padding:20px}
+.focusTitle{font-size:23px;font-weight:900;margin:5px 0}
+.focusTasks{display:grid;gap:9px;margin-top:12px}
+.focusTask{display:flex;gap:10px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px}
+.focusTask input{width:18px;height:18px;margin-top:2px}
+.rewardBox{background:#fff8e8;border:1px solid #f0ddb1;border-radius:18px;padding:20px}
+@media(max-width:1100px){.weekPlan{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:700px){.weekPlan{grid-template-columns:1fr 1fr}.todayFocus{grid-template-columns:1fr}}
+
 @media(max-width:950px){
  .app{grid-template-columns:1fr}aside{height:auto;position:relative}.navrow{display:flex;overflow:auto}nav button{min-width:130px}
  .g4,.g3,.g2,.formgrid,.protect{grid-template-columns:1fr}main{padding:16px}
@@ -93,36 +111,33 @@ iframe{width:100%;height:72vh;border:0;background:#fff}
 </div>
 
 <section id="home" class="page active">
-  <div class="grid g4">
-    <div class="card"><div class="muted">今日完成率</div><div class="kpi" id="rate">0%</div><div class="progress"><span id="bar" style="width:0%"></span></div></div>
-    <div class="card"><div class="muted">今日預估時間</div><div class="kpi">40 分</div><span class="tag good">完成就停</span></div>
-    <div class="card"><div class="muted">本週優先</div><div class="kpi" style="font-size:21px">數學文字題</div><span class="tag bad">多步驟</span></div>
-    <div class="card"><div class="muted">英文狀態</div><div class="kpi" style="font-size:21px">原站保留</div><span class="tag good">V6.38</span></div>
+  <div class="todayFocus">
+    <div class="focusBox">
+      <div class="muted" id="todayLabel">今日學習</div>
+      <div class="focusTitle" id="todaySubjectTitle">載入中…</div>
+      <div class="muted" id="todaySubjectNote">今天只做這些，完成就停。</div>
+      <div class="focusTasks" id="todayPlanTasks"></div>
+      <div class="progress" style="margin-top:14px"><span id="todayPlanBar" style="width:0%"></span></div>
+      <div class="muted" id="todayPlanProgress" style="margin-top:7px">完成 0 / 0</div>
+    </div>
+    <div class="rewardBox">
+      <h3 style="margin-top:0">🎮 今日完成條件</h3>
+      <p><b>完成＋訂正＝今天過關</b></p>
+      <p class="muted">不用全部答對，也不會因為答錯就取消獎勵。</p>
+      <div class="callout" style="margin-top:12px">完成今天任務後，就照家裡原本規則安排平板時間。</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <h3>📅 一週學習節奏</h3>
+    <div class="muted">每天只做一個主科，不把大滿貫、世說新語、網站練習全部塞在同一天。</div>
+    <div class="weekPlan" id="weekPlan"></div>
   </div>
 
   <div class="grid g3">
-    <div class="card subject-card" onclick="go('chinese')"><div class="subject-icon">📖</div><b>國文</b><p class="muted">閱讀理解、字音字形、成語、推論與寫作。</p></div>
-    <div class="card subject-card" onclick="go('math')"><div class="subject-icon">🧮</div><b>數學</b><p class="muted">基礎 → 應用 → 多步驟 → 私中挑戰。</p></div>
-    <div class="card subject-card" onclick="go('english')"><div class="subject-icon">🇺🇸</div><b>英文｜保留原系統</b><p class="muted">2275 字庫、單字卡、文法、短文、情境題、錯題全部沿用。</p></div>
-  </div>
-
-  <div class="grid g2">
-    <div class="card">
-      <h3>今日任務</h3>
-      <div class="task"><input class="taskchk" type="checkbox"><div><b>數學｜文字應用 6 題</b><div class="muted">20 分鐘</div></div></div>
-      <div class="task"><input class="taskchk" type="checkbox"><div><b>國文｜閱讀理解 1 篇</b><div class="muted">15 分鐘</div></div></div>
-      <div class="task"><input class="taskchk" type="checkbox"><div><b>英文｜進原英文站完成既有任務</b><div class="muted">沿用原本英文闖關設定</div></div></div>
-    </div>
-    <div class="card">
-      <h3>這次整合不會動到什麼</h3>
-      <div class="protect">
-        <div><b>2275 字庫</b><div class="muted">不重建</div></div>
-        <div><b>英文錯題</b><div class="muted">不清空</div></div>
-        <div><b>星星／任務</b><div class="muted">原邏輯保留</div></div>
-        <div><b>家長資料</b><div class="muted">原站保留</div></div>
-      </div>
-      <div class="callout" style="margin-top:12px">這個整合版先把英文當成「既有成熟模組」，不是重新做一個英文頁。</div>
-    </div>
+    <div class="card subject-card" onclick="go('chinese')"><div class="subject-icon">📖</div><b>國文</b><p class="muted">大滿貫、世說新語、形音義、閱讀推論。</p></div>
+    <div class="card subject-card" onclick="go('math')"><div class="subject-icon">🧮</div><b>數學</b><p class="muted">課內觀念、大滿貫、錯題類題、多步驟。</p></div>
+    <div class="card subject-card" onclick="go('english')"><div class="subject-icon">🇺🇸</div><b>英文</b><p class="muted">配合一、四英文課，二、五做複習。</p></div>
   </div>
 </section>
 
@@ -130,7 +145,7 @@ iframe{width:100%;height:72vh;border:0;background:#fff}
   <div class="grid g2">
     <div class="card">
       <div class="practiceTop">
-        <div><h3>國文實戰練習</h3><div class="muted">小五程度起步｜閱讀、語詞、成語、推論｜24 題輪替，當日優先不重複</div></div>
+        <div><h3>國文實戰練習</h3><div class="muted">小五程度起步｜閱讀＋形音義＋成語＋推論｜36 題當日不重複</div></div>
         <div class="practiceMeta"><span class="tag">原創練習</span><span class="tag warn" id="chTypeTag">閱讀理解</span></div>
       </div>
       <div class="miniStats">
@@ -143,7 +158,7 @@ iframe{width:100%;height:72vh;border:0;background:#fff}
       <div id="chFeedback" class="feedbackBox" style="display:none"></div>
       <div class="practiceActions">
         <button class="btn" id="chStart">開始國文練習</button>
-        <button class="btn secondary" id="chNext" style="display:none">下一題</button>
+        <button class="btn secondary" id="chNext" style="display:none">下一題</button><button class="btn ghost" id="chResetQueue" title="僅供測試">重置今日國文題序</button>
       </div>
     </div>
     <div class="card">
@@ -155,7 +170,7 @@ iframe{width:100%;height:72vh;border:0;background:#fff}
         <tr><td>閱讀主旨</td><td>找中心思想</td></tr>
         <tr><td>閱讀推論</td><td><span class="tag bad">私中重點</span> 從文本找證據推論</td></tr>
       </table>
-      <div class="callout" style="margin-top:12px">防重複規則：同一天先把未看過的題目出完；答錯題至少隔 6 題、答對題至少隔 18 題才可能再出現。</div>
+      <div class="callout" style="margin-top:12px">防重複規則：同一天每題只出現 1 次；36 題全部完成後即停止，不再循環。隔天才重新洗牌。</div>
     </div>
   </div>
 </section>
@@ -332,6 +347,109 @@ function savePractice(){
   localStorage.setItem(PS_STATS_KEY,JSON.stringify(psStats));
   localStorage.setItem(PS_WRONG_KEY,JSON.stringify(psWrongs));
   renderPracticeStats();renderPracticeWrongs();
+
+const WEEKLY_PLAN_KEY="private_school_weekly_plan_v1";
+const WEEK_PLAN={
+  1:{day:"星期一",subject:"📖 國文｜大滿貫日",note:"英文課當天，回家國文不要塞太多。",tasks:[
+    "大滿貫：做 1 個小範圍，約 15–20 分鐘",
+    "訂正：把錯題分成「不會／看錯／粗心」",
+    "網站：只做 5–8 題形音義或閱讀複習"
+  ]},
+  2:{day:"星期二",subject:"🇺🇸 英文｜複習日",note:"複習星期一英文課，不另外大量教新內容。",tasks:[
+    "複習昨天英文課單字／句型",
+    "英文網站：中翻英＋文法或情境題",
+    "錯題本：挑 2–3 題再複習"
+  ]},
+  3:{day:"星期三",subject:"🧮 數學｜基礎日",note:"先跟學校進度，把觀念真正弄懂。",tasks:[
+    "學校目前單元：先看觀念",
+    "大滿貫：做 1 個小範圍",
+    "訂正：確認是計算錯還是題意不懂"
+  ]},
+  4:{day:"星期四",subject:"📖 國文｜世說新語日",note:"英文課當天，國文改做閱讀與理解。",tasks:[
+    "世說新語：看 1 小段故事",
+    "用白話說一次「誰做了什麼」",
+    "網站：2–3 題閱讀推論＋5 題形音義"
+  ]},
+  5:{day:"星期五",subject:"🇺🇸 英文｜整合日",note:"複習星期四英文課＋本週錯題。",tasks:[
+    "複習昨天英文課",
+    "英文網站：中翻英／情境／文法擇二",
+    "本週英文錯題再做一次"
+  ]},
+  6:{day:"星期六",subject:"🧮 數學｜進階日",note:"不重複寫同一張，改做同觀念類題。",tasks:[
+    "本週數學錯題：挑 2–3 題觀念",
+    "網站：文字應用 4–6 題",
+    "挑戰：1–2 題多步驟或私中型題"
+  ]},
+  0:{day:"星期日",subject:"🏠 家事＋休息",note:"今天不排正式學習。",tasks:[
+    "完成家事",
+    "整理下週用品",
+    "下午休息／平板時間"
+  ]}
+};
+
+function weekState(){
+  try{
+    const x=JSON.parse(localStorage.getItem(WEEKLY_PLAN_KEY)||"{}");
+    const weekId=getWeekId();
+    return x.weekId===weekId?x:{weekId,days:{}};
+  }catch(e){return {weekId:getWeekId(),days:{}}}
+}
+function getWeekId(){
+  const d=new Date(),copy=new Date(d);
+  const day=(d.getDay()+6)%7;
+  copy.setDate(d.getDate()-day);
+  return copy.toISOString().slice(0,10);
+}
+let weeklyState=weekState();
+
+function saveWeekState(){
+  localStorage.setItem(WEEKLY_PLAN_KEY,JSON.stringify(weeklyState));
+}
+
+function renderWeekPlan(){
+  const box=document.getElementById("weekPlan");if(!box)return;
+  const order=[1,2,3,4,5,6,0],today=new Date().getDay();
+  box.innerHTML=order.map(d=>{
+    const p=WEEK_PLAN[d],done=(weeklyState.days[d]||[]).filter(Boolean).length;
+    return `<div class="dayCard ${d===today?"today":""}">
+      ${d===today?'<span class="todayMark">今天</span>':""}
+      <div class="dayName">${p.day}</div>
+      <div class="daySubject">${p.subject}</div>
+      <div class="dayTask">${p.tasks.slice(0,2).map(x=>"• "+x).join("<br>")}</div>
+      <div class="muted" style="margin-top:8px">${done} / ${p.tasks.length} 完成</div>
+    </div>`;
+  }).join("");
+}
+
+function renderTodayPlan(){
+  const today=new Date().getDay(),p=WEEK_PLAN[today];
+  document.getElementById("todayLabel").textContent=p.day+"｜今日學習";
+  document.getElementById("todaySubjectTitle").textContent=p.subject;
+  document.getElementById("todaySubjectNote").textContent=p.note;
+  const vals=weeklyState.days[today]||Array(p.tasks.length).fill(false);
+  weeklyState.days[today]=vals;
+  const box=document.getElementById("todayPlanTasks");
+  box.innerHTML=p.tasks.map((t,i)=>`<label class="focusTask"><input type="checkbox" class="weeklyChk" data-i="${i}" ${vals[i]?"checked":""}><span>${t}</span></label>`).join("");
+  updateTodayPlanProgress();
+}
+
+function updateTodayPlanProgress(){
+  const today=new Date().getDay(),p=WEEK_PLAN[today],vals=weeklyState.days[today]||[];
+  const done=vals.filter(Boolean).length,total=p.tasks.length,pct=total?Math.round(done/total*100):0;
+  document.getElementById("todayPlanBar").style.width=pct+"%";
+  document.getElementById("todayPlanProgress").textContent=`完成 ${done} / ${total}${done===total?"　🎉 今天過關！":""}`;
+  renderWeekPlan();
+}
+
+document.addEventListener("change",e=>{
+  if(!e.target.classList.contains("weeklyChk"))return;
+  const today=new Date().getDay(),i=Number(e.target.dataset.i);
+  weeklyState.days[today][i]=e.target.checked;
+  saveWeekState();updateTodayPlanProgress();
+});
+
+renderWeekPlan();renderTodayPlan();
+
 }
 function renderPracticeStats(){
   const pairs=[["chinese","chAnswered","chCorrect","chRate"],["math","mathAnswered","mathCorrect","mathRate"]];
@@ -381,64 +499,81 @@ const chineseBank=[
  {id:"ch21",type:"閱讀推論",q:"小凱每次借書前都先看目錄，讀完後還會在便條紙上寫下一句心得。最合理的推論是？",choices:["他有固定的閱讀方法","他不喜歡閱讀","他只看封面"],a:0,why:"看目錄、寫心得都是有策略的閱讀行為。"},
  {id:"ch22",type:"閱讀主旨",q:"學校舉辦跳蚤市場，同學把家中不用的物品帶來交換，不但減少浪費，也讓物品找到新主人。這段主要在說？",choices:["交換物品能延長物品使用價值","每個人都要買新東西","跳蚤市場只能賣玩具"],a:0,why:"內容重點是透過交換減少浪費、延長物品使用。"},
  {id:"ch23",type:"成語",q:"哥哥明明自己也不確定答案，卻裝得像什麼都懂。最適合哪個成語？",choices:["不懂裝懂","實事求是","精益求精"],a:0,why:"不懂裝懂就是自己不懂卻假裝懂。"},
- {id:"ch24",type:"語詞理解",q:"「經過長時間討論，大家終於達成共識。」其中「共識」是指？",choices:["共同的看法或決定","彼此爭吵","一個人的意見"],a:0,why:"共識指多數人經討論後形成共同看法。"}
+ {id:"ch24",type:"語詞理解",q:"「經過長時間討論，大家終於達成共識。」其中「共識」是指？",choices:["共同的看法或決定","彼此爭吵","一個人的意見"],a:0,why:"共識指多數人經討論後形成共同看法。"},
+
+ {id:"ch25",type:"字音",q:"下列「倔強」的讀音何者正確？",choices:["ㄐㄩㄝˊ ㄐㄧㄤˋ","ㄑㄩ ㄑㄧㄤˊ","ㄐㄩㄝˋ ㄐㄧㄤ"],a:0,why:"「倔強」讀作 ㄐㄩㄝˊ ㄐㄧㄤˋ，形容性情剛強、不輕易屈服。"},
+ {id:"ch26",type:"字音",q:"「粗獷」的「獷」應讀作？",choices:["ㄎㄨㄤˋ","ㄍㄨㄤˇ","ㄎㄨㄤˇ"],a:1,why:"「獷」讀作 ㄍㄨㄤˇ；粗獷指豪放、不細緻。"},
+ {id:"ch27",type:"字音",q:"「剎那」的「剎」應讀作？",choices:["ㄕㄚ","ㄔㄚˋ","ㄕㄚˋ"],a:1,why:"「剎那」讀作 ㄔㄚˋ ㄋㄚˋ，表示極短的時間。"},
+ {id:"ch28",type:"字形",q:"下列哪一個詞語的字形完全正確？",choices:["再接再勵","再接再厲","再接再礪"],a:1,why:"正確寫法是「再接再厲」，比喻繼續努力、不鬆懈。"},
+ {id:"ch29",type:"字形",q:"下列哪一個詞語的字形完全正確？",choices:["按部就班","按步就班","安部就班"],a:0,why:"正確寫法是「按部就班」，指按照一定的條理、步驟做事。"},
+ {id:"ch30",type:"字形",q:"下列哪一個詞語的字形完全正確？",choices:["迫不急待","迫不及待","迫不即待"],a:1,why:"正確寫法是「迫不及待」，形容急迫得不能再等待。"},
+ {id:"ch31",type:"字義",q:"「一目了然」中的「了然」最接近哪個意思？",choices:["完全明白","立刻離開","非常驚訝"],a:0,why:"「了然」指清楚明白；一目了然就是一看就完全明白。"},
+ {id:"ch32",type:"字義",q:"「不勝枚舉」中的「勝」最接近哪個意思？",choices:["勝利","承受","盡、全部"],a:2,why:"「不勝枚舉」是多到無法一一列舉，這裡的「勝」有盡、全部的意思。"},
+ {id:"ch33",type:"字義",q:"「臨時決定」中的「臨時」最接近哪個意思？",choices:["事先很久安排","事情發生前不久才決定","永遠不改變"],a:1,why:"臨時表示到事情將發生時才做決定或安排。"},
+ {id:"ch34",type:"形音義",q:"下列哪一組「字形、讀音、意思」都正確？",choices:["謹慎｜ㄐㄧㄣˇ ㄕㄣˋ｜小心慎重","謹慎｜ㄐㄧㄥˇ ㄕㄣˋ｜非常快速","謹慎｜ㄐㄧㄣˇ ㄕㄥˋ｜隨便應付"],a:0,why:"「謹慎」讀 ㄐㄧㄣˇ ㄕㄣˋ，意思是小心慎重。"},
+ {id:"ch35",type:"形音義",q:"下列哪一組完全正確？",choices:["瀏覽｜ㄌㄧㄡˊ ㄌㄢˇ｜快速大略地看","瀏覽｜ㄌㄧㄡˋ ㄌㄢˇ｜仔細背誦","瀏覽｜ㄌㄧㄡˊ ㄌㄢˇ｜快速大略地看"],a:0,why:"正確字形是「瀏覽」，讀作 ㄌㄧㄡˊ ㄌㄢˇ，意思是大略地看。"},
+ {id:"ch36",type:"形音義",q:"「驚訝」的字形、讀音與意思，何者正確？",choices:["驚訝｜ㄐㄧㄥ ㄧㄚˋ｜感到意外、吃驚","驚啞｜ㄐㄧㄥ ㄧㄚˇ｜大聲說話","驚訝｜ㄐㄧㄣ ㄧㄚˋ｜非常安靜"],a:0,why:"「驚訝」讀作 ㄐㄧㄥ ㄧㄚˋ，表示因意外而感到吃驚。"},
+
 ];
 let chCurrent=null,chLocked=false;
 
 
-const CH_SCHED_KEY="private_school_chinese_scheduler_v2";
+const CH_QUEUE_KEY="private_school_chinese_queue_v4";
 function chDayKey(){return new Date().toISOString().slice(0,10)}
-function loadChSched(){
-  try{
-    const x=JSON.parse(localStorage.getItem(CH_SCHED_KEY)||"{}");
-    if(x.date!==chDayKey()) return {date:chDayKey(),events:[]};
-    return x;
-  }catch(e){return {date:chDayKey(),events:[]}}
+function shuffleIds(ids){
+  const a=[...ids];
+  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}
+  return a;
 }
-let chSched=loadChSched();
-function saveChSched(){localStorage.setItem(CH_SCHED_KEY,JSON.stringify(chSched))}
-function chLast(id){
-  for(let i=chSched.events.length-1;i>=0;i--){
-    if(chSched.events[i].id===id)return {event:chSched.events[i],distance:chSched.events.length-1-i};
-  }
-  return null;
+function newChineseQueue(){
+  return {date:chDayKey(),remaining:shuffleIds(chineseBank.map(x=>x.id)),shown:[],answers:{}};
+}
+function loadChineseQueue(){
+  try{
+    const x=JSON.parse(localStorage.getItem(CH_QUEUE_KEY)||"null");
+    const validIds=new Set(chineseBank.map(x=>x.id));
+    if(!x||x.date!==chDayKey())return newChineseQueue();
+    x.remaining=(x.remaining||[]).filter(id=>validIds.has(id)&&!(x.shown||[]).includes(id));
+    x.shown=(x.shown||[]).filter(id=>validIds.has(id));
+    const missing=chineseBank.map(x=>x.id).filter(id=>!x.shown.includes(id)&&!x.remaining.includes(id));
+    if(missing.length)x.remaining.push(...shuffleIds(missing));
+    return x;
+  }catch(e){return newChineseQueue()}
+}
+let chQueue=loadChineseQueue();
+function saveChineseQueue(){localStorage.setItem(CH_QUEUE_KEY,JSON.stringify(chQueue))}
+function chooseChineseQuestion(){
+  if(chQueue.date!==chDayKey())chQueue=newChineseQueue();
+  if(!chQueue.remaining.length)return null;
+  const id=chQueue.remaining.shift();
+  if(!chQueue.shown.includes(id))chQueue.shown.push(id);
+  saveChineseQueue(); // mark as shown immediately, before answering
+  return chineseBank.find(x=>x.id===id)||null;
 }
 function recordChineseSchedule(item,outcome){
-  chSched.events.push({id:item.id,outcome,time:Date.now()});
-  if(chSched.events.length>300)chSched.events=chSched.events.slice(-300);
-  saveChSched();
+  if(!item)return;
+  chQueue.answers[item.id]=outcome;
+  saveChineseQueue();
 }
-function chooseChineseQuestion(){
-  const arr=chineseBank.map(item=>({item,last:chLast(item.id)}));
-  const unseen=arr.filter(x=>!x.last);
-  if(unseen.length){
-    // Try not to repeat the same ability type back-to-back when unseen choices exist.
-    const lastEvent=chSched.events[chSched.events.length-1];
-    const lastItem=lastEvent?chineseBank.find(x=>x.id===lastEvent.id):null;
-    const varied=lastItem?unseen.filter(x=>x.item.type!==lastItem.type):unseen;
-    const pool=varied.length?varied:unseen;
-    return pool[Math.floor(Math.random()*pool.length)].item;
-  }
-  // After all questions have appeared today:
-  // wrong items can return after 6 other questions; correct items after 18.
-  const eligible=arr.filter(x=>{
-    const cd=x.last.event.outcome==="wrong"?6:18;
-    return x.last.distance>=cd;
-  });
-  if(eligible.length){
-    eligible.sort((a,b)=>b.last.distance-a.last.distance);
-    const top=eligible.slice(0,Math.min(6,eligible.length));
-    return top[Math.floor(Math.random()*top.length)].item;
-  }
-  // Fallback: least recently seen, never the immediately previous item.
-  arr.sort((a,b)=>(b.last?.distance||0)-(a.last?.distance||0));
-  return arr[0].item;
+function chineseQueueStatus(){
+  return {shown:chQueue.shown.length,remaining:chQueue.remaining.length,total:chineseBank.length};
 }
 
 function nextChinese(){
   chCurrent=chooseChineseQuestion();
   chLocked=false;
-  document.getElementById("chTypeTag").textContent=chCurrent.type;
+  if(!chCurrent){
+    const st=chineseQueueStatus();
+    document.getElementById("chQuestion").innerHTML="🎉 今天的國文題庫已全部完成，共 <b>"+st.total+"</b> 題。今天不再重複出題。";
+    document.getElementById("chChoices").innerHTML="";
+    document.getElementById("chFeedback").style.display="none";
+    document.getElementById("chNext").style.display="none";
+    document.getElementById("chStart").style.display="none";
+    document.getElementById("chTypeTag").textContent="今日完成";
+    return;
+  }
+  const st=chineseQueueStatus();
+  document.getElementById("chTypeTag").textContent=chCurrent.type+"｜今日第 "+st.shown+" / "+st.total+" 題";
   document.getElementById("chQuestion").textContent=chCurrent.q;
   const box=document.getElementById("chChoices");
   box.innerHTML=chCurrent.choices.map((c,i)=>`<button class="choiceBtn" data-ch="${i}">${String.fromCharCode(65+i)}. ${c}</button>`).join("");
@@ -460,6 +595,17 @@ document.addEventListener("click",e=>{
 });
 if(document.getElementById("chStart"))document.getElementById("chStart").onclick=nextChinese;
 if(document.getElementById("chNext"))document.getElementById("chNext").onclick=nextChinese;
+if(document.getElementById("chResetQueue"))document.getElementById("chResetQueue").onclick=()=>{
+  if(!confirm("確定重置今天的國文出題順序？這只適合測試使用。"))return;
+  chQueue=newChineseQueue();saveChineseQueue();
+  chCurrent=null;chLocked=false;
+  document.getElementById("chQuestion").textContent="已重置。按「開始國文練習」重新出題。";
+  document.getElementById("chChoices").innerHTML="";
+  document.getElementById("chFeedback").style.display="none";
+  document.getElementById("chStart").style.display="";
+  document.getElementById("chNext").style.display="none";
+  document.getElementById("chTypeTag").textContent="準備開始";
+};
 
 const mathBank=[
  {type:"分數應用",q:"一桶果汁先喝掉全部的 1/4，又喝掉剩下的 1/3。最後剩下原本的幾分之幾？",a:["1/2","0.5"],show:"1/2",why:"第一次後剩 3/4；第二次喝掉剩下的 1/3＝原本的 1/4，所以最後剩 1/2。"},
@@ -501,6 +647,109 @@ if(document.getElementById("mathNext"))document.getElementById("mathNext").oncli
 if(document.getElementById("mathInput"))document.getElementById("mathInput").addEventListener("keydown",e=>{if(e.key==="Enter")submitMath()});
 
 renderPracticeStats();renderPracticeWrongs();
+
+const WEEKLY_PLAN_KEY="private_school_weekly_plan_v1";
+const WEEK_PLAN={
+  1:{day:"星期一",subject:"📖 國文｜大滿貫日",note:"英文課當天，回家國文不要塞太多。",tasks:[
+    "大滿貫：做 1 個小範圍，約 15–20 分鐘",
+    "訂正：把錯題分成「不會／看錯／粗心」",
+    "網站：只做 5–8 題形音義或閱讀複習"
+  ]},
+  2:{day:"星期二",subject:"🇺🇸 英文｜複習日",note:"複習星期一英文課，不另外大量教新內容。",tasks:[
+    "複習昨天英文課單字／句型",
+    "英文網站：中翻英＋文法或情境題",
+    "錯題本：挑 2–3 題再複習"
+  ]},
+  3:{day:"星期三",subject:"🧮 數學｜基礎日",note:"先跟學校進度，把觀念真正弄懂。",tasks:[
+    "學校目前單元：先看觀念",
+    "大滿貫：做 1 個小範圍",
+    "訂正：確認是計算錯還是題意不懂"
+  ]},
+  4:{day:"星期四",subject:"📖 國文｜世說新語日",note:"英文課當天，國文改做閱讀與理解。",tasks:[
+    "世說新語：看 1 小段故事",
+    "用白話說一次「誰做了什麼」",
+    "網站：2–3 題閱讀推論＋5 題形音義"
+  ]},
+  5:{day:"星期五",subject:"🇺🇸 英文｜整合日",note:"複習星期四英文課＋本週錯題。",tasks:[
+    "複習昨天英文課",
+    "英文網站：中翻英／情境／文法擇二",
+    "本週英文錯題再做一次"
+  ]},
+  6:{day:"星期六",subject:"🧮 數學｜進階日",note:"不重複寫同一張，改做同觀念類題。",tasks:[
+    "本週數學錯題：挑 2–3 題觀念",
+    "網站：文字應用 4–6 題",
+    "挑戰：1–2 題多步驟或私中型題"
+  ]},
+  0:{day:"星期日",subject:"🏠 家事＋休息",note:"今天不排正式學習。",tasks:[
+    "完成家事",
+    "整理下週用品",
+    "下午休息／平板時間"
+  ]}
+};
+
+function weekState(){
+  try{
+    const x=JSON.parse(localStorage.getItem(WEEKLY_PLAN_KEY)||"{}");
+    const weekId=getWeekId();
+    return x.weekId===weekId?x:{weekId,days:{}};
+  }catch(e){return {weekId:getWeekId(),days:{}}}
+}
+function getWeekId(){
+  const d=new Date(),copy=new Date(d);
+  const day=(d.getDay()+6)%7;
+  copy.setDate(d.getDate()-day);
+  return copy.toISOString().slice(0,10);
+}
+let weeklyState=weekState();
+
+function saveWeekState(){
+  localStorage.setItem(WEEKLY_PLAN_KEY,JSON.stringify(weeklyState));
+}
+
+function renderWeekPlan(){
+  const box=document.getElementById("weekPlan");if(!box)return;
+  const order=[1,2,3,4,5,6,0],today=new Date().getDay();
+  box.innerHTML=order.map(d=>{
+    const p=WEEK_PLAN[d],done=(weeklyState.days[d]||[]).filter(Boolean).length;
+    return `<div class="dayCard ${d===today?"today":""}">
+      ${d===today?'<span class="todayMark">今天</span>':""}
+      <div class="dayName">${p.day}</div>
+      <div class="daySubject">${p.subject}</div>
+      <div class="dayTask">${p.tasks.slice(0,2).map(x=>"• "+x).join("<br>")}</div>
+      <div class="muted" style="margin-top:8px">${done} / ${p.tasks.length} 完成</div>
+    </div>`;
+  }).join("");
+}
+
+function renderTodayPlan(){
+  const today=new Date().getDay(),p=WEEK_PLAN[today];
+  document.getElementById("todayLabel").textContent=p.day+"｜今日學習";
+  document.getElementById("todaySubjectTitle").textContent=p.subject;
+  document.getElementById("todaySubjectNote").textContent=p.note;
+  const vals=weeklyState.days[today]||Array(p.tasks.length).fill(false);
+  weeklyState.days[today]=vals;
+  const box=document.getElementById("todayPlanTasks");
+  box.innerHTML=p.tasks.map((t,i)=>`<label class="focusTask"><input type="checkbox" class="weeklyChk" data-i="${i}" ${vals[i]?"checked":""}><span>${t}</span></label>`).join("");
+  updateTodayPlanProgress();
+}
+
+function updateTodayPlanProgress(){
+  const today=new Date().getDay(),p=WEEK_PLAN[today],vals=weeklyState.days[today]||[];
+  const done=vals.filter(Boolean).length,total=p.tasks.length,pct=total?Math.round(done/total*100):0;
+  document.getElementById("todayPlanBar").style.width=pct+"%";
+  document.getElementById("todayPlanProgress").textContent=`完成 ${done} / ${total}${done===total?"　🎉 今天過關！":""}`;
+  renderWeekPlan();
+}
+
+document.addEventListener("change",e=>{
+  if(!e.target.classList.contains("weeklyChk"))return;
+  const today=new Date().getDay(),i=Number(e.target.dataset.i);
+  weeklyState.days[today][i]=e.target.checked;
+  saveWeekState();updateTodayPlanProgress();
+});
+
+renderWeekPlan();renderTodayPlan();
+
 
 </script>
 </body>
