@@ -79,6 +79,28 @@ iframe{width:100%;height:72vh;border:0;background:#fff}
 @media(max-width:1100px){.weekPlan{grid-template-columns:repeat(4,1fr)}}
 @media(max-width:700px){.weekPlan{grid-template-columns:1fr 1fr}.todayFocus{grid-template-columns:1fr}}
 
+
+/* V6 child-friendly practice UX */
+.childHero{display:grid;grid-template-columns:1.35fr .65fr;gap:16px;margin-bottom:16px}
+.missionPanel{background:linear-gradient(135deg,#f7f8ff,#fff);border:1px solid #dfe5fb;border-radius:22px;padding:22px}
+.streakPanel{background:#fffaf0;border:1px solid #eedeb7;border-radius:22px;padding:20px}
+.missionTitle{font-size:24px;font-weight:900;margin:4px 0 6px}
+.missionSub{color:#66728a;font-size:14px}
+.energyRow{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.energyChip{background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 11px;font-size:13px}
+.topicRail{display:flex;gap:10px;overflow:auto;padding:2px 1px 8px;margin:10px 0 14px}
+.topicChip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 13px;white-space:nowrap;cursor:pointer}
+.topicChip.active{background:#eef1ff;border-color:#bfc9ff;font-weight:800}
+.kidTip{background:#fff8df;border:1px solid #f0dfaa;border-radius:14px;padding:12px 14px;line-height:1.6}
+.resultBurst{font-size:24px;font-weight:900;margin-bottom:6px}
+.microTask{background:#fbfcff;border:1px solid var(--line);border-radius:15px;padding:14px;margin-top:10px}
+.shortWrite{width:100%;min-height:90px;border:1px solid var(--line);border-radius:14px;padding:12px;font:inherit;resize:vertical}
+.challengeBadge{display:inline-block;background:#eef7ff;border:1px solid #cfe6fa;border-radius:999px;padding:5px 9px;font-size:12px;margin-left:6px}
+.parentOnly{display:none}
+.parentMode .parentOnly{display:block}
+.parentMode .kidOnly{display:none}
+@media(max-width:800px){.childHero{grid-template-columns:1fr}}
+
 @media(max-width:950px){
  .app{grid-template-columns:1fr}aside{height:auto;position:relative}.navrow{display:flex;overflow:auto}nav button{min-width:130px}
  .g4,.g3,.g2,.formgrid,.protect{grid-template-columns:1fr}main{padding:16px}
@@ -142,71 +164,119 @@ iframe{width:100%;height:72vh;border:0;background:#fff}
 </section>
 
 <section id="chinese" class="page">
-  <div class="grid g2">
-    <div class="card">
-      <div class="practiceTop">
-        <div><h3>國文實戰練習</h3><div class="muted">小五程度起步｜閱讀＋形音義＋成語＋推論｜36 題當日不重複</div></div>
-        <div class="practiceMeta"><span class="tag">原創練習</span><span class="tag warn" id="chTypeTag">閱讀理解</span></div>
-      </div>
-      <div class="miniStats">
-        <div><span class="muted">已作答</span><b id="chAnswered">0</b></div>
-        <div><span class="muted">答對</span><b id="chCorrect">0</b></div>
-        <div><span class="muted">答對率</span><b id="chRate">—</b></div>
-      </div>
-      <div id="chQuestion" class="questionBox">按「開始國文練習」出題。</div>
-      <div id="chChoices" class="choiceGrid"></div>
-      <div id="chFeedback" class="feedbackBox" style="display:none"></div>
-      <div class="practiceActions">
-        <button class="btn" id="chStart">開始國文練習</button>
-        <button class="btn secondary" id="chNext" style="display:none">下一題</button><button class="btn ghost" id="chResetQueue" title="僅供測試">重置今日國文題序</button>
+  <div class="childHero kidOnly">
+    <div class="missionPanel">
+      <div class="muted">📖 國文冒險</div>
+      <div class="missionTitle">今天只完成一小關</div>
+      <div class="missionSub">題型會輪替，不會一直做同一種題。</div>
+      <div class="energyRow">
+        <span class="energyChip">⏱ 約 10–15 分鐘</span>
+        <span class="energyChip" id="chTodayCount">今日 0 題</span>
+        <span class="energyChip" id="chStreak">連續答對 0</span>
       </div>
     </div>
-    <div class="card">
-      <h3>國文能力地圖</h3>
-      <table>
-        <tr><th>能力</th><th>用途</th></tr>
-        <tr><td>字音字形／語詞</td><td>課內穩定度</td></tr>
-        <tr><td>成語／語文常識</td><td>辨義與應用</td></tr>
-        <tr><td>閱讀主旨</td><td>找中心思想</td></tr>
-        <tr><td>閱讀推論</td><td><span class="tag bad">私中重點</span> 從文本找證據推論</td></tr>
-      </table>
-      <div class="callout" style="margin-top:12px">防重複規則：同一天每題只出現 1 次；36 題全部完成後即停止，不再循環。隔天才重新洗牌。</div>
+    <div class="streakPanel">
+      <div class="muted">今天的目標</div>
+      <div style="font-size:32px;margin:8px 0">⭐</div>
+      <b>認真完成，不求全對</b>
+      <div class="muted" style="margin-top:6px">答錯會變成下次的練習線索。</div>
     </div>
+  </div>
+
+  <div class="card kidOnly">
+    <div class="practiceTop">
+      <div>
+        <h3>國文實戰</h3>
+        <div class="muted">每次從不同能力中抽一小關。</div>
+      </div>
+      <span class="tag warn" id="chTypeTag">準備開始</span>
+    </div>
+
+    <div class="topicRail">
+      <button class="topicChip active" data-filter="all">混合</button>
+      <button class="topicChip" data-filter="字音">字音</button>
+      <button class="topicChip" data-filter="字形">字形</button>
+      <button class="topicChip" data-filter="字義">字義</button>
+      <button class="topicChip" data-filter="成語">成語</button>
+      <button class="topicChip" data-filter="短文閱讀">短文</button>
+      <button class="topicChip" data-filter="閱讀推論">推論</button>
+      <button class="topicChip" data-filter="句子重組">句子</button>
+      <button class="topicChip" data-filter="短寫作">短寫作</button>
+    </div>
+
+    <div id="chQuestion" class="questionBox">按「開始國文練習」出題。</div>
+    <div id="chChoices" class="choiceGrid"></div>
+    <div id="chExtra"></div>
+    <div id="chFeedback" class="feedbackBox" style="display:none"></div>
+
+    <div class="practiceActions">
+      <button class="btn" id="chStart">開始國文練習</button>
+      <button class="btn" id="chSubmitText" style="display:none">送出</button>
+      <button class="btn secondary" id="chNext" style="display:none">下一題</button>
+    </div>
+  </div>
+
+  <div class="card parentOnly">
+    <h3>國文能力觀察</h3>
+    <div class="muted">這裡給家長看，不放在孩子作答畫面。</div>
+    <table>
+      <tr><th>能力</th><th>訓練目的</th></tr>
+      <tr><td>形音義</td><td>穩定基本功</td></tr>
+      <tr><td>成語／語詞</td><td>辨義與情境應用</td></tr>
+      <tr><td>短文閱讀</td><td>找訊息、抓主旨</td></tr>
+      <tr><td>閱讀推論</td><td>找證據、理解人物與因果</td></tr>
+      <tr><td>句子重組</td><td>語序與語感</td></tr>
+      <tr><td>短寫作</td><td>摘要與表達</td></tr>
+    </table>
   </div>
 </section>
 
 <section id="math" class="page">
-  <div class="grid g2">
-    <div class="card">
-      <div class="practiceTop">
-        <div><h3>數學實戰練習</h3><div class="muted">小五程度起步｜計算、文字題、多步驟、推理</div></div>
-        <div class="practiceMeta"><span class="tag">原創類題</span><span class="tag bad" id="mathTypeTag">文字應用</span></div>
-      </div>
-      <div class="miniStats">
-        <div><span class="muted">已作答</span><b id="mathAnswered">0</b></div>
-        <div><span class="muted">答對</span><b id="mathCorrect">0</b></div>
-        <div><span class="muted">答對率</span><b id="mathRate">—</b></div>
-      </div>
-      <div id="mathQuestion" class="questionBox">按「開始數學練習」出題。</div>
-      <input id="mathInput" class="answerInput" placeholder="輸入答案，例如：24、3/5" style="display:none">
-      <div id="mathFeedback" class="feedbackBox" style="display:none"></div>
-      <div class="practiceActions">
-        <button class="btn" id="mathStart">開始數學練習</button>
-        <button class="btn" id="mathSubmit" style="display:none">送出答案</button>
-        <button class="btn secondary" id="mathNext" style="display:none">下一題</button>
+  <div class="childHero kidOnly">
+    <div class="missionPanel">
+      <div class="muted">🧮 數學挑戰</div>
+      <div class="missionTitle">今天練一個觀念，再做一題挑戰</div>
+      <div class="missionSub">基礎、文字題、推理會輪替，不一直刷同一型。</div>
+      <div class="energyRow">
+        <span class="energyChip">⏱ 約 15–20 分鐘</span>
+        <span class="energyChip" id="mathTodayCount">今日 0 題</span>
+        <span class="energyChip" id="mathStreak">連續答對 0</span>
       </div>
     </div>
-    <div class="card">
-      <h3>數學能力地圖</h3>
-      <table>
-        <tr><th>能力</th><th>策略</th></tr>
-        <tr><td>課內基礎計算</td><td>確認即可，不題海</td></tr>
-        <tr><td>題意判讀</td><td><span class="tag bad">優先</span></td></tr>
-        <tr><td>文字轉算式</td><td><span class="tag bad">優先</span></td></tr>
-        <tr><td>多步驟應用</td><td><span class="tag warn">逐步增加</span></td></tr>
-      </table>
-      <div class="callout" style="margin-top:12px">答錯後會顯示思路，不只是正確答案。</div>
+    <div class="streakPanel">
+      <div class="muted">數學重點</div>
+      <div style="font-size:30px;margin:8px 0">🧠</div>
+      <b>先說出「為什麼」</b>
+      <div class="muted" style="margin-top:6px">不是只求算對，還要看懂題目。</div>
     </div>
+  </div>
+
+  <div class="card kidOnly">
+    <div class="practiceTop">
+      <div><h3>數學實戰</h3><div class="muted">基礎 → 應用 → 挑戰，循序混合。</div></div>
+      <span class="tag bad" id="mathTypeTag">準備開始</span>
+    </div>
+    <div id="mathQuestion" class="questionBox">按「開始數學練習」出題。</div>
+    <input id="mathInput" class="answerInput" placeholder="輸入答案" style="display:none">
+    <div id="mathFeedback" class="feedbackBox" style="display:none"></div>
+    <div class="practiceActions">
+      <button class="btn" id="mathStart">開始數學練習</button>
+      <button class="btn" id="mathSubmit" style="display:none">送出答案</button>
+      <button class="btn secondary" id="mathNext" style="display:none">下一題</button>
+    </div>
+  </div>
+
+  <div class="card parentOnly">
+    <h3>數學能力觀察</h3>
+    <div class="muted">孩子頁不顯示這些分類；家長模式才看。</div>
+    <table>
+      <tr><th>能力</th><th>目的</th></tr>
+      <tr><td>基礎計算</td><td>穩定正確率</td></tr>
+      <tr><td>題意判讀</td><td>找出已知與問題</td></tr>
+      <tr><td>文字轉算式</td><td>把文字變成數學關係</td></tr>
+      <tr><td>多步驟</td><td>培養解題順序</td></tr>
+      <tr><td>挑戰題</td><td>私中型陌生題</td></tr>
+    </table>
   </div>
 </section>
 
@@ -273,6 +343,12 @@ iframe{width:100%;height:72vh;border:0;background:#fff}
 </section>
 
 <section id="parent" class="page">
+<div class="card">
+  <h3>👩 家長檢視模式</h3>
+  <p class="muted">打開後才顯示能力分類與分析表，孩子平常不用看到。</p>
+  <button class="btn secondary" id="parentModeToggle">切換家長檢視</button>
+</div>
+
   <div class="grid g2">
     <div class="card">
       <h3>家長只需要看這些</h3>
@@ -450,6 +526,12 @@ document.addEventListener("change",e=>{
 
 renderWeekPlan();renderTodayPlan();
 
+if(document.getElementById("parentModeToggle"))document.getElementById("parentModeToggle").onclick=()=>{
+  document.body.classList.toggle("parentMode");
+  document.getElementById("parentModeToggle").textContent=document.body.classList.contains("parentMode")?"關閉家長檢視":"切換家長檢視";
+};
+
+
 }
 function renderPracticeStats(){
   const pairs=[["chinese","chAnswered","chCorrect","chRate"],["math","mathAnswered","mathCorrect","mathRate"]];
@@ -476,136 +558,142 @@ function renderPracticeWrongs(){
 }
 
 const chineseBank=[
- {id:"ch01",type:"閱讀主旨",q:"小杰每天放學後都練習投籃。即使下雨，他也會在家做體能訓練。比賽那天，他最後投進關鍵一球。這段文字主要想表達什麼？",choices:["小杰很喜歡下雨","持續練習讓小杰在關鍵時刻有表現","比賽只要運氣好就會贏"],a:1,why:"文章重點放在「每天練習」與最後成果之間的關係。"},
- {id:"ch02",type:"閱讀推論",q:"媽媽把雨傘放到小安書包旁，並提醒他「今天放學別急著走」。最可能的原因是什麼？",choices:["今天可能會下雨","媽媽要小安留在學校過夜","小安忘記帶鉛筆"],a:0,why:"雨傘和提醒放學別急著走，最合理的推論是天候可能有變化。"},
- {id:"ch03",type:"成語",q:"下列哪一個成語最適合形容「做事很仔細，不放過任何小地方」？",choices:["馬馬虎虎","一絲不苟","三心二意"],a:1,why:"一絲不苟表示做事認真細密，連很小的地方也不馬虎。"},
- {id:"ch04",type:"語詞理解",q:"「他雖然失敗了，卻沒有因此氣餒。」其中「氣餒」最接近哪個意思？",choices:["失去信心","非常生氣","感到驕傲"],a:0,why:"氣餒是因遭遇困難或失敗而失去勇氣與信心。"},
- {id:"ch05",type:"閱讀推論",q:"圖書館快關門了，小美卻把借來的三本書一本一本重新檢查頁碼。從這個行為最能看出她怎樣的特質？",choices:["粗心","謹慎","急躁"],a:1,why:"離開前再次確認書本內容，最能看出她做事謹慎。"},
- {id:"ch06",type:"閱讀主旨",q:"社區原本有一塊荒地，居民一起整理、種花、設置座椅。幾個月後，這裡成了大家散步聊天的地方。這段最適合的標題是？",choices:["荒地變公園","居民不愛整理","花朵很難種"],a:0,why:"內容核心是荒地經居民共同整理後成為公共休閒空間。"},
- {id:"ch07",type:"成語",q:"老師提醒大家不要只看到表面，要先了解事情真正的原因。下列哪個成語最接近這個意思？",choices:["追根究柢","畫蛇添足","守株待兔"],a:0,why:"追根究柢就是追究事情根本的原因。"},
- {id:"ch08",type:"語詞理解",q:"「這項任務十分艱鉅，但大家仍決定一起完成。」其中「艱鉅」最接近？",choices:["簡單容易","困難而繁重","有趣好玩"],a:1,why:"艱鉅形容事情困難而繁重。"},
- {id:"ch09",type:"閱讀推論",q:"阿哲把鬧鐘調早半小時，還把球鞋放在床邊。隔天一早，他沒有叫任何人就自己起床。最合理的推論是？",choices:["他準備早起運動","他不想去上學","他的球鞋壞了"],a:0,why:"鬧鐘提早與把球鞋放床邊，兩個線索都指向早起運動。"},
- {id:"ch10",type:"閱讀主旨",q:"爸爸每週日都帶小恩去市場。小恩學會比較價格、觀察食材，也逐漸知道家裡每天的餐點是怎麼準備的。這段主要在說什麼？",choices:["市場裡的人很多","陪家人買菜也能學到生活知識","星期日不能待在家"],a:1,why:"重點不是市場本身，而是孩子從買菜過程學到生活能力。"},
- {id:"ch11",type:"成語",q:"小華做報告前查了很多資料，直到確認每個細節才交出去。最適合用哪個成語形容？",choices:["敷衍了事","慎重其事","一知半解"],a:1,why:"慎重其事表示對事情非常認真、謹慎地處理。"},
- {id:"ch12",type:"語詞理解",q:"「山路蜿蜒而上，車子必須放慢速度。」其中「蜿蜒」最接近哪個意思？",choices:["筆直延伸","彎彎曲曲","突然中斷"],a:1,why:"蜿蜒形容道路、河流等彎曲延伸。"},
- {id:"ch13",type:"閱讀推論",q:"老師把考卷發下來後，小雯沒有立刻看分數，而是先把錯題圈起來。最能看出她？",choices:["只在乎分數","重視找出自己的問題","不想知道成績"],a:1,why:"先找錯題，代表她重視檢討與改進，而不只是分數。"},
- {id:"ch14",type:"閱讀主旨",q:"一棵樹從小苗開始，經過多年風吹雨打，才長成能讓人乘涼的大樹。這段話最想表達？",choices:["成長需要時間與累積","大樹最怕下雨","小苗不能曬太陽"],a:0,why:"文章以樹的成長比喻成果需要長期累積。"},
- {id:"ch15",type:"成語",q:"比賽前大家原本很緊張，隊長說了幾句鼓勵的話，大家立刻振作起來。哪個成語最適合形容隊長的話？",choices:["雪中送炭","畫龍點睛","自相矛盾"],a:0,why:"雪中送炭比喻在別人急需時給予幫助，這裡符合鼓勵隊友的情境。"},
- {id:"ch16",type:"語詞理解",q:"「他對這次實驗的結果抱持審慎態度。」其中「審慎」最接近？",choices:["仔細慎重","隨便應付","非常興奮"],a:0,why:"審慎就是仔細、慎重，不輕率下結論。"},
- {id:"ch17",type:"閱讀推論",q:"放學後天空突然變暗，操場上的同學紛紛往教室跑。最可能發生什麼事？",choices:["準備下大雨","要開始升旗","大家要去吃早餐"],a:0,why:"天空變暗加上同學往室內跑，是下雨前常見線索。"},
- {id:"ch18",type:"閱讀主旨",q:"小芸第一次做蛋糕失敗了，第二次調整溫度，第三次重新控制時間，最後終於成功。這段最主要想表達？",choices:["做蛋糕很浪費時間","從失敗中修正才能進步","烤箱越熱越好"],a:1,why:"重點是她不斷從失敗中調整方法，最後成功。"},
- {id:"ch19",type:"成語",q:"事情還沒開始，他就一直擔心一定會失敗。最適合形容他的狀態？",choices:["杞人憂天","胸有成竹","水到渠成"],a:0,why:"杞人憂天比喻不必要、沒有根據的憂慮。"},
- {id:"ch20",type:"語詞理解",q:"「這位選手表現沉著，即使落後也沒有慌張。」其中「沉著」最接近？",choices:["冷靜穩定","悲傷難過","動作很慢"],a:0,why:"沉著指人在壓力下仍能冷靜、不慌亂。"},
- {id:"ch21",type:"閱讀推論",q:"小凱每次借書前都先看目錄，讀完後還會在便條紙上寫下一句心得。最合理的推論是？",choices:["他有固定的閱讀方法","他不喜歡閱讀","他只看封面"],a:0,why:"看目錄、寫心得都是有策略的閱讀行為。"},
- {id:"ch22",type:"閱讀主旨",q:"學校舉辦跳蚤市場，同學把家中不用的物品帶來交換，不但減少浪費，也讓物品找到新主人。這段主要在說？",choices:["交換物品能延長物品使用價值","每個人都要買新東西","跳蚤市場只能賣玩具"],a:0,why:"內容重點是透過交換減少浪費、延長物品使用。"},
- {id:"ch23",type:"成語",q:"哥哥明明自己也不確定答案，卻裝得像什麼都懂。最適合哪個成語？",choices:["不懂裝懂","實事求是","精益求精"],a:0,why:"不懂裝懂就是自己不懂卻假裝懂。"},
- {id:"ch24",type:"語詞理解",q:"「經過長時間討論，大家終於達成共識。」其中「共識」是指？",choices:["共同的看法或決定","彼此爭吵","一個人的意見"],a:0,why:"共識指多數人經討論後形成共同看法。"},
-
- {id:"ch25",type:"字音",q:"下列「倔強」的讀音何者正確？",choices:["ㄐㄩㄝˊ ㄐㄧㄤˋ","ㄑㄩ ㄑㄧㄤˊ","ㄐㄩㄝˋ ㄐㄧㄤ"],a:0,why:"「倔強」讀作 ㄐㄩㄝˊ ㄐㄧㄤˋ，形容性情剛強、不輕易屈服。"},
- {id:"ch26",type:"字音",q:"「粗獷」的「獷」應讀作？",choices:["ㄎㄨㄤˋ","ㄍㄨㄤˇ","ㄎㄨㄤˇ"],a:1,why:"「獷」讀作 ㄍㄨㄤˇ；粗獷指豪放、不細緻。"},
- {id:"ch27",type:"字音",q:"「剎那」的「剎」應讀作？",choices:["ㄕㄚ","ㄔㄚˋ","ㄕㄚˋ"],a:1,why:"「剎那」讀作 ㄔㄚˋ ㄋㄚˋ，表示極短的時間。"},
- {id:"ch28",type:"字形",q:"下列哪一個詞語的字形完全正確？",choices:["再接再勵","再接再厲","再接再礪"],a:1,why:"正確寫法是「再接再厲」，比喻繼續努力、不鬆懈。"},
- {id:"ch29",type:"字形",q:"下列哪一個詞語的字形完全正確？",choices:["按部就班","按步就班","安部就班"],a:0,why:"正確寫法是「按部就班」，指按照一定的條理、步驟做事。"},
- {id:"ch30",type:"字形",q:"下列哪一個詞語的字形完全正確？",choices:["迫不急待","迫不及待","迫不即待"],a:1,why:"正確寫法是「迫不及待」，形容急迫得不能再等待。"},
- {id:"ch31",type:"字義",q:"「一目了然」中的「了然」最接近哪個意思？",choices:["完全明白","立刻離開","非常驚訝"],a:0,why:"「了然」指清楚明白；一目了然就是一看就完全明白。"},
- {id:"ch32",type:"字義",q:"「不勝枚舉」中的「勝」最接近哪個意思？",choices:["勝利","承受","盡、全部"],a:2,why:"「不勝枚舉」是多到無法一一列舉，這裡的「勝」有盡、全部的意思。"},
- {id:"ch33",type:"字義",q:"「臨時決定」中的「臨時」最接近哪個意思？",choices:["事先很久安排","事情發生前不久才決定","永遠不改變"],a:1,why:"臨時表示到事情將發生時才做決定或安排。"},
- {id:"ch34",type:"形音義",q:"下列哪一組「字形、讀音、意思」都正確？",choices:["謹慎｜ㄐㄧㄣˇ ㄕㄣˋ｜小心慎重","謹慎｜ㄐㄧㄥˇ ㄕㄣˋ｜非常快速","謹慎｜ㄐㄧㄣˇ ㄕㄥˋ｜隨便應付"],a:0,why:"「謹慎」讀 ㄐㄧㄣˇ ㄕㄣˋ，意思是小心慎重。"},
- {id:"ch35",type:"形音義",q:"下列哪一組完全正確？",choices:["瀏覽｜ㄌㄧㄡˊ ㄌㄢˇ｜快速大略地看","瀏覽｜ㄌㄧㄡˋ ㄌㄢˇ｜仔細背誦","瀏覽｜ㄌㄧㄡˊ ㄌㄢˇ｜快速大略地看"],a:0,why:"正確字形是「瀏覽」，讀作 ㄌㄧㄡˊ ㄌㄢˇ，意思是大略地看。"},
- {id:"ch36",type:"形音義",q:"「驚訝」的字形、讀音與意思，何者正確？",choices:["驚訝｜ㄐㄧㄥ ㄧㄚˋ｜感到意外、吃驚","驚啞｜ㄐㄧㄥ ㄧㄚˇ｜大聲說話","驚訝｜ㄐㄧㄣ ㄧㄚˋ｜非常安靜"],a:0,why:"「驚訝」讀作 ㄐㄧㄥ ㄧㄚˋ，表示因意外而感到吃驚。"},
-
+{id:"ch01",type:"字音",q:"下列「倔強」的讀音何者正確？",choices:["ㄐㄩㄝˊ ㄐㄧㄤˋ","ㄑㄩ ㄑㄧㄤˊ","ㄐㄩㄝˋ ㄐㄧㄤ"],a:0,why:"「倔強」讀作 ㄐㄩㄝˊ ㄐㄧㄤˋ。"},
+{id:"ch02",type:"字形",q:"下列哪一個詞語的字形完全正確？",choices:["再接再勵","再接再厲","再接再礪"],a:1,why:"正確是「再接再厲」。"},
+{id:"ch03",type:"字義",q:"「一目了然」中的「了然」最接近哪個意思？",choices:["完全明白","立刻離開","非常驚訝"],a:0,why:"「了然」指清楚明白。"},
+{id:"ch04",type:"成語",q:"下列哪個成語最適合形容「做事很仔細，不放過任何小地方」？",choices:["一絲不苟","三心二意","粗枝大葉"],a:0,why:"一絲不苟就是做事認真細密。"},
+{id:"ch05",type:"成語",q:"事情還沒開始，他就一直擔心一定會失敗。最適合哪個成語？",choices:["杞人憂天","胸有成竹","水到渠成"],a:0,why:"杞人憂天比喻不必要的憂慮。"},
+{id:"ch06",type:"短文閱讀",q:"小芸第一次做蛋糕失敗了，第二次調整溫度，第三次重新控制時間，最後終於成功。這段最主要想表達？",choices:["做蛋糕很浪費時間","從失敗中修正才能進步","烤箱越熱越好"],a:1,why:"重點是她不斷從失敗中修正方法。"},
+{id:"ch07",type:"閱讀推論",q:"老師把考卷發下來後，小雯沒有先看分數，而是先把錯題圈起來。最能看出她？",choices:["只在乎分數","重視找出自己的問題","不想知道成績"],a:1,why:"先找錯題，表示她重視檢討與改進。"},
+{id:"ch08",type:"短文閱讀",q:"社區原本有一塊荒地，居民一起整理、種花、設置座椅。幾個月後，這裡成了大家散步聊天的地方。最適合的標題是？",choices:["荒地變公園","居民不愛整理","花朵很難種"],a:0,why:"主旨是荒地經整理後成為大家休閒的地方。"},
+{id:"ch09",type:"閱讀推論",q:"媽媽把雨傘放到小安書包旁，並提醒他「今天放學別急著走」。最可能的原因是？",choices:["今天可能會下雨","媽媽要他住學校","小安忘了鉛筆"],a:0,why:"雨傘與提醒放學別急著走，是天候變化的線索。"},
+{id:"ch10",type:"句子重組",q:"把下面詞語排成通順句子：①完成作業 ②小明 ③才出去玩 ④先",textAnswer:"小明先完成作業才出去玩",why:"語序應為主詞＋先做的事＋才做的事。"},
+{id:"ch11",type:"句子重組",q:"把下面詞語排成通順句子：①因為下雨 ②取消了 ③比賽 ④所以",textAnswer:"因為下雨所以比賽取消了",why:"「因為……所以……」是常見因果句型。"},
+{id:"ch12",type:"短寫作",q:"請用 2～3 句話寫出：如果你是故事中的小芸，你第三次做蛋糕前會提醒自己什麼？",open:true,why:"重點是能寫出具體、完整、有前後關係的句子。"},
+{id:"ch13",type:"短寫作",q:"請用 2～3 句話描述一次你『原本不會，後來學會』的經驗。",open:true,why:"不要求漂亮詞藻，重點是事情說得清楚。"},
+{id:"ch14",type:"字音",q:"「剎那」的「剎」應讀作？",choices:["ㄕㄚ","ㄔㄚˋ","ㄕㄚˋ"],a:1,why:"「剎那」讀作 ㄔㄚˋ ㄋㄚˋ。"},
+{id:"ch15",type:"字形",q:"下列哪一個詞語的字形完全正確？",choices:["迫不急待","迫不及待","迫不即待"],a:1,why:"正確寫法是「迫不及待」。"},
+{id:"ch16",type:"字義",q:"「共識」最接近哪個意思？",choices:["共同的看法或決定","彼此爭吵","一個人的意見"],a:0,why:"共識是多數人形成共同看法。"},
+{id:"ch17",type:"成語",q:"做事情照著固定步驟，不慌不忙，最適合哪個成語？",choices:["按部就班","手忙腳亂","一知半解"],a:0,why:"按部就班指依照條理和步驟進行。"},
+{id:"ch18",type:"短文閱讀",q:"爸爸每週日都帶小恩去市場。小恩學會比較價格、觀察食材，也逐漸知道家裡每天的餐點是怎麼準備的。這段主要在說？",choices:["市場裡的人很多","陪家人買菜也能學到生活知識","星期日不能待在家"],a:1,why:"重點是孩子從買菜過程學到生活能力。"},
+{id:"ch19",type:"閱讀推論",q:"小凱每次借書前都先看目錄，讀完後還會寫一句心得。最合理的推論是？",choices:["他有固定的閱讀方法","他不喜歡閱讀","他只看封面"],a:0,why:"看目錄、寫心得都是有策略的閱讀行為。"},
+{id:"ch20",type:"句子重組",q:"把下面詞語排成通順句子：①大家 ②合作 ③完成 ④終於 ⑤任務",textAnswer:"大家合作終於完成任務",why:"先主詞，再動作與結果。"}
 ];
 let chCurrent=null,chLocked=false;
 
 
-const CH_QUEUE_KEY="private_school_chinese_queue_v4";
-function chDayKey(){return new Date().toISOString().slice(0,10)}
-function shuffleIds(ids){
-  const a=[...ids];
-  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}
-  return a;
-}
+
+const CH_QUEUE_KEY="private_school_chinese_queue_v6";
+let chFilter="all", chStreak=0;
+function chDayKey(){return new Date().toLocaleDateString("sv-SE")}
+function shuffleIds(ids){const a=[...ids];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 function newChineseQueue(){
-  return {date:chDayKey(),remaining:shuffleIds(chineseBank.map(x=>x.id)),shown:[],answers:{}};
+  return {date:chDayKey(),shown:[],answers:{}};
 }
 function loadChineseQueue(){
   try{
     const x=JSON.parse(localStorage.getItem(CH_QUEUE_KEY)||"null");
-    const validIds=new Set(chineseBank.map(x=>x.id));
-    if(!x||x.date!==chDayKey())return newChineseQueue();
-    x.remaining=(x.remaining||[]).filter(id=>validIds.has(id)&&!(x.shown||[]).includes(id));
-    x.shown=(x.shown||[]).filter(id=>validIds.has(id));
-    const missing=chineseBank.map(x=>x.id).filter(id=>!x.shown.includes(id)&&!x.remaining.includes(id));
-    if(missing.length)x.remaining.push(...shuffleIds(missing));
-    return x;
+    return (!x||x.date!==chDayKey())?newChineseQueue():x;
   }catch(e){return newChineseQueue()}
 }
 let chQueue=loadChineseQueue();
 function saveChineseQueue(){localStorage.setItem(CH_QUEUE_KEY,JSON.stringify(chQueue))}
+function eligibleChinese(){
+  return chineseBank.filter(x=>(chFilter==="all"||x.type===chFilter)&&!chQueue.shown.includes(x.id));
+}
 function chooseChineseQuestion(){
-  if(chQueue.date!==chDayKey())chQueue=newChineseQueue();
-  if(!chQueue.remaining.length)return null;
-  const id=chQueue.remaining.shift();
-  if(!chQueue.shown.includes(id))chQueue.shown.push(id);
-  saveChineseQueue(); // mark as shown immediately, before answering
-  return chineseBank.find(x=>x.id===id)||null;
+  let pool=eligibleChinese();
+  if(!pool.length)return null;
+  // avoid same type back-to-back when using mixed mode
+  if(chFilter==="all" && chCurrent){
+    const varied=pool.filter(x=>x.type!==chCurrent.type);
+    if(varied.length)pool=varied;
+  }
+  const item=pool[Math.floor(Math.random()*pool.length)];
+  chQueue.shown.push(item.id);saveChineseQueue();
+  return item;
+}
+function renderChCounters(){
+  const c=document.getElementById("chTodayCount"),s=document.getElementById("chStreak");
+  if(c)c.textContent="今日 "+chQueue.shown.length+" 題";
+  if(s)s.textContent="連續答對 "+chStreak;
 }
 function recordChineseSchedule(item,outcome){
   if(!item)return;
   chQueue.answers[item.id]=outcome;
   saveChineseQueue();
 }
-function chineseQueueStatus(){
-  return {shown:chQueue.shown.length,remaining:chQueue.remaining.length,total:chineseBank.length};
+function resetChInput(){
+  const extra=document.getElementById("chExtra");
+  extra.innerHTML="";
+  document.getElementById("chSubmitText").style.display="none";
 }
-
 function nextChinese(){
-  chCurrent=chooseChineseQuestion();
-  chLocked=false;
-  if(!chCurrent){
-    const st=chineseQueueStatus();
-    document.getElementById("chQuestion").innerHTML="🎉 今天的國文題庫已全部完成，共 <b>"+st.total+"</b> 題。今天不再重複出題。";
-    document.getElementById("chChoices").innerHTML="";
-    document.getElementById("chFeedback").style.display="none";
-    document.getElementById("chNext").style.display="none";
-    document.getElementById("chStart").style.display="none";
-    document.getElementById("chTypeTag").textContent="今日完成";
-    return;
-  }
-  const st=chineseQueueStatus();
-  document.getElementById("chTypeTag").textContent=chCurrent.type+"｜今日第 "+st.shown+" / "+st.total+" 題";
-  document.getElementById("chQuestion").textContent=chCurrent.q;
-  const box=document.getElementById("chChoices");
-  box.innerHTML=chCurrent.choices.map((c,i)=>`<button class="choiceBtn" data-ch="${i}">${String.fromCharCode(65+i)}. ${c}</button>`).join("");
-  document.getElementById("chFeedback").style.display="none";
+  chCurrent=chooseChineseQuestion();chLocked=false;resetChInput();
+  const q=document.getElementById("chQuestion"),choices=document.getElementById("chChoices"),
+        fb=document.getElementById("chFeedback");
+  fb.style.display="none";document.getElementById("chNext").style.display="none";
   document.getElementById("chStart").style.display="none";
-  document.getElementById("chNext").style.display="none";
+  if(!chCurrent){
+    q.innerHTML="🎉 這個分類今天已經完成了。可以換別的題型，或今天先休息。";
+    choices.innerHTML="";document.getElementById("chTypeTag").textContent="完成";renderChCounters();return;
+  }
+  document.getElementById("chTypeTag").textContent=chCurrent.type;
+  q.textContent=chCurrent.q;choices.innerHTML="";
+  if(chCurrent.choices){
+    choices.innerHTML=chCurrent.choices.map((c,i)=>`<button class="choiceBtn" data-ch="${i}">${String.fromCharCode(65+i)}. ${c}</button>`).join("");
+  }else{
+    document.getElementById("chExtra").innerHTML=`<textarea id="chTextInput" class="shortWrite" placeholder="${chCurrent.open?"寫 2～3 句即可":"把完整句子寫在這裡"}"></textarea>`;
+    document.getElementById("chSubmitText").style.display="";
+  }
+  renderChCounters();
 }
 document.addEventListener("click",e=>{
   const b=e.target.closest(".choiceBtn[data-ch]");
   if(!b||!chCurrent||chLocked)return;
   chLocked=true;
   const idx=Number(b.dataset.ch),ok=idx===chCurrent.a;
-  psStats.chinese.answered++;if(ok)psStats.chinese.correct++;recordChineseSchedule(chCurrent,ok?"correct":"wrong");
-  document.querySelectorAll(".choiceBtn[data-ch]").forEach((x,i)=>{x.disabled=true;if(i===chCurrent.a)x.classList.add("correct");});
-  if(!ok){b.classList.add("wrong");addPracticeWrong("國文",chCurrent.type,chCurrent.q,chCurrent.choices[idx],chCurrent.choices[chCurrent.a]);}
-  const f=document.getElementById("chFeedback");f.style.display="block";f.innerHTML=(ok?"✅ 答對了。":"❌ 這題答錯。")+"<br>"+chCurrent.why;
-  document.getElementById("chNext").style.display="";
-  savePractice();
+  psStats.chinese.answered++;if(ok){psStats.chinese.correct++;chStreak++}else{chStreak=0}
+  recordChineseSchedule(chCurrent,ok?"correct":"wrong");
+  document.querySelectorAll(".choiceBtn[data-ch]").forEach((x,i)=>{x.disabled=true;if(i===chCurrent.a)x.classList.add("correct")});
+  if(!ok){b.classList.add("wrong");addPracticeWrong("國文",chCurrent.type,chCurrent.q,chCurrent.choices[idx],chCurrent.choices[chCurrent.a])}
+  const f=document.getElementById("chFeedback");f.style.display="block";
+  f.innerHTML=`<div class="resultBurst">${ok?"✅ 答對了！":"🔎 這題先學會就好"}</div>${chCurrent.why}`;
+  document.getElementById("chNext").style.display="";savePractice();renderChCounters();
 });
-if(document.getElementById("chStart"))document.getElementById("chStart").onclick=nextChinese;
-if(document.getElementById("chNext"))document.getElementById("chNext").onclick=nextChinese;
-if(document.getElementById("chResetQueue"))document.getElementById("chResetQueue").onclick=()=>{
-  if(!confirm("確定重置今天的國文出題順序？這只適合測試使用。"))return;
-  chQueue=newChineseQueue();saveChineseQueue();
-  chCurrent=null;chLocked=false;
-  document.getElementById("chQuestion").textContent="已重置。按「開始國文練習」重新出題。";
-  document.getElementById("chChoices").innerHTML="";
+function submitChineseText(){
+  if(!chCurrent||chLocked)return;
+  const inp=document.getElementById("chTextInput");if(!inp||!inp.value.trim())return;
+  const v=inp.value.trim();chLocked=true;psStats.chinese.answered++;
+  let ok=true,msg="";
+  if(chCurrent.textAnswer){
+    const norm=x=>x.replace(/[，。！？、\s]/g,"");
+    ok=norm(v)===norm(chCurrent.textAnswer);
+    if(ok){psStats.chinese.correct++;chStreak++}else{chStreak=0;addPracticeWrong("國文",chCurrent.type,chCurrent.q,v,chCurrent.textAnswer)}
+    msg=ok?"✅ 句子排得通順。":"🔎 可以再看看語序。參考："+chCurrent.textAnswer;
+  }else{
+    // open writing is completion-based
+    psStats.chinese.correct++;chStreak++;msg="✍️ 完成就很棒。重點是把意思說清楚，不用寫很長。";
+  }
+  recordChineseSchedule(chCurrent,ok?"correct":"wrong");
+  const f=document.getElementById("chFeedback");f.style.display="block";f.innerHTML=`<div class="resultBurst">${msg}</div>${chCurrent.why}`;
+  inp.disabled=true;document.getElementById("chSubmitText").style.display="none";document.getElementById("chNext").style.display="";
+  savePractice();renderChCounters();
+}
+document.querySelectorAll(".topicChip").forEach(btn=>btn.addEventListener("click",()=>{
+  document.querySelectorAll(".topicChip").forEach(x=>x.classList.remove("active"));btn.classList.add("active");
+  chFilter=btn.dataset.filter;chCurrent=null;
+  document.getElementById("chQuestion").textContent="已切換題型，按「開始國文練習」。";
+  document.getElementById("chChoices").innerHTML="";resetChInput();
   document.getElementById("chFeedback").style.display="none";
   document.getElementById("chStart").style.display="";
   document.getElementById("chNext").style.display="none";
-  document.getElementById("chTypeTag").textContent="準備開始";
-};
+  document.getElementById("chTypeTag").textContent=btn.textContent;
+}));
+if(document.getElementById("chStart"))document.getElementById("chStart").onclick=nextChinese;
+if(document.getElementById("chNext"))document.getElementById("chNext").onclick=nextChinese;
+if(document.getElementById("chSubmitText"))document.getElementById("chSubmitText").onclick=submitChineseText;
+renderChCounters();
 
 const mathBank=[
  {type:"分數應用",q:"一桶果汁先喝掉全部的 1/4，又喝掉剩下的 1/3。最後剩下原本的幾分之幾？",a:["1/2","0.5"],show:"1/2",why:"第一次後剩 3/4；第二次喝掉剩下的 1/3＝原本的 1/4，所以最後剩 1/2。"},
@@ -617,11 +705,13 @@ const mathBank=[
  {type:"面積",q:"長方形長 12 公分、寬 7 公分，面積是多少平方公分？",a:["84","84平方公分","84cm2","84cm²"],show:"84",why:"12×7=84。"},
  {type:"文字轉算式",q:"某數的 3/5 是 24，這個數是多少？",a:["40"],show:"40",why:"24 ÷ 3 × 5 = 40。"}
 ];
-let mathCurrent=null;
+let mathCurrent=null, mathStreak=0, mathTodayCount=0;
 
 function normMath(v){return String(v||"").trim().toLowerCase().replace(/\s+/g,"").replace(/平方公分/g,"平方公分")}
 function nextMath(){
   mathCurrent=mathBank[Math.floor(Math.random()*mathBank.length)];
+  mathTodayCount++;
+  const mtc=document.getElementById("mathTodayCount");if(mtc)mtc.textContent="今日 "+mathTodayCount+" 題";
   document.getElementById("mathTypeTag").textContent=mathCurrent.type;
   document.getElementById("mathQuestion").textContent=mathCurrent.q;
   const inp=document.getElementById("mathInput");inp.style.display="";inp.value="";inp.disabled=false;
@@ -635,7 +725,7 @@ function submitMath(){
   if(!mathCurrent)return;
   const inp=document.getElementById("mathInput"),v=inp.value.trim();if(!v)return;
   const ok=mathCurrent.a.some(x=>normMath(x)===normMath(v));
-  psStats.math.answered++;if(ok)psStats.math.correct++;
+  psStats.math.answered++;if(ok){psStats.math.correct++;mathStreak++;}else{mathStreak=0;} const ms=document.getElementById("mathStreak");if(ms)ms.textContent="連續答對 "+mathStreak;
   if(!ok)addPracticeWrong("數學",mathCurrent.type,mathCurrent.q,v,mathCurrent.show);
   const f=document.getElementById("mathFeedback");f.style.display="block";f.innerHTML=(ok?"✅ 答對了。":"❌ 這題答錯。正確答案：<b>"+mathCurrent.show+"</b>")+"<br>"+mathCurrent.why;
   inp.disabled=true;document.getElementById("mathSubmit").style.display="none";document.getElementById("mathNext").style.display="";
@@ -749,6 +839,12 @@ document.addEventListener("change",e=>{
 });
 
 renderWeekPlan();renderTodayPlan();
+
+if(document.getElementById("parentModeToggle"))document.getElementById("parentModeToggle").onclick=()=>{
+  document.body.classList.toggle("parentMode");
+  document.getElementById("parentModeToggle").textContent=document.body.classList.contains("parentMode")?"關閉家長檢視":"切換家長檢視";
+};
+
 
 
 </script>
