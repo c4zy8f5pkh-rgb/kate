@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>私中備考中心 V8.3｜復旦 × 六和</title>
+<title>私中備考中心 V8.4｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -937,22 +937,11 @@ document.addEventListener("change",e=>{
 
 renderWeekPlan();renderTodayPlan();
 
-  document.getElementById("parentModeToggle").textContent=document.body.classList.contains("parentMode")?"關閉家長檢視":"切換家長檢視";
-};
 
 
 
 
 
-(function(){
-  const el=document.getElementById("storageModeText");
-  if(el){
-    el.textContent=SafeStore.available
-      ?"✅ 瀏覽器儲存正常，學習紀錄會保留。"
-      :"⚠️ 瀏覽器不允許儲存；網站仍可練習，但關閉頁面後紀錄可能不保留。";
-  }
-  document.documentElement.setAttribute("data-app-ready","1");
-})();
 if(document.getElementById("worldCheck"))document.getElementById("worldCheck").onclick=()=>{const ans={wq1:"b",wq2:"a",wq3:"b"};let score=0;Object.entries(ans).forEach(([n,v])=>{const el=document.querySelector(`input[name="${n}"]:checked`);if(el&&el.value===v)score++});const f=document.getElementById("worldFeedback");f.style.display="block";f.innerHTML=`你答對 ${score} / 3 題。<br>${score===3?"✅ 很好，你已抓到文章的主旨與因果關係。":"🔎 再回文章找『暖化、風險、監測與預警』這幾個關鍵字。"}`};let mediaRecorder=null,recordChunks=[];const rs=document.getElementById("recordStart"),reStop=document.getElementById("recordStop"),rstatus=document.getElementById("recordStatus"),play=document.getElementById("recordPlayback");if(rs)rs.onclick=async()=>{if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){rstatus.textContent="此瀏覽器不支援錄音，可改用文字感想。";return}try{const stream=await navigator.mediaDevices.getUserMedia({audio:true});recordChunks=[];mediaRecorder=new MediaRecorder(stream);mediaRecorder.ondataavailable=e=>{if(e.data.size)recordChunks.push(e.data)};mediaRecorder.onstop=()=>{const blob=new Blob(recordChunks,{type:mediaRecorder.mimeType||"audio/webm"});play.src=URL.createObjectURL(blob);play.style.display="block";stream.getTracks().forEach(t=>t.stop());rstatus.textContent="✅ 錄音完成，可以播放聽聽看。"};mediaRecorder.start();rs.disabled=true;reStop.disabled=false;rstatus.textContent="🎙 錄音中…"}catch(e){rstatus.textContent="無法取得麥克風權限，可改用文字感想。"}};if(reStop)reStop.onclick=()=>{if(mediaRecorder&&mediaRecorder.state!=="inactive"){mediaRecorder.stop();rs.disabled=false;reStop.disabled=true}};
 
 const PARENT_PIN_KEY="private_school_parent_pin_v83";
