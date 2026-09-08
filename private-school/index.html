@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>私中備考中心 V8.2｜復旦 × 六和</title>
+<title>私中備考中心 V8.3｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -112,6 +112,24 @@ iframe{width:100%;height:72vh;border:0;background:#fff}
 
 /* V8 */
 .progressBoard{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}.progressCard{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px}.progressHead{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:8px}.progressTrack{height:10px;background:#edf0f7;border-radius:99px;overflow:hidden}.progressFill{height:100%;background:linear-gradient(90deg,#8798ff,#6678e8);border-radius:99px}.worldHero{background:linear-gradient(135deg,#eef8ff,#f9fbff);border:1px solid #d8e8f5;border-radius:22px;padding:20px}.worldMeta{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.worldArticle{font-size:17px;line-height:1.9;background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;margin:12px 0}.worldQ{background:#fbfcff;border:1px solid var(--line);border-radius:14px;padding:14px;margin:10px 0}.worldQ label{display:block;margin:7px 0}.reflectBox{background:#fffaf0;border:1px solid #ecdcb7;border-radius:16px;padding:16px;margin-top:14px}.recordRow{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.recordStatus{font-size:13px;color:#69758b}.miniSource{font-size:12px;color:#6a7589;line-height:1.6}@media(max-width:900px){.progressBoard{grid-template-columns:1fr}}
+
+
+.parentGate{max-width:520px;margin:40px auto;background:#fff;border:1px solid var(--line);border-radius:22px;padding:24px}
+.parentGate h2{margin-top:0}
+.pinRow{display:flex;gap:10px;margin-top:14px}
+.pinRow input{flex:1;padding:12px 14px;border:1px solid var(--line);border-radius:12px;font:inherit;font-size:18px}
+.parentBackend{display:none}
+.parentBackend.open{display:block}
+.backendTop{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:14px}
+.backendTabs{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 16px}
+.backendTab{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 13px;cursor:pointer}
+.backendTab.active{background:#eef1ff;border-color:#bdc7ff;font-weight:800}
+.backendPanel{display:none}
+.backendPanel.active{display:block}
+.backendGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.backendStat{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px}
+.backendStat .big{font-size:28px;font-weight:900;margin-top:6px}
+@media(max-width:900px){.backendGrid{grid-template-columns:1fr}}
 
 @media(max-width:950px){
  .app{grid-template-columns:1fr}aside{height:auto;position:relative}.navrow{display:flex;overflow:auto}nav button{min-width:130px}
@@ -376,28 +394,122 @@ iframe{width:100%;height:72vh;border:0;background:#fff}
   </div>
 </section>
 
-<section id="parent" class="page"><div class="card"><h3>系統狀態</h3><div id="storageModeText" class="muted">檢查中…</div></div>
-<div class="card">
-  <h3>👩 家長檢視模式</h3>
-  <p class="muted">打開後才顯示能力分類與分析表，孩子平常不用看到。</p>
-  <button type="button" class="btn secondary" id="parentModeToggle">切換家長檢視</button>
-</div>
 
-  <div class="grid g2">
-    <div class="card">
-      <h3>家長只需要看這些</h3>
-      <p>今日有沒有完成</p><p>本週真正弱點</p><p>下週需要補什麼</p><p>大滿貫／歷屆／網站是否指向同一問題</p>
+<section id="parent" class="page">
+  <div id="parentGate" class="parentGate">
+    <div class="muted">🔒 家長專區</div>
+    <h2>進入家長中心</h2>
+    <p class="muted">這裡是家長後台，小朋友平常不會看到學習分析與設定。</p>
+    <div class="pinRow">
+      <input id="parentPinInput" type="password" inputmode="numeric" maxlength="6" placeholder="輸入家長 PIN">
+      <button type="button" class="btn" id="parentPinBtn">進入後台</button>
     </div>
-    <div class="card">
-      <h3>英文保護狀態</h3>
-      <p><span class="tag good">保留</span> 2275 核心＋個人字庫</p>
-      <p><span class="tag good">保留</span> 每日闖關</p>
-      <p><span class="tag good">保留</span> 錯題與複習追蹤</p>
-      <p><span class="tag good">保留</span> 家長 PIN／Excel 匯入／備份還原</p>
-      <div class="callout">目前先不把英文資料搬進新 key，避免一整批既有瀏覽器資料因改版失效。</div>
+    <div id="parentPinMsg" class="muted" style="margin-top:10px"></div>
+    <div class="callout" style="margin-top:14px">預設 PIN：2580。之後可在家長設定中修改。</div>
+  </div>
+
+  <div id="parentBackend" class="parentBackend">
+    <div class="backendTop">
+      <div>
+        <div class="muted">👩 家長中心</div>
+        <h2 style="margin:4px 0">學習後台</h2>
+      </div>
+      <button type="button" class="btn secondary" id="parentLogoutBtn">離開家長中心</button>
+    </div>
+
+    <div class="backendTabs">
+      <button type="button" class="backendTab active" data-backtab="overview">總覽</button>
+      <button type="button" class="backendTab" data-backtab="progress">能力進度</button>
+      <button type="button" class="backendTab" data-backtab="wrongs">錯題</button>
+      <button type="button" class="backendTab" data-backtab="dm">大滿貫</button>
+      <button type="button" class="backendTab" data-backtab="settings">設定</button>
+    </div>
+
+    <div id="back-overview" class="backendPanel active">
+      <div class="backendGrid">
+        <div class="backendStat">
+          <div class="muted">今日是否完成</div>
+          <div class="big" id="parentTodayDone">—</div>
+        </div>
+        <div class="backendStat">
+          <div class="muted">國文答對率</div>
+          <div class="big" id="parentChRate">—</div>
+        </div>
+        <div class="backendStat">
+          <div class="muted">數學答對率</div>
+          <div class="big" id="parentMathRate">—</div>
+        </div>
+      </div>
+      <div class="card" style="margin-top:14px">
+        <h3>家長只要看這些</h3>
+        <div class="skillGrid">
+          <div class="skillPill"><b>今天</b><span id="parentTodayText">確認是否完成＋訂正</span></div>
+          <div class="skillPill"><b>本週弱點</b><span id="parentWeakText">尚未累積</span></div>
+          <div class="skillPill"><b>下週補強</b><span id="parentNextText">依錯題自動整理</span></div>
+          <div class="skillPill"><b>大滿貫／歷屆</b><span id="parentPaperText">確認紙本和網站是否指向同一問題</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="back-progress" class="backendPanel">
+      <div class="card">
+        <h3>能力進度</h3>
+        <div class="muted">不是只看做幾題，而是看每個能力的穩定度。</div>
+        <div class="progressBoard">
+          <div class="progressCard">
+            <div class="progressHead"><b>國文</b><span id="backChPct">0%</span></div>
+            <div class="progressTrack"><div id="backChBar" class="progressFill" style="width:0%"></div></div>
+          </div>
+          <div class="progressCard">
+            <div class="progressHead"><b>數學</b><span id="backMathPct">0%</span></div>
+            <div class="progressTrack"><div id="backMathBar" class="progressFill" style="width:0%"></div></div>
+          </div>
+          <div class="progressCard">
+            <div class="progressHead"><b>英文</b><span>沿用 V6.38</span></div>
+            <div class="muted">英文學習紀錄仍由原英文網站管理。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="back-wrongs" class="backendPanel">
+      <div class="card">
+        <h3>國文／數學錯題</h3>
+        <table>
+          <thead><tr><th>科目</th><th>能力</th><th>題目</th><th>孩子答案</th><th>正解</th></tr></thead>
+          <tbody id="parentWrongRows"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="back-dm" class="backendPanel">
+      <div class="card">
+        <h3>大滿貫紀錄</h3>
+        <div class="muted">紙本評量是檢測器；這裡看需要補強的方向。</div>
+        <div id="parentDmSummary" class="callout" style="margin-top:12px">尚未有大滿貫紀錄。</div>
+      </div>
+    </div>
+
+    <div id="back-settings" class="backendPanel">
+      <div class="card">
+        <h3>家長設定</h3>
+        <div class="microTask">
+          <b>修改家長 PIN</b>
+          <div class="pinRow">
+            <input id="newParentPin" type="password" inputmode="numeric" maxlength="6" placeholder="新的 4–6 位數 PIN">
+            <button type="button" class="btn secondary" id="saveParentPin">儲存 PIN</button>
+          </div>
+          <div id="savePinMsg" class="muted" style="margin-top:8px"></div>
+        </div>
+        <div class="microTask">
+          <b>系統狀態</b>
+          <div id="backendStorageStatus" class="muted" style="margin-top:6px">檢查中…</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
+
 </main>
 </div>
 
@@ -825,8 +937,6 @@ document.addEventListener("change",e=>{
 
 renderWeekPlan();renderTodayPlan();
 
-if(document.getElementById("parentModeToggle"))document.getElementById("parentModeToggle").onclick=()=>{
-  document.body.classList.toggle("parentMode");
   document.getElementById("parentModeToggle").textContent=document.body.classList.contains("parentMode")?"關閉家長檢視":"切換家長檢視";
 };
 
@@ -844,6 +954,100 @@ if(document.getElementById("parentModeToggle"))document.getElementById("parentMo
   document.documentElement.setAttribute("data-app-ready","1");
 })();
 if(document.getElementById("worldCheck"))document.getElementById("worldCheck").onclick=()=>{const ans={wq1:"b",wq2:"a",wq3:"b"};let score=0;Object.entries(ans).forEach(([n,v])=>{const el=document.querySelector(`input[name="${n}"]:checked`);if(el&&el.value===v)score++});const f=document.getElementById("worldFeedback");f.style.display="block";f.innerHTML=`你答對 ${score} / 3 題。<br>${score===3?"✅ 很好，你已抓到文章的主旨與因果關係。":"🔎 再回文章找『暖化、風險、監測與預警』這幾個關鍵字。"}`};let mediaRecorder=null,recordChunks=[];const rs=document.getElementById("recordStart"),reStop=document.getElementById("recordStop"),rstatus=document.getElementById("recordStatus"),play=document.getElementById("recordPlayback");if(rs)rs.onclick=async()=>{if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){rstatus.textContent="此瀏覽器不支援錄音，可改用文字感想。";return}try{const stream=await navigator.mediaDevices.getUserMedia({audio:true});recordChunks=[];mediaRecorder=new MediaRecorder(stream);mediaRecorder.ondataavailable=e=>{if(e.data.size)recordChunks.push(e.data)};mediaRecorder.onstop=()=>{const blob=new Blob(recordChunks,{type:mediaRecorder.mimeType||"audio/webm"});play.src=URL.createObjectURL(blob);play.style.display="block";stream.getTracks().forEach(t=>t.stop());rstatus.textContent="✅ 錄音完成，可以播放聽聽看。"};mediaRecorder.start();rs.disabled=true;reStop.disabled=false;rstatus.textContent="🎙 錄音中…"}catch(e){rstatus.textContent="無法取得麥克風權限，可改用文字感想。"}};if(reStop)reStop.onclick=()=>{if(mediaRecorder&&mediaRecorder.state!=="inactive"){mediaRecorder.stop();rs.disabled=false;reStop.disabled=true}};
+
+const PARENT_PIN_KEY="private_school_parent_pin_v83";
+const PARENT_SESSION_KEY="private_school_parent_session_v83";
+function getParentPin(){return SafeStore.get(PARENT_PIN_KEY,"2580")||"2580"}
+function renderParentBackendData(){
+  const ch=psStats.chinese||{answered:0,correct:0}, mt=psStats.math||{answered:0,correct:0};
+  const chPct=ch.answered?Math.round(ch.correct/ch.answered*100):0;
+  const mtPct=mt.answered?Math.round(mt.correct/mt.answered*100):0;
+
+  const setText=(id,val)=>{const e=document.getElementById(id);if(e)e.textContent=val};
+  setText("parentChRate",ch.answered?chPct+"%":"尚無資料");
+  setText("parentMathRate",mt.answered?mtPct+"%":"尚無資料");
+  setText("backChPct",chPct+"%");
+  setText("backMathPct",mtPct+"%");
+  const cb=document.getElementById("backChBar"),mb=document.getElementById("backMathBar");
+  if(cb)cb.style.width=chPct+"%"; if(mb)mb.style.width=mtPct+"%";
+
+  // today's completion from weeklyState
+  try{
+    const today=new Date().getDay(), p=WEEK_PLAN[today], vals=(weeklyState.days&&weeklyState.days[today])||[];
+    const done=vals.filter(Boolean).length, total=p?p.tasks.length:0;
+    setText("parentTodayDone", total && done===total ? "✅ 已完成" : `${done}/${total}`);
+    setText("parentTodayText", total && done===total ? "今天已完成，可不用再加量。" : `今天完成 ${done}/${total}，完成＋訂正即可。`);
+  }catch(e){setText("parentTodayDone","—")}
+
+  // wrongs
+  const tbody=document.getElementById("parentWrongRows");
+  if(tbody){
+    tbody.innerHTML=psWrongs.slice().reverse().map(x=>`<tr><td>${x.subject}</td><td>${x.ability}</td><td>${x.question}</td><td>${x.yours||"—"}</td><td>${x.answer}</td></tr>`).join("")
+      || '<tr><td colspan="5">目前沒有國文／數學錯題。</td></tr>';
+  }
+  const counts={};
+  psWrongs.forEach(x=>counts[x.subject+"｜"+x.ability]=(counts[x.subject+"｜"+x.ability]||0)+1);
+  const top=Object.entries(counts).sort((a,b)=>b[1]-a[1])[0];
+  setText("parentWeakText", top?`${top[0]}（${top[1]} 次）`:"尚未累積");
+  setText("parentNextText", top?`優先補強：${top[0]}`:"目前先依正常進度學習");
+
+  // dm records
+  const dmEl=document.getElementById("parentDmSummary");
+  if(dmEl){
+    try{
+      const dm=JSON.parse(SafeStore.get("private_school_dm_records","[]")||"[]");
+      dmEl.textContent=dm.length?`目前共有 ${dm.length} 筆大滿貫紀錄，請優先看最近的錯題能力。`:"尚未有大滿貫紀錄。";
+    }catch(e){dmEl.textContent="尚未有大滿貫紀錄。"}
+  }
+
+  const ss=document.getElementById("backendStorageStatus");
+  if(ss) ss.textContent=SafeStore.available
+    ?"✅ 瀏覽器儲存正常，學習紀錄會保留。"
+    :"⚠️ 目前瀏覽器儲存受限，關閉頁面後部分紀錄可能不保留。";
+}
+function openParentBackend(){
+  const gate=document.getElementById("parentGate"),back=document.getElementById("parentBackend");
+  if(gate)gate.style.display="none";
+  if(back)back.classList.add("open");
+  SafeStore.set(PARENT_SESSION_KEY,"1");
+  renderParentBackendData();
+}
+function closeParentBackend(){
+  const gate=document.getElementById("parentGate"),back=document.getElementById("parentBackend");
+  if(gate)gate.style.display="";
+  if(back)back.classList.remove("open");
+  SafeStore.remove(PARENT_SESSION_KEY);
+  const pin=document.getElementById("parentPinInput");if(pin)pin.value="";
+}
+if(document.getElementById("parentPinBtn"))document.getElementById("parentPinBtn").onclick=()=>{
+  const inp=document.getElementById("parentPinInput"),msg=document.getElementById("parentPinMsg");
+  if(inp&&inp.value===getParentPin()){if(msg)msg.textContent="";openParentBackend();}
+  else if(msg)msg.textContent="PIN 不正確。";
+};
+if(document.getElementById("parentPinInput"))document.getElementById("parentPinInput").addEventListener("keydown",e=>{if(e.key==="Enter")document.getElementById("parentPinBtn").click()});
+if(document.getElementById("parentLogoutBtn"))document.getElementById("parentLogoutBtn").onclick=closeParentBackend;
+
+document.querySelectorAll(".backendTab").forEach(btn=>btn.addEventListener("click",()=>{
+  document.querySelectorAll(".backendTab").forEach(x=>x.classList.remove("active"));
+  document.querySelectorAll(".backendPanel").forEach(x=>x.classList.remove("active"));
+  btn.classList.add("active");
+  const p=document.getElementById("back-"+btn.dataset.backtab);if(p)p.classList.add("active");
+  renderParentBackendData();
+}));
+
+if(document.getElementById("saveParentPin"))document.getElementById("saveParentPin").onclick=()=>{
+  const inp=document.getElementById("newParentPin"),msg=document.getElementById("savePinMsg");
+  const v=(inp?.value||"").trim();
+  if(!/^\d{4,6}$/.test(v)){if(msg)msg.textContent="請輸入 4–6 位數字。";return;}
+  SafeStore.set(PARENT_PIN_KEY,v);
+  if(msg)msg.textContent="✅ PIN 已更新。";
+  inp.value="";
+};
+
+if(SafeStore.get(PARENT_SESSION_KEY,"0")==="1"){
+  setTimeout(openParentBackend,0);
+}
+
 </script>
 
 </body>
