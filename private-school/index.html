@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>私中備考中心｜復旦 × 六和</title>
+<title>私中備考中心 V6.3｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -112,14 +112,14 @@ iframe{width:100%;height:72vh;border:0;background:#fff}
 <aside>
   <div class="brand">🎯 私中備考中心<small>復旦 × 六和｜小五起跑</small></div>
   <nav class="navrow">
-    <button class="active" data-page="home">🏠 今日學習</button>
-    <button data-page="chinese">📖 國文</button>
-    <button data-page="math">🧮 數學</button>
-    <button data-page="english">🇺🇸 英文原系統</button>
-    <button data-page="history">📚 歷屆題</button>
-    <button data-page="damankuan">📘 大滿貫</button>
-    <button data-page="wrong">🔁 三科弱點</button>
-    <button data-page="parent">🔒 家長中心</button>
+    <button type="button" class="active" data-page="home">🏠 今日學習</button>
+    <button type="button" data-page="chinese">📖 國文</button>
+    <button type="button" data-page="math">🧮 數學</button>
+    <button type="button" data-page="english">🇺🇸 英文原系統</button>
+    <button type="button" data-page="history">📚 歷屆題</button>
+    <button type="button" data-page="damankuan">📘 大滿貫</button>
+    <button type="button" data-page="wrong">🔁 三科弱點</button>
+    <button type="button" data-page="parent">🔒 家長中心</button>
   </nav>
 </aside>
 
@@ -193,15 +193,15 @@ iframe{width:100%;height:72vh;border:0;background:#fff}
     </div>
 
     <div class="topicRail">
-      <button class="topicChip active" data-filter="all">混合</button>
-      <button class="topicChip" data-filter="字音">字音</button>
-      <button class="topicChip" data-filter="字形">字形</button>
-      <button class="topicChip" data-filter="字義">字義</button>
-      <button class="topicChip" data-filter="成語">成語</button>
-      <button class="topicChip" data-filter="短文閱讀">短文</button>
-      <button class="topicChip" data-filter="閱讀推論">推論</button>
-      <button class="topicChip" data-filter="句子重組">句子</button>
-      <button class="topicChip" data-filter="短寫作">短寫作</button>
+      <button type="button" class="topicChip active" data-filter="all">混合</button>
+      <button type="button" class="topicChip" data-filter="字音">字音</button>
+      <button type="button" class="topicChip" data-filter="字形">字形</button>
+      <button type="button" class="topicChip" data-filter="字義">字義</button>
+      <button type="button" class="topicChip" data-filter="成語">成語</button>
+      <button type="button" class="topicChip" data-filter="短文閱讀">短文</button>
+      <button type="button" class="topicChip" data-filter="閱讀推論">推論</button>
+      <button type="button" class="topicChip" data-filter="句子重組">句子</button>
+      <button type="button" class="topicChip" data-filter="短寫作">短寫作</button>
     </div>
 
     <div id="chQuestion" class="questionBox">按「開始國文練習」出題。</div>
@@ -210,9 +210,9 @@ iframe{width:100%;height:72vh;border:0;background:#fff}
     <div id="chFeedback" class="feedbackBox" style="display:none"></div>
 
     <div class="practiceActions">
-      <button class="btn" id="chStart">開始國文練習</button>
-      <button class="btn" id="chSubmitText" style="display:none">送出</button>
-      <button class="btn secondary" id="chNext" style="display:none">下一題</button>
+      <button type="button" class="btn" id="chStart">開始國文練習</button>
+      <button type="button" class="btn" id="chSubmitText" style="display:none">送出</button>
+      <button type="button" class="btn secondary" id="chNext" style="display:none">下一題</button>
     </div>
   </div>
 
@@ -260,9 +260,9 @@ iframe{width:100%;height:72vh;border:0;background:#fff}
     <input id="mathInput" class="answerInput" placeholder="輸入答案" style="display:none">
     <div id="mathFeedback" class="feedbackBox" style="display:none"></div>
     <div class="practiceActions">
-      <button class="btn" id="mathStart">開始數學練習</button>
-      <button class="btn" id="mathSubmit" style="display:none">送出答案</button>
-      <button class="btn secondary" id="mathNext" style="display:none">下一題</button>
+      <button type="button" class="btn" id="mathStart">開始數學練習</button>
+      <button type="button" class="btn" id="mathSubmit" style="display:none">送出答案</button>
+      <button type="button" class="btn secondary" id="mathNext" style="display:none">下一題</button>
     </div>
   </div>
 
@@ -287,7 +287,7 @@ iframe{width:100%;height:72vh;border:0;background:#fff}
     <div class="callout">為避免瀏覽器嵌入限制影響原本 localStorage，真正學習建議用「開啟英文原站」進入。原網址與原資料不被這個整合版覆蓋。</div>
     <p style="margin-bottom:0">
       <a class="btn" target="_blank" rel="noopener" href="https://c4zy8f5pkh-rgb.github.io/kate/english/">開啟英文原站</a>
-      <button class="btn secondary" onclick="document.getElementById('engFrame').classList.toggle('hidden')">顯示／隱藏內嵌預覽</button>
+      <button type="button" class="btn secondary" onclick="document.getElementById('engFrame').classList.toggle('hidden')">顯示／隱藏內嵌預覽</button>
     </p>
   </div>
   <div id="engFrame" class="english-frame-wrap">
@@ -322,7 +322,7 @@ iframe{width:100%;height:72vh;border:0;background:#fff}
       <div><label>主要錯因</label><select id="dmReason"><option>觀念不熟</option><option>題意判讀</option><option>計算錯誤</option><option>粗心</option><option>時間不足</option></select></div>
       <div style="grid-column:span 2"><label>備註</label><input id="dmNote" placeholder="例如：第 8、12 題不會列式"></div>
     </div>
-    <button class="btn" style="margin-top:12px" onclick="saveDM()">儲存結果</button>
+    <button type="button" class="btn" style="margin-top:12px" onclick="saveDM()">儲存結果</button>
     <table style="margin-top:15px"><thead><tr><th>日期</th><th>科目</th><th>單元</th><th>分數</th><th>錯因</th></tr></thead><tbody id="dmRows"></tbody></table>
   </div>
 </section>
@@ -342,11 +342,11 @@ iframe{width:100%;height:72vh;border:0;background:#fff}
   </div>
 </section>
 
-<section id="parent" class="page">
+<section id="parent" class="page"><div class="card"><h3>系統狀態</h3><div id="storageModeText" class="muted">檢查中…</div></div>
 <div class="card">
   <h3>👩 家長檢視模式</h3>
   <p class="muted">打開後才顯示能力分類與分析表，孩子平常不用看到。</p>
-  <button class="btn secondary" id="parentModeToggle">切換家長檢視</button>
+  <button type="button" class="btn secondary" id="parentModeToggle">切換家長檢視</button>
 </div>
 
   <div class="grid g2">
@@ -368,6 +368,38 @@ iframe{width:100%;height:72vh;border:0;background:#fff}
 </div>
 
 <script>
+const SafeStore=(()=>{
+  const mem={};
+  let ok=true;
+  try{
+    const k="__ps_test__"+Date.now();
+    window.localStorage.setItem(k,"1");
+    window.localStorage.removeItem(k);
+  }catch(e){ok=false;}
+  return {
+    available:ok,
+    get(key,fallback=null){
+      try{
+        if(ok){
+          const v=window.localStorage.getItem(key);
+          return v===null?fallback:v;
+        }
+      }catch(e){}
+      return Object.prototype.hasOwnProperty.call(mem,key)?mem[key]:fallback;
+    },
+    set(key,val){
+      const s=String(val);
+      try{if(ok){window.localStorage.setItem(key,s);return true;}}catch(e){}
+      mem[key]=s;
+      return false;
+    },
+    remove(key){
+      try{if(ok)window.localStorage.removeItem(key);}catch(e){}
+      delete mem[key];
+    }
+  };
+})();
+
 const navBtns=[...document.querySelectorAll('nav button')];
 function go(id){
   navBtns.forEach(b=>b.classList.toggle('active',b.dataset.page===id));
@@ -377,33 +409,39 @@ function go(id){
 navBtns.forEach(b=>b.onclick=()=>go(b.dataset.page));
 
 function todayProgress(){
-  const c=[...document.querySelectorAll('.taskchk')],done=c.filter(x=>x.checked).length;
+  const c=[...document.querySelectorAll('.taskchk')];
+  if(!c.length)return;
+  const done=c.filter(x=>x.checked).length;
   const pct=Math.round(done/c.length*100);
-  document.getElementById('rate').textContent=pct+'%';
-  document.getElementById('bar').style.width=pct+'%';
-  localStorage.setItem('private_school_center_tasks',JSON.stringify(c.map(x=>x.checked)));
+  const rate=document.getElementById('rate'),bar=document.getElementById('bar');
+  if(rate)rate.textContent=pct+'%';
+  if(bar)bar.style.width=pct+'%';
+  SafeStore.set('private_school_center_tasks',JSON.stringify(c.map(x=>x.checked)));
 }
 document.querySelectorAll('.taskchk').forEach(x=>x.onchange=todayProgress);
 try{
- const s=JSON.parse(localStorage.getItem('private_school_center_tasks')||'null');
+ const s=JSON.parse(SafeStore.get('private_school_center_tasks')||'null');
  if(s)document.querySelectorAll('.taskchk').forEach((x,i)=>x.checked=!!s[i]);
 }catch(e){}
 todayProgress();
 
-document.getElementById('dmDate').value=new Date().toISOString().slice(0,10);
+const dmDateEl=document.getElementById('dmDate'); if(dmDateEl)dmDateEl.value=new Date().toISOString().slice(0,10);
 function loadDM(){
-  const rows=JSON.parse(localStorage.getItem('private_school_dm_records')||'[]');
-  dmRows.innerHTML='';
+  const rows=JSON.parse(SafeStore.get('private_school_dm_records')||'[]');
+  const dmRowsEl=document.getElementById('dmRows'); if(!dmRowsEl)return;
+  dmRowsEl.innerHTML='';
   rows.slice().reverse().forEach(r=>{
     const tr=document.createElement('tr');
     tr.innerHTML=`<td>${r.date}</td><td>${r.sub}</td><td>${r.unit}</td><td>${r.score}</td><td>${r.reason}</td>`;
-    dmRows.appendChild(tr);
+    dmRowsEl.appendChild(tr);
   });
 }
 function saveDM(){
-  const r={date:dmDate.value,sub:dmSub.value,unit:dmUnit.value||'未填',score:dmScore.value||'-',wrong:dmWrong.value||0,reason:dmReason.value,note:dmNote.value};
-  const rows=JSON.parse(localStorage.getItem('private_school_dm_records')||'[]');rows.push(r);
-  localStorage.setItem('private_school_dm_records',JSON.stringify(rows));loadDM();
+  const dmDate=document.getElementById('dmDate'),dmSub=document.getElementById('dmSub'),dmUnit=document.getElementById('dmUnit'),dmScore=document.getElementById('dmScore'),dmWrong=document.getElementById('dmWrong'),dmReason=document.getElementById('dmReason'),dmNote=document.getElementById('dmNote');
+  if(!dmDate||!dmSub)return;
+  const r={date:dmDate.value,sub:dmSub.value,unit:dmUnit?.value||'未填',score:dmScore?.value||'-',wrong:dmWrong?.value||0,reason:dmReason?.value||'',note:dmNote?.value||''};
+  const rows=JSON.parse(SafeStore.get('private_school_dm_records')||'[]');rows.push(r);
+  SafeStore.set('private_school_dm_records',JSON.stringify(rows));loadDM();
 }
 loadDM();
 
@@ -411,128 +449,20 @@ const PS_STATS_KEY="private_school_practice_stats_v1";
 const PS_WRONG_KEY="private_school_practice_wrongs_v1";
 
 function loadPracticeStats(){
-  try{return JSON.parse(localStorage.getItem(PS_STATS_KEY)||'{"chinese":{"answered":0,"correct":0},"math":{"answered":0,"correct":0}}')}
+  try{return JSON.parse(SafeStore.get(PS_STATS_KEY)||'{"chinese":{"answered":0,"correct":0},"math":{"answered":0,"correct":0}}')}
   catch(e){return {chinese:{answered:0,correct:0},math:{answered:0,correct:0}}}
 }
 function loadPracticeWrongs(){
-  try{return JSON.parse(localStorage.getItem(PS_WRONG_KEY)||"[]")}catch(e){return []}
+  try{return JSON.parse(SafeStore.get(PS_WRONG_KEY)||"[]")}catch(e){return []}
 }
 let psStats=loadPracticeStats(), psWrongs=loadPracticeWrongs();
 
 function savePractice(){
-  localStorage.setItem(PS_STATS_KEY,JSON.stringify(psStats));
-  localStorage.setItem(PS_WRONG_KEY,JSON.stringify(psWrongs));
+  SafeStore.set(PS_STATS_KEY,JSON.stringify(psStats));
+  SafeStore.set(PS_WRONG_KEY,JSON.stringify(psWrongs));
   renderPracticeStats();renderPracticeWrongs();
-
-const WEEKLY_PLAN_KEY="private_school_weekly_plan_v1";
-const WEEK_PLAN={
-  1:{day:"星期一",subject:"📖 國文｜大滿貫日",note:"英文課當天，回家國文不要塞太多。",tasks:[
-    "大滿貫：做 1 個小範圍，約 15–20 分鐘",
-    "訂正：把錯題分成「不會／看錯／粗心」",
-    "網站：只做 5–8 題形音義或閱讀複習"
-  ]},
-  2:{day:"星期二",subject:"🇺🇸 英文｜複習日",note:"複習星期一英文課，不另外大量教新內容。",tasks:[
-    "複習昨天英文課單字／句型",
-    "英文網站：中翻英＋文法或情境題",
-    "錯題本：挑 2–3 題再複習"
-  ]},
-  3:{day:"星期三",subject:"🧮 數學｜基礎日",note:"先跟學校進度，把觀念真正弄懂。",tasks:[
-    "學校目前單元：先看觀念",
-    "大滿貫：做 1 個小範圍",
-    "訂正：確認是計算錯還是題意不懂"
-  ]},
-  4:{day:"星期四",subject:"📖 國文｜世說新語日",note:"英文課當天，國文改做閱讀與理解。",tasks:[
-    "世說新語：看 1 小段故事",
-    "用白話說一次「誰做了什麼」",
-    "網站：2–3 題閱讀推論＋5 題形音義"
-  ]},
-  5:{day:"星期五",subject:"🇺🇸 英文｜整合日",note:"複習星期四英文課＋本週錯題。",tasks:[
-    "複習昨天英文課",
-    "英文網站：中翻英／情境／文法擇二",
-    "本週英文錯題再做一次"
-  ]},
-  6:{day:"星期六",subject:"🧮 數學｜進階日",note:"不重複寫同一張，改做同觀念類題。",tasks:[
-    "本週數學錯題：挑 2–3 題觀念",
-    "網站：文字應用 4–6 題",
-    "挑戰：1–2 題多步驟或私中型題"
-  ]},
-  0:{day:"星期日",subject:"🏠 家事＋休息",note:"今天不排正式學習。",tasks:[
-    "完成家事",
-    "整理下週用品",
-    "下午休息／平板時間"
-  ]}
-};
-
-function weekState(){
-  try{
-    const x=JSON.parse(localStorage.getItem(WEEKLY_PLAN_KEY)||"{}");
-    const weekId=getWeekId();
-    return x.weekId===weekId?x:{weekId,days:{}};
-  }catch(e){return {weekId:getWeekId(),days:{}}}
-}
-function getWeekId(){
-  const d=new Date(),copy=new Date(d);
-  const day=(d.getDay()+6)%7;
-  copy.setDate(d.getDate()-day);
-  return copy.toISOString().slice(0,10);
-}
-let weeklyState=weekState();
-
-function saveWeekState(){
-  localStorage.setItem(WEEKLY_PLAN_KEY,JSON.stringify(weeklyState));
 }
 
-function renderWeekPlan(){
-  const box=document.getElementById("weekPlan");if(!box)return;
-  const order=[1,2,3,4,5,6,0],today=new Date().getDay();
-  box.innerHTML=order.map(d=>{
-    const p=WEEK_PLAN[d],done=(weeklyState.days[d]||[]).filter(Boolean).length;
-    return `<div class="dayCard ${d===today?"today":""}">
-      ${d===today?'<span class="todayMark">今天</span>':""}
-      <div class="dayName">${p.day}</div>
-      <div class="daySubject">${p.subject}</div>
-      <div class="dayTask">${p.tasks.slice(0,2).map(x=>"• "+x).join("<br>")}</div>
-      <div class="muted" style="margin-top:8px">${done} / ${p.tasks.length} 完成</div>
-    </div>`;
-  }).join("");
-}
-
-function renderTodayPlan(){
-  const today=new Date().getDay(),p=WEEK_PLAN[today];
-  document.getElementById("todayLabel").textContent=p.day+"｜今日學習";
-  document.getElementById("todaySubjectTitle").textContent=p.subject;
-  document.getElementById("todaySubjectNote").textContent=p.note;
-  const vals=weeklyState.days[today]||Array(p.tasks.length).fill(false);
-  weeklyState.days[today]=vals;
-  const box=document.getElementById("todayPlanTasks");
-  box.innerHTML=p.tasks.map((t,i)=>`<label class="focusTask"><input type="checkbox" class="weeklyChk" data-i="${i}" ${vals[i]?"checked":""}><span>${t}</span></label>`).join("");
-  updateTodayPlanProgress();
-}
-
-function updateTodayPlanProgress(){
-  const today=new Date().getDay(),p=WEEK_PLAN[today],vals=weeklyState.days[today]||[];
-  const done=vals.filter(Boolean).length,total=p.tasks.length,pct=total?Math.round(done/total*100):0;
-  document.getElementById("todayPlanBar").style.width=pct+"%";
-  document.getElementById("todayPlanProgress").textContent=`完成 ${done} / ${total}${done===total?"　🎉 今天過關！":""}`;
-  renderWeekPlan();
-}
-
-document.addEventListener("change",e=>{
-  if(!e.target.classList.contains("weeklyChk"))return;
-  const today=new Date().getDay(),i=Number(e.target.dataset.i);
-  weeklyState.days[today][i]=e.target.checked;
-  saveWeekState();updateTodayPlanProgress();
-});
-
-renderWeekPlan();renderTodayPlan();
-
-if(document.getElementById("parentModeToggle"))document.getElementById("parentModeToggle").onclick=()=>{
-  document.body.classList.toggle("parentMode");
-  document.getElementById("parentModeToggle").textContent=document.body.classList.contains("parentMode")?"關閉家長檢視":"切換家長檢視";
-};
-
-
-}
 function renderPracticeStats(){
   const pairs=[["chinese","chAnswered","chCorrect","chRate"],["math","mathAnswered","mathCorrect","mathRate"]];
   pairs.forEach(([k,a,c,r])=>{
@@ -592,12 +522,12 @@ function newChineseQueue(){
 }
 function loadChineseQueue(){
   try{
-    const x=JSON.parse(localStorage.getItem(CH_QUEUE_KEY)||"null");
+    const x=JSON.parse(SafeStore.get(CH_QUEUE_KEY)||"null");
     return (!x||x.date!==chDayKey())?newChineseQueue():x;
   }catch(e){return newChineseQueue()}
 }
 let chQueue=loadChineseQueue();
-function saveChineseQueue(){localStorage.setItem(CH_QUEUE_KEY,JSON.stringify(chQueue))}
+function saveChineseQueue(){SafeStore.set(CH_QUEUE_KEY,JSON.stringify(chQueue))}
 function eligibleChinese(){
   return chineseBank.filter(x=>(chFilter==="all"||x.type===chFilter)&&!chQueue.shown.includes(x.id));
 }
@@ -779,7 +709,7 @@ const WEEK_PLAN={
 
 function weekState(){
   try{
-    const x=JSON.parse(localStorage.getItem(WEEKLY_PLAN_KEY)||"{}");
+    const x=JSON.parse(SafeStore.get(WEEKLY_PLAN_KEY)||"{}");
     const weekId=getWeekId();
     return x.weekId===weekId?x:{weekId,days:{}};
   }catch(e){return {weekId:getWeekId(),days:{}}}
@@ -793,7 +723,7 @@ function getWeekId(){
 let weeklyState=weekState();
 
 function saveWeekState(){
-  localStorage.setItem(WEEKLY_PLAN_KEY,JSON.stringify(weeklyState));
+  SafeStore.set(WEEKLY_PLAN_KEY,JSON.stringify(weeklyState));
 }
 
 function renderWeekPlan(){
@@ -847,6 +777,18 @@ if(document.getElementById("parentModeToggle"))document.getElementById("parentMo
 
 
 
+
+
+(function(){
+  const el=document.getElementById("storageModeText");
+  if(el){
+    el.textContent=SafeStore.available
+      ?"✅ 瀏覽器儲存正常，學習紀錄會保留。"
+      :"⚠️ 瀏覽器不允許儲存；網站仍可練習，但關閉頁面後紀錄可能不保留。";
+  }
+  document.documentElement.setAttribute("data-app-ready","1");
+})();
 </script>
+
 </body>
 </html>
