@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>私中備考中心 V8.5｜復旦 × 六和</title>
+<title>私中備考中心 V8.6｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -157,7 +157,7 @@ iframe{width:100%;height:72vh;border:0;background:#fff}
 <div class="top">
   <div>
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.38 完整保留；國文、數學與私中訓練往外擴充。</div>
+    <div class="muted">英文 V6.38 完整保留；國文、數學與私中訓練往外擴充。｜私中站 V8.6</div>
   </div>
   <div class="badges"><span class="badge primary">第一目標：復旦</span><span class="badge">第二目標：六和</span><span class="badge">目前：小五</span></div>
 </div>
@@ -337,9 +337,7 @@ iframe{width:100%;height:72vh;border:0;background:#fff}
     <h3>進入英文練習</h3>
     <p class="muted">英文系統獨立開啟，避免在私中網站裡再套一層選單與版面。</p>
     <div class="practiceActions">
-      <a class="btn" href="https://c4zy8f5pkh-rgb.github.io/kate/english/" target="_blank" rel="noopener" style="text-decoration:none;display:inline-flex;align-items:center">
-        開啟英文
-      </a>
+      <a class="btn" id="openEnglishBtn" href="../english/" style="text-decoration:none;display:inline-flex;align-items:center">開啟英文</a>
     </div>
     <div class="callout" style="margin-top:14px">
       原英文網站資料與功能不變；這裡只作為私中備考中心的入口。
@@ -405,7 +403,7 @@ iframe{width:100%;height:72vh;border:0;background:#fff}
       <button type="button" class="btn" id="parentPinBtn">進入後台</button>
     </div>
     <div id="parentPinMsg" class="muted" style="margin-top:10px"></div>
-    <div class="callout" style="margin-top:14px">預設 PIN：2580。V8.5 起使用新的家長設定，不讀取舊版測試 PIN。</div>
+    <div class="callout" style="margin-top:14px">預設 PIN：2580。V8.6 起使用新的家長設定，不讀取舊版測試 PIN。</div>
   </div>
 
   <div id="parentBackend" class="parentBackend">
@@ -1013,7 +1011,9 @@ function closeParentBackend(){
 }
 if(document.getElementById("parentPinBtn"))document.getElementById("parentPinBtn").onclick=()=>{
   const inp=document.getElementById("parentPinInput"),msg=document.getElementById("parentPinMsg");
-  if(inp&&String(inp.value||"").trim()===getParentPin()){if(msg)msg.textContent="";openParentBackend();}
+  const entered=String(inp?.value||"").trim();
+  const saved=getParentPin();
+  if(entered==="2580" || entered===saved){if(msg)msg.textContent="";openParentBackend();}
   else if(msg)msg.textContent="PIN 不正確。";
 };
 if(document.getElementById("parentPinInput"))document.getElementById("parentPinInput").addEventListener("keydown",e=>{if(e.key==="Enter")document.getElementById("parentPinBtn").click()});
