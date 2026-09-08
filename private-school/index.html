@@ -130,7 +130,7 @@ iframe{width:100%;height:72vh;border:0;background:#fff}
   <div class="grid g2">
     <div class="card">
       <div class="practiceTop">
-        <div><h3>國文實戰練習</h3><div class="muted">小五程度起步｜閱讀、語詞、成語、推論</div></div>
+        <div><h3>國文實戰練習</h3><div class="muted">小五程度起步｜閱讀、語詞、成語、推論｜24 題輪替，當日優先不重複</div></div>
         <div class="practiceMeta"><span class="tag">原創練習</span><span class="tag warn" id="chTypeTag">閱讀理解</span></div>
       </div>
       <div class="miniStats">
@@ -155,7 +155,7 @@ iframe{width:100%;height:72vh;border:0;background:#fff}
         <tr><td>閱讀主旨</td><td>找中心思想</td></tr>
         <tr><td>閱讀推論</td><td><span class="tag bad">私中重點</span> 從文本找證據推論</td></tr>
       </table>
-      <div class="callout" style="margin-top:12px">錯題會留下「能力標籤」，不只記哪一題錯。</div>
+      <div class="callout" style="margin-top:12px">防重複規則：同一天先把未看過的題目出完；答錯題至少隔 6 題、答對題至少隔 18 題才可能再出現。</div>
     </div>
   </div>
 </section>
@@ -358,19 +358,85 @@ function renderPracticeWrongs(){
 }
 
 const chineseBank=[
- {type:"閱讀主旨",q:"小杰每天放學後都練習投籃。即使下雨，他也會在家做體能訓練。比賽那天，他最後投進關鍵一球。這段文字主要想表達什麼？",choices:["小杰很喜歡下雨","持續練習讓小杰在關鍵時刻有表現","比賽只要運氣好就會贏"],a:1,why:"文章重點放在『每天練習』與最後的成果，主旨是努力與表現的關係。"},
- {type:"閱讀推論",q:"媽媽把雨傘放到小安書包旁，並提醒他『今天放學別急著走』。最可能的原因是什麼？",choices:["今天可能會下雨","媽媽要小安留在學校過夜","小安忘記帶鉛筆"],a:0,why:"雨傘＋別急著走，最合理推論是天候可能有變化。"},
- {type:"成語",q:"下列哪一個成語最適合形容『做事很仔細，不放過任何小地方』？",choices:["馬馬虎虎","一絲不苟","三心二意"],a:1,why:"一絲不苟＝做事認真細密，連很小的地方也不馬虎。"},
- {type:"語詞理解",q:"「他雖然失敗了，卻沒有因此氣餒。」『氣餒』最接近哪個意思？",choices:["失去信心","非常生氣","感到驕傲"],a:0,why:"氣餒是因遭遇困難或失敗而失去勇氣、信心。"},
- {type:"閱讀推論",q:"圖書館快關門了，小美卻把借來的三本書一本一本重新檢查頁碼。從這個行為最能看出她怎樣的特質？",choices:["粗心","謹慎","急躁"],a:1,why:"離開前再次確認書本，表示她做事謹慎。"},
- {type:"閱讀主旨",q:"社區原本有一塊荒地，居民一起整理、種花、設置座椅。幾個月後，這裡成了大家散步聊天的地方。這段最適合的標題是？",choices:["荒地變公園","居民不愛整理","花朵很難種"],a:0,why:"內容核心是荒地經居民整理後成為公共休閒空間。"},
- {type:"成語",q:"老師提醒大家不要只看到表面，要先了解事情真正的原因。下列哪個說法最接近這個意思？",choices:["追根究柢","畫蛇添足","守株待兔"],a:0,why:"追根究柢＝追究事情根本的原因。"},
- {type:"語詞理解",q:"「這項任務十分艱鉅，但大家仍決定一起完成。」『艱鉅』最接近？",choices:["簡單容易","困難而繁重","有趣好玩"],a:1,why:"艱鉅形容事情困難、繁重。"}
+ {id:"ch01",type:"閱讀主旨",q:"小杰每天放學後都練習投籃。即使下雨，他也會在家做體能訓練。比賽那天，他最後投進關鍵一球。這段文字主要想表達什麼？",choices:["小杰很喜歡下雨","持續練習讓小杰在關鍵時刻有表現","比賽只要運氣好就會贏"],a:1,why:"文章重點放在「每天練習」與最後成果之間的關係。"},
+ {id:"ch02",type:"閱讀推論",q:"媽媽把雨傘放到小安書包旁，並提醒他「今天放學別急著走」。最可能的原因是什麼？",choices:["今天可能會下雨","媽媽要小安留在學校過夜","小安忘記帶鉛筆"],a:0,why:"雨傘和提醒放學別急著走，最合理的推論是天候可能有變化。"},
+ {id:"ch03",type:"成語",q:"下列哪一個成語最適合形容「做事很仔細，不放過任何小地方」？",choices:["馬馬虎虎","一絲不苟","三心二意"],a:1,why:"一絲不苟表示做事認真細密，連很小的地方也不馬虎。"},
+ {id:"ch04",type:"語詞理解",q:"「他雖然失敗了，卻沒有因此氣餒。」其中「氣餒」最接近哪個意思？",choices:["失去信心","非常生氣","感到驕傲"],a:0,why:"氣餒是因遭遇困難或失敗而失去勇氣與信心。"},
+ {id:"ch05",type:"閱讀推論",q:"圖書館快關門了，小美卻把借來的三本書一本一本重新檢查頁碼。從這個行為最能看出她怎樣的特質？",choices:["粗心","謹慎","急躁"],a:1,why:"離開前再次確認書本內容，最能看出她做事謹慎。"},
+ {id:"ch06",type:"閱讀主旨",q:"社區原本有一塊荒地，居民一起整理、種花、設置座椅。幾個月後，這裡成了大家散步聊天的地方。這段最適合的標題是？",choices:["荒地變公園","居民不愛整理","花朵很難種"],a:0,why:"內容核心是荒地經居民共同整理後成為公共休閒空間。"},
+ {id:"ch07",type:"成語",q:"老師提醒大家不要只看到表面，要先了解事情真正的原因。下列哪個成語最接近這個意思？",choices:["追根究柢","畫蛇添足","守株待兔"],a:0,why:"追根究柢就是追究事情根本的原因。"},
+ {id:"ch08",type:"語詞理解",q:"「這項任務十分艱鉅，但大家仍決定一起完成。」其中「艱鉅」最接近？",choices:["簡單容易","困難而繁重","有趣好玩"],a:1,why:"艱鉅形容事情困難而繁重。"},
+ {id:"ch09",type:"閱讀推論",q:"阿哲把鬧鐘調早半小時，還把球鞋放在床邊。隔天一早，他沒有叫任何人就自己起床。最合理的推論是？",choices:["他準備早起運動","他不想去上學","他的球鞋壞了"],a:0,why:"鬧鐘提早與把球鞋放床邊，兩個線索都指向早起運動。"},
+ {id:"ch10",type:"閱讀主旨",q:"爸爸每週日都帶小恩去市場。小恩學會比較價格、觀察食材，也逐漸知道家裡每天的餐點是怎麼準備的。這段主要在說什麼？",choices:["市場裡的人很多","陪家人買菜也能學到生活知識","星期日不能待在家"],a:1,why:"重點不是市場本身，而是孩子從買菜過程學到生活能力。"},
+ {id:"ch11",type:"成語",q:"小華做報告前查了很多資料，直到確認每個細節才交出去。最適合用哪個成語形容？",choices:["敷衍了事","慎重其事","一知半解"],a:1,why:"慎重其事表示對事情非常認真、謹慎地處理。"},
+ {id:"ch12",type:"語詞理解",q:"「山路蜿蜒而上，車子必須放慢速度。」其中「蜿蜒」最接近哪個意思？",choices:["筆直延伸","彎彎曲曲","突然中斷"],a:1,why:"蜿蜒形容道路、河流等彎曲延伸。"},
+ {id:"ch13",type:"閱讀推論",q:"老師把考卷發下來後，小雯沒有立刻看分數，而是先把錯題圈起來。最能看出她？",choices:["只在乎分數","重視找出自己的問題","不想知道成績"],a:1,why:"先找錯題，代表她重視檢討與改進，而不只是分數。"},
+ {id:"ch14",type:"閱讀主旨",q:"一棵樹從小苗開始，經過多年風吹雨打，才長成能讓人乘涼的大樹。這段話最想表達？",choices:["成長需要時間與累積","大樹最怕下雨","小苗不能曬太陽"],a:0,why:"文章以樹的成長比喻成果需要長期累積。"},
+ {id:"ch15",type:"成語",q:"比賽前大家原本很緊張，隊長說了幾句鼓勵的話，大家立刻振作起來。哪個成語最適合形容隊長的話？",choices:["雪中送炭","畫龍點睛","自相矛盾"],a:0,why:"雪中送炭比喻在別人急需時給予幫助，這裡符合鼓勵隊友的情境。"},
+ {id:"ch16",type:"語詞理解",q:"「他對這次實驗的結果抱持審慎態度。」其中「審慎」最接近？",choices:["仔細慎重","隨便應付","非常興奮"],a:0,why:"審慎就是仔細、慎重，不輕率下結論。"},
+ {id:"ch17",type:"閱讀推論",q:"放學後天空突然變暗，操場上的同學紛紛往教室跑。最可能發生什麼事？",choices:["準備下大雨","要開始升旗","大家要去吃早餐"],a:0,why:"天空變暗加上同學往室內跑，是下雨前常見線索。"},
+ {id:"ch18",type:"閱讀主旨",q:"小芸第一次做蛋糕失敗了，第二次調整溫度，第三次重新控制時間，最後終於成功。這段最主要想表達？",choices:["做蛋糕很浪費時間","從失敗中修正才能進步","烤箱越熱越好"],a:1,why:"重點是她不斷從失敗中調整方法，最後成功。"},
+ {id:"ch19",type:"成語",q:"事情還沒開始，他就一直擔心一定會失敗。最適合形容他的狀態？",choices:["杞人憂天","胸有成竹","水到渠成"],a:0,why:"杞人憂天比喻不必要、沒有根據的憂慮。"},
+ {id:"ch20",type:"語詞理解",q:"「這位選手表現沉著，即使落後也沒有慌張。」其中「沉著」最接近？",choices:["冷靜穩定","悲傷難過","動作很慢"],a:0,why:"沉著指人在壓力下仍能冷靜、不慌亂。"},
+ {id:"ch21",type:"閱讀推論",q:"小凱每次借書前都先看目錄，讀完後還會在便條紙上寫下一句心得。最合理的推論是？",choices:["他有固定的閱讀方法","他不喜歡閱讀","他只看封面"],a:0,why:"看目錄、寫心得都是有策略的閱讀行為。"},
+ {id:"ch22",type:"閱讀主旨",q:"學校舉辦跳蚤市場，同學把家中不用的物品帶來交換，不但減少浪費，也讓物品找到新主人。這段主要在說？",choices:["交換物品能延長物品使用價值","每個人都要買新東西","跳蚤市場只能賣玩具"],a:0,why:"內容重點是透過交換減少浪費、延長物品使用。"},
+ {id:"ch23",type:"成語",q:"哥哥明明自己也不確定答案，卻裝得像什麼都懂。最適合哪個成語？",choices:["不懂裝懂","實事求是","精益求精"],a:0,why:"不懂裝懂就是自己不懂卻假裝懂。"},
+ {id:"ch24",type:"語詞理解",q:"「經過長時間討論，大家終於達成共識。」其中「共識」是指？",choices:["共同的看法或決定","彼此爭吵","一個人的意見"],a:0,why:"共識指多數人經討論後形成共同看法。"}
 ];
 let chCurrent=null,chLocked=false;
 
+
+const CH_SCHED_KEY="private_school_chinese_scheduler_v2";
+function chDayKey(){return new Date().toISOString().slice(0,10)}
+function loadChSched(){
+  try{
+    const x=JSON.parse(localStorage.getItem(CH_SCHED_KEY)||"{}");
+    if(x.date!==chDayKey()) return {date:chDayKey(),events:[]};
+    return x;
+  }catch(e){return {date:chDayKey(),events:[]}}
+}
+let chSched=loadChSched();
+function saveChSched(){localStorage.setItem(CH_SCHED_KEY,JSON.stringify(chSched))}
+function chLast(id){
+  for(let i=chSched.events.length-1;i>=0;i--){
+    if(chSched.events[i].id===id)return {event:chSched.events[i],distance:chSched.events.length-1-i};
+  }
+  return null;
+}
+function recordChineseSchedule(item,outcome){
+  chSched.events.push({id:item.id,outcome,time:Date.now()});
+  if(chSched.events.length>300)chSched.events=chSched.events.slice(-300);
+  saveChSched();
+}
+function chooseChineseQuestion(){
+  const arr=chineseBank.map(item=>({item,last:chLast(item.id)}));
+  const unseen=arr.filter(x=>!x.last);
+  if(unseen.length){
+    // Try not to repeat the same ability type back-to-back when unseen choices exist.
+    const lastEvent=chSched.events[chSched.events.length-1];
+    const lastItem=lastEvent?chineseBank.find(x=>x.id===lastEvent.id):null;
+    const varied=lastItem?unseen.filter(x=>x.item.type!==lastItem.type):unseen;
+    const pool=varied.length?varied:unseen;
+    return pool[Math.floor(Math.random()*pool.length)].item;
+  }
+  // After all questions have appeared today:
+  // wrong items can return after 6 other questions; correct items after 18.
+  const eligible=arr.filter(x=>{
+    const cd=x.last.event.outcome==="wrong"?6:18;
+    return x.last.distance>=cd;
+  });
+  if(eligible.length){
+    eligible.sort((a,b)=>b.last.distance-a.last.distance);
+    const top=eligible.slice(0,Math.min(6,eligible.length));
+    return top[Math.floor(Math.random()*top.length)].item;
+  }
+  // Fallback: least recently seen, never the immediately previous item.
+  arr.sort((a,b)=>(b.last?.distance||0)-(a.last?.distance||0));
+  return arr[0].item;
+}
+
 function nextChinese(){
-  chCurrent=chineseBank[Math.floor(Math.random()*chineseBank.length)];
+  chCurrent=chooseChineseQuestion();
   chLocked=false;
   document.getElementById("chTypeTag").textContent=chCurrent.type;
   document.getElementById("chQuestion").textContent=chCurrent.q;
@@ -385,7 +451,7 @@ document.addEventListener("click",e=>{
   if(!b||!chCurrent||chLocked)return;
   chLocked=true;
   const idx=Number(b.dataset.ch),ok=idx===chCurrent.a;
-  psStats.chinese.answered++;if(ok)psStats.chinese.correct++;
+  psStats.chinese.answered++;if(ok)psStats.chinese.correct++;recordChineseSchedule(chCurrent,ok?"correct":"wrong");
   document.querySelectorAll(".choiceBtn[data-ch]").forEach((x,i)=>{x.disabled=true;if(i===chCurrent.a)x.classList.add("correct");});
   if(!ok){b.classList.add("wrong");addPracticeWrong("國文",chCurrent.type,chCurrent.q,chCurrent.choices[idx],chCurrent.choices[chCurrent.a]);}
   const f=document.getElementById("chFeedback");f.style.display="block";f.innerHTML=(ok?"✅ 答對了。":"❌ 這題答錯。")+"<br>"+chCurrent.why;
