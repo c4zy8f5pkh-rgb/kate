@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V9.2｜復旦 × 六和</title>
+<title>兄弟學習基地 V9.3｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -216,6 +216,18 @@ body:not(.younger-mode) aside nav button[data-page="youngerEnglish"]{display:non
 @media(max-width:850px){.olderAdventure{grid-template-columns:1fr}}
 </style>
 
+
+<style id="v93-chinese-note-card">
+.chPassage{margin:12px 0 14px;padding:18px 20px;border-radius:16px;background:#fffdf7;border:1px solid #eadfca;font-size:17px;line-height:1.9;color:#33415b}
+.learnNoteCard{margin-top:14px;padding:16px 18px;border-radius:17px;background:#fffaf0;border:1px solid #efdcb2}
+.learnNoteTitle{display:flex;align-items:center;gap:8px;font-weight:900;color:#6f5731;margin-bottom:10px}
+.learnNoteGrid{display:grid;gap:8px}
+.learnNoteRow{display:grid;grid-template-columns:88px 1fr;gap:10px;align-items:start;font-size:14px;line-height:1.65}
+.learnNoteRow b{color:#8a6727}.memoryHook{margin-top:10px;padding:10px 12px;border-radius:12px;background:#fff;border:1px dashed #e2c985;color:#715a2f;font-size:14px}
+.learnNoteSource{margin-top:10px;font-size:12px;color:#7b879c}
+@media(max-width:650px){.learnNoteRow{grid-template-columns:1fr;gap:2px}.chPassage{padding:15px}}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -257,7 +269,7 @@ body:not(.younger-mode) aside nav button[data-page="youngerEnglish"]{display:non
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V9.2</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V9.3</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -358,7 +370,8 @@ body:not(.younger-mode) aside nav button[data-page="youngerEnglish"]{display:non
       <button type="button" class="topicChip" data-filter="短文閱讀">短文閱讀</button>
       <button type="button" class="topicChip" data-filter="閱讀推論">閱讀推論</button>
       <button type="button" class="topicChip" data-filter="句子重組">句子重組</button>
-      <button type="button" class="topicChip" data-filter="短寫作">短寫作</button>
+      <button type="button" class="topicChip" data-filter="文言文">文言文</button>
+       <button type="button" class="topicChip" data-filter="短寫作">短寫作</button>
     </div>
 
     <div id="chQuestion" class="questionBox">按「開始國文練習」出題。</div><div id="chSourceRow" class="sourceRow"></div>
@@ -897,13 +910,32 @@ const chineseBank=[
 {id:"ch03",type:"字義",q:"「一目了然」中的「了然」最接近哪個意思？",choices:["清楚明白","立刻離開","非常驚訝"],a:0,why:"「了然」就是清楚、明瞭。",source:"教育部《國語辭典簡編本》",sourceType:"moe",sourceUrl:"https://dict.concised.moe.edu.tw/dictView.jsp?ID=14417&la=0&powerMode=0"},
 {id:"ch04",type:"字義",q:"「大家經過討論後達成共識。」其中「共識」最接近哪個意思？",choices:["共同認可的觀念或想法","彼此爭吵","某一個人的意見"],a:0,why:"「共識」指共同認可的觀念或想法。",source:"教育部《國語辭典簡編本》",sourceType:"moe",sourceUrl:"https://dict.concised.moe.edu.tw/dictView.jsp?ID=17898&la=0&powerMode=0"},
 {id:"ch05",type:"字形",q:"下列哪一個詞語的字形完全正確？",choices:["迫不急待","迫不及待","迫不即待"],a:1,why:"正確寫法是「迫不及待」，意思是情況或時間急切，不能再等。",source:"教育部《國語辭典簡編本》",sourceType:"moe",sourceUrl:"https://dict.concised.moe.edu.tw/dictView.jsp?ID=2454&la=0&powerMode=0"},
-{id:"ch06",type:"成語",q:"下列哪個成語最適合形容「做事非常認真，一點也不馬虎」？",choices:["一絲不苟","三心二意","粗枝大葉"],a:0,why:"「一絲不苟」形容做事認真，一點也不馬虎。",source:"教育部《成語典》",sourceType:"idiom",sourceUrl:"https://dict.idioms.moe.edu.tw/idiomView.jsp?ID=-237&la=0&webMd=1"},
-{id:"ch07",type:"成語",q:"事情還沒開始，他就一直擔心一定會失敗。最適合哪個成語？",choices:["杞人憂天","胸有成竹","水到渠成"],a:0,why:"「杞人憂天」比喻缺乏根據且不必要的憂慮。",source:"教育部《成語典》",sourceType:"idiom",sourceUrl:"https://dict.idioms.moe.edu.tw/idiomView.jsp?ID=37&webMd=1"},
-{id:"ch08",type:"成語",q:"老師要大家按照步驟，一步一步完成實驗。最適合哪個成語？",choices:["按部就班","手忙腳亂","自相矛盾"],a:0,why:"「按部就班」比喻做事依照一定的層次、步驟進行。",source:"教育部《成語典》",sourceType:"idiom",sourceUrl:"https://dict.idioms.moe.edu.tw/idiomView.jsp?ID=-279&la=0&webMd=1"},
-{id:"ch09",type:"短文閱讀",q:"小芸第一次做蛋糕失敗了，第二次調整溫度，第三次重新控制時間，最後終於成功。這段最主要想表達？",choices:["做蛋糕很浪費時間","從失敗中修正才能進步","烤箱越熱越好"],a:1,why:"重點是她不斷從失敗中修正方法，最後成功。",source:"原創閱讀題",sourceType:"original"},
+
+{id:"ch06",type:"成語",q:"下列哪個成語最適合形容「做事非常認真，一點也不馬虎」？",choices:["一絲不苟","三心二意","粗枝大葉"],a:0,why:"「一絲不苟」形容做事認真，一點也不馬虎。",source:"教育部《成語典》",sourceType:"idiom",sourceUrl:"https://dict.idioms.moe.edu.tw/idiomView.jsp?ID=-237&la=0&webMd=1",
+note:{title:"成語小說明",origin:"常用來形容做事細密、認真，不隨便馬虎。",story:"「苟」有隨便、草率的意思；連一點細微處都不草率，就是「一絲不苟」。",modern:"適合形容寫作業、做實驗、整理資料等十分仔細的態度。",hook:"一絲＝很小的細節；不苟＝也不隨便。"}},
+{id:"ch07",type:"成語",q:"事情還沒開始，他就一直擔心一定會失敗。最適合哪個成語？",choices:["杞人憂天","胸有成竹","水到渠成"],a:0,why:"「杞人憂天」比喻缺乏根據且不必要的憂慮。",source:"教育部《成語典》",sourceType:"idiom",sourceUrl:"https://dict.idioms.moe.edu.tw/idiomView.jsp?ID=37&webMd=1",
+note:{title:"成語小說明",origin:"出處：《列子・天瑞》",story:"故事說杞國有個人一直擔心天會掉下來、地會陷下去，因此吃不好、睡不安。",modern:"現在用來形容沒有根據、過度而不必要的擔心。",hook:"杞國的人一直怕「天掉下來」→ 杞人憂天。"}},
+{id:"ch08",type:"成語",q:"老師要大家按照步驟，一步一步完成實驗。最適合哪個成語？",choices:["按部就班","手忙腳亂","自相矛盾"],a:0,why:"「按部就班」比喻做事依照一定的層次、步驟進行。",source:"教育部《成語典》",sourceType:"idiom",sourceUrl:"https://dict.idioms.moe.edu.tw/idiomView.jsp?ID=-279&la=0&webMd=1",
+note:{title:"成語小說明",origin:"「部、班」都有次序、安排的意思。",story:"這個成語的重點不在「慢」，而在「照順序、照步驟」。",modern:"例如做實驗、寫報告、準備考試，都可以按部就班完成。",hook:"有順序、有步驟＝按部就班。"}},
+{id:"ch16",type:"成語",q:"小隊一開始就士氣很高，大家決定趁著這股氣勢一次把任務完成。最適合哪個成語？",choices:["一鼓作氣","半途而廢","臨渴掘井"],a:0,why:"「一鼓作氣」常用來表示趁著氣勢最旺時，一口氣把事情完成。",source:"教育部《成語典》",sourceType:"idiom",
+note:{title:"成語小說明",origin:"典故與《左傳・莊公十年》的戰事記載有關。",story:"古代作戰以擊鼓鼓舞士氣，第一次鼓聲時士氣最旺；後來便用來比喻趁氣勢正盛時完成事情。",modern:"例如開始整理房間後精神正好，就一鼓作氣整理完。",hook:"第一通鼓最有氣勢 → 一鼓作氣。"}},
+
+{id:"ch09",type:"短文閱讀",passage:"小芸第一次做蛋糕時，蛋糕中間沒有熟。她沒有把失敗歸咎於運氣，而是記下烤箱溫度。第二次，她調低溫度，卻發現時間太短。第三次，她重新調整溫度與時間，終於烤出鬆軟的蛋糕。她把三次紀錄貼在筆記本上，準備下次再改進。",q:"這篇短文最主要想表達什麼？",choices:["做蛋糕很浪費時間","從失敗中找原因並修正，才能逐步進步","只要做三次就一定會成功"],a:1,why:"文章重點不是「做了幾次」，而是小芸每次都根據失敗原因調整方法。",source:"原創閱讀題",sourceType:"original"},
+{id:"ch11",type:"短文閱讀",passage:"社區旁原本有一塊堆滿雜物的荒地。幾位居民先一起清理垃圾，再種花、鋪步道，也放了幾張長椅。幾個月後，老人常到這裡散步，孩子放學後也會來玩。原本沒有人想靠近的地方，慢慢變成大家願意停留的公共空間。",q:"下列哪一個標題最適合這篇短文？",choices:["荒地變成大家的休憩空間","居民都不喜歡整理環境","長椅比花朵更重要"],a:0,why:"整篇文章描述荒地經居民整理後，成為大家使用的公共空間。",source:"原創閱讀題",sourceType:"original"},
+{id:"ch17",type:"短文閱讀",passage:"自然課要觀察豆苗生長。阿哲每天都量高度，卻只記下「長高了」；小晴除了量高度，還記錄日期、澆水量和葉片數。兩週後，老師要大家比較生長變化時，小晴很快就能整理出趨勢，阿哲卻很難說明。",q:"從文章可以看出，完整紀錄最大的幫助是什麼？",choices:["讓豆苗長得更快","方便之後比較與找出變化","可以不用再觀察"],a:1,why:"小晴記錄的資訊較完整，所以後來能比較並整理出生長趨勢。",source:"原創閱讀題",sourceType:"original"},
+{id:"ch18",type:"短文閱讀",passage:"校慶前，班上要做大型海報。有人負責查資料，有人負責畫圖，也有人負責排版。剛開始大家各做各的，海報看起來很零散。後來他們先一起討論主題，再決定哪些內容最重要，最後才重新分工。完成後，整張海報變得清楚許多。",q:"班上後來能把海報做好，最關鍵的改變是什麼？",choices:["每個人做更多工作","先建立共同主題，再重新分工","全部改由一個人完成"],a:1,why:"問題原本出在各做各的；共同確認主題後再分工，內容才整合起來。",source:"原創閱讀題",sourceType:"original"},
+
 {id:"ch10",type:"閱讀推論",q:"老師把考卷發下來後，小雯沒有先看分數，而是先把錯題圈起來。最能看出她？",choices:["只在乎分數","重視找出自己的問題","不想知道成績"],a:1,why:"先找錯題，表示她重視檢討與改進。",source:"原創閱讀題",sourceType:"original"},
-{id:"ch11",type:"短文閱讀",q:"社區原本有一塊荒地，居民一起整理、種花、設置座椅。幾個月後，這裡成了大家散步聊天的地方。最適合的標題是？",choices:["荒地變公園","居民不愛整理","花朵很難種"],a:0,why:"主旨是荒地經整理後成為大家休閒的地方。",source:"原創閱讀題",sourceType:"original"},
 {id:"ch12",type:"閱讀推論",q:"媽媽把雨傘放到小安書包旁，並提醒他「今天放學別急著走」。最可能的原因是？",choices:["今天可能會下雨","媽媽要他住學校","小安忘了鉛筆"],a:0,why:"雨傘與提醒放學別急著走，是天候變化的線索。",source:"原創閱讀題",sourceType:"original"},
+{id:"ch19",type:"閱讀推論",passage:"午休後，老師回到教室，看到窗戶全關著，幾位同學不停搧風，桌上的紙也被汗水沾濕。老師沒有立刻說話，只先走到窗邊。",q:"老師接下來最可能做什麼？",choices:["把窗戶打開通風","把燈全部關掉","要求大家立刻考試"],a:0,why:"文章提供「悶熱、搧風、流汗、窗戶關著」等線索，可推論老師會先開窗通風。",source:"原創推論題",sourceType:"original"},
+
+{id:"ch20",type:"文言文",passage:"子曰：「學而時習之，不亦說乎？」",q:"這句話最接近下面哪個意思？",choices:["學過之後常常複習、實踐，也是一件令人愉快的事","只要一直讀書就不能休息","學習只有考試前才需要"],a:0,why:"「時習之」可理解為在適當時候溫習、實踐所學。",source:"《論語・學而》",sourceType:"original",
+note:{title:"文言小說明",origin:"出處：《論語・學而》",story:"這句話把「學」和「習」放在一起：不是只聽懂，而是還要反覆溫習、實踐。",modern:"可以把它想成：今天學會一個方法，之後再練幾次，才會真正變成自己的能力。",hook:"學＋習＝學到之後還要再練。"}},
+{id:"ch21",type:"文言文",passage:"王戎七歲，嘗與諸小兒遊。看道邊李樹多子折枝，諸兒競走取之，唯戎不動。",q:"從這段文字看，王戎和其他孩子最大的不同是什麼？",choices:["他不喜歡吃李子","他沒有跟著大家立刻行動，而是先觀察判斷","他跑得比別人慢"],a:1,why:"其他孩子都搶著去摘，只有王戎沒有立刻跟著行動，呈現他先觀察、思考的特點。",source:"《世說新語・雅量》",sourceType:"original",
+note:{title:"文言小說明",origin:"出處：《世說新語・雅量》",story:"王戎看到路邊李樹果實很多，卻沒有像其他孩子一樣立刻去摘；這則故事常被用來表現他的觀察與推理。",modern:"遇到大家都往同一方向走時，也可以先看看線索，再決定要不要跟著做。",hook:"別人先衝，王戎先想。"}},
+{id:"ch22",type:"文言文",passage:"三人行，必有我師焉。",q:"這句話主要想表達什麼？",choices:["三個人一起走一定要有老師","每個人身上都可能有值得我們學習的地方","只有老師才可以教人"],a:1,why:"重點是保持學習的態度，從不同的人身上發現值得學習之處。",source:"《論語・述而》",sourceType:"original",
+note:{title:"文言小說明",origin:"出處：《論語・述而》",story:"這句話不是在數人數，而是在提醒：和別人相處時，總可能發現值得自己學習的優點。",modern:"同學字寫得整齊、有人很會整理重點，都可以成為你學習的地方。",hook:"身邊的人，都可能有一項值得我學。"}},
+
 {id:"ch13",type:"句子重組",q:"把下面詞語排成通順句子：①完成作業 ②小明 ③才出去玩 ④先",textAnswer:"小明先完成作業才出去玩",why:"語序應為主詞＋先做的事＋才做的事。",source:"原創語感題",sourceType:"original"},
 {id:"ch14",type:"句子重組",q:"把下面詞語排成通順句子：①因為下雨 ②取消了 ③比賽 ④所以",textAnswer:"因為下雨所以比賽取消了",why:"「因為……所以……」是常見因果句型。",source:"原創語感題",sourceType:"original"},
 {id:"ch15",type:"短寫作",q:"請用 2～3 句話描述一次你「原本不會，後來學會」的經驗。",open:true,why:"不要求漂亮詞藻，重點是把事情說清楚、有前後關係。",source:"原創表達題",sourceType:"original"}
@@ -967,6 +999,22 @@ function renderChineseSource(item){
   row.innerHTML=`<span class="sourceBadge ${cls}">📚 ${item.source||"題目來源"}</span>${link}`;
 }
 
+
+function renderChineseLearnNote(item){
+  if(!item||!item.note)return "";
+  const n=item.note;
+  return `<div class="learnNoteCard">
+    <div class="learnNoteTitle">💡 ${n.title||"小說明"}</div>
+    <div class="learnNoteGrid">
+      ${n.origin?`<div class="learnNoteRow"><b>出處／背景</b><span>${n.origin}</span></div>`:""}
+      ${n.story?`<div class="learnNoteRow"><b>故事</b><span>${n.story}</span></div>`:""}
+      ${n.modern?`<div class="learnNoteRow"><b>現在怎麼用</b><span>${n.modern}</span></div>`:""}
+    </div>
+    ${n.hook?`<div class="memoryHook">🧠 記憶鉤子：${n.hook}</div>`:""}
+    ${item.sourceUrl?`<div class="learnNoteSource">想看官方完整資料：<a href="${item.sourceUrl}" target="_blank" rel="noopener">查看來源 ↗</a></div>`:""}
+  </div>`;
+}
+
 function nextChinese(){
   chCurrent=chooseChineseQuestion();chLocked=false;resetChInput();
   const q=document.getElementById("chQuestion"),choices=document.getElementById("chChoices"),
@@ -978,7 +1026,8 @@ function nextChinese(){
     choices.innerHTML="";document.getElementById("chTypeTag").textContent="完成";renderChCounters();return;
   }
   document.getElementById("chTypeTag").textContent=chCurrent.type;
-  q.textContent=chCurrent.q;choices.innerHTML="";renderChineseSource(chCurrent);
+  q.innerHTML=(chCurrent.passage?`<div class="chPassage">${chCurrent.passage}</div>`:"")+`<div>${chCurrent.q}</div>`;
+  choices.innerHTML="";renderChineseSource(chCurrent);
   if(chCurrent.choices){
     choices.innerHTML=chCurrent.choices.map((c,i)=>`<button class="choiceBtn" data-ch="${i}">${String.fromCharCode(65+i)}. ${c}</button>`).join("");
   }else{
@@ -995,11 +1044,10 @@ document.addEventListener("click",e=>{
   playSound(ok?"olderHit":"olderRetry");
   psStats.chinese.answered++;if(ok){psStats.chinese.correct++;chStreak++}else{chStreak=0}
   recordChineseSchedule(chCurrent,ok?"correct":"wrong");
-  playSound(ok?"olderHit":"olderRetry");
   document.querySelectorAll(".choiceBtn[data-ch]").forEach((x,i)=>{x.disabled=true;if(i===chCurrent.a)x.classList.add("correct")});
   if(!ok){b.classList.add("wrong");addPracticeWrong("國文",chCurrent.type,chCurrent.q,chCurrent.choices[idx],chCurrent.choices[chCurrent.a])}
   const f=document.getElementById("chFeedback");f.style.display="block";
-  f.innerHTML=`<div class="resultBurst">${ok?"✅ 答對了！":"🔎 這題先學會就好"}</div>${chCurrent.why}`;
+  f.innerHTML=`<div class="resultBurst">${ok?"✅ 答對了！":"🔎 這題先學會就好"}</div>${chCurrent.why}${renderChineseLearnNote(chCurrent)}`;
   document.getElementById("chNext").style.display="";savePractice();renderChCounters();
 });
 function submitChineseText(){
@@ -1017,7 +1065,7 @@ function submitChineseText(){
     psStats.chinese.correct++;chStreak++;msg="✍️ 完成就很棒。重點是把意思說清楚，不用寫很長。";
   }
   recordChineseSchedule(chCurrent,ok?"correct":"wrong");
-  const f=document.getElementById("chFeedback");f.style.display="block";f.innerHTML=`<div class="resultBurst">${msg}</div>${chCurrent.why}`;
+  const f=document.getElementById("chFeedback");f.style.display="block";f.innerHTML=`<div class="resultBurst">${msg}</div>${chCurrent.why}${renderChineseLearnNote(chCurrent)}`;
   inp.disabled=true;document.getElementById("chSubmitText").style.display="none";document.getElementById("chNext").style.display="";
   savePractice();renderChCounters();
 }
