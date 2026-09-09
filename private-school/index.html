@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V9.1｜復旦 × 六和</title>
+<title>兄弟學習基地 V9.2｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -257,7 +257,7 @@ body:not(.younger-mode) aside nav button[data-page="youngerEnglish"]{display:non
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V9.1</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V9.2</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -272,17 +272,13 @@ body:not(.younger-mode) aside nav button[data-page="youngerEnglish"]{display:non
   <div class="adventureMission">
     <div class="muted">⚔️ 哥哥｜今日冒險</div>
     <h3 style="margin:6px 0">能力地圖不是刷題，是找出今天要攻略的卡點</h3>
-    <div class="muted">系統會把錯題、弱點與新題混合。答對會有命中音，完成一段任務會有寶箱音。</div>
+    <div class="muted">系統會把錯題、弱點與新題混合。答題與今日任務會自動連動音效，不需要另外試聽。</div>
     <div class="adventureMeter">
       <span class="adventureBadge">🧠 弱點怪：由錯題產生</span>
       <span class="adventureBadge">🗺 新題：探索區</span>
       <span class="adventureBadge">👑 高難度：Boss 關</span>
     </div>
-    <div class="adventureActionRow">
-      <button type="button" class="adventureAction" id="olderHitDemo">試聽命中</button>
-      <button type="button" class="adventureAction alt" id="olderChestDemo">試聽寶箱</button>
-    </div>
-    <div class="adventureLog" id="olderAdventureLog">今天先完成網站安排的任務，弱點怪會依答題紀錄慢慢出現。</div>
+    <div class="adventureLog" id="olderAdventureLog">開始作答後會自動出現冒險回饋：答對＝命中；完成今日任務＝開寶箱。</div>
   </div>
   <div class="adventureSide">
     <div class="muted">今日原則</div>
@@ -547,7 +543,7 @@ body:not(.younger-mode) aside nav button[data-page="youngerEnglish"]{display:non
 <div class="companionCard">
   <div class="companionFace">🐻</div>
   <div class="companionText">
-    <b id="youngerCompanionTitle">小熊今天陪你玩三小關</b>
+    <b id="youngerCompanionTitle">小熊今天陪你玩四小關</b>
     <span id="youngerCompanionText">慢慢看、慢慢選。答錯不會扣星星，我們再試一次就好。</span>
   </div>
 </div>
@@ -996,8 +992,10 @@ document.addEventListener("click",e=>{
   if(!b||!chCurrent||chLocked)return;
   chLocked=true;
   const idx=Number(b.dataset.ch),ok=idx===chCurrent.a;
+  playSound(ok?"olderHit":"olderRetry");
   psStats.chinese.answered++;if(ok){psStats.chinese.correct++;chStreak++}else{chStreak=0}
   recordChineseSchedule(chCurrent,ok?"correct":"wrong");
+  playSound(ok?"olderHit":"olderRetry");
   document.querySelectorAll(".choiceBtn[data-ch]").forEach((x,i)=>{x.disabled=true;if(i===chCurrent.a)x.classList.add("correct")});
   if(!ok){b.classList.add("wrong");addPracticeWrong("國文",chCurrent.type,chCurrent.q,chCurrent.choices[idx],chCurrent.choices[chCurrent.a])}
   const f=document.getElementById("chFeedback");f.style.display="block";
@@ -1082,6 +1080,7 @@ function submitMath(){
   if(!mathCurrent)return;
   const inp=document.getElementById("mathInput"),v=inp.value.trim();if(!v)return;
   const ok=mathCurrent.a.some(x=>normMath(x)===normMath(v));
+  playSound(ok?"olderHit":"olderRetry");
   psStats.math.answered++;if(ok){psStats.math.correct++;mathStreak++;}else{mathStreak=0;} const ms=document.getElementById("mathStreak");if(ms)ms.textContent="連續答對 "+mathStreak;
   mathQueue.answers[mathCurrent.id]=ok?"correct":"wrong";saveMathQueue();if(!ok)addPracticeWrong("數學",mathCurrent.type,mathCurrent.q,v,mathCurrent.show);
   const f=document.getElementById("mathFeedback");f.style.display="block";f.innerHTML=(ok?"✅ 答對了。":"❌ 這題答錯。正確答案：<b>"+mathCurrent.show+"</b>")+"<br>"+mathCurrent.why;
@@ -1193,6 +1192,13 @@ document.addEventListener("change",e=>{
   const today=new Date().getDay(),i=Number(e.target.dataset.i);
   weeklyState.days[today][i]=e.target.checked;
   saveWeekState();updateTodayPlanProgress();
+  if(e.target.checked){
+    const vals=weeklyState.days[today]||[];
+    const allDone=vals.length>0&&vals.every(Boolean);
+    playSound(allDone?"olderChest":"olderHit");
+    const log=document.getElementById("olderAdventureLog");
+    if(log)log.textContent=allDone?"🎁 今日任務完成，寶箱開啟！":"⚔️ 完成一個任務，命中一次！";
+  }
 });
 
 renderWeekPlan();renderTodayPlan();
@@ -1202,7 +1208,7 @@ renderWeekPlan();renderTodayPlan();
 
 
 
-if(document.getElementById("worldCheck"))document.getElementById("worldCheck").onclick=()=>{const ans={wq1:"b",wq2:"a",wq3:"b"};let score=0;Object.entries(ans).forEach(([n,v])=>{const el=document.querySelector(`input[name="${n}"]:checked`);if(el&&el.value===v)score++});const f=document.getElementById("worldFeedback");f.style.display="block";f.innerHTML=`你答對 ${score} / 3 題。<br>${score===3?"✅ 很好，你已抓到文章的主旨與因果關係。":"🔎 再回文章找『暖化、風險、監測與預警』這幾個關鍵字。"}`};let mediaRecorder=null,recordChunks=[];const rs=document.getElementById("recordStart"),reStop=document.getElementById("recordStop"),rstatus=document.getElementById("recordStatus"),play=document.getElementById("recordPlayback");if(rs)rs.onclick=async()=>{if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){rstatus.textContent="此瀏覽器不支援錄音，可改用文字感想。";return}try{const stream=await navigator.mediaDevices.getUserMedia({audio:true});recordChunks=[];mediaRecorder=new MediaRecorder(stream);mediaRecorder.ondataavailable=e=>{if(e.data.size)recordChunks.push(e.data)};mediaRecorder.onstop=()=>{const blob=new Blob(recordChunks,{type:mediaRecorder.mimeType||"audio/webm"});play.src=URL.createObjectURL(blob);play.style.display="block";stream.getTracks().forEach(t=>t.stop());rstatus.textContent="✅ 錄音完成，可以播放聽聽看。"};mediaRecorder.start();rs.disabled=true;reStop.disabled=false;rstatus.textContent="🎙 錄音中…"}catch(e){rstatus.textContent="無法取得麥克風權限，可改用文字感想。"}};if(reStop)reStop.onclick=()=>{if(mediaRecorder&&mediaRecorder.state!=="inactive"){mediaRecorder.stop();rs.disabled=false;reStop.disabled=true}};
+if(document.getElementById("worldCheck"))document.getElementById("worldCheck").onclick=()=>{const ans={wq1:"b",wq2:"a",wq3:"b"};let score=0;Object.entries(ans).forEach(([n,v])=>{const el=document.querySelector(`input[name="${n}"]:checked`);if(el&&el.value===v)score++});playSound(score===3?"olderChest":(score>0?"olderHit":"olderRetry"));const f=document.getElementById("worldFeedback");f.style.display="block";f.innerHTML=`你答對 ${score} / 3 題。<br>${score===3?"✅ 很好，你已抓到文章的主旨與因果關係。":"🔎 再回文章找『暖化、風險、監測與預警』這幾個關鍵字。"}`};let mediaRecorder=null,recordChunks=[];const rs=document.getElementById("recordStart"),reStop=document.getElementById("recordStop"),rstatus=document.getElementById("recordStatus"),play=document.getElementById("recordPlayback");if(rs)rs.onclick=async()=>{if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){rstatus.textContent="此瀏覽器不支援錄音，可改用文字感想。";return}try{const stream=await navigator.mediaDevices.getUserMedia({audio:true});recordChunks=[];mediaRecorder=new MediaRecorder(stream);mediaRecorder.ondataavailable=e=>{if(e.data.size)recordChunks.push(e.data)};mediaRecorder.onstop=()=>{const blob=new Blob(recordChunks,{type:mediaRecorder.mimeType||"audio/webm"});play.src=URL.createObjectURL(blob);play.style.display="block";stream.getTracks().forEach(t=>t.stop());rstatus.textContent="✅ 錄音完成，可以播放聽聽看。"};mediaRecorder.start();rs.disabled=true;reStop.disabled=false;rstatus.textContent="🎙 錄音中…"}catch(e){rstatus.textContent="無法取得麥克風權限，可改用文字感想。"}};if(reStop)reStop.onclick=()=>{if(mediaRecorder&&mediaRecorder.state!=="inactive"){mediaRecorder.stop();rs.disabled=false;reStop.disabled=true}};
 
 const PARENT_PIN_KEY="private_school_parent_pin_v85";
 const PARENT_SESSION_KEY="private_school_parent_session_v85";
@@ -1375,6 +1381,7 @@ function playSound(kind){
   else if(kind==="youngerRetry"){tone(330,.08,"sine",.018);tone(294,.09,"sine",.014,.07)}
   else if(kind==="youngerDone"){tone(523,.10,"sine",.03);tone(659,.11,"sine",.03,.08);tone(784,.16,"sine",.028,.17)}
   else if(kind==="olderHit"){tone(220,.055,"square",.028);tone(440,.08,"triangle",.025,.045)}
+  else if(kind==="olderRetry"){tone(260,.07,"triangle",.018);tone(220,.09,"sine",.014,.06)}
   else if(kind==="olderChest"){tone(392,.08,"triangle",.03);tone(523,.10,"triangle",.03,.08);tone(659,.12,"triangle",.028,.17);tone(784,.18,"sine",.025,.27)}
 }
 function updateSoundButton(){
@@ -1386,8 +1393,6 @@ document.getElementById("soundToggle")?.addEventListener("click",()=>{
   if(soundEnabled)playSound(currentProfile==="younger"?"youngerGood":"olderHit");
 });
 updateSoundButton();
-document.getElementById("olderHitDemo")?.addEventListener("click",()=>{playSound("olderHit");const e=document.getElementById("olderAdventureLog");if(e)e.textContent="⚔️ 命中！這種聲音只用在哥哥的冒險回饋。"});
-document.getElementById("olderChestDemo")?.addEventListener("click",()=>{playSound("olderChest");const e=document.getElementById("olderAdventureLog");if(e)e.textContent="🎁 寶箱開啟！完成任務或重要里程碑才使用。"});
 
 function setProfile(profile){
   currentProfile=profile==="younger"?"younger":"older";
