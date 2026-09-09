@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V9.0｜復旦 × 六和</title>
+<title>兄弟學習基地 V9.1｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -187,6 +187,35 @@ body:not(.younger-mode) aside nav button[data-page="youngerEnglish"]{display:non
 @media(max-width:850px){.youngerHero,.youngerMenu{grid-template-columns:1fr}.letterChoices{grid-template-columns:repeat(2,1fr)}}
 </style>
 
+
+<style id="v91-fun-sound">
+.soundControl{margin:0 8px 14px;padding:10px 11px;border:1px solid rgba(255,255,255,.12);border-radius:13px;background:rgba(255,255,255,.04);color:#cfd7ea;font-size:12px}
+.soundRow{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.soundToggle{border:0!important;border-radius:999px!important;padding:7px 11px!important;background:rgba(255,255,255,.1)!important;color:#fff!important;font-size:12px!important}
+.soundToggle.on{background:#fff!important;color:#2c3650!important;font-weight:800}
+.companionCard{display:grid;grid-template-columns:64px 1fr;gap:13px;align-items:center;padding:15px;border-radius:17px;background:#fffaf0;border:1px solid #efddb2;margin:12px 0}
+.companionFace{width:58px;height:58px;border-radius:20px;display:grid;place-items:center;background:#fff;font-size:34px;border:1px solid #eadfca}
+.companionText b{display:block;color:#6f5731;margin-bottom:4px}.companionText span{font-size:13px;color:#7f725d;line-height:1.55}
+.miniGameTabs{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 14px}
+.miniGameTab{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 11px;cursor:pointer}
+.miniGameTab.active{background:#eef2ff;border-color:#cad4fb;font-weight:800;color:#4c62c5}
+.listenBtn{display:inline-flex;align-items:center;gap:7px;border:1px solid #dbe3f5;background:#f4f7ff;color:#4d62bf;border-radius:12px;padding:10px 13px;cursor:pointer;font-weight:800}
+.olderAdventure{display:grid;grid-template-columns:1.25fr .75fr;gap:15px;margin:16px 0}
+.adventureMission{background:linear-gradient(135deg,#eef3ff,#fff);border:1px solid #d9e2fb;border-radius:20px;padding:18px}
+.adventureSide{background:#fff8e9;border:1px solid #efdcb1;border-radius:20px;padding:18px}
+.adventureMeter{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}
+.adventureBadge{padding:7px 10px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:12px}
+.adventureActionRow{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
+.adventureAction{border:0;border-radius:12px;padding:10px 13px;background:#647be8;color:#fff;cursor:pointer}
+.adventureAction.alt{background:#eef1f7;color:#38445d}
+.adventureLog{margin-top:11px;padding:10px 12px;border-radius:12px;background:#fff;border:1px solid #e6eaf3;font-size:13px;color:#63708a;min-height:42px}
+.listenStage{display:none}
+.listenStage.active{display:block}
+#youngerEnglish .letterStage{animation:softIn .18s ease-out}
+@keyframes softIn{from{opacity:.2;transform:translateY(4px)}to{opacity:1;transform:none}}
+@media(max-width:850px){.olderAdventure{grid-template-columns:1fr}}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -198,6 +227,15 @@ body:not(.younger-mode) aside nav button[data-page="youngerEnglish"]{display:non
     <button type="button" class="profileBtn active" id="profileOlder">哥哥</button>
     <button type="button" class="profileBtn" id="profileYounger">弟弟</button>
   </div>
+</div>
+
+
+<div class="soundControl">
+  <div class="soundRow">
+    <span>🔊 學習音效</span>
+    <button type="button" class="soundToggle on" id="soundToggle">開啟</button>
+  </div>
+  <div style="margin-top:6px;color:#9eabc2;line-height:1.5">哥哥：冒險感｜弟弟：柔和鼓勵</div>
 </div>
 
   <nav class="navrow">
@@ -219,7 +257,7 @@ body:not(.younger-mode) aside nav button[data-page="youngerEnglish"]{display:non
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V9.0</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V9.1</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -229,6 +267,31 @@ body:not(.younger-mode) aside nav button[data-page="youngerEnglish"]{display:non
 </div>
 
 <section id="home" class="page active">
+
+<div class="olderOnly olderAdventure">
+  <div class="adventureMission">
+    <div class="muted">⚔️ 哥哥｜今日冒險</div>
+    <h3 style="margin:6px 0">能力地圖不是刷題，是找出今天要攻略的卡點</h3>
+    <div class="muted">系統會把錯題、弱點與新題混合。答對會有命中音，完成一段任務會有寶箱音。</div>
+    <div class="adventureMeter">
+      <span class="adventureBadge">🧠 弱點怪：由錯題產生</span>
+      <span class="adventureBadge">🗺 新題：探索區</span>
+      <span class="adventureBadge">👑 高難度：Boss 關</span>
+    </div>
+    <div class="adventureActionRow">
+      <button type="button" class="adventureAction" id="olderHitDemo">試聽命中</button>
+      <button type="button" class="adventureAction alt" id="olderChestDemo">試聽寶箱</button>
+    </div>
+    <div class="adventureLog" id="olderAdventureLog">今天先完成網站安排的任務，弱點怪會依答題紀錄慢慢出現。</div>
+  </div>
+  <div class="adventureSide">
+    <div class="muted">今日原則</div>
+    <div style="font-size:34px;margin:8px 0">🛡️</div>
+    <b>錯題不是扣血，是下一隻要攻略的怪</b>
+    <div class="muted" style="margin-top:7px">不因答錯取消獎勵；錯題會換類題再回來。</div>
+  </div>
+</div>
+
   <div class="todayFocus">
     <div class="focusBox">
       <div class="muted" id="todayLabel">今日學習</div>
@@ -464,23 +527,32 @@ body:not(.younger-mode) aside nav button[data-page="youngerEnglish"]{display:non
   <div class="youngerHero">
     <div class="youngerMission">
       <div class="muted">🧒 弟弟今日任務</div>
-      <div class="focusTitle" style="margin-top:6px">短短 3 關，完成就停</div>
+      <div class="focusTitle" style="margin-top:6px">短短 4 關，完成就停</div>
       <div class="muted">先把「看得懂、放得對、配得起來」建立起來，不急著刷很多題。</div>
       <div class="youngerProgressRow">
         <span class="youngerChip">⏱ 5–10 分鐘</span>
         <span class="youngerChip" id="youngerStars">⭐ 0 顆</span>
-        <span class="youngerChip" id="youngerDone">今天 0 / 3 關</span>
+        <span class="youngerChip" id="youngerDone">今天 0 / 4 關</span>
       </div>
     </div>
     <div class="youngerReward">
       <div class="muted">今天的小目標</div>
       <div style="font-size:36px;margin:8px 0">🌟</div>
       <b>不是寫很多，是把位置弄懂</b>
-      <div class="muted" style="margin-top:6px">每關完成就有星星，錯了可以再試。</div>
+      <div class="muted" style="margin-top:6px">每關完成就有星星；答錯不扣星，柔和提醒再試一次。</div>
     </div>
   </div>
 
-  <div class="youngerMenu">
+  
+<div class="companionCard">
+  <div class="companionFace">🐻</div>
+  <div class="companionText">
+    <b id="youngerCompanionTitle">小熊今天陪你玩三小關</b>
+    <span id="youngerCompanionText">慢慢看、慢慢選。答錯不會扣星星，我們再試一次就好。</span>
+  </div>
+</div>
+
+<div class="youngerMenu">
     <div class="youngerTile" onclick="startYoungerTask('case')">
       <div class="bigIcon">Aa</div><b>大小寫配對</b>
       <p class="muted">A 找 a、B 找 b，先建立字母對應。</p>
@@ -493,6 +565,10 @@ body:not(.younger-mode) aside nav button[data-page="youngerEnglish"]{display:non
       <div class="bigIcon">👀</div><b>找一樣的字母</b>
       <p class="muted">練 b / d / p / q 這類容易看錯的字母。</p>
     </div>
+    <div class="youngerTile" onclick="startYoungerTask('listen')">
+      <div class="bigIcon">👂</div><b>聽聲音找字母</b>
+      <p class="muted">聽到字母名稱後，找出正確的大寫字母。</p>
+    </div>
   </div>
 
   <div class="card" style="margin-top:16px">
@@ -500,7 +576,8 @@ body:not(.younger-mode) aside nav button[data-page="youngerEnglish"]{display:non
     <div class="treeDiag" id="youngerTreeHome">英文基礎
 ├─ 大小寫配對　尚未練習
 ├─ 字母辨識　　尚未練習
-└─ 四線格位置　尚未練習</div>
+├─ 四線格位置　尚未練習
+└─ 聲音辨識　　尚未練習</div>
   </div>
 </section>
 
@@ -542,6 +619,14 @@ body:not(.younger-mode) aside nav button[data-page="youngerEnglish"]{display:non
       <div class="letterChoices" id="lookChoices"></div>
     </div>
 
+
+    <div id="youngerListenTask" class="letterStage listenStage">
+      <div class="letterPrompt">先聽聲音，再找字母</div>
+      <button type="button" class="listenBtn" id="playLetterSound">🔊 再聽一次</button>
+      <div class="muted" style="margin:10px 0">聽到哪一個英文字母？</div>
+      <div class="letterChoices" id="listenChoices"></div>
+    </div>
+
     <div class="youngerFeedback" id="youngerFeedback">選一個任務開始。</div>
     <div class="practiceActions">
       <button type="button" class="btn secondary" onclick="go('youngerHome')">回任務首頁</button>
@@ -554,7 +639,8 @@ body:not(.younger-mode) aside nav button[data-page="youngerEnglish"]{display:non
     <div class="treeDiag" id="youngerTree">英文基礎
 ├─ 大小寫配對　尚未練習
 ├─ 字母辨識　　尚未練習
-└─ 四線格位置　尚未練習</div>
+├─ 四線格位置　尚未練習
+└─ 聲音辨識　　尚未練習</div>
   </div>
 </section>
 
@@ -621,7 +707,8 @@ body:not(.younger-mode) aside nav button[data-page="youngerEnglish"]{display:non
       <div class="treeDiag" id="parentYoungerTree" style="margin-top:12px">英文基礎
 ├─ 大小寫配對　尚未練習
 ├─ 字母辨識　　尚未練習
-└─ 四線格位置　尚未練習</div>
+├─ 四線格位置　尚未練習
+└─ 聲音辨識　　尚未練習</div>
     </div>
 
 <div id="back-progress" class="backendPanel">
@@ -1229,11 +1316,12 @@ function loadYoungerProgress(){
   return {
     date:new Date().toLocaleDateString("sv-SE"),
     stars:0,
-    completed:{case:false,position:false,look:false},
+    completed:{case:false,position:false,look:false,listen:false},
     stats:{
       case:{ok:0,bad:0},
       position:{ok:0,bad:0},
-      look:{ok:0,bad:0}
+      look:{ok:0,bad:0},
+      listen:{ok:0,bad:0}
     }
   };
 }
@@ -1242,9 +1330,64 @@ const yd=new Date().toLocaleDateString("sv-SE");
 if(youngerProgress.date!==yd){
   youngerProgress.date=yd;
   youngerProgress.stars=0;
-  youngerProgress.completed={case:false,position:false,look:false};
+  youngerProgress.completed={case:false,position:false,look:false,listen:false};
 }
 function saveYoungerProgress(){SafeStore.set(YOUNGER_KEY,JSON.stringify(youngerProgress));}
+
+function normalizeYoungerProgress(){
+  youngerProgress.completed=youngerProgress.completed||{};
+  ["case","position","look","listen"].forEach(k=>{
+    if(typeof youngerProgress.completed[k]!=="boolean")youngerProgress.completed[k]=false;
+  });
+  youngerProgress.stats=youngerProgress.stats||{};
+  ["case","position","look","listen"].forEach(k=>{
+    if(!youngerProgress.stats[k])youngerProgress.stats[k]={ok:0,bad:0};
+  });
+}
+normalizeYoungerProgress();
+
+
+
+const SOUND_KEY="family_learning_sound_v91";
+let soundEnabled=SafeStore.get(SOUND_KEY,"1")!=="0";
+let audioCtx=null;
+function getAudioCtx(){
+  try{
+    if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+    if(audioCtx.state==="suspended")audioCtx.resume();
+    return audioCtx;
+  }catch(e){return null}
+}
+function tone(freq,dur=0.12,type="sine",vol=0.045,delay=0){
+  if(!soundEnabled)return;
+  const ctx=getAudioCtx(); if(!ctx)return;
+  const o=ctx.createOscillator(),g=ctx.createGain();
+  o.type=type;o.frequency.value=freq;g.gain.value=0.0001;
+  o.connect(g);g.connect(ctx.destination);
+  const t=ctx.currentTime+delay;
+  g.gain.exponentialRampToValueAtTime(vol,t+0.015);
+  g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+  o.start(t);o.stop(t+dur+0.02);
+}
+function playSound(kind){
+  if(!soundEnabled)return;
+  if(kind==="youngerGood"){tone(660,.10,"sine",.035);tone(880,.13,"sine",.03,.08)}
+  else if(kind==="youngerRetry"){tone(330,.08,"sine",.018);tone(294,.09,"sine",.014,.07)}
+  else if(kind==="youngerDone"){tone(523,.10,"sine",.03);tone(659,.11,"sine",.03,.08);tone(784,.16,"sine",.028,.17)}
+  else if(kind==="olderHit"){tone(220,.055,"square",.028);tone(440,.08,"triangle",.025,.045)}
+  else if(kind==="olderChest"){tone(392,.08,"triangle",.03);tone(523,.10,"triangle",.03,.08);tone(659,.12,"triangle",.028,.17);tone(784,.18,"sine",.025,.27)}
+}
+function updateSoundButton(){
+  const b=document.getElementById("soundToggle");if(!b)return;
+  b.textContent=soundEnabled?"開啟":"關閉";b.classList.toggle("on",soundEnabled);
+}
+document.getElementById("soundToggle")?.addEventListener("click",()=>{
+  soundEnabled=!soundEnabled;SafeStore.set(SOUND_KEY,soundEnabled?"1":"0");updateSoundButton();
+  if(soundEnabled)playSound(currentProfile==="younger"?"youngerGood":"olderHit");
+});
+updateSoundButton();
+document.getElementById("olderHitDemo")?.addEventListener("click",()=>{playSound("olderHit");const e=document.getElementById("olderAdventureLog");if(e)e.textContent="⚔️ 命中！這種聲音只用在哥哥的冒險回饋。"});
+document.getElementById("olderChestDemo")?.addEventListener("click",()=>{playSound("olderChest");const e=document.getElementById("olderAdventureLog");if(e)e.textContent="🎁 寶箱開啟！完成任務或重要里程碑才使用。"});
 
 function setProfile(profile){
   currentProfile=profile==="younger"?"younger":"older";
@@ -1287,16 +1430,19 @@ function startYoungerTask(type){
   document.getElementById("youngerCaseTask").style.display=type==="case"?"block":"none";
   document.getElementById("youngerPositionTask").style.display=type==="position"?"block":"none";
   document.getElementById("youngerLookTask").style.display=type==="look"?"block":"none";
-  const names={case:"大小寫配對",position:"四線格位置",look:"字母辨識"};
+  document.getElementById("youngerListenTask").style.display=type==="listen"?"block":"none";
+  document.getElementById("youngerListenTask").classList.toggle("active",type==="listen");
+  const names={case:"大小寫配對",position:"四線格位置",look:"字母辨識",listen:"聽聲音找字母"};
   document.getElementById("youngerTaskTag").textContent=names[type];
   nextYoungerQuestion();
 }
 function recordYounger(ok){
   const s=youngerProgress.stats[youngerTask];
-  if(ok)s.ok++;else s.bad++;
+  if(ok){s.ok++;playSound("youngerGood");}else{s.bad++;playSound("youngerRetry");}
   if(ok && !youngerProgress.completed[youngerTask]){
     youngerProgress.completed[youngerTask]=true;
     youngerProgress.stars++;
+    if(Object.values(youngerProgress.completed).filter(Boolean).length===4)playSound("youngerDone");
   }
   saveYoungerProgress();
   renderYoungerProgress();
@@ -1304,6 +1450,8 @@ function recordYounger(ok){
 function nextYoungerQuestion(){
   const fb=document.getElementById("youngerFeedback");
   fb.textContent="看清楚再選，不用急。";
+  const ct=document.getElementById("youngerCompanionText");
+  if(ct)ct.textContent="這一小關慢慢來就好，答錯不會扣星星。";
   if(youngerTask==="case"){
     const pair=casePairs[Math.floor(Math.random()*casePairs.length)];
     youngerCurrent={answer:pair[1]};
@@ -1331,6 +1479,30 @@ function nextYoungerQuestion(){
       b.onclick=()=>{
         const ok=v===item.target;b.classList.add(ok?"good":"bad");
         fb.textContent=ok?"✅ 找到了！形狀方向也要看清楚。":"再看一次字母的圓圈在哪邊、直線在哪邊。";
+        recordYounger(ok);
+      };wrap.appendChild(b);
+    });
+  }else if(youngerTask==="listen"){
+    const letters=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T"];
+    const target=letters[Math.floor(Math.random()*letters.length)];
+    youngerCurrent={answer:target};
+    const distract=shuffle(letters.filter(x=>x!==target)).slice(0,3);
+    const choices=shuffle([target,...distract]);
+    const wrap=document.getElementById("listenChoices");wrap.innerHTML="";
+    const speak=()=>{
+      try{
+        speechSynthesis.cancel();
+        const u=new SpeechSynthesisUtterance(target);
+        u.lang="en-US";u.rate=.72;u.pitch=1.05;speechSynthesis.speak(u);
+      }catch(e){}
+    };
+    document.getElementById("playLetterSound").onclick=speak;
+    setTimeout(speak,180);
+    choices.forEach(v=>{
+      const b=document.createElement("button");b.type="button";b.className="letterChoice";b.textContent=v;
+      b.onclick=()=>{
+        const ok=v===target;b.classList.add(ok?"good":"bad");
+        fb.textContent=ok?`✅ 對！剛剛聽到的是 ${target}。`:`沒關係，再按一次「再聽一次」，慢慢找 ${target}。`;
         recordYounger(ok);
       };wrap.appendChild(b);
     });
@@ -1367,11 +1539,12 @@ function levelText(stat){
 function renderYoungerProgress(){
   const done=Object.values(youngerProgress.completed).filter(Boolean).length;
   const stars=document.getElementById("youngerStars"); if(stars)stars.textContent=`⭐ ${youngerProgress.stars} 顆`;
-  const d=document.getElementById("youngerDone"); if(d)d.textContent=`今天 ${done} / 3 關`;
+  const d=document.getElementById("youngerDone"); if(d)d.textContent=`今天 ${done} / 4 關`;
   const tree=`英文基礎
 ├─ 大小寫配對　${levelText(youngerProgress.stats.case)}
 ├─ 字母辨識　　${levelText(youngerProgress.stats.look)}
-└─ 四線格位置　${levelText(youngerProgress.stats.position)}`;
+├─ 四線格位置　${levelText(youngerProgress.stats.position)}
+└─ 聲音辨識　　${levelText(youngerProgress.stats.listen)}`;
   ["youngerTreeHome","youngerTree","parentYoungerTree"].forEach(id=>{
     const el=document.getElementById(id);if(el)el.textContent=tree;
   });
