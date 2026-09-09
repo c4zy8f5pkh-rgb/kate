@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>私中備考中心 V8.7｜復旦 × 六和</title>
+<title>兄弟學習基地 V9.0｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -136,28 +136,94 @@ iframe{width:100%;height:72vh;border:0;background:#fff}
  .g4,.g3,.g2,.formgrid,.protect{grid-template-columns:1fr}main{padding:16px}
 }
 </style>
+
+<style id="v90-family-learning">
+.profileSwitch{margin:0 8px 16px;padding:10px;border:1px solid rgba(255,255,255,.12);border-radius:14px;background:rgba(255,255,255,.05)}
+.profileSwitchTitle{font-size:11px;color:#aeb8ce;margin-bottom:7px}
+.profileBtns{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.profileBtn{border:0!important;border-radius:10px!important;padding:9px 8px!important;background:rgba(255,255,255,.07)!important;color:#cfd7ea!important;cursor:pointer}
+.profileBtn.active{background:#fff!important;color:#29334a!important;font-weight:900}
+.youngerOnly{display:none}
+body.younger-mode .olderOnly{display:none!important}
+body.younger-mode .youngerOnly{display:block!important}
+body.younger-mode .top .badges{display:none}
+body.younger-mode .top h1{font-size:26px}
+body.younger-mode aside nav button[data-page]:not([data-page="youngerHome"]):not([data-page="youngerEnglish"]):not([data-page="parent"]){display:none}
+body.younger-mode aside nav button[data-page="youngerHome"],
+body.younger-mode aside nav button[data-page="youngerEnglish"]{display:block}
+body:not(.younger-mode) aside nav button[data-page="youngerHome"],
+body:not(.younger-mode) aside nav button[data-page="youngerEnglish"]{display:none}
+
+.youngerHero{display:grid;grid-template-columns:1.25fr .75fr;gap:16px;margin-bottom:16px}
+.youngerMission{background:linear-gradient(135deg,#fff8e8,#fff);border:1px solid #efdfb8;border-radius:22px;padding:22px}
+.youngerReward{background:linear-gradient(135deg,#eef8ff,#fff);border:1px solid #d8e8f5;border-radius:22px;padding:20px}
+.youngerMenu{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.youngerTile{border:1px solid var(--line);border-radius:20px;background:#fff;padding:20px;cursor:pointer;transition:.18s}
+.youngerTile:hover{transform:translateY(-2px);border-color:#c8d4fb}
+.youngerTile .bigIcon{font-size:34px;margin-bottom:8px}
+.youngerTile b{font-size:18px}
+.youngerProgressRow{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.youngerChip{padding:7px 10px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:12px}
+.letterStage{background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px;margin-top:14px}
+.letterPrompt{font-size:22px;font-weight:900;margin-bottom:14px}
+.letterChoices{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.letterChoice{font-size:28px;font-weight:900;border:1px solid #dfe5f1;background:#fafbff;border-radius:14px;padding:14px;cursor:pointer}
+.letterChoice.good{background:#eaf7ef;border-color:#b8dfc8}
+.letterChoice.bad{background:#fdebed;border-color:#efc1c8}
+.writingGuide{position:relative;height:190px;border-radius:18px;background:#fffdf8;border:1px solid #eadfca;overflow:hidden;margin-top:14px}
+.writingGuide .line{position:absolute;left:5%;right:5%;height:1px;background:#b9c1d1}
+.writingGuide .l1{top:20%}.writingGuide .l2{top:42%}.writingGuide .l3{top:64%}.writingGuide .l4{top:86%}
+.writingGuide .zoneLabel{position:absolute;left:12px;font-size:11px;color:#9a8d76}
+.writingGuide .z1{top:8%}.writingGuide .z2{top:47%}.writingGuide .z3{top:74%}
+.dragLetter{position:absolute;left:50%;top:5px;transform:translateX(-50%);font-size:52px;font-weight:900;color:#5268cc;cursor:grab;user-select:none;touch-action:none;padding:4px 14px;border-radius:13px;background:#eef2ff;border:1px solid #d9e0fb}
+.dropHint{text-align:center;color:#7a879c;font-size:13px;margin-top:8px}
+.positionChoices{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:12px}
+.positionBtn{border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px;cursor:pointer}
+.positionBtn.good{background:#eaf7ef;border-color:#b8dfc8}
+.positionBtn.bad{background:#fdebed;border-color:#efc1c8}
+.treeDiag{font-family:"Microsoft JhengHei","Noto Sans TC",sans-serif;background:#fbfcff;border:1px solid var(--line);border-radius:16px;padding:14px 16px;line-height:1.8;white-space:pre-wrap}
+.treeGood{color:#2f7c59}.treeWarn{color:#a56920}.treeBad{color:#b04b58}
+.youngerFeedback{margin-top:12px;padding:12px 14px;border-radius:13px;background:#f7f9fd;min-height:44px}
+@media(max-width:850px){.youngerHero,.youngerMenu{grid-template-columns:1fr}.letterChoices{grid-template-columns:repeat(2,1fr)}}
+</style>
+
 </head>
 <body>
 <div class="app">
 <aside>
-  <div class="brand">🎯 私中備考中心<small>復旦 × 六和｜小五起跑</small></div>
+  <div class="brand">🌱 兄弟學習基地<small>哥哥備考 × 弟弟啟蒙</small></div>
+<div class="profileSwitch">
+  <div class="profileSwitchTitle">今天是誰在使用？</div>
+  <div class="profileBtns">
+    <button type="button" class="profileBtn active" id="profileOlder">哥哥</button>
+    <button type="button" class="profileBtn" id="profileYounger">弟弟</button>
+  </div>
+</div>
+
   <nav class="navrow">
-    <button type="button" class="active" data-page="home">🏠 今日學習</button>
-    <button type="button" data-page="chinese">📖 國文</button>
-    <button type="button" data-page="math">🧮 數學</button>
-    <button type="button" data-page="english">英文</button>
-    <button type="button" data-page="history">📚 歷屆題</button>
-    <button type="button" data-page="damankuan">📘 大滿貫</button>
-    <button type="button" data-page="wrong">🔁 三科弱點</button>
+    <button type="button" class="active olderOnly" data-page="home">🏠 今日學習</button>
+    <button type="button" data-page="youngerHome">🏠 我的任務</button>
+    <button type="button" data-page="youngerEnglish">🔤 英文啟蒙</button>
+
+    <button type="button" class="olderOnly" data-page="chinese">📖 國文</button>
+    <button type="button" class="olderOnly" data-page="math">🧮 數學</button>
+    <button type="button" class="olderOnly" data-page="english">英文</button>
+    <button type="button" class="olderOnly" data-page="history">📚 歷屆題</button>
+    <button type="button" class="olderOnly" data-page="damankuan">📘 大滿貫</button>
+    <button type="button" class="olderOnly" data-page="wrong">🔁 三科弱點</button>
     <button type="button" data-page="parent">🔒 家長中心</button>
   </nav>
 </aside>
 
 <main>
 <div class="top">
-  <div>
+  <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜私中站 V8.7</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V9.0</div>
+  </div>
+  <div class="youngerOnly">
+    <h1>先把基礎長穩，再慢慢往上接。</h1>
+    <div class="muted">弟弟目前：字母大小寫、辨識、四線格位置｜每天 5–10 分鐘</div>
   </div>
   <div class="badges"><span class="badge primary">第一目標：復旦</span><span class="badge">第二目標：六和</span><span class="badge">目前：小五</span></div>
 </div>
@@ -393,6 +459,105 @@ iframe{width:100%;height:72vh;border:0;background:#fff}
 </section>
 
 
+
+<section id="youngerHome" class="page youngerOnly">
+  <div class="youngerHero">
+    <div class="youngerMission">
+      <div class="muted">🧒 弟弟今日任務</div>
+      <div class="focusTitle" style="margin-top:6px">短短 3 關，完成就停</div>
+      <div class="muted">先把「看得懂、放得對、配得起來」建立起來，不急著刷很多題。</div>
+      <div class="youngerProgressRow">
+        <span class="youngerChip">⏱ 5–10 分鐘</span>
+        <span class="youngerChip" id="youngerStars">⭐ 0 顆</span>
+        <span class="youngerChip" id="youngerDone">今天 0 / 3 關</span>
+      </div>
+    </div>
+    <div class="youngerReward">
+      <div class="muted">今天的小目標</div>
+      <div style="font-size:36px;margin:8px 0">🌟</div>
+      <b>不是寫很多，是把位置弄懂</b>
+      <div class="muted" style="margin-top:6px">每關完成就有星星，錯了可以再試。</div>
+    </div>
+  </div>
+
+  <div class="youngerMenu">
+    <div class="youngerTile" onclick="startYoungerTask('case')">
+      <div class="bigIcon">Aa</div><b>大小寫配對</b>
+      <p class="muted">A 找 a、B 找 b，先建立字母對應。</p>
+    </div>
+    <div class="youngerTile" onclick="startYoungerTask('position')">
+      <div class="bigIcon">✍️</div><b>四線格位置</b>
+      <p class="muted">分清楚高字母、中間字母、會往下的字母。</p>
+    </div>
+    <div class="youngerTile" onclick="startYoungerTask('look')">
+      <div class="bigIcon">👀</div><b>找一樣的字母</b>
+      <p class="muted">練 b / d / p / q 這類容易看錯的字母。</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <h3>🌳 弟弟目前能力樹</h3>
+    <div class="treeDiag" id="youngerTreeHome">英文基礎
+├─ 大小寫配對　尚未練習
+├─ 字母辨識　　尚未練習
+└─ 四線格位置　尚未練習</div>
+  </div>
+</section>
+
+<section id="youngerEnglish" class="page youngerOnly">
+  <div class="card">
+    <div class="practiceTop">
+      <div>
+        <div class="muted">🔤 英文啟蒙</div>
+        <h3 style="margin-top:5px">今天只練一個小能力</h3>
+      </div>
+      <span class="tag" id="youngerTaskTag">準備開始</span>
+    </div>
+
+    <div id="youngerCaseTask" class="letterStage">
+      <div class="letterPrompt" id="casePrompt">請找出大寫 A 的小寫朋友</div>
+      <div class="letterChoices" id="caseChoices"></div>
+    </div>
+
+    <div id="youngerPositionTask" class="letterStage" style="display:none">
+      <div class="letterPrompt" id="positionPrompt">字母要站在哪一區？</div>
+      <div class="writingGuide">
+        <div class="line l1"></div><div class="line l2"></div><div class="line l3"></div><div class="line l4"></div>
+        <div class="zoneLabel z1">高字母區</div>
+        <div class="zoneLabel z2">主要書寫區</div>
+        <div class="zoneLabel z3">下伸區</div>
+        <div class="dragLetter" id="positionLetter">g</div>
+      </div>
+      <div class="positionChoices">
+        <button type="button" class="positionBtn" data-zone="tall">往上長</button>
+        <button type="button" class="positionBtn" data-zone="middle">只在中間</button>
+        <button type="button" class="positionBtn" data-zone="descender">會往下</button>
+      </div>
+      <div class="dropHint">先看四線格，再選這個字母的主要位置。</div>
+    </div>
+
+    <div id="youngerLookTask" class="letterStage" style="display:none">
+      <div class="letterPrompt" id="lookPrompt">哪一個和目標字母一樣？</div>
+      <div style="font-size:58px;font-weight:900;text-align:center;margin:10px" id="lookTarget">b</div>
+      <div class="letterChoices" id="lookChoices"></div>
+    </div>
+
+    <div class="youngerFeedback" id="youngerFeedback">選一個任務開始。</div>
+    <div class="practiceActions">
+      <button type="button" class="btn secondary" onclick="go('youngerHome')">回任務首頁</button>
+      <button type="button" class="btn" id="youngerNextBtn">下一小題</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🌳 這不是看分數，是看卡在哪裡</h3>
+    <div class="treeDiag" id="youngerTree">英文基礎
+├─ 大小寫配對　尚未練習
+├─ 字母辨識　　尚未練習
+└─ 四線格位置　尚未練習</div>
+  </div>
+</section>
+
 <section id="parent" class="page">
   <div id="parentGate" class="parentGate">
     <div class="muted">🔒 家長專區</div>
@@ -449,7 +614,17 @@ iframe{width:100%;height:72vh;border:0;background:#fff}
       </div>
     </div>
 
-    <div id="back-progress" class="backendPanel">
+    
+    <div class="card">
+      <h3>弟弟｜英文基礎樹狀診斷</h3>
+      <div class="muted">不跟哥哥共用進度；只看弟弟目前卡在哪一個基礎節點。</div>
+      <div class="treeDiag" id="parentYoungerTree" style="margin-top:12px">英文基礎
+├─ 大小寫配對　尚未練習
+├─ 字母辨識　　尚未練習
+└─ 四線格位置　尚未練習</div>
+    </div>
+
+<div id="back-progress" class="backendPanel">
       <div class="card">
         <h3>能力進度</h3>
         <div class="muted">不是只看做幾題，而是看每個能力的穩定度。</div>
@@ -1039,6 +1214,175 @@ if(document.getElementById("saveParentPin"))document.getElementById("saveParentP
 if(SafeStore.get(PARENT_SESSION_KEY,"0")==="1"){
   setTimeout(openParentBackend,0);
 }
+
+
+// ===== V9.0 兄弟共用學習模式 =====
+const PROFILE_KEY="family_learning_profile_v90";
+const YOUNGER_KEY="younger_english_progress_v90";
+let currentProfile=SafeStore.get(PROFILE_KEY,"older")==="younger"?"younger":"older";
+
+function loadYoungerProgress(){
+  try{
+    const x=JSON.parse(SafeStore.get(YOUNGER_KEY,"null"));
+    if(x&&typeof x==="object")return x;
+  }catch(e){}
+  return {
+    date:new Date().toLocaleDateString("sv-SE"),
+    stars:0,
+    completed:{case:false,position:false,look:false},
+    stats:{
+      case:{ok:0,bad:0},
+      position:{ok:0,bad:0},
+      look:{ok:0,bad:0}
+    }
+  };
+}
+let youngerProgress=loadYoungerProgress();
+const yd=new Date().toLocaleDateString("sv-SE");
+if(youngerProgress.date!==yd){
+  youngerProgress.date=yd;
+  youngerProgress.stars=0;
+  youngerProgress.completed={case:false,position:false,look:false};
+}
+function saveYoungerProgress(){SafeStore.set(YOUNGER_KEY,JSON.stringify(youngerProgress));}
+
+function setProfile(profile){
+  currentProfile=profile==="younger"?"younger":"older";
+  SafeStore.set(PROFILE_KEY,currentProfile);
+  document.body.classList.toggle("younger-mode",currentProfile==="younger");
+  document.getElementById("profileOlder")?.classList.toggle("active",currentProfile==="older");
+  document.getElementById("profileYounger")?.classList.toggle("active",currentProfile==="younger");
+  if(currentProfile==="younger") go("youngerHome"); else go("home");
+  renderYoungerProgress();
+}
+document.getElementById("profileOlder")?.addEventListener("click",()=>setProfile("older"));
+document.getElementById("profileYounger")?.addEventListener("click",()=>setProfile("younger"));
+
+const casePairs=[
+  ["A","a"],["B","b"],["D","d"],["E","e"],["G","g"],["H","h"],["M","m"],["N","n"],["P","p"],["Q","q"],["R","r"],["T","t"]
+];
+const lookSets=[
+  {target:"b",choices:["b","d","p","q"]},
+  {target:"d",choices:["q","d","b","p"]},
+  {target:"p",choices:["q","b","p","d"]},
+  {target:"q",choices:["p","q","d","b"]},
+  {target:"m",choices:["n","w","m","u"]},
+  {target:"n",choices:["h","r","n","m"]}
+];
+const positionLetters=[
+  {letter:"b",zone:"tall"},{letter:"d",zone:"tall"},{letter:"f",zone:"tall"},
+  {letter:"h",zone:"tall"},{letter:"k",zone:"tall"},{letter:"l",zone:"tall"},{letter:"t",zone:"tall"},
+  {letter:"a",zone:"middle"},{letter:"c",zone:"middle"},{letter:"e",zone:"middle"},
+  {letter:"i",zone:"middle"},{letter:"m",zone:"middle"},{letter:"n",zone:"middle"},{letter:"o",zone:"middle"},
+  {letter:"g",zone:"descender"},{letter:"j",zone:"descender"},{letter:"p",zone:"descender"},
+  {letter:"q",zone:"descender"},{letter:"y",zone:"descender"}
+];
+
+let youngerTask="case";
+let youngerCurrent=null;
+function shuffle(a){return [...a].sort(()=>Math.random()-.5);}
+function startYoungerTask(type){
+  youngerTask=type;
+  go("youngerEnglish");
+  document.getElementById("youngerCaseTask").style.display=type==="case"?"block":"none";
+  document.getElementById("youngerPositionTask").style.display=type==="position"?"block":"none";
+  document.getElementById("youngerLookTask").style.display=type==="look"?"block":"none";
+  const names={case:"大小寫配對",position:"四線格位置",look:"字母辨識"};
+  document.getElementById("youngerTaskTag").textContent=names[type];
+  nextYoungerQuestion();
+}
+function recordYounger(ok){
+  const s=youngerProgress.stats[youngerTask];
+  if(ok)s.ok++;else s.bad++;
+  if(ok && !youngerProgress.completed[youngerTask]){
+    youngerProgress.completed[youngerTask]=true;
+    youngerProgress.stars++;
+  }
+  saveYoungerProgress();
+  renderYoungerProgress();
+}
+function nextYoungerQuestion(){
+  const fb=document.getElementById("youngerFeedback");
+  fb.textContent="看清楚再選，不用急。";
+  if(youngerTask==="case"){
+    const pair=casePairs[Math.floor(Math.random()*casePairs.length)];
+    youngerCurrent={answer:pair[1]};
+    document.getElementById("casePrompt").textContent=`請找出大寫 ${pair[0]} 的小寫朋友`;
+    const distract=shuffle(casePairs.map(x=>x[1]).filter(x=>x!==pair[1])).slice(0,3);
+    const choices=shuffle([pair[1],...distract]);
+    const wrap=document.getElementById("caseChoices");wrap.innerHTML="";
+    choices.forEach(v=>{
+      const b=document.createElement("button");b.type="button";b.className="letterChoice";b.textContent=v;
+      b.onclick=()=>{
+        const ok=v===youngerCurrent.answer;
+        b.classList.add(ok?"good":"bad");
+        fb.textContent=ok?`✅ 對！${pair[0]} 和 ${pair[1]} 是一組。`:`再看一次：大寫 ${pair[0]} 要找小寫 ${pair[1]}。`;
+        recordYounger(ok);
+      };wrap.appendChild(b);
+    });
+  }else if(youngerTask==="look"){
+    const item=lookSets[Math.floor(Math.random()*lookSets.length)];
+    youngerCurrent={answer:item.target};
+    document.getElementById("lookTarget").textContent=item.target;
+    document.getElementById("lookPrompt").textContent="哪一個和上面的目標字母一樣？";
+    const wrap=document.getElementById("lookChoices");wrap.innerHTML="";
+    shuffle(item.choices).forEach(v=>{
+      const b=document.createElement("button");b.type="button";b.className="letterChoice";b.textContent=v;
+      b.onclick=()=>{
+        const ok=v===item.target;b.classList.add(ok?"good":"bad");
+        fb.textContent=ok?"✅ 找到了！形狀方向也要看清楚。":"再看一次字母的圓圈在哪邊、直線在哪邊。";
+        recordYounger(ok);
+      };wrap.appendChild(b);
+    });
+  }else{
+    const item=positionLetters[Math.floor(Math.random()*positionLetters.length)];
+    youngerCurrent={answer:item.zone};
+    document.getElementById("positionLetter").textContent=item.letter;
+    document.getElementById("positionPrompt").textContent=`小寫 ${item.letter} 的位置屬於哪一種？`;
+    document.querySelectorAll(".positionBtn").forEach(b=>{
+      b.classList.remove("good","bad");
+      b.onclick=()=>{
+        const ok=b.dataset.zone===item.zone;b.classList.add(ok?"good":"bad");
+        const desc={tall:"會往上長",middle:"主要留在中間",descender:"會往下伸"};
+        fb.textContent=ok?`✅ 對！${item.letter} ${desc[item.zone]}。`:`再看四線格：${item.letter} ${desc[item.zone]}。`;
+        recordYounger(ok);
+      };
+    });
+  }
+}
+document.getElementById("youngerNextBtn")?.addEventListener("click",nextYoungerQuestion);
+
+function pctFor(stat){
+  const total=stat.ok+stat.bad;
+  return total?Math.round(stat.ok/total*100):null;
+}
+function levelText(stat){
+  const pct=pctFor(stat), total=stat.ok+stat.bad;
+  if(total===0)return "尚未練習";
+  if(total<3)return "練習中";
+  if(pct>=80)return "✓ 穩定";
+  if(pct>=55)return "△ 還要練";
+  return "✗ 目前卡點";
+}
+function renderYoungerProgress(){
+  const done=Object.values(youngerProgress.completed).filter(Boolean).length;
+  const stars=document.getElementById("youngerStars"); if(stars)stars.textContent=`⭐ ${youngerProgress.stars} 顆`;
+  const d=document.getElementById("youngerDone"); if(d)d.textContent=`今天 ${done} / 3 關`;
+  const tree=`英文基礎
+├─ 大小寫配對　${levelText(youngerProgress.stats.case)}
+├─ 字母辨識　　${levelText(youngerProgress.stats.look)}
+└─ 四線格位置　${levelText(youngerProgress.stats.position)}`;
+  ["youngerTreeHome","youngerTree","parentYoungerTree"].forEach(id=>{
+    const el=document.getElementById(id);if(el)el.textContent=tree;
+  });
+}
+renderYoungerProgress();
+
+// restore last profile without forcing a click loop
+document.body.classList.toggle("younger-mode",currentProfile==="younger");
+document.getElementById("profileOlder")?.classList.toggle("active",currentProfile==="older");
+document.getElementById("profileYounger")?.classList.toggle("active",currentProfile==="younger");
+setTimeout(()=>{ if(currentProfile==="younger")go("youngerHome"); },0);
 
 </script>
 
