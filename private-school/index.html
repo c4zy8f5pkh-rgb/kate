@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V9.7｜復旦 × 六和</title>
+<title>兄弟學習基地 V9.9｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -247,15 +247,41 @@ body:not(.younger-mode) aside nav button[data-page="youngerStars"]{display:none}
 
 <style id="v97-younger-nav">
 .youngerTodayList{display:grid;gap:10px;margin-top:14px}
-.youngerTodayItem{display:flex;align-items:center;gap:12px;padding:13px 14px;border:1px solid #e2e8f3;border-radius:15px;background:#fff}
-.youngerTodayItem .state{margin-left:auto;font-size:12px;padding:5px 9px;border-radius:999px;background:#f1f4fa;color:#667085}
-.youngerTodayItem.done .state{background:#eef8ef;color:#3c7a47}
-.youngerTodayActions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.youngerTodayItem{width:100%;display:flex;align-items:center;gap:12px;padding:13px 14px;border:1px solid #e2e8f3;border-radius:15px;background:#fff;cursor:pointer;transition:transform .15s ease,border-color .15s ease,background .15s ease;color:inherit;font:inherit}
+.youngerTodayItem .state{margin-left:auto;font-size:12px;padding:7px 11px;border-radius:999px;background:#eef2ff;color:#4f63b9;font-weight:800;white-space:nowrap}
+.youngerTodayItem.done{background:#fbfefb;border-color:#d8eadb}.youngerTodayItem.done .state{background:#eef8ef;color:#3c7a47}
+.youngerTodayActions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.youngerTodayItem:focus-visible{outline:3px solid #8fa1ff;outline-offset:2px}@media(hover:hover){.youngerTodayItem:hover{transform:translateY(-1px);border-color:#b9c4f5;background:#fafbff}}
 .starShelf{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px}
 .starCard{padding:16px;border:1px solid #e2e8f3;border-radius:16px;background:#fff;text-align:center}
 .starBig{font-size:32px;font-weight:900;margin:6px 0}
 @media(max-width:650px){.starShelf{grid-template-columns:1fr}}
 </style>
+
+<style id="v99-adventure-battle">
+.adventureBattle{display:grid;grid-template-columns:110px 1fr;gap:16px;align-items:center;margin-top:14px;padding:15px;border-radius:18px;background:#fff;border:1px solid #dfe5f2}
+.monsterStage{display:grid;place-items:center;min-height:92px;border-radius:16px;background:#f6f8fc;border:1px solid #e6eaf3}
+.monsterFace{font-size:54px;line-height:1;transform-origin:center;transition:transform .18s ease}
+.monsterFace.hit{animation:monsterHit .32s ease}
+.monsterFace.dodge{animation:monsterDodge .36s ease}
+.monsterFace.down{animation:monsterDown .55s ease forwards}
+@keyframes monsterHit{0%{transform:translateX(0) rotate(0)}35%{transform:translateX(8px) rotate(7deg) scale(.9)}70%{transform:translateX(-4px) rotate(-4deg)}100%{transform:none}}
+@keyframes monsterDodge{0%{transform:translateX(0)}45%{transform:translateX(14px)}100%{transform:translateX(0)}}
+@keyframes monsterDown{0%{transform:scale(1);opacity:1}65%{transform:scale(.72) rotate(10deg);opacity:.55}100%{transform:scale(.5);opacity:.18}}
+.monsterName{font-weight:900;font-size:17px}
+.monsterMeta{font-size:12px;color:#74809a;margin-top:3px}
+.monsterHpRow{display:flex;align-items:center;gap:9px;margin-top:10px}
+.monsterHpTrack{height:12px;flex:1;border-radius:999px;background:#edf0f6;overflow:hidden}
+.monsterHpFill{height:100%;width:100%;background:linear-gradient(90deg,#ffb86b,#ff6e7f);transition:width .3s ease}
+.monsterHpText{font-size:12px;font-weight:900;min-width:50px;text-align:right}
+.monsterMessage{margin-top:9px;padding:8px 10px;border-radius:10px;background:#f7f8fb;font-size:13px;color:#546176}
+.battleMini{margin:0 0 14px}
+.battleMini .adventureBattle{margin-top:0}
+.battleMini .monsterStage{min-height:76px}
+.battleMini .monsterFace{font-size:44px}
+.battleWin{font-weight:900;color:#7a5b17}
+@media(max-width:650px){.adventureBattle{grid-template-columns:76px 1fr;gap:11px}.monsterFace{font-size:42px}.monsterStage{min-height:74px}.monsterName{font-size:15px}}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -298,7 +324,7 @@ body:not(.younger-mode) aside nav button[data-page="youngerStars"]{display:none}
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V9.7</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V9.9</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -319,7 +345,21 @@ body:not(.younger-mode) aside nav button[data-page="youngerStars"]{display:none}
       <span class="adventureBadge">🗺 新題：探索區</span>
       <span class="adventureBadge">👑 高難度：Boss 關</span>
     </div>
-    <div class="adventureLog" id="olderAdventureLog">開始作答後會自動出現冒險回饋：答對＝命中；完成今日任務＝開寶箱。</div>
+    
+<div class="adventureBattle" data-battle="home">
+  <div class="monsterStage"><div class="monsterFace" data-monster-face>🧩</div></div>
+  <div>
+    <div class="monsterName" data-monster-name>今日探索怪</div>
+    <div class="monsterMeta" data-monster-meta>開始國文或數學後，怪物會跟著題目出現</div>
+    <div class="monsterHpRow">
+      <span>HP</span><div class="monsterHpTrack"><div class="monsterHpFill" data-monster-hp-fill></div></div>
+      <span class="monsterHpText" data-monster-hp-text>3 / 3</span>
+    </div>
+    <div class="monsterMessage" data-monster-message>答對會攻擊；答錯不扣獎勵，下一題會優先出同能力類題。</div>
+  </div>
+</div>
+<div class="adventureLog" id="olderAdventureLog">今天還沒開戰。進入國文或數學，按「開始練習」就會遇到怪。</div>
+
   </div>
   <div class="adventureSide">
     <div class="muted">今日原則</div>
@@ -380,7 +420,19 @@ body:not(.younger-mode) aside nav button[data-page="youngerStars"]{display:none}
     </div>
   </div>
 
-  <div class="card kidOnly">
+  <div class="battleMini kidOnly">
+  <div class="adventureBattle" data-battle="chinese">
+    <div class="monsterStage"><div class="monsterFace" data-monster-face>🧩</div></div>
+    <div>
+      <div class="monsterName" data-monster-name>等待國文怪物</div>
+      <div class="monsterMeta" data-monster-meta>按「開始國文練習」後出現</div>
+      <div class="monsterHpRow"><span>HP</span><div class="monsterHpTrack"><div class="monsterHpFill" data-monster-hp-fill></div></div><span class="monsterHpText" data-monster-hp-text>3 / 3</span></div>
+      <div class="monsterMessage" data-monster-message>答對＝命中；答錯＝產生弱點線索。</div>
+    </div>
+  </div>
+</div>
+
+<div class="card kidOnly">
     <div class="kidTip" style="margin-bottom:12px">知識題會標示教育部來源；閱讀、句子與寫作則標示「原創題」。</div>
     <div class="practiceTop">
       <div>
@@ -448,6 +500,18 @@ body:not(.younger-mode) aside nav button[data-page="youngerStars"]{display:none}
       <div style="font-size:30px;margin:8px 0">🧠</div>
       <b>先說出「為什麼」</b>
       <div class="muted" style="margin-top:6px">不是只求算對，還要看懂題目。</div>
+    </div>
+  </div>
+
+  <div class="battleMini kidOnly">
+    <div class="adventureBattle" data-battle="math">
+      <div class="monsterStage"><div class="monsterFace" data-monster-face>🧩</div></div>
+      <div>
+        <div class="monsterName" data-monster-name>等待數學怪物</div>
+        <div class="monsterMeta" data-monster-meta>按「開始數學練習」後出現</div>
+        <div class="monsterHpRow"><span>HP</span><div class="monsterHpTrack"><div class="monsterHpFill" data-monster-hp-fill></div></div><span class="monsterHpText" data-monster-hp-text>3 / 3</span></div>
+        <div class="monsterMessage" data-monster-message>答對＝命中；答錯＝產生弱點線索。</div>
+      </div>
     </div>
   </div>
 
@@ -665,21 +729,28 @@ body:not(.younger-mode) aside nav button[data-page="youngerStars"]{display:none}
   <div class="practiceTop">
     <div>
       <h3>今天照順序完成</h3>
-      <div class="muted">不用自己挑功能，先把今天四個小任務做完。</div>
+      <div class="muted">直接點任務卡開始；完成後會自動變成「✓ 已完成」。</div>
     </div>
     <span class="tag" id="youngerTodayTag">0 / 4</span>
   </div>
 
   <div class="youngerTodayList">
-    <div class="youngerTodayItem" id="mission-case"><span>①</span><div><b>大小寫配對</b><div class="muted">A 找 a、B 找 b</div></div><span class="state">待完成</span></div>
-    <div class="youngerTodayItem" id="mission-position"><span>②</span><div><b>四線格位置</b><div class="muted">分清楚往上、中間、往下</div></div><span class="state">待完成</span></div>
-    <div class="youngerTodayItem" id="mission-look"><span>③</span><div><b>字母辨識</b><div class="muted">練 b / d / p / q 等容易混淆字母</div></div><span class="state">待完成</span></div>
-    <div class="youngerTodayItem" id="mission-listen"><span>④</span><div><b>聽音找字母</b><div class="muted">小熊慢慢念一個字母再找答案</div></div><span class="state">待完成</span></div>
+    <button type="button" class="youngerTodayItem" id="mission-case" data-task="case">
+      <span>①</span><div style="text-align:left;min-width:0"><b>大小寫配對</b><div class="muted">A 找 a、B 找 b</div></div><span class="state">開始</span>
+    </button>
+    <button type="button" class="youngerTodayItem" id="mission-position" data-task="position">
+      <span>②</span><div style="text-align:left;min-width:0"><b>四線格位置</b><div class="muted">分清楚往上、中間、往下</div></div><span class="state">開始</span>
+    </button>
+    <button type="button" class="youngerTodayItem" id="mission-look" data-task="look">
+      <span>③</span><div style="text-align:left;min-width:0"><b>字母辨識</b><div class="muted">練 b / d / p / q 等容易混淆字母</div></div><span class="state">開始</span>
+    </button>
+    <button type="button" class="youngerTodayItem" id="mission-listen" data-task="listen">
+      <span>④</span><div style="text-align:left;min-width:0"><b>聽音找字母</b><div class="muted">小熊慢慢念一個字母再找答案</div></div><span class="state">開始</span>
+    </button>
   </div>
 
   <div class="youngerTodayActions">
-    <button type="button" class="btn" id="startTodayMission">▶ 開始今天任務</button>
-    <button type="button" class="btn secondary" onclick="go('youngerEnglish')">自己選小遊戲</button>
+    <button type="button" class="btn" id="startTodayMission">▶ 繼續今天任務</button>
   </div>
 </div>
 
@@ -771,7 +842,7 @@ body:not(.younger-mode) aside nav button[data-page="youngerStars"]{display:none}
 
     <div class="youngerFeedback" id="youngerFeedback">選一個任務開始。</div>
     <div class="practiceActions">
-      <button type="button" class="btn secondary" onclick="go('youngerHome')">回任務首頁</button>
+      <button type="button" class="btn secondary" onclick="go('youngerHome')">回今天任務</button>
       <button type="button" class="btn" id="youngerNextBtn">下一小題</button>
     </div>
   </div>
@@ -1255,6 +1326,116 @@ function recordChineseSchedule(item,outcome){
   chQueue.answers[item.id]=outcome;
   saveChineseHistory();saveChineseQueue();
 }
+
+const OLDER_ADVENTURE_KEY="older_adventure_state_v99";
+function adventureToday(){return new Date().toLocaleDateString("sv-SE")}
+function defaultAdventureState(){
+  return {date:adventureToday(),subject:null,kind:"explore",name:"今日探索怪",emoji:"🧩",skill:"",hp:3,maxHp:3,defeats:0,nextWeakSkill:null,message:"開始國文或數學後，怪物會跟著題目出現。"};
+}
+function loadAdventureState(){
+  try{
+    const s=JSON.parse(SafeStore.get(OLDER_ADVENTURE_KEY,"null"));
+    return (!s||s.date!==adventureToday())?defaultAdventureState():Object.assign(defaultAdventureState(),s);
+  }catch(e){return defaultAdventureState()}
+}
+let olderAdventureState=loadAdventureState();
+function saveAdventureState(){SafeStore.set(OLDER_ADVENTURE_KEY,JSON.stringify(olderAdventureState))}
+function itemAdventureLevel(item,subject){
+  if(subject==="chinese")return chLevelOf(item);
+  return Number(item.level||1);
+}
+function itemAdventureSkill(item,subject){
+  return subject==="chinese"?chSkillOf(item):(item.type||"數學");
+}
+function subjectZh(subject){return subject==="chinese"?"國文":"數學"}
+function spawnAdventureMonster(subject,item){
+  const lv=itemAdventureLevel(item,subject),skill=itemAdventureSkill(item,subject);
+  let kind="explore",emoji="🧩",label="探索怪",hp=3;
+  if(olderAdventureState.nextWeakSkill && olderAdventureState.nextWeakSkill===skill){
+    kind="weak";emoji="👾";label="弱點怪";hp=3;olderAdventureState.nextWeakSkill=null;
+  }else if(lv>=4){
+    kind="boss";emoji="🐲";label="Boss";hp=5;
+  }else if(lv>=3){
+    kind="challenge";emoji="🦹";label="挑戰怪";hp=4;
+  }
+  olderAdventureState.subject=subject;
+  olderAdventureState.kind=kind;
+  olderAdventureState.emoji=emoji;
+  olderAdventureState.skill=skill;
+  olderAdventureState.maxHp=hp;
+  olderAdventureState.hp=hp;
+  olderAdventureState.name=`${label}｜${skill}`;
+  olderAdventureState.message=kind==="weak"?"這隻來自剛才的卡點，用不同題把它打掉。":(kind==="boss"?"高難度題出現，Boss 血量比較厚。":"答對就會真的扣怪物 HP。");
+  saveAdventureState();renderAdventureBattle();
+}
+function ensureAdventureEncounter(subject,item){
+  const mustSpawn=!olderAdventureState.subject || olderAdventureState.subject!==subject || olderAdventureState.hp<=0;
+  if(mustSpawn)spawnAdventureMonster(subject,item);
+  else{
+    olderAdventureState.skill=itemAdventureSkill(item,subject);
+    olderAdventureState.message=`目前對戰中｜這題：${olderAdventureState.skill} · L${itemAdventureLevel(item,subject)}`;
+    saveAdventureState();renderAdventureBattle();
+  }
+}
+function renderAdventureBattle(){
+  document.querySelectorAll("[data-battle]").forEach(box=>{
+    const scope=box.dataset.battle;
+    const relevant=scope==="home" || !olderAdventureState.subject || scope===olderAdventureState.subject;
+    const face=box.querySelector("[data-monster-face]");
+    const name=box.querySelector("[data-monster-name]");
+    const meta=box.querySelector("[data-monster-meta]");
+    const fill=box.querySelector("[data-monster-hp-fill]");
+    const hp=box.querySelector("[data-monster-hp-text]");
+    const msg=box.querySelector("[data-monster-message]");
+    if(!relevant && scope!=="home"){
+      if(face)face.textContent="💤";
+      if(name)name.textContent=`等待${subjectZh(scope)}怪物`;
+      if(meta)meta.textContent=`進入${subjectZh(scope)}練習後開始`;
+      if(fill)fill.style.width="100%";
+      if(hp)hp.textContent="—";
+      if(msg)msg.textContent="這一科目前沒有進行中的對戰。";
+      return;
+    }
+    if(face)face.textContent=olderAdventureState.emoji;
+    if(name)name.textContent=olderAdventureState.name;
+    if(meta)meta.textContent=`${olderAdventureState.subject?subjectZh(olderAdventureState.subject):"尚未選科"}｜已打倒 ${olderAdventureState.defeats||0} 隻`;
+    if(fill)fill.style.width=`${Math.max(0,olderAdventureState.hp)/Math.max(1,olderAdventureState.maxHp)*100}%`;
+    if(hp)hp.textContent=`${Math.max(0,olderAdventureState.hp)} / ${olderAdventureState.maxHp}`;
+    if(msg)msg.textContent=olderAdventureState.message;
+  });
+  const log=document.getElementById("olderAdventureLog");
+  if(log)log.textContent=olderAdventureState.subject?`目前對戰：${olderAdventureState.name}｜HP ${Math.max(0,olderAdventureState.hp)}/${olderAdventureState.maxHp}`:"今天還沒開戰。進入國文或數學，按「開始練習」就會遇到怪。";
+}
+function animateAdventure(cls){
+  document.querySelectorAll("[data-battle] [data-monster-face]").forEach(el=>{
+    el.classList.remove("hit","dodge","down");void el.offsetWidth;el.classList.add(cls);
+    setTimeout(()=>el.classList.remove(cls),650);
+  });
+}
+function adventureAnswer(subject,item,ok){
+  if(!item)return;
+  ensureAdventureEncounter(subject,item);
+  const skill=itemAdventureSkill(item,subject);
+  if(ok){
+    olderAdventureState.hp=Math.max(0,olderAdventureState.hp-1);
+    if(olderAdventureState.hp===0){
+      olderAdventureState.defeats=(olderAdventureState.defeats||0)+1;
+      olderAdventureState.message=`🎁 打倒 ${olderAdventureState.name}！寶箱開啟，下一題會遇到新的怪。`;
+      animateAdventure("down");
+      setTimeout(()=>playSound("olderChest"),180);
+    }else{
+      olderAdventureState.message=`⚔️ 命中！${olderAdventureState.name} 還剩 ${olderAdventureState.hp} HP。`;
+      animateAdventure("hit");
+    }
+  }else{
+    olderAdventureState.nextWeakSkill=skill;
+    olderAdventureState.message=`👾 這題卡在「${skill}」。怪物沒掉血，下一題優先用同能力類題反擊。`;
+    animateAdventure("dodge");
+  }
+  saveAdventureState();renderAdventureBattle();
+}
+renderAdventureBattle();
+
 function resetChInput(){
   const extra=document.getElementById("chExtra");
   extra.innerHTML="";
@@ -1297,6 +1478,7 @@ function nextChinese(){
     choices.innerHTML="";document.getElementById("chTypeTag").textContent="完成";renderChCounters();return;
   }
   document.getElementById("chTypeTag").textContent=`${chCurrent.type} · L${chLevelOf(chCurrent)}`;
+  ensureAdventureEncounter("chinese",chCurrent);
   q.innerHTML=(chCurrent.passage?`<div class="chPassage">${chCurrent.passage}</div>`:"")+`<div>${chCurrent.q}</div>`;
   choices.innerHTML="";renderChineseSource(chCurrent);
   if(chCurrent.choices){
@@ -1315,6 +1497,7 @@ document.addEventListener("click",e=>{
   playSound(ok?"olderHit":"olderRetry");
   psStats.chinese.answered++;if(ok){psStats.chinese.correct++;chStreak++}else{chStreak=0}
   recordChineseSchedule(chCurrent,ok?"correct":"wrong");
+  adventureAnswer("chinese",chCurrent,ok);
   document.querySelectorAll(".choiceBtn[data-ch]").forEach((x,i)=>{x.disabled=true;if(i===chCurrent.a)x.classList.add("correct")});
   if(!ok){b.classList.add("wrong");addPracticeWrong("國文",chCurrent.type,chCurrent.q,chCurrent.choices[idx],chCurrent.choices[chCurrent.a])}
   const f=document.getElementById("chFeedback");f.style.display="block";
@@ -1336,6 +1519,7 @@ function submitChineseText(){
     psStats.chinese.correct++;chStreak++;msg="✍️ 完成就很棒。重點是把意思說清楚，不用寫很長。";
   }
   recordChineseSchedule(chCurrent,ok?"correct":"wrong");
+  adventureAnswer("chinese",chCurrent,ok);
   const f=document.getElementById("chFeedback");f.style.display="block";f.innerHTML=`<div class="resultBurst">${msg}</div>${chCurrent.why}${renderChineseLearnNote(chCurrent)}`;
   inp.disabled=true;document.getElementById("chSubmitText").style.display="none";document.getElementById("chNext").style.display="";
   savePractice();renderChCounters();
@@ -1473,6 +1657,7 @@ function nextMath(){
   mathTodayCount++;
   const mtc=document.getElementById("mathTodayCount");if(mtc)mtc.textContent="今日 "+mathTodayCount+" 題";const mal=document.getElementById("mathAdaptiveLevel");if(mal)mal.textContent="目前難度 L"+mathAdaptiveLevel();
   document.getElementById("mathTypeTag").textContent=`${mathCurrent.type} · L${mathCurrent.level||1}`;
+  ensureAdventureEncounter("math",mathCurrent);
   document.getElementById("mathQuestion").textContent=mathCurrent.q;
   const inp=document.getElementById("mathInput");inp.style.display="";inp.value="";inp.disabled=false;
   document.getElementById("mathFeedback").style.display="none";
@@ -1487,7 +1672,7 @@ function submitMath(){
   const ok=mathCurrent.a.some(x=>normMath(x)===normMath(v));
   playSound(ok?"olderHit":"olderRetry");
   psStats.math.answered++;if(ok){psStats.math.correct++;mathStreak++;}else{mathStreak=0;} const ms=document.getElementById("mathStreak");if(ms)ms.textContent="連續答對 "+mathStreak;
-  mathQueue.answers[mathCurrent.id]=ok?"correct":"wrong";recordMathAdaptive(mathCurrent,ok);if(!ok)addPracticeWrong("數學",mathCurrent.type,mathCurrent.q,v,mathCurrent.show);
+  mathQueue.answers[mathCurrent.id]=ok?"correct":"wrong";recordMathAdaptive(mathCurrent,ok);adventureAnswer("math",mathCurrent,ok);if(!ok)addPracticeWrong("數學",mathCurrent.type,mathCurrent.q,v,mathCurrent.show);
   const f=document.getElementById("mathFeedback");f.style.display="block";f.innerHTML=(ok?"✅ 答對了。":"❌ 這題答錯。正確答案：<b>"+mathCurrent.show+"</b>")+"<br>"+mathCurrent.why;
   inp.disabled=true;document.getElementById("mathSubmit").style.display="none";document.getElementById("mathNext").style.display="";
   savePractice();
@@ -1602,7 +1787,7 @@ document.addEventListener("change",e=>{
     const allDone=vals.length>0&&vals.every(Boolean);
     playSound(allDone?"olderChest":"olderHit");
     const log=document.getElementById("olderAdventureLog");
-    if(log)log.textContent=allDone?"🎁 今日任務完成，寶箱開啟！":"⚔️ 完成一個任務，命中一次！";
+    if(log)log.textContent=allDone?"🎁 今日學習任務完成！冒險獎勵已開啟。":"✅ 完成一個今日學習任務。作答戰鬥仍在國文／數學練習裡進行。";
   }
 });
 
@@ -1961,6 +2146,10 @@ function nextYoungerQuestion(){
   }
 }
 document.getElementById("youngerNextBtn")?.addEventListener("click",nextYoungerQuestion);
+document.getElementById("startTodayMission")?.addEventListener("click",()=>startYoungerTask(nextIncompleteYoungerTask()));
+document.querySelectorAll(".youngerTodayItem[data-task]").forEach(card=>{
+  card.addEventListener("click",()=>startYoungerTask(card.dataset.task));
+});
 
 function pctFor(stat){
   const total=stat.ok+stat.bad;
@@ -1985,7 +2174,7 @@ function renderYoungerMissionHome(){
     if(isDone)done++;
     el.classList.toggle("done",isDone);
     const s=el.querySelector(".state");
-    if(s)s.textContent=isDone?"已完成":"待完成";
+    if(s)s.textContent=isDone?"✓ 已完成":"開始";
   });
   const tag=document.getElementById("youngerTodayTag");
   if(tag)tag.textContent=`${done} / 4`;
