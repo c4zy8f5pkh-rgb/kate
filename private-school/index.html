@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V9.6｜復旦 × 六和</title>
+<title>兄弟學習基地 V9.7｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -148,11 +148,13 @@ body.younger-mode .olderOnly{display:none!important}
 body.younger-mode .youngerOnly{display:block!important}
 body.younger-mode .top .badges{display:none}
 body.younger-mode .top h1{font-size:26px}
-body.younger-mode aside nav button[data-page]:not([data-page="youngerHome"]):not([data-page="youngerEnglish"]):not([data-page="parent"]){display:none}
+body.younger-mode aside nav button[data-page]:not([data-page="youngerHome"]):not([data-page="youngerEnglish"]):not([data-page="youngerStars"]):not([data-page="parent"]){display:none}
 body.younger-mode aside nav button[data-page="youngerHome"],
-body.younger-mode aside nav button[data-page="youngerEnglish"]{display:block}
+body.younger-mode aside nav button[data-page="youngerEnglish"],
+body.younger-mode aside nav button[data-page="youngerStars"]{display:block}
 body:not(.younger-mode) aside nav button[data-page="youngerHome"],
-body:not(.younger-mode) aside nav button[data-page="youngerEnglish"]{display:none}
+body:not(.younger-mode) aside nav button[data-page="youngerEnglish"],
+body:not(.younger-mode) aside nav button[data-page="youngerStars"]{display:none}
 
 .youngerHero{display:grid;grid-template-columns:1.25fr .75fr;gap:16px;margin-bottom:16px}
 .youngerMission{background:linear-gradient(135deg,#fff8e8,#fff);border:1px solid #efdfb8;border-radius:22px;padding:22px}
@@ -242,6 +244,18 @@ body:not(.younger-mode) aside nav button[data-page="youngerEnglish"]{display:non
 @keyframes pulseBear{0%{transform:scale(.8);opacity:.35}50%{transform:scale(1.45);opacity:.9}100%{transform:scale(.8);opacity:.35}}
 </style>
 
+
+<style id="v97-younger-nav">
+.youngerTodayList{display:grid;gap:10px;margin-top:14px}
+.youngerTodayItem{display:flex;align-items:center;gap:12px;padding:13px 14px;border:1px solid #e2e8f3;border-radius:15px;background:#fff}
+.youngerTodayItem .state{margin-left:auto;font-size:12px;padding:5px 9px;border-radius:999px;background:#f1f4fa;color:#667085}
+.youngerTodayItem.done .state{background:#eef8ef;color:#3c7a47}
+.youngerTodayActions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.starShelf{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px}
+.starCard{padding:16px;border:1px solid #e2e8f3;border-radius:16px;background:#fff;text-align:center}
+.starBig{font-size:32px;font-weight:900;margin:6px 0}
+@media(max-width:650px){.starShelf{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
 <div class="app">
@@ -266,8 +280,9 @@ body:not(.younger-mode) aside nav button[data-page="youngerEnglish"]{display:non
 
   <nav class="navrow">
     <button type="button" class="active olderOnly" data-page="home">🏠 今日學習</button>
-    <button type="button" data-page="youngerHome">🏠 我的任務</button>
-    <button type="button" data-page="youngerEnglish">🔤 英文啟蒙</button>
+    <button type="button" data-page="youngerHome">🏠 今天任務</button>
+    <button type="button" data-page="youngerEnglish">🔤 英文小遊戲</button>
+    <button type="button" data-page="youngerStars">⭐ 我的星星</button>
 
     <button type="button" class="olderOnly" data-page="chinese">📖 國文</button>
     <button type="button" class="olderOnly" data-page="math">🧮 數學</button>
@@ -283,7 +298,7 @@ body:not(.younger-mode) aside nav button[data-page="youngerEnglish"]{display:non
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V9.6</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V9.7</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -645,26 +660,30 @@ body:not(.younger-mode) aside nav button[data-page="youngerEnglish"]{display:non
   </div>
 </div>
 
-<div class="youngerMenu">
-    <div class="youngerTile" onclick="startYoungerTask('case')">
-      <div class="bigIcon">Aa</div><b>大小寫配對</b>
-      <p class="muted">A 找 a、B 找 b，先建立字母對應。</p>
+
+<div class="card" style="margin-top:16px">
+  <div class="practiceTop">
+    <div>
+      <h3>今天照順序完成</h3>
+      <div class="muted">不用自己挑功能，先把今天四個小任務做完。</div>
     </div>
-    <div class="youngerTile" onclick="startYoungerTask('position')">
-      <div class="bigIcon">✍️</div><b>四線格位置</b>
-      <p class="muted">分清楚高字母、中間字母、會往下的字母。</p>
-    </div>
-    <div class="youngerTile" onclick="startYoungerTask('look')">
-      <div class="bigIcon">👀</div><b>找一樣的字母</b>
-      <p class="muted">練 b / d / p / q 這類容易看錯的字母。</p>
-    </div>
-    <div class="youngerTile" onclick="startYoungerTask('listen')">
-      <div class="bigIcon">👂</div><b>聽聲音找字母</b>
-      <p class="muted">聽到字母名稱後，找出正確的大寫字母。</p>
-    </div>
+    <span class="tag" id="youngerTodayTag">0 / 4</span>
   </div>
 
-  <div class="card" style="margin-top:16px">
+  <div class="youngerTodayList">
+    <div class="youngerTodayItem" id="mission-case"><span>①</span><div><b>大小寫配對</b><div class="muted">A 找 a、B 找 b</div></div><span class="state">待完成</span></div>
+    <div class="youngerTodayItem" id="mission-position"><span>②</span><div><b>四線格位置</b><div class="muted">分清楚往上、中間、往下</div></div><span class="state">待完成</span></div>
+    <div class="youngerTodayItem" id="mission-look"><span>③</span><div><b>字母辨識</b><div class="muted">練 b / d / p / q 等容易混淆字母</div></div><span class="state">待完成</span></div>
+    <div class="youngerTodayItem" id="mission-listen"><span>④</span><div><b>聽音找字母</b><div class="muted">小熊慢慢念一個字母再找答案</div></div><span class="state">待完成</span></div>
+  </div>
+
+  <div class="youngerTodayActions">
+    <button type="button" class="btn" id="startTodayMission">▶ 開始今天任務</button>
+    <button type="button" class="btn secondary" onclick="go('youngerEnglish')">自己選小遊戲</button>
+  </div>
+</div>
+
+<div class="card" style="margin-top:16px">
     <h3>🌳 弟弟目前能力樹</h3>
     <div class="treeDiag" id="youngerTreeHome">英文基礎
 ├─ 大小寫配對　尚未練習
@@ -674,7 +693,36 @@ body:not(.younger-mode) aside nav button[data-page="youngerEnglish"]{display:non
   </div>
 </section>
 
+
 <section id="youngerEnglish" class="page youngerOnly">
+  <div class="card">
+    <div class="practiceTop">
+      <div>
+        <div class="muted">🔤 英文小遊戲</div>
+        <h3 style="margin-top:5px">想練哪一個？</h3>
+      </div>
+      <span class="tag">自由練習</span>
+    </div>
+    <div class="youngerMenu">
+      <div class="youngerTile" onclick="startYoungerTask('case')">
+        <div class="bigIcon">Aa</div><b>大小寫配對</b>
+        <p class="muted">A 找 a、B 找 b。</p>
+      </div>
+      <div class="youngerTile" onclick="startYoungerTask('position')">
+        <div class="bigIcon">✍️</div><b>四線格位置</b>
+        <p class="muted">看字母站在哪一區。</p>
+      </div>
+      <div class="youngerTile" onclick="startYoungerTask('look')">
+        <div class="bigIcon">👀</div><b>找一樣的字母</b>
+        <p class="muted">看清楚容易混淆的方向。</p>
+      </div>
+      <div class="youngerTile" onclick="startYoungerTask('listen')">
+        <div class="bigIcon">👂</div><b>聽音找字母</b>
+        <p class="muted">小熊慢慢念一個字母。</p>
+      </div>
+    </div>
+  </div>
+
   <div class="card">
     <div class="practiceTop">
       <div>
@@ -735,6 +783,34 @@ body:not(.younger-mode) aside nav button[data-page="youngerEnglish"]{display:non
 ├─ 字母辨識　　尚未練習
 ├─ 四線格位置　尚未練習
 └─ 聲音辨識　　尚未練習</div>
+  </div>
+</section>
+
+
+<section id="youngerStars" class="page youngerOnly">
+  <div class="card">
+    <div class="practiceTop">
+      <div>
+        <div class="muted">⭐ 弟弟的成長紀錄</div>
+        <h3 style="margin-top:5px">我的星星</h3>
+      </div>
+      <span class="tag" id="starPageTotal">⭐ 0</span>
+    </div>
+
+    <div class="starShelf">
+      <div class="starCard"><div class="muted">累積星星</div><div class="starBig" id="starTotalBig">0</div><div class="muted">完成小任務獲得</div></div>
+      <div class="starCard"><div class="muted">今天完成</div><div class="starBig" id="starDoneBig">0 / 4</div><div class="muted">四關完成就休息</div></div>
+      <div class="starCard"><div class="muted">目前最穩</div><div class="starBig" id="starBestSkill">練習中</div><div class="muted">依答題紀錄更新</div></div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h3>🌳 我正在長大的能力</h3>
+      <div class="treeDiag" id="youngerTreeStars">英文基礎
+├─ 大小寫配對　尚未練習
+├─ 字母辨識　　尚未練習
+├─ 四線格位置　尚未練習
+└─ 聲音辨識　　尚未練習</div>
+    </div>
   </div>
 </section>
 
@@ -914,8 +990,11 @@ const SafeStore=(()=>{
 
 const navBtns=[...document.querySelectorAll('nav button')];
 function go(id){
-  navBtns.forEach(b=>b.classList.toggle('active',b.dataset.page===id));
+  navBtns.forEach(b=>b.classList.remove('active'));
+  const currentBtn=navBtns.find(b=>b.dataset.page===id);
+  if(currentBtn)currentBtn.classList.add('active');
   document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));
+  if(id==='youngerStars')renderYoungerStarsPage();
   window.scrollTo({top:0,behavior:'smooth'});
 }
 navBtns.forEach(b=>b.onclick=()=>go(b.dataset.page));
@@ -1895,6 +1974,48 @@ function levelText(stat){
   if(pct>=55)return "△ 還要練";
   return "✗ 目前卡點";
 }
+
+function renderYoungerMissionHome(){
+  const keys=["case","position","look","listen"];
+  let done=0;
+  keys.forEach(k=>{
+    const el=document.getElementById("mission-"+k);
+    if(!el)return;
+    const isDone=!!youngerProgress.completed[k];
+    if(isDone)done++;
+    el.classList.toggle("done",isDone);
+    const s=el.querySelector(".state");
+    if(s)s.textContent=isDone?"已完成":"待完成";
+  });
+  const tag=document.getElementById("youngerTodayTag");
+  if(tag)tag.textContent=`${done} / 4`;
+}
+function bestYoungerSkill(){
+  const labels={case:"大小寫",position:"四線格",look:"字母辨識",listen:"聽音"};
+  let best=null;
+  Object.entries(youngerProgress.stats||{}).forEach(([k,v])=>{
+    const total=(v.ok||0)+(v.bad||0);
+    if(total<3)return;
+    const score=(v.ok||0)/total;
+    if(!best||score>best.score)best={k,score,total};
+  });
+  return best?labels[best.k]:"練習中";
+}
+function renderYoungerStarsPage(){
+  const done=Object.values(youngerProgress.completed||{}).filter(Boolean).length;
+  const total=youngerProgress.stars||0;
+  const t=document.getElementById("starPageTotal"); if(t)t.textContent=`⭐ ${total}`;
+  const a=document.getElementById("starTotalBig"); if(a)a.textContent=total;
+  const b=document.getElementById("starDoneBig"); if(b)b.textContent=`${done} / 4`;
+  const c=document.getElementById("starBestSkill"); if(c)c.textContent=bestYoungerSkill();
+  const src=document.getElementById("youngerTree");
+  const dst=document.getElementById("youngerTreeStars");
+  if(src&&dst)dst.textContent=src.textContent;
+}
+function nextIncompleteYoungerTask(){
+  return ["case","position","look","listen"].find(k=>!youngerProgress.completed[k])||"case";
+}
+
 function renderYoungerProgress(){
   const done=Object.values(youngerProgress.completed).filter(Boolean).length;
   const stars=document.getElementById("youngerStars"); if(stars)stars.textContent=`⭐ ${youngerProgress.stars} 顆`;
