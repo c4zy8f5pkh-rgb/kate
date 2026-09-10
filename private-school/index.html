@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V9.4｜復旦 × 六和</title>
+<title>兄弟學習基地 V9.6｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -228,6 +228,20 @@ body:not(.younger-mode) aside nav button[data-page="youngerEnglish"]{display:non
 @media(max-width:650px){.learnNoteRow{grid-template-columns:1fr;gap:2px}.chPassage{padding:15px}}
 </style>
 
+
+<style id="v95-bear-interaction">
+.companionCard{position:relative;overflow:hidden}
+.companionFace{width:58px;height:58px;border-radius:20px;display:grid;place-items:center;background:#fff;font-size:34px;border:1px solid #eadfca;transition:transform .18s ease, background .18s ease}
+.companionFace.active{transform:scale(1.08) rotate(-4deg);background:#fff6dc}
+.companionHint{margin-top:8px;font-size:12px;color:#8a7a60}
+.bearBadge{display:inline-block;margin-left:8px;padding:4px 8px;border-radius:999px;background:#fff;border:1px solid #eadfca;font-size:12px;color:#6d5b3a}
+.listenBtn{margin-bottom:8px}
+.listenHelper{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:6px 0 8px}
+.listenPulse{display:inline-block;width:10px;height:10px;border-radius:50%;background:#8aa3ff;opacity:.35}
+.listenPulse.on{animation:pulseBear 1s ease infinite}
+@keyframes pulseBear{0%{transform:scale(.8);opacity:.35}50%{transform:scale(1.45);opacity:.9}100%{transform:scale(.8);opacity:.35}}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -269,7 +283,7 @@ body:not(.younger-mode) aside nav button[data-page="youngerEnglish"]{display:non
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V9.4</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V9.6</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -340,7 +354,7 @@ body:not(.younger-mode) aside nav button[data-page="youngerEnglish"]{display:non
       <div class="energyRow">
         <span class="energyChip">⏱ 約 10–15 分鐘</span>
         <span class="energyChip" id="chTodayCount">今日 0 題</span>
-        <span class="energyChip" id="chStreak">連續答對 0</span>
+        <span class="energyChip" id="chStreak">連續答對 0</span><span class="energyChip" id="chAdaptiveLevel">目前難度 L2</span>
       </div>
     </div>
     <div class="streakPanel">
@@ -411,7 +425,7 @@ body:not(.younger-mode) aside nav button[data-page="youngerEnglish"]{display:non
       <div class="energyRow">
         <span class="energyChip">⏱ 約 15–20 分鐘</span>
         <span class="energyChip" id="mathTodayCount">今日 0 題</span>
-        <span class="energyChip" id="mathStreak">連續答對 0</span>
+        <span class="energyChip" id="mathStreak">連續答對 0</span><span class="energyChip" id="mathAdaptiveLevel">目前難度 L2</span>
       </div>
     </div>
     <div class="streakPanel">
@@ -623,10 +637,11 @@ body:not(.younger-mode) aside nav button[data-page="youngerEnglish"]{display:non
 
   
 <div class="companionCard">
-  <div class="companionFace">🐻</div>
+  <div class="companionFace" id="youngerCompanionFace">🐻</div>
   <div class="companionText">
-    <b id="youngerCompanionTitle">小熊今天陪你玩四小關</b>
+    <b id="youngerCompanionTitle">小熊今天陪你玩四小關 <span class="bearBadge" id="youngerCompanionMood">陪你慢慢學</span></b>
     <span id="youngerCompanionText">慢慢看、慢慢選。答錯不會扣星星，我們再試一次就好。</span>
+    <div class="companionHint" id="youngerCompanionHint">小熊會跟著題型、答對答錯一起變化。</div>
   </div>
 </div>
 
@@ -700,7 +715,8 @@ body:not(.younger-mode) aside nav button[data-page="youngerEnglish"]{display:non
 
     <div id="youngerListenTask" class="letterStage listenStage">
       <div class="letterPrompt">先聽聲音，再找字母</div>
-      <button type="button" class="listenBtn" id="playLetterSound">🔊 再聽一次</button>
+      <button type="button" class="listenBtn" id="playLetterSound">🐻 小熊慢慢說一次</button>
+      <div class="listenHelper"><span class="listenPulse" id="listenPulse"></span><span class="muted">只聽一個字母，小熊會慢慢念。</span></div>
       <div class="muted" style="margin:10px 0">聽到哪一個英文字母？</div>
       <div class="letterChoices" id="listenChoices"></div>
     </div>
@@ -744,7 +760,19 @@ body:not(.younger-mode) aside nav button[data-page="youngerEnglish"]{display:non
       <button type="button" class="btn secondary" id="parentLogoutBtn">離開家長中心</button>
     </div>
 
-    <div class="backendTabs">
+    
+<div class="card" style="margin-bottom:14px">
+  <h3>🧠 自適應出題規則 V9.6</h3>
+  <div class="muted">答對題不會隔天立刻回來；系統會依最近表現提高或降低難度。</div>
+  <div class="grid g4" style="margin-top:12px">
+    <div class="backendStat"><span class="muted">答對 1 次</span><div class="big">7 天</div><span class="muted">原題冷卻</span></div>
+    <div class="backendStat"><span class="muted">連續答對 2 次</span><div class="big">14 天</div><span class="muted">原題冷卻</span></div>
+    <div class="backendStat"><span class="muted">連續答對 3 次</span><div class="big">30 天</div><span class="muted">原題冷卻</span></div>
+    <div class="backendStat"><span class="muted">答錯</span><div class="big">2 天</div><span class="muted">原題再驗證；先出同能力類題</span></div>
+  </div>
+</div>
+
+<div class="backendTabs">
       <button type="button" class="backendTab active" data-backtab="overview">總覽</button>
       <button type="button" class="backendTab" data-backtab="progress">能力進度</button>
       <button type="button" class="backendTab" data-backtab="wrongs">錯題</button>
@@ -1008,50 +1036,145 @@ note:{title:"文言小說明",origin:"出處：《論語・述而》",story:"這
 {id:"ch13",type:"句子重組",q:"把下面詞語排成通順句子：①完成作業 ②小明 ③才出去玩 ④先",textAnswer:"小明先完成作業才出去玩",why:"語序應為主詞＋先做的事＋才做的事。",source:"原創語感題",sourceType:"original"},
 {id:"ch14",type:"句子重組",q:"把下面詞語排成通順句子：①因為下雨 ②取消了 ③比賽 ④所以",textAnswer:"因為下雨所以比賽取消了",why:"「因為……所以……」是常見因果句型。",source:"原創語感題",sourceType:"original"},
 {id:"ch15",type:"短寫作",q:"請用 2～3 句話描述一次你「原本不會，後來學會」的經驗。",open:true,why:"不要求漂亮詞藻，重點是把事情說清楚、有前後關係。",source:"原創表達題",sourceType:"original"}
+
+,
+{id:"ch23",type:"成語",level:3,skill:"成語辨義",q:"下列哪個情境最適合使用「未雨綢繆」，而不是「杞人憂天」？",choices:["還沒下雨就先檢查屋頂是否漏水","完全沒有根據卻一直擔心天會塌下來","考試前一天才開始找課本"],a:0,why:"「未雨綢繆」是事先準備；「杞人憂天」則偏向沒有根據的過度擔心。",source:"原創能力題",sourceType:"original",
+note:{title:"成語比較",origin:"這題在分辨兩個容易混淆的概念。",story:"有準備依據、提前處理風險，是「未雨綢繆」；沒有根據地過度擔心，才是「杞人憂天」。",modern:"考前提早整理錯題是未雨綢繆；還沒考就認定自己一定零分，比較接近杞人憂天。",hook:"有根據先準備＝未雨綢繆；沒根據亂擔心＝杞人憂天。"}},
+{id:"ch24",type:"閱讀推論",level:3,skill:"跨句推論",passage:"班上要選一種植物做長期觀察。小安主張選開花最快的，小如卻先問：「如果暑假沒有人每天澆水，它還能活嗎？」最後大家改選耐旱、變化也容易觀察的植物。",q:"小如的思考方式最接近哪一項？",choices:["只看眼前最吸引人的特點","把長期條件一起納入判斷","完全反對觀察植物"],a:1,why:"她不只看開花快不快，還考慮暑假照顧條件，屬於把長期限制一起評估。",source:"原創閱讀題",sourceType:"original"},
+{id:"ch25",type:"短文閱讀",level:3,skill:"主旨整合",passage:"學校圖書館原本把熱門書都放在入口，借閱率很高；但老師發現學生常只借熟悉的系列。後來館員保留熱門書，同時每週把不同主題的書放到入口展示，並附上一句簡短推薦。幾個月後，學生借閱的書種變多了。",q:"這篇短文最適合的主旨是什麼？",choices:["熱門書不應該放在入口","改變展示方式可以引導讀者接觸更多類型的書","學生只喜歡看同一種書"],a:1,why:"文章重點是調整展示策略後，學生接觸的書種變多。",source:"原創閱讀題",sourceType:"original"},
+{id:"ch26",type:"文言文",level:3,skill:"文言語意",passage:"知之為知之，不知為不知，是知也。",q:"這句話最強調哪種學習態度？",choices:["不知道也要裝作知道","能分辨自己知道與不知道","只要記住答案就好"],a:1,why:"句意重點是誠實辨認自己的理解範圍，知道就是知道，不知道就是不知道。",source:"《論語・為政》",sourceType:"original",
+note:{title:"文言小說明",origin:"出處：《論語・為政》",story:"這句話提醒學習者，真正的「知」也包含知道自己的不足。",modern:"遇到不確定的題目，先標出不懂的地方，再去查或問，比硬猜更有效。",hook:"知道自己哪裡不知道，也是一種知道。"}},
+{id:"ch27",type:"閱讀推論",level:4,skill:"立場與證據",passage:"市府準備在河岸增設自行車道。支持者認為可以減少短程汽車使用；反對者擔心施工會影響現有樹木。規劃團隊因此提出新方案：保留老樹、縮小部分車道寬度，並增加行人空間。",q:"從最後的方案可以推論規劃團隊採取了什麼做法？",choices:["完全接受支持者意見","完全接受反對者意見","同時考慮不同需求並調整方案"],a:2,why:"新方案同時保留老樹、保留自行車道並增加行人空間，顯示是在不同需求間調整。",source:"原創閱讀題",sourceType:"original"},
+{id:"ch28",type:"短文閱讀",level:4,skill:"因果鏈",passage:"科展小組第一次測量時，每個人使用不同的量杯，結果差異很大。第二次他們統一工具，差異縮小，但紀錄時間仍不一致。第三次除了統一工具，也規定固定時間讀值，數據終於比較穩定。",q:"哪一項最能說明數據逐漸穩定的原因？",choices:["實驗次數越多，答案自然會正確","逐步控制會影響測量的條件","只要換新的量杯就一定準確"],a:1,why:"小組先統一工具，再統一讀值時間，是逐步控制變因，因而讓數據較穩定。",source:"原創閱讀題",sourceType:"original"},
+{id:"ch29",type:"成語",level:4,skill:"成語辨義",q:"某同學平常已按進度複習，考前再把錯題重新整理一次。下列哪個成語最不適合形容他的做法？",choices:["按部就班","未雨綢繆","臨渴掘井"],a:2,why:"「臨渴掘井」比喻事到臨頭才急著準備，和題目中提早按進度準備相反。",source:"原創能力題",sourceType:"original"},
+{id:"ch30",type:"文言文",level:4,skill:"文言推論",passage:"人不知而不慍，不亦君子乎？",q:"若套用到日常情境，下列哪個行為最接近這句話的精神？",choices:["別人一時不了解自己，就立刻生氣","別人沒有注意到自己的努力，仍能平和做好該做的事","一定要每個人都稱讚自己才願意繼續"],a:1,why:"「不慍」是沒有因別人不了解自己而惱怒，重點在保持平和。",source:"《論語・學而》",sourceType:"original",
+note:{title:"文言小說明",origin:"出處：《論語・學而》",story:"這句話談的是面對別人不了解自己時的態度。",modern:"做了正確的事，即使暫時沒被看見，也能保持平穩。",hook:"別人不懂我，我不因此生氣。"}},
+{id:"ch31",type:"閱讀推論",level:4,skill:"反例判斷",passage:"老師說：「如果只看一次測驗，就決定一個人永遠不會某個能力，很容易誤判。」",q:"下列哪個做法最符合老師的觀點？",choices:["只用一次成績決定能力","看多次不同題型的表現再判斷","只看答錯題數，不看題型"],a:1,why:"老師反對用單次結果下定論，因此應累積多次、不同題型的表現再判斷。",source:"原創能力題",sourceType:"original"},
+{id:"ch32",type:"短文閱讀",level:4,skill:"資訊整合",passage:"校園想減少午餐剩食。第一週只張貼「不要浪費」海報，效果不明顯；第二週開始公布每天剩食重量，學生注意度提高；第三週又讓各班討論最常剩下哪些菜，以及份量是否合適，剩食量才明顯下降。",q:"從這段經過看，哪一種方式最可能真正促成改變？",choices:["只用口號提醒","提供數據並讓使用者一起找原因","完全取消午餐"],a:1,why:"公布數據讓問題可見，再讓各班找原因，才讓行為真正改善。",source:"原創閱讀題",sourceType:"original"}
 ];
 let chCurrent=null,chLocked=false;
 
 
 
-const CH_QUEUE_KEY="private_school_chinese_queue_v6";
+const CH_QUEUE_KEY="private_school_chinese_queue_v96";
+const CH_HISTORY_KEY="private_school_chinese_history_v96";
 let chFilter="all", chStreak=0;
+
 function chDayKey(){return new Date().toLocaleDateString("sv-SE")}
-function shuffleIds(ids){const a=[...ids];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
-function newChineseQueue(){
-  return {date:chDayKey(),shown:[],answers:{}};
-}
+function parseDay(s){const [y,m,d]=String(s||"").split("-").map(Number);return new Date(y||2000,(m||1)-1,d||1)}
+function addDaysStr(day,n){const x=parseDay(day);x.setDate(x.getDate()+n);return x.toLocaleDateString("sv-SE")}
+function daysBetween(a,b){return Math.round((parseDay(b)-parseDay(a))/86400000)}
+function newChineseQueue(){return {date:chDayKey(),shown:[],answers:{},reviewSkill:null};}
 function loadChineseQueue(){
   try{
     const x=JSON.parse(SafeStore.get(CH_QUEUE_KEY)||"null");
     return (!x||x.date!==chDayKey())?newChineseQueue():x;
   }catch(e){return newChineseQueue()}
 }
-let chQueue=loadChineseQueue();
+function loadChineseHistory(){
+  try{return JSON.parse(SafeStore.get(CH_HISTORY_KEY)||'{"items":{},"recent":[]}')||{items:{},recent:[]}}
+  catch(e){return {items:{},recent:[]}}
+}
+let chQueue=loadChineseQueue(),chHistory=loadChineseHistory();
 function saveChineseQueue(){SafeStore.set(CH_QUEUE_KEY,JSON.stringify(chQueue))}
+function saveChineseHistory(){SafeStore.set(CH_HISTORY_KEY,JSON.stringify(chHistory))}
+function chLevelOf(x){
+  if(x.level)return x.level;
+  if(["字音","字形","字義","句子重組"].includes(x.type))return 1;
+  if(["成語","短文閱讀","閱讀推論","文言文"].includes(x.type))return 2;
+  return 2;
+}
+function chSkillOf(x){return x.skill||x.type}
+function recentAccuracy(recent){
+  const a=(recent||[]).slice(-12);
+  if(a.length<4)return null;
+  return a.filter(x=>x.ok).length/a.length;
+}
+function adaptiveLevel(history){
+  const acc=recentAccuracy(history.recent);
+  if(acc===null)return 2;
+  if(acc>=.88)return 4;
+  if(acc>=.74)return 3;
+  if(acc>=.52)return 2;
+  return 1;
+}
+function cooldownDaysCorrect(streak){
+  if(streak>=3)return 30;
+  if(streak>=2)return 14;
+  return 7;
+}
+function isChDue(item){
+  const h=chHistory.items[item.id];
+  if(!h)return true;
+  if(h.dueDate && h.dueDate<=chDayKey())return true;
+  return false;
+}
+function weightedPick(list,target,preferSkill=null){
+  if(!list.length)return null;
+  const scored=list.map(item=>{
+    const h=chHistory.items[item.id]||{};
+    const lv=chLevelOf(item);
+    let w=1;
+    const diff=Math.abs(lv-target);
+    w*=diff===0?5:(diff===1?2.2:.5);
+    if(preferSkill && chSkillOf(item)===preferSkill && h.lastDate!==chDayKey())w*=4;
+    if(!h.seen)w*=2.5;
+    if(h.lastOutcome==="wrong" && h.dueDate<=chDayKey())w*=3.5;
+    if(h.lastOutcome==="correct")w*=.7;
+    if(chCurrent && item.type===chCurrent.type)w*=.35;
+    return {item,w};
+  });
+  const total=scored.reduce((s,x)=>s+x.w,0);
+  let r=Math.random()*total;
+  for(const x of scored){r-=x.w;if(r<=0)return x.item}
+  return scored[scored.length-1].item;
+}
 function eligibleChinese(){
-  return chineseBank.filter(x=>(chFilter==="all"||x.type===chFilter)&&!chQueue.shown.includes(x.id));
+  const target=adaptiveLevel(chHistory);
+  let pool=chineseBank.filter(x=>(chFilter==="all"||x.type===chFilter)&&!chQueue.shown.includes(x.id)&&isChDue(x));
+  if(!pool.length){
+    // 若今天真正到期題不足，只開放「從未做過」題，仍不把近期答對原題提前拿回來。
+    pool=chineseBank.filter(x=>(chFilter==="all"||x.type===chFilter)&&!chQueue.shown.includes(x.id)&&!chHistory.items[x.id]);
+  }
+  return {pool,target};
 }
 function chooseChineseQuestion(){
-  let pool=eligibleChinese();
+  const {pool,target}=eligibleChinese();
   if(!pool.length)return null;
-  // avoid same type back-to-back when using mixed mode
-  if(chFilter==="all" && chCurrent){
-    const varied=pool.filter(x=>x.type!==chCurrent.type);
-    if(varied.length)pool=varied;
-  }
-  const item=pool[Math.floor(Math.random()*pool.length)];
-  chQueue.shown.push(item.id);saveChineseQueue();
+  const item=weightedPick(pool,target,chQueue.reviewSkill);
+  if(!item)return null;
+  chQueue.shown.push(item.id);
+  // 錯題後先安排同能力「不同題」；抽到類題一次後就解除優先。
+  if(chQueue.reviewSkill && chSkillOf(item)===chQueue.reviewSkill)chQueue.reviewSkill=null;
+  saveChineseQueue();
   return item;
 }
 function renderChCounters(){
-  const c=document.getElementById("chTodayCount"),s=document.getElementById("chStreak");
+  const c=document.getElementById("chTodayCount"),s=document.getElementById("chStreak"),l=document.getElementById("chAdaptiveLevel");
   if(c)c.textContent="今日 "+chQueue.shown.length+" 題";
   if(s)s.textContent="連續答對 "+chStreak;
+  if(l)l.textContent="目前難度 L"+adaptiveLevel(chHistory);
 }
 function recordChineseSchedule(item,outcome){
   if(!item)return;
+  const today=chDayKey(), h=chHistory.items[item.id]||{seen:0,correctStreak:0,wrongCount:0};
+  const ok=outcome==="correct";
+  h.seen=(h.seen||0)+1;
+  h.lastDate=today;
+  h.lastOutcome=outcome;
+  if(ok){
+    h.correctStreak=(h.correctStreak||0)+1;
+    h.dueDate=addDaysStr(today,cooldownDaysCorrect(h.correctStreak));
+  }else{
+    h.correctStreak=0;
+    h.wrongCount=(h.wrongCount||0)+1;
+    h.dueDate=addDaysStr(today,2); // 原錯題兩天後再驗證
+    chQueue.reviewSkill=chSkillOf(item); // 下一輪優先同能力不同題
+  }
+  chHistory.items[item.id]=h;
+  chHistory.recent=(chHistory.recent||[]).concat([{date:today,id:item.id,skill:chSkillOf(item),level:chLevelOf(item),ok}]).slice(-40);
   chQueue.answers[item.id]=outcome;
-  saveChineseQueue();
+  saveChineseHistory();saveChineseQueue();
 }
 function resetChInput(){
   const extra=document.getElementById("chExtra");
@@ -1094,7 +1217,7 @@ function nextChinese(){
     q.innerHTML="🎉 這個分類今天已經完成了。可以換別的題型，或今天先休息。";renderChineseSource(null);
     choices.innerHTML="";document.getElementById("chTypeTag").textContent="完成";renderChCounters();return;
   }
-  document.getElementById("chTypeTag").textContent=chCurrent.type;
+  document.getElementById("chTypeTag").textContent=`${chCurrent.type} · L${chLevelOf(chCurrent)}`;
   q.innerHTML=(chCurrent.passage?`<div class="chPassage">${chCurrent.passage}</div>`:"")+`<div>${chCurrent.q}</div>`;
   choices.innerHTML="";renderChineseSource(chCurrent);
   if(chCurrent.choices){
@@ -1174,17 +1297,103 @@ const mathBank=[
 {id:"m18",type:"多步驟",level:3,q:"校外教學有 156 人，每輛遊覽車最多坐 40 人，至少需要幾輛車？",a:["4","4輛"],show:"4",why:"156÷40＝3餘36，所以需要4輛。"},
 {id:"m19",type:"圖表概念",level:2,q:"小明一週閱讀時間：週一20分、週二35分、週三25分、週四40分、週五30分。五天共閱讀多少分鐘？",a:["150","150分鐘"],show:"150",why:"20+35+25+40+30＝150。"},
 {id:"m20",type:"分數應用",level:3,q:"一本書第一天看了全書的 2/5，第二天看了剩下部分的 1/3。兩天共看了全書的幾分之幾？",a:["3/5","0.6"],show:"3/5",why:"第二天看3/5的1/3＝1/5，共看3/5。"}
+
+,
+{id:"m21",type:"分數應用",level:3,q:"一桶水先用掉全桶的 3/8，再用掉剩下水量的 2/5。最後剩下原本的幾分之幾？",a:["3/8","0.375"],show:"3/8",why:"先剩5/8，再剩其中3/5，所以5/8×3/5＝3/8。"},
+{id:"m22",type:"多步驟",level:3,q:"一場活動有 248 人，每桌最多坐 9 人。若每桌都要有人，至少需要幾桌？",a:["28","28桌"],show:"28",why:"248÷9＝27餘5，所以至少28桌。"},
+{id:"m23",type:"平均",level:3,q:"前 4 次小考平均 86 分，第 5 次考 91 分，5 次平均幾分？",a:["87","87分"],show:"87",why:"前4次總分86×4＝344，加91得435，435÷5＝87。"},
+{id:"m24",type:"邏輯推理",level:3,q:"三個連續整數的和是 72，最大的數是多少？",a:["25"],show:"25",why:"三數為23、24、25。"},
+{id:"m25",type:"分數應用",level:4,q:"一班有 36 人，2/3 參加合唱團；參加合唱團的人中又有 3/4 參加比賽。參加比賽的有幾人？",a:["18","18人"],show:"18",why:"36×2/3＝24，24×3/4＝18。"},
+{id:"m26",type:"多步驟",level:4,q:"商店進貨 480 瓶飲料，上午賣出總數的 3/8，下午又賣出剩下的 2/5。最後剩幾瓶？",a:["180","180瓶"],show:"180",why:"上午後剩480×5/8＝300；下午後剩300×3/5＝180。"},
+{id:"m27",type:"速率推理",level:4,q:"甲每分鐘走 70 公尺，乙每分鐘走 55 公尺。兩人同地同方向同時出發，8 分鐘後相差多少公尺？",a:["120","120公尺"],show:"120",why:"每分鐘相差15公尺，8分鐘相差15×8＝120。"},
+{id:"m28",type:"幾何推理",level:4,q:"一個長方形周長是 54 公分，長是 16 公分，寬是多少公分？",a:["11","11公分"],show:"11",why:"長＋寬＝54÷2＝27，所以寬＝27−16＝11。"},
+{id:"m29",type:"逆向推理",level:4,q:"某數先乘 4，再減 18，結果是 46。原來的數是多少？",a:["16"],show:"16",why:"先逆推46＋18＝64，再64÷4＝16。"},
+{id:"m30",type:"比例概念",level:4,q:"果汁和水按照 2：5 混合。若果汁用了 18 杯，水要用幾杯？",a:["45","45杯"],show:"45",why:"18÷2＝9，每1份是9杯，水5份＝45杯。"},
+{id:"m31",type:"多步驟",level:4,q:"一本書第一天看全書的 1/4，第二天看剩下的 1/3，兩天後還剩 90 頁。全書共有幾頁？",a:["180","180頁"],show:"180",why:"第一天後剩3/4，第二天後剩其中2/3，所以剩全書1/2；90÷1/2＝180。"},
+{id:"m32",type:"邏輯推理",level:4,q:"有雞和兔共 12 隻，共有 34 隻腳。兔有幾隻？",a:["5","5隻"],show:"5",why:"若全是雞有24腳，多10腳；每換1隻兔多2腳，所以兔有5隻。"}
 ];
 let mathCurrent=null, mathStreak=0, mathTodayCount=0;
 
-const MATH_QUEUE_KEY="private_school_math_queue_v8";function mathDayKey(){return new Date().toLocaleDateString("sv-SE")}function newMathQueue(){return {date:mathDayKey(),shown:[],answers:{}}}function loadMathQueue(){try{const x=JSON.parse(SafeStore.get(MATH_QUEUE_KEY,"null"));return (!x||x.date!==mathDayKey())?newMathQueue():x}catch(e){return newMathQueue()}}let mathQueue=loadMathQueue();function saveMathQueue(){SafeStore.set(MATH_QUEUE_KEY,JSON.stringify(mathQueue))}function chooseMathQuestion(){const pool=mathBank.filter(x=>!mathQueue.shown.includes(x.id));if(!pool.length)return null;let candidates=pool;if(mathCurrent){const varied=pool.filter(x=>x.type!==mathCurrent.type);if(varied.length)candidates=varied}const item=candidates[Math.floor(Math.random()*candidates.length)];mathQueue.shown.push(item.id);saveMathQueue();return item;}
+const MATH_QUEUE_KEY="private_school_math_queue_v96";
+const MATH_HISTORY_KEY="private_school_math_history_v96";
+function mathDayKey(){return new Date().toLocaleDateString("sv-SE")}
+function newMathQueue(){return {date:mathDayKey(),shown:[],answers:{},reviewSkill:null}}
+function loadMathQueue(){
+  try{const x=JSON.parse(SafeStore.get(MATH_QUEUE_KEY,"null"));return (!x||x.date!==mathDayKey())?newMathQueue():x}
+  catch(e){return newMathQueue()}
+}
+function loadMathHistory(){
+  try{return JSON.parse(SafeStore.get(MATH_HISTORY_KEY,"null"))||{items:{},recent:[]}}
+  catch(e){return {items:{},recent:[]}}
+}
+let mathQueue=loadMathQueue(),mathHistory=loadMathHistory();
+function saveMathQueue(){SafeStore.set(MATH_QUEUE_KEY,JSON.stringify(mathQueue))}
+function saveMathHistory(){SafeStore.set(MATH_HISTORY_KEY,JSON.stringify(mathHistory))}
+function mathAdaptiveLevel(){
+  const a=(mathHistory.recent||[]).slice(-12);
+  if(a.length<4)return 2;
+  const acc=a.filter(x=>x.ok).length/a.length;
+  if(acc>=.88)return 4;
+  if(acc>=.74)return 3;
+  if(acc>=.52)return 2;
+  return 1;
+}
+function mathDue(item){
+  const h=mathHistory.items[item.id];
+  if(!h)return true;
+  return !!(h.dueDate && h.dueDate<=mathDayKey());
+}
+function mathWeightedPick(list,target,preferSkill=null){
+  if(!list.length)return null;
+  const scored=list.map(item=>{
+    const h=mathHistory.items[item.id]||{};
+    let w=1, d=Math.abs((item.level||1)-target);
+    w*=d===0?5:(d===1?2.2:.45);
+    if(preferSkill && item.type===preferSkill && h.lastDate!==mathDayKey())w*=4;
+    if(!h.seen)w*=2.5;
+    if(h.lastOutcome==="wrong" && h.dueDate<=mathDayKey())w*=3.5;
+    if(h.lastOutcome==="correct")w*=.7;
+    if(mathCurrent && item.type===mathCurrent.type)w*=.35;
+    return {item,w};
+  });
+  const total=scored.reduce((s,x)=>s+x.w,0);
+  let r=Math.random()*total;
+  for(const x of scored){r-=x.w;if(r<=0)return x.item}
+  return scored[scored.length-1].item;
+}
+function chooseMathQuestion(){
+  const target=mathAdaptiveLevel();
+  let pool=mathBank.filter(x=>!mathQueue.shown.includes(x.id)&&mathDue(x));
+  if(!pool.length)pool=mathBank.filter(x=>!mathQueue.shown.includes(x.id)&&!mathHistory.items[x.id]);
+  if(!pool.length)return null;
+  const item=mathWeightedPick(pool,target,mathQueue.reviewSkill);
+  mathQueue.shown.push(item.id);
+  if(mathQueue.reviewSkill && item.type===mathQueue.reviewSkill)mathQueue.reviewSkill=null;
+  saveMathQueue();
+  return item;
+}
+function recordMathAdaptive(item,ok){
+  const today=mathDayKey(),h=mathHistory.items[item.id]||{seen:0,correctStreak:0,wrongCount:0};
+  h.seen=(h.seen||0)+1;h.lastDate=today;h.lastOutcome=ok?"correct":"wrong";
+  if(ok){
+    h.correctStreak=(h.correctStreak||0)+1;
+    h.dueDate=addDaysStr(today,cooldownDaysCorrect(h.correctStreak));
+  }else{
+    h.correctStreak=0;h.wrongCount=(h.wrongCount||0)+1;
+    h.dueDate=addDaysStr(today,2);
+    mathQueue.reviewSkill=item.type;
+  }
+  mathHistory.items[item.id]=h;
+  mathHistory.recent=(mathHistory.recent||[]).concat([{date:today,id:item.id,skill:item.type,level:item.level||1,ok}]).slice(-40);
+  saveMathHistory();saveMathQueue();
+}
 function normMath(v){return String(v||"").trim().toLowerCase().replace(/\s+/g,"").replace(/平方公分/g,"平方公分")}
 function nextMath(){
   mathCurrent=chooseMathQuestion();
   if(!mathCurrent){document.getElementById("mathQuestion").innerHTML="🎉 今天的數學題已全部完成，不再重複出題。";document.getElementById("mathInput").style.display="none";document.getElementById("mathStart").style.display="none";document.getElementById("mathSubmit").style.display="none";document.getElementById("mathNext").style.display="none";document.getElementById("mathTypeTag").textContent="今日完成";return;}
   mathTodayCount++;
-  const mtc=document.getElementById("mathTodayCount");if(mtc)mtc.textContent="今日 "+mathTodayCount+" 題";
-  document.getElementById("mathTypeTag").textContent=mathCurrent.type;
+  const mtc=document.getElementById("mathTodayCount");if(mtc)mtc.textContent="今日 "+mathTodayCount+" 題";const mal=document.getElementById("mathAdaptiveLevel");if(mal)mal.textContent="目前難度 L"+mathAdaptiveLevel();
+  document.getElementById("mathTypeTag").textContent=`${mathCurrent.type} · L${mathCurrent.level||1}`;
   document.getElementById("mathQuestion").textContent=mathCurrent.q;
   const inp=document.getElementById("mathInput");inp.style.display="";inp.value="";inp.disabled=false;
   document.getElementById("mathFeedback").style.display="none";
@@ -1199,7 +1408,7 @@ function submitMath(){
   const ok=mathCurrent.a.some(x=>normMath(x)===normMath(v));
   playSound(ok?"olderHit":"olderRetry");
   psStats.math.answered++;if(ok){psStats.math.correct++;mathStreak++;}else{mathStreak=0;} const ms=document.getElementById("mathStreak");if(ms)ms.textContent="連續答對 "+mathStreak;
-  mathQueue.answers[mathCurrent.id]=ok?"correct":"wrong";saveMathQueue();if(!ok)addPracticeWrong("數學",mathCurrent.type,mathCurrent.q,v,mathCurrent.show);
+  mathQueue.answers[mathCurrent.id]=ok?"correct":"wrong";recordMathAdaptive(mathCurrent,ok);if(!ok)addPracticeWrong("數學",mathCurrent.type,mathCurrent.q,v,mathCurrent.show);
   const f=document.getElementById("mathFeedback");f.style.display="block";f.innerHTML=(ok?"✅ 答對了。":"❌ 這題答錯。正確答案：<b>"+mathCurrent.show+"</b>")+"<br>"+mathCurrent.why;
   inp.disabled=true;document.getElementById("mathSubmit").style.display="none";document.getElementById("mathNext").style.display="";
   savePractice();
@@ -1545,7 +1754,30 @@ const positionLetters=[
 
 let youngerTask="case";
 let youngerCurrent=null;
+
 function shuffle(a){return [...a].sort(()=>Math.random()-.5);}
+function setYoungerCompanion(face,title,text,mood,hint,active=false){
+  const f=document.getElementById("youngerCompanionFace");
+  const t=document.getElementById("youngerCompanionTitle");
+  const x=document.getElementById("youngerCompanionText");
+  const m=document.getElementById("youngerCompanionMood");
+  const h=document.getElementById("youngerCompanionHint");
+  if(f){f.textContent=face||"🐻";f.classList.toggle("active",!!active);}
+  if(t)t.childNodes[0].nodeValue=(title||"小熊今天陪你玩四小關")+" ";
+  if(x)x.textContent=text||"慢慢看、慢慢選。答錯不會扣星星，我們再試一次就好。";
+  if(m)m.textContent=mood||"陪你慢慢學";
+  if(h)h.textContent=hint||"小熊會跟著題型、答對答錯一起變化。";
+}
+function pulseListen(on){
+  const p=document.getElementById("listenPulse");
+  if(p)p.classList.toggle("on",!!on);
+}
+function youngerTaskIntro(type){
+  if(type==="case")setYoungerCompanion("🐻","小熊陪你找大小寫","先把大寫和小寫配起來，慢慢找就好。","配對時間","看清楚字母外形，不用急。",true);
+  else if(type==="position")setYoungerCompanion("🧸","小熊陪你找位置","看看字母站在哪一區，是往上、在中間、還是往下。","位置練習","先看四線格，再做判斷。",true);
+  else if(type==="look")setYoungerCompanion("🐻","小熊陪你找一樣的字母","特別看清楚 b、d、p、q 的方向。","觀察力開啟","圓圈在哪邊、直線在哪邊，很重要。",true);
+  else if(type==="listen")setYoungerCompanion("🐻","小熊慢慢念字母給你聽","一次只念一個字母，你聽完再找，不會很快。","聽力小關","按下按鈕，小熊會再慢慢說一次。",true);
+}
 function startYoungerTask(type){
   youngerTask=type;
   go("youngerEnglish");
@@ -1556,15 +1788,16 @@ function startYoungerTask(type){
   document.getElementById("youngerListenTask").classList.toggle("active",type==="listen");
   const names={case:"大小寫配對",position:"四線格位置",look:"字母辨識",listen:"聽聲音找字母"};
   document.getElementById("youngerTaskTag").textContent=names[type];
+  youngerTaskIntro(type);
   nextYoungerQuestion();
 }
 function recordYounger(ok){
   const s=youngerProgress.stats[youngerTask];
-  if(ok){s.ok++;playSound("youngerGood");}else{s.bad++;playSound("youngerRetry");}
+  if(ok){s.ok++;playSound("youngerGood");setYoungerCompanion("😄","小熊說：答對了！","做得很好，我們繼續下一小題。","有進步喔","答對不代表結束，是慢慢變穩。",true);}else{s.bad++;playSound("youngerRetry");setYoungerCompanion("🤗","小熊說：沒關係，再一次","答錯不扣星，我陪你再看一次。","再試一次","先看清楚，再選就可以。",true);}
   if(ok && !youngerProgress.completed[youngerTask]){
     youngerProgress.completed[youngerTask]=true;
     youngerProgress.stars++;
-    if(Object.values(youngerProgress.completed).filter(Boolean).length===4)playSound("youngerDone");
+    if(Object.values(youngerProgress.completed).filter(Boolean).length===4){playSound("youngerDone");setYoungerCompanion("🥳","小熊說：今天四關完成了！","太棒了，今天的小任務都完成了。","今天通關","可以休息一下，等等再玩也可以。",true);}
   }
   saveYoungerProgress();
   renderYoungerProgress();
@@ -1572,9 +1805,8 @@ function recordYounger(ok){
 function nextYoungerQuestion(){
   const fb=document.getElementById("youngerFeedback");
   fb.textContent="看清楚再選，不用急。";
-  const ct=document.getElementById("youngerCompanionText");
-  if(ct)ct.textContent="這一小關慢慢來就好，答錯不會扣星星。";
   if(youngerTask==="case"){
+    setYoungerCompanion("🐻","小熊陪你找大小寫","先把大寫和小寫配起來，慢慢找就好。","配對時間","看清楚字母外形，不用急。",true);
     const pair=casePairs[Math.floor(Math.random()*casePairs.length)];
     youngerCurrent={answer:pair[1]};
     document.getElementById("casePrompt").textContent=`請找出大寫 ${pair[0]} 的小寫朋友`;
@@ -1591,6 +1823,7 @@ function nextYoungerQuestion(){
       };wrap.appendChild(b);
     });
   }else if(youngerTask==="look"){
+    setYoungerCompanion("🧐","小熊陪你看方向","這題要看清楚字母方向，圓圈跟直線別看反。","觀察力開啟","b、d、p、q 最容易混淆。",true);
     const item=lookSets[Math.floor(Math.random()*lookSets.length)];
     youngerCurrent={answer:item.target};
     document.getElementById("lookTarget").textContent=item.target;
@@ -1605,6 +1838,7 @@ function nextYoungerQuestion(){
       };wrap.appendChild(b);
     });
   }else if(youngerTask==="listen"){
+    setYoungerCompanion("👂","小熊準備念字母","一次只聽一個字母，聽清楚再選。","聽力小關","按下按鈕，小熊會慢慢說。",true);
     const letters=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T"];
     const target=letters[Math.floor(Math.random()*letters.length)];
     youngerCurrent={answer:target};
@@ -1614,8 +1848,10 @@ function nextYoungerQuestion(){
     const speak=()=>{
       try{
         speechSynthesis.cancel();
+        pulseListen(true);
+        setYoungerCompanion("👂","小熊正在慢慢念字母","仔細聽，只會念一個字母，而且速度放慢。","慢慢聽","如果沒聽清楚，再按一次就好。",true);
         const u=new SpeechSynthesisUtterance(target);
-        u.lang="en-US";u.rate=.72;u.pitch=1.05;speechSynthesis.speak(u);
+        u.lang="en-US";u.rate=.48;u.pitch=.98;u.onend=()=>pulseListen(false);u.onerror=()=>pulseListen(false);speechSynthesis.speak(u);
       }catch(e){}
     };
     document.getElementById("playLetterSound").onclick=speak;
@@ -1624,11 +1860,12 @@ function nextYoungerQuestion(){
       const b=document.createElement("button");b.type="button";b.className="letterChoice";b.textContent=v;
       b.onclick=()=>{
         const ok=v===target;b.classList.add(ok?"good":"bad");
-        fb.textContent=ok?`✅ 對！剛剛聽到的是 ${target}。`:`沒關係，再按一次「再聽一次」，慢慢找 ${target}。`;
+        fb.textContent=ok?`✅ 對！剛剛聽到的是 ${target}。`:`沒關係，再按一次「小熊慢慢說一次」，再聽一次。`;
         recordYounger(ok);
       };wrap.appendChild(b);
     });
   }else{
+    setYoungerCompanion("✍️","小熊陪你看字母位置","看看字母主要在中間、往上長，還是往下伸。","位置練習","先看四線格，再做判斷。",true);
     const item=positionLetters[Math.floor(Math.random()*positionLetters.length)];
     youngerCurrent={answer:item.zone};
     document.getElementById("positionLetter").textContent=item.letter;
@@ -1672,6 +1909,7 @@ function renderYoungerProgress(){
   });
 }
 renderYoungerProgress();
+setYoungerCompanion("🐻","小熊今天陪你玩四小關","慢慢看、慢慢選。答錯不會扣星星，我們再試一次就好。","陪你慢慢學","小熊會跟著題型、答對答錯一起變化。",false);
 
 // restore last profile without forcing a click loop
 document.body.classList.toggle("younger-mode",currentProfile==="younger");
