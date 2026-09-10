@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V15.0｜復旦 × 六和</title>
+<title>兄弟學習基地 V15.1｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -1939,6 +1939,25 @@ main{min-width:0}
 }
 </style>
 
+
+<style id="v151-page-visibility-fix">
+/* V15.1：弟弟頁面只能顯示目前 active 的那一頁 */
+body.younger-mode .page.youngerOnly{
+  display:none !important;
+}
+body.younger-mode .page.youngerOnly.active{
+  display:block !important;
+}
+body.younger-mode .youngerOnly:not(.page){
+  display:block !important;
+}
+
+/* 哥哥模式下，弟弟所有頁面必須完全隱藏 */
+body:not(.younger-mode) .page.youngerOnly{
+  display:none !important;
+}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -1980,7 +1999,7 @@ main{min-width:0}
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V15.0</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V15.1</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
