@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V10.2｜復旦 × 六和</title>
+<title>兄弟學習基地 V11.0｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -308,6 +308,85 @@ body:not(.younger-mode) aside nav button[data-page="youngerStars"]{display:none}
 @media(max-width:620px){.compactGameSwitch{display:grid;grid-template-columns:1fr 1fr}.compactGameSwitch button{width:100%}}
 </style>
 
+
+<style id="v103-compact-today-mission">
+.compactTodayMission{padding:14px 16px!important}
+.compactMissionHead{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.compactMissionHead>div{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.missionDots{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0}
+.missionDot{min-height:48px;border:1px solid #dfe5f2;background:#fff;border-radius:13px;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;color:#526079;font:inherit}
+.missionDot span{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:#eef2ff;color:#4056b3;font-weight:900;font-size:12px}
+.missionDot small{font-size:16px}
+.missionDot.done{background:#f5fbf6;border-color:#d8eadb}
+.missionDot.done span{background:#e7f5e9;color:#3c7a47}
+.compactMissionAction{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.compactMissionAction .btn{margin:0}
+@media(max-width:620px){.missionDot{padding:8px 4px}.compactMissionAction{align-items:flex-start;flex-direction:column}}
+</style>
+
+
+<style id="v110-adventure-scene">
+/* 壓縮首頁資訊卡 */
+.todayFocus{grid-template-columns:1fr!important}
+.rewardMiniBar{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.rewardMiniBar .miniPill{padding:8px 12px;border-radius:999px;background:#fff8e8;border:1px solid #f0ddb1;color:#7a6130;font-weight:800;font-size:13px}
+
+/* 新的哥哥互動冒險場景 */
+.olderAdventureHero{margin:16px 0}
+.adventureSceneCard{background:linear-gradient(135deg,#eef3ff 0%,#ffffff 58%,#f9fbff 100%);border:1px solid #d9e2fb;border-radius:24px;padding:18px;overflow:hidden}
+.sceneTop{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;flex-wrap:wrap}
+.sceneTop h3{margin:6px 0 4px}
+.compactRuleRow{display:flex;gap:8px;flex-wrap:wrap}
+.infoPill{padding:8px 12px;border-radius:999px;background:#fff;border:1px solid #dde5fb;color:#50618a;font-size:13px;font-weight:800}
+.sceneBoard{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;margin-top:14px}
+.sceneLane{position:relative;min-height:235px;border:1px solid #dfe6f7;border-radius:22px;background:
+  radial-gradient(circle at 12% 16%,#ffffff 0 22px,transparent 23px),
+  linear-gradient(180deg,#eef6ff 0%,#fefeff 56%,#fbfff5 57%,#f6f8ff 100%);
+  overflow:hidden}
+.sceneCloud{position:absolute;font-size:22px;opacity:.7;animation:cloudDrift 12s linear infinite}
+.sceneCloud.c2{top:26px;left:56%;animation-duration:15s}
+.sceneCloud.c1{top:18px;left:10%}
+@keyframes cloudDrift{0%{transform:translateX(-10px)}50%{transform:translateX(10px)}100%{transform:translateX(-10px)}}
+.sceneGround{position:absolute;left:0;right:0;bottom:0;height:82px;background:linear-gradient(180deg,#dff6c9,#a6dc8a)}
+.scenePathLine{position:absolute;left:9%;right:9%;bottom:72px;height:8px;border-radius:999px;background:#e4d3ad}
+.scenePathNode{position:absolute;bottom:62px;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#fff;border:2px solid #cfd9f2;color:#5f6f90;font-weight:900;transition:all .25s ease}
+.scenePathNode.done{background:#e7f5e9;border-color:#9fd0aa;color:#3c7a47}
+.scenePathNode.current{background:#eef2ff;border-color:#8fa1ff;color:#4056b3;box-shadow:0 0 0 5px rgba(143,161,255,.12)}
+.sceneHero{position:absolute;left:10%;bottom:74px;transform:translateX(0);transition:left .35s ease}
+.sceneHeroSprite{font-size:48px;filter:drop-shadow(0 4px 4px rgba(0,0,0,.08));animation:heroBounce 1.4s ease-in-out infinite}
+@keyframes heroBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.sceneHeroLabel{margin-top:2px;font-size:12px;font-weight:900;color:#4056b3;text-align:center}
+.sceneMonsterWrap{position:absolute;right:12%;bottom:78px;text-align:center}
+.sceneMonsterSprite{font-size:48px;filter:drop-shadow(0 4px 4px rgba(0,0,0,.08));transition:transform .25s ease}
+.sceneMonsterSprite.hit{animation:monsterShake .33s ease}
+.sceneMonsterSprite.down{animation:monsterFade .55s ease forwards}
+@keyframes monsterShake{0%{transform:translateX(0)}25%{transform:translateX(9px) rotate(8deg)}55%{transform:translateX(-6px) rotate(-7deg)}100%{transform:none}}
+@keyframes monsterFade{0%{transform:scale(1);opacity:1}70%{transform:scale(.72) rotate(10deg);opacity:.55}100%{transform:scale(.5);opacity:.15}}
+.sceneMonsterName{font-size:12px;font-weight:900;color:#5a4a7a;background:rgba(255,255,255,.9);padding:3px 8px;border-radius:999px;border:1px solid #eadff4}
+.sceneChest{position:absolute;right:30%;bottom:78px;font-size:34px;transform-origin:center;animation:chestPulse 2.1s ease-in-out infinite}
+.sceneChest.hasKeys{animation:chestPulseStrong 1.05s ease-in-out infinite}
+@keyframes chestPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+@keyframes chestPulseStrong{0%,100%{transform:scale(1)}50%{transform:scale(1.16) rotate(-7deg)}}
+.sceneCastle{position:absolute;right:2.5%;bottom:79px;font-size:40px;transform-origin:center}
+.sceneCastle.boss{animation:castleBoss 1s ease-in-out infinite}
+@keyframes castleBoss{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px) scale(1.05)}}
+.sceneHud{display:grid;gap:10px}
+.hudCard{background:#fff;border:1px solid #e4e9f4;border-radius:18px;padding:14px}
+.hudCard h4{margin:0 0 8px}
+.hudMeta{display:flex;gap:8px;flex-wrap:wrap}
+.hudChip{padding:5px 9px;border-radius:999px;background:#f3f6fb;color:#576581;font-size:12px;font-weight:800}
+.hudProgress{height:12px;background:#edf0f6;border-radius:999px;overflow:hidden}
+.hudProgress > span{display:block;height:100%;width:100%;background:linear-gradient(90deg,#ffb86b,#ff6e7f);transition:width .3s ease}
+.hudRow{display:flex;justify-content:space-between;gap:8px;align-items:center}
+.hudLarge{font-size:24px;font-weight:900;color:#4056b3}
+.sceneActionRow{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.sceneActionRow .btn{margin:0}
+.sceneFoot{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.sceneModePill{padding:7px 11px;border-radius:999px;background:#fff;border:1px solid #dfe5f2;color:#506184;font-size:12px;font-weight:800}
+.sceneModePill.active{background:#eef2ff;border-color:#9cabef;color:#4056b3}
+@media(max-width:860px){.sceneBoard{grid-template-columns:1fr}.sceneLane{min-height:215px}}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -350,7 +429,7 @@ body:not(.younger-mode) aside nav button[data-page="youngerStars"]{display:none}
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V10.2</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V11.0</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -361,54 +440,86 @@ body:not(.younger-mode) aside nav button[data-page="youngerStars"]{display:none}
 
 <section id="home" class="page active">
 
-<div class="olderOnly olderAdventure">
-  <div class="adventureMission">
-    <div class="muted">⚔️ 哥哥｜今日冒險</div>
-    <h3 style="margin:6px 0">今天不是一直打怪，是一路探索、補弱點、開寶箱</h3>
-    <div class="muted">新題帶你走地圖；錯題變弱點怪；高難度才出 Boss；打倒怪物拿鑰匙，集滿開寶箱。</div>
-    <div class="adventureMeter">
-      <span class="adventureBadge">🧠 弱點怪：由錯題產生</span>
-      <span class="adventureBadge">🗺 新題：探索區</span>
-      <span class="adventureBadge">👑 高難度：Boss 關</span>
+<div class="olderOnly olderAdventureHero">
+  <div class="adventureSceneCard">
+    <div class="sceneTop">
+      <div>
+        <div class="muted">⚔️ 哥哥｜今日冒險</div>
+        <h3>一路探索、補弱點、打 Boss、集鑰匙開寶箱</h3>
+        <div class="muted">把首頁的大空白改成互動冒險場景：今天在哪一格、遇到什麼怪、離寶箱多遠，一眼就看懂。</div>
+      </div>
+      <div class="compactRuleRow">
+        <span class="infoPill">🛡 錯題不扣獎勵</span>
+        <span class="infoPill">🎮 完成＋訂正＝今天過關</span>
+      </div>
     </div>
-    
 
-<div class="adventureModeRail">
-  <div class="adventureMode active"><span>🗺️</span><b>探索地圖</b></div>
-  <div class="adventureMode"><span>👾</span><b>弱點怪</b></div>
-  <div class="adventureMode"><span>🐲</span><b>Boss</b></div>
-  <div class="adventureMode"><span>🗝️</span><b>寶箱</b></div>
-  <div class="adventureMode"><span>🏅</span><b>能力徽章</b></div>
-</div>
-<div class="mapTrack" id="olderMapTrack">
-  <div class="mapNode current">1</div><div class="mapLine"></div>
-  <div class="mapNode">2</div><div class="mapLine"></div>
-  <div class="mapNode">3</div><div class="mapLine"></div>
-  <div class="mapNode">4</div><div class="mapLine"></div>
-  <div class="mapNode">5</div>
-</div>
-<div class="keyRow"><span>今日鑰匙</span><span class="keyDots" id="olderKeys">○ ○ ○</span><span class="weekBadge" id="olderBadgeText">本週徽章：累積中</span></div>
-<div class="adventureBattle" data-battle="home">
-  <div class="monsterStage"><div class="monsterFace" data-monster-face>🧩</div></div>
-  <div>
-    <div class="monsterName" data-monster-name>今日探索怪</div>
-    <div class="monsterMeta" data-monster-meta>開始國文或數學後，怪物會跟著題目出現</div>
-    <div class="monsterHpRow">
-      <span>HP</span><div class="monsterHpTrack"><div class="monsterHpFill" data-monster-hp-fill></div></div>
-      <span class="monsterHpText" data-monster-hp-text>3 / 3</span>
+    <div class="sceneBoard">
+      <div class="sceneLane">
+        <div class="sceneCloud c1">☁️</div>
+        <div class="sceneCloud c2">☁️</div>
+        <div class="scenePathLine"></div>
+        <div class="scenePathNode current" id="sceneNode1" style="left:8%">1</div>
+        <div class="scenePathNode" id="sceneNode2" style="left:28%">2</div>
+        <div class="scenePathNode" id="sceneNode3" style="left:48%">3</div>
+        <div class="scenePathNode" id="sceneNode4" style="left:68%">4</div>
+        <div class="scenePathNode" id="sceneNode5" style="left:88%">5</div>
+
+        <div class="sceneHero" id="sceneHero">
+          <div class="sceneHeroSprite">🧒</div>
+          <div class="sceneHeroLabel">哥哥</div>
+        </div>
+
+        <div class="sceneChest" id="sceneChest" title="集滿 3 把鑰匙開寶箱">🎁</div>
+        <div class="sceneMonsterWrap">
+          <div class="sceneMonsterSprite" id="sceneMonsterSprite">🧩</div>
+          <div class="sceneMonsterName" id="sceneMonsterName">探索怪</div>
+        </div>
+        <div class="sceneCastle" id="sceneCastle" title="高難度 Boss 區">🏰</div>
+        <div class="sceneGround"></div>
+      </div>
+
+      <div class="sceneHud">
+        <div class="hudCard">
+          <h4 id="sceneBattleTitle">目前對戰：今日探索怪</h4>
+          <div class="hudMeta">
+            <span class="hudChip" id="sceneSubjectChip">尚未選科</span>
+            <span class="hudChip" id="sceneSkillChip">等待題目</span>
+            <span class="hudChip" id="sceneDefeatChip">已打倒 0 隻</span>
+          </div>
+          <div class="hudRow" style="margin-top:12px">
+            <span>怪物 HP</span>
+            <b id="sceneHpText">3 / 3</b>
+          </div>
+          <div class="hudProgress" style="margin-top:6px"><span id="sceneHpFill" style="width:100%"></span></div>
+          <div class="muted" id="sceneMessage" style="margin-top:10px">進入國文或數學開始冒險；答對會真的扣怪物 HP。</div>
+          <div class="sceneActionRow">
+            <button type="button" class="btn" onclick="go('chinese')">去國文作戰</button>
+            <button type="button" class="btn secondary" onclick="go('math')">去數學作戰</button>
+          </div>
+        </div>
+
+        <div class="hudCard">
+          <div class="hudRow">
+            <div><div class="muted">今日鑰匙</div><div class="hudLarge" id="sceneKeysText">○ ○ ○</div></div>
+            <div><div class="muted">本週徽章</div><div class="hudLarge" id="sceneBadgeText">0 / 5</div></div>
+          </div>
+          <div class="muted" style="margin-top:8px">打倒一隻怪拿 1 把鑰匙；集滿 3 把會開寶箱。穩定表現會累積本週徽章。</div>
+        </div>
+
+        <div class="sceneFoot">
+          <span class="sceneModePill active" id="sceneModeExplore">🗺 探索</span>
+          <span class="sceneModePill" id="sceneModeWeak">👾 弱點怪</span>
+          <span class="sceneModePill" id="sceneModeBoss">🐲 Boss</span>
+          <span class="sceneModePill" id="sceneModeChest">🗝 寶箱</span>
+          <span class="sceneModePill" id="sceneModeBadge">🏅 徽章</span>
+        </div>
+      </div>
     </div>
-    <div class="monsterMessage" data-monster-message>答對會攻擊；答錯不扣獎勵，下一題會優先出同能力類題。</div>
+
+    <div class="adventureLog" id="olderAdventureLog" style="margin-top:12px">今天還沒開戰。進入國文或數學，按「開始練習」就會遇到怪。</div>
   </div>
 </div>
-<div class="adventureLog" id="olderAdventureLog">今天還沒開戰。進入國文或數學，按「開始練習」就會遇到怪。</div>
-
-  </div>
-  <div class="adventureSide">
-    <div class="muted">今日原則</div>
-    <div style="font-size:34px;margin:8px 0">🛡️</div>
-    <b>錯題不是扣血，是下一隻要攻略的怪</b>
-    <div class="muted" style="margin-top:7px">不因答錯取消獎勵；錯題會換類題再回來。</div>
-  </div>
 </div>
 
   <div class="todayFocus">
@@ -420,11 +531,11 @@ body:not(.younger-mode) aside nav button[data-page="youngerStars"]{display:none}
       <div class="progress" style="margin-top:14px"><span id="todayPlanBar" style="width:0%"></span></div>
       <div class="muted" id="todayPlanProgress" style="margin-top:7px">完成 0 / 0</div>
     </div>
-    <div class="rewardBox">
-      <h3 style="margin-top:0">🎮 今日完成條件</h3>
-      <p><b>完成＋訂正＝今天過關</b></p>
-      <p class="muted">不用全部答對，也不會因為答錯就取消獎勵。</p>
-      <div class="callout" style="margin-top:12px">完成今天任務後，就照家裡原本規則安排平板時間。</div>
+    <div class="rewardMiniBar">
+        <span class="miniPill">🎮 完成＋訂正＝今天過關</span>
+        <span class="miniPill">🛡 錯題不扣獎勵</span>
+        <span class="miniPill">📱 完成後再照家裡規則安排平板時間</span>
+      </div>
     </div>
   </div>
 
@@ -767,32 +878,25 @@ body:not(.younger-mode) aside nav button[data-page="youngerStars"]{display:none}
 </div>
 
 
-<div class="card" style="margin-top:16px">
-  <div class="practiceTop">
+<div class="card compactTodayMission" style="margin-top:16px">
+  <div class="compactMissionHead">
     <div>
-      <h3>今天照順序完成</h3>
-      <div class="muted">直接點任務卡開始；完成後會自動變成「✓ 已完成」。</div>
+      <b>今天任務</b>
+      <span class="muted">4 個小能力，直接開始做題</span>
     </div>
     <span class="tag" id="youngerTodayTag">0 / 4</span>
   </div>
 
-  <div class="youngerTodayList">
-    <button type="button" class="youngerTodayItem" id="mission-case" data-task="case">
-      <span>①</span><div style="text-align:left;min-width:0"><b>大小寫配對</b><div class="muted">A 找 a、B 找 b</div></div><span class="state">開始</span>
-    </button>
-    <button type="button" class="youngerTodayItem" id="mission-position" data-task="position">
-      <span>②</span><div style="text-align:left;min-width:0"><b>四線格位置</b><div class="muted">分清楚往上、中間、往下</div></div><span class="state">開始</span>
-    </button>
-    <button type="button" class="youngerTodayItem" id="mission-look" data-task="look">
-      <span>③</span><div style="text-align:left;min-width:0"><b>字母辨識</b><div class="muted">練 b / d / p / q 等容易混淆字母</div></div><span class="state">開始</span>
-    </button>
-    <button type="button" class="youngerTodayItem" id="mission-listen" data-task="listen">
-      <span>④</span><div style="text-align:left;min-width:0"><b>聽音找字母</b><div class="muted">小熊慢慢念一個字母再找答案</div></div><span class="state">開始</span>
-    </button>
+  <div class="missionDots" aria-label="今天四個任務">
+    <button type="button" class="missionDot" id="mission-case" data-task="case" title="大小寫配對"><span>1</span><small>Aa</small></button>
+    <button type="button" class="missionDot" id="mission-position" data-task="position" title="四線格位置"><span>2</span><small>✍️</small></button>
+    <button type="button" class="missionDot" id="mission-look" data-task="look" title="字母辨識"><span>3</span><small>👀</small></button>
+    <button type="button" class="missionDot" id="mission-listen" data-task="listen" title="聽音找字母"><span>4</span><small>👂</small></button>
   </div>
 
-  <div class="youngerTodayActions">
-    <button type="button" class="btn" id="startTodayMission">▶ 繼續今天任務</button>
+  <div class="compactMissionAction">
+    <button type="button" class="btn" id="startTodayMission">▶ 開始／繼續今天任務</button>
+    <span class="muted" id="nextMissionText">下一關：大小寫配對</span>
   </div>
 </div>
 
@@ -1448,6 +1552,48 @@ function renderAdventureBattle(){
     const p=olderAdventureState.badgePoints||0;
     badge.textContent=p>=5?"本週徽章：🏅 已解鎖":`本週徽章：${p}/5`;
   }
+  const sceneMapPos={1:"8%",2:"28%",3:"48%",4:"68%",5:"88%"};
+  const hero=document.getElementById("sceneHero");
+  if(hero)hero.style.left=sceneMapPos[Math.max(1,Math.min(5,olderAdventureState.mapStep||1))]||"8%";
+  [1,2,3,4,5].forEach(i=>{
+    const node=document.getElementById("sceneNode"+i);
+    if(!node)return;
+    node.classList.toggle("done",i<(olderAdventureState.mapStep||1));
+    node.classList.toggle("current",i===(olderAdventureState.mapStep||1));
+  });
+  const monster=document.getElementById("sceneMonsterSprite");
+  if(monster)monster.textContent=olderAdventureState.emoji||"🧩";
+  const monsterName=document.getElementById("sceneMonsterName");
+  if(monsterName)monsterName.textContent=(olderAdventureState.kind==="boss"?"Boss":olderAdventureState.kind==="weak"?"弱點怪":"探索怪");
+  const battleTitle=document.getElementById("sceneBattleTitle");
+  if(battleTitle)battleTitle.textContent=`目前對戰：${olderAdventureState.name||"今日探索怪"}`;
+  const subjectChip=document.getElementById("sceneSubjectChip");
+  if(subjectChip)subjectChip.textContent=olderAdventureState.subject?subjectZh(olderAdventureState.subject):"尚未選科";
+  const skillChip=document.getElementById("sceneSkillChip");
+  if(skillChip)skillChip.textContent=olderAdventureState.skill||"等待題目";
+  const defeatChip=document.getElementById("sceneDefeatChip");
+  if(defeatChip)defeatChip.textContent=`已打倒 ${(olderAdventureState.defeats||0)} 隻`;
+  const sceneHpFill=document.getElementById("sceneHpFill");
+  if(sceneHpFill)sceneHpFill.style.width=`${Math.max(0,olderAdventureState.hp)/Math.max(1,olderAdventureState.maxHp)*100}%`;
+  const sceneHpText=document.getElementById("sceneHpText");
+  if(sceneHpText)sceneHpText.textContent=`${Math.max(0,olderAdventureState.hp)} / ${olderAdventureState.maxHp}`;
+  const sceneMessage=document.getElementById("sceneMessage");
+  if(sceneMessage)sceneMessage.textContent=olderAdventureState.message;
+  const k=Math.max(0,Math.min(3,olderAdventureState.keys||0));
+  const sceneKeysText=document.getElementById("sceneKeysText");
+  if(sceneKeysText)sceneKeysText.textContent=[0,1,2].map(i=>i<k?"●":"○").join(" ");
+  const sceneBadgeText=document.getElementById("sceneBadgeText");
+  if(sceneBadgeText){
+    const p=olderAdventureState.badgePoints||0;
+    sceneBadgeText.textContent=p>=5?"已解鎖 🏅":`${p} / 5`;
+  }
+  document.getElementById("sceneModeExplore")?.classList.toggle("active",!olderAdventureState.subject || olderAdventureState.kind==="explore");
+  document.getElementById("sceneModeWeak")?.classList.toggle("active",olderAdventureState.kind==="weak");
+  document.getElementById("sceneModeBoss")?.classList.toggle("active",olderAdventureState.kind==="boss");
+  document.getElementById("sceneModeChest")?.classList.toggle("active",(olderAdventureState.keys||0)>0);
+  document.getElementById("sceneModeBadge")?.classList.toggle("active",(olderAdventureState.badgePoints||0)>0);
+  document.getElementById("sceneChest")?.classList.toggle("hasKeys",(olderAdventureState.keys||0)>0);
+  document.getElementById("sceneCastle")?.classList.toggle("boss",olderAdventureState.kind==="boss");
   const log=document.getElementById("olderAdventureLog");
   if(log)log.textContent=olderAdventureState.subject?`目前對戰：${olderAdventureState.name}｜HP ${Math.max(0,olderAdventureState.hp)}/${olderAdventureState.maxHp}`:"今天還沒開戰。進入國文或數學，按「開始練習」就會遇到怪。";
 }
@@ -1456,6 +1602,13 @@ function animateAdventure(cls){
     el.classList.remove("hit","dodge","down");void el.offsetWidth;el.classList.add(cls);
     setTimeout(()=>el.classList.remove(cls),650);
   });
+  const sceneEl=document.getElementById("sceneMonsterSprite");
+  if(sceneEl){
+    sceneEl.classList.remove("hit","down");void sceneEl.offsetWidth;
+    if(cls==="hit")sceneEl.classList.add("hit");
+    if(cls==="down")sceneEl.classList.add("down");
+    setTimeout(()=>sceneEl.classList.remove("hit","down"),700);
+  }
 }
 function adventureAnswer(subject,item,ok){
   if(!item)return;
@@ -2277,7 +2430,7 @@ function nextYoungerQuestion(){
 }
 document.getElementById("youngerNextBtn")?.addEventListener("click",nextYoungerQuestion);
 document.getElementById("startTodayMission")?.addEventListener("click",()=>startYoungerTask(nextIncompleteYoungerTask()));
-document.querySelectorAll(".youngerTodayItem[data-task]").forEach(card=>{
+document.querySelectorAll(".missionDot[data-task]").forEach(card=>{
   card.addEventListener("click",()=>startYoungerTask(card.dataset.task));
 });
 document.querySelectorAll("[data-younger-switch]").forEach(btn=>{
@@ -2299,6 +2452,7 @@ function levelText(stat){
 
 function renderYoungerMissionHome(){
   const keys=["case","position","look","listen"];
+  const labels={case:"大小寫配對",position:"四線格位置",look:"字母辨識",listen:"聽音找字母"};
   let done=0;
   keys.forEach(k=>{
     const el=document.getElementById("mission-"+k);
@@ -2306,11 +2460,13 @@ function renderYoungerMissionHome(){
     const isDone=!!youngerProgress.completed[k];
     if(isDone)done++;
     el.classList.toggle("done",isDone);
-    const s=el.querySelector(".state");
-    if(s)s.textContent=isDone?"✓ 已完成":"開始";
+    el.setAttribute("aria-label",`${labels[k]}｜${isDone?"已完成":"未完成"}`);
   });
   const tag=document.getElementById("youngerTodayTag");
   if(tag)tag.textContent=`${done} / 4`;
+  const next=keys.find(k=>!youngerProgress.completed[k]);
+  const msg=document.getElementById("nextMissionText");
+  if(msg)msg.textContent=next?`下一關：${labels[next]}`:"今天 4 關都完成了";
 }
 function bestYoungerSkill(){
   const labels={case:"大小寫",position:"四線格",look:"字母辨識",listen:"聽音"};
