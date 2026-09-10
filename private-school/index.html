@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V10.1｜復旦 × 六和</title>
+<title>兄弟學習基地 V10.2｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -300,6 +300,14 @@ body:not(.younger-mode) aside nav button[data-page="youngerStars"]{display:none}
 @media(max-width:760px){.adventureModeRail{grid-template-columns:repeat(2,minmax(0,1fr))}.adventureMode:last-child{grid-column:1/-1}}
 </style>
 
+
+<style id="v102-compact-younger-switch">
+.compactGameSwitch{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 14px}
+.compactGameSwitch button{border:1px solid #dfe5f2;background:#fff;color:#526079;border-radius:999px;padding:8px 12px;font:inherit;font-size:13px;font-weight:800;cursor:pointer}
+.compactGameSwitch button.active{background:#eef2ff;border-color:#9cabef;color:#4056b3}
+@media(max-width:620px){.compactGameSwitch{display:grid;grid-template-columns:1fr 1fr}.compactGameSwitch button{width:100%}}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -342,7 +350,7 @@ body:not(.younger-mode) aside nav button[data-page="youngerStars"]{display:none}
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V10.1</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V10.2</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -803,39 +811,17 @@ body:not(.younger-mode) aside nav button[data-page="youngerStars"]{display:none}
   <div class="card">
     <div class="practiceTop">
       <div>
-        <div class="muted">🔤 英文小遊戲</div>
-        <h3 style="margin-top:5px">想練哪一個？</h3>
-      </div>
-      <span class="tag">自由練習</span>
-    </div>
-    <div class="muted" style="margin-top:8px">🔁 題目會輪替：同一輪做完前不會重出；最近做過的題也會先避開。</div>
-    <div class="youngerMenu">
-      <div class="youngerTile" onclick="startYoungerTask('case')">
-        <div class="bigIcon">Aa</div><b>大小寫配對</b>
-        <p class="muted">A 找 a、B 找 b。</p>
-      </div>
-      <div class="youngerTile" onclick="startYoungerTask('position')">
-        <div class="bigIcon">✍️</div><b>四線格位置</b>
-        <p class="muted">看字母站在哪一區。</p>
-      </div>
-      <div class="youngerTile" onclick="startYoungerTask('look')">
-        <div class="bigIcon">👀</div><b>找一樣的字母</b>
-        <p class="muted">看清楚容易混淆的方向。</p>
-      </div>
-      <div class="youngerTile" onclick="startYoungerTask('listen')">
-        <div class="bigIcon">👂</div><b>聽音找字母</b>
-        <p class="muted">小熊慢慢念一個字母。</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="practiceTop">
-      <div>
         <div class="muted">🔤 英文啟蒙</div>
-        <h3 style="margin-top:5px">今天只練一個小能力</h3>
+        <h3 style="margin-top:5px">直接開始練習</h3>
       </div>
       <span class="tag" id="youngerTaskTag">準備開始</span>
+    </div>
+
+    <div class="compactGameSwitch" aria-label="切換練習">
+      <button type="button" data-younger-switch="case">Aa 大小寫</button>
+      <button type="button" data-younger-switch="position">✍️ 四線格</button>
+      <button type="button" data-younger-switch="look">👀 字母辨識</button>
+      <button type="button" data-younger-switch="listen">👂 聽音</button>
     </div>
 
     <div id="youngerCaseTask" class="letterStage">
@@ -1101,6 +1087,10 @@ function go(id){
   if(currentBtn)currentBtn.classList.add('active');
   document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));
   if(id==='youngerStars')renderYoungerStarsPage();
+  if(id==='youngerEnglish' && (!youngerTask || !document.querySelector("[data-younger-switch].active"))){
+    youngerTask=youngerTask||"case";
+    setTimeout(()=>startYoungerTask(youngerTask),0);
+  }
   window.scrollTo({top:0,behavior:'smooth'});
 }
 navBtns.forEach(b=>b.onclick=()=>go(b.dataset.page));
@@ -2182,7 +2172,8 @@ function youngerTaskIntro(type){
 }
 function startYoungerTask(type){
   youngerTask=type;
-  go("youngerEnglish");
+  const youngerPage=document.getElementById("youngerEnglish");
+  if(!youngerPage || !youngerPage.classList.contains("active"))go("youngerEnglish");
   document.getElementById("youngerCaseTask").style.display=type==="case"?"block":"none";
   document.getElementById("youngerPositionTask").style.display=type==="position"?"block":"none";
   document.getElementById("youngerLookTask").style.display=type==="look"?"block":"none";
@@ -2190,6 +2181,7 @@ function startYoungerTask(type){
   document.getElementById("youngerListenTask").classList.toggle("active",type==="listen");
   const names={case:"大小寫配對",position:"四線格位置",look:"字母辨識",listen:"聽聲音找字母"};
   document.getElementById("youngerTaskTag").textContent=names[type];
+  document.querySelectorAll("[data-younger-switch]").forEach(b=>b.classList.toggle("active",b.dataset.youngerSwitch===type));
   youngerTaskIntro(type);
   nextYoungerQuestion();
 }
@@ -2287,6 +2279,9 @@ document.getElementById("youngerNextBtn")?.addEventListener("click",nextYoungerQ
 document.getElementById("startTodayMission")?.addEventListener("click",()=>startYoungerTask(nextIncompleteYoungerTask()));
 document.querySelectorAll(".youngerTodayItem[data-task]").forEach(card=>{
   card.addEventListener("click",()=>startYoungerTask(card.dataset.task));
+});
+document.querySelectorAll("[data-younger-switch]").forEach(btn=>{
+  btn.addEventListener("click",()=>startYoungerTask(btn.dataset.youngerSwitch));
 });
 
 function pctFor(stat){
