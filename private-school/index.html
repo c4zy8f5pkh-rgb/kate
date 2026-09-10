@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V11.0｜復旦 × 六和</title>
+<title>兄弟學習基地 V11.1｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -387,6 +387,15 @@ body:not(.younger-mode) aside nav button[data-page="youngerStars"]{display:none}
 @media(max-width:860px){.sceneBoard{grid-template-columns:1fr}.sceneLane{min-height:215px}}
 </style>
 
+<style id="v111-layout-fix">
+main{min-width:0}
+#home{padding-top:0}
+.olderAdventureHero{margin-top:8px}
+.sceneLane{min-height:210px}
+.adventureSceneCard{padding:16px}
+.top{margin-bottom:8px}
+@media(max-width:860px){.sceneLane{min-height:195px}}
+</style>
 </head>
 <body>
 <div class="app">
@@ -429,7 +438,7 @@ body:not(.younger-mode) aside nav button[data-page="youngerStars"]{display:none}
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V11.0</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V11.1</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -520,7 +529,6 @@ body:not(.younger-mode) aside nav button[data-page="youngerStars"]{display:none}
     <div class="adventureLog" id="olderAdventureLog" style="margin-top:12px">今天還沒開戰。進入國文或數學，按「開始練習」就會遇到怪。</div>
   </div>
 </div>
-</div>
 
   <div class="todayFocus">
     <div class="focusBox">
@@ -532,10 +540,9 @@ body:not(.younger-mode) aside nav button[data-page="youngerStars"]{display:none}
       <div class="muted" id="todayPlanProgress" style="margin-top:7px">完成 0 / 0</div>
     </div>
     <div class="rewardMiniBar">
-        <span class="miniPill">🎮 完成＋訂正＝今天過關</span>
-        <span class="miniPill">🛡 錯題不扣獎勵</span>
-        <span class="miniPill">📱 完成後再照家裡規則安排平板時間</span>
-      </div>
+      <span class="miniPill">🎮 完成＋訂正＝今天過關</span>
+      <span class="miniPill">🛡 錯題不扣獎勵</span>
+      <span class="miniPill">📱 完成後再照家裡規則安排平板時間</span>
     </div>
   </div>
 
@@ -2636,3 +2643,4 @@ document.getElementById("histNext")?.addEventListener("click",()=>{
 
 </body>
 </html>
+
