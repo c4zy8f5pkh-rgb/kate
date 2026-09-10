@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V9.9｜復旦 × 六和</title>
+<title>兄弟學習基地 V10.0｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -282,6 +282,24 @@ body:not(.younger-mode) aside nav button[data-page="youngerStars"]{display:none}
 @media(max-width:650px){.adventureBattle{grid-template-columns:76px 1fr;gap:11px}.monsterFace{font-size:42px}.monsterStage{min-height:74px}.monsterName{font-size:15px}}
 </style>
 
+
+<style id="v100-mixed-adventure">
+.miniRuleStack{display:grid;gap:9px}
+.miniRule{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid #eadfca;border-radius:14px;background:#fffaf0}
+.miniRule span{font-size:22px}.miniRule b{display:block;font-size:14px}.miniRule small{display:block;color:#7b879c;margin-top:2px;font-size:12px}
+.adventureModeRail{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px;margin-top:12px}
+.adventureMode{padding:10px;border-radius:13px;border:1px solid #dfe5f2;background:#fff;text-align:center;font-size:12px}
+.adventureMode b{display:block;margin-top:4px;font-size:12px}
+.adventureMode.active{background:#f5f7ff;border-color:#b9c4f5}
+.mapTrack{display:flex;align-items:center;gap:6px;margin-top:12px;overflow:hidden}
+.mapNode{width:27px;height:27px;display:grid;place-items:center;border-radius:50%;background:#eef1f7;font-size:12px;font-weight:900;color:#637089;flex:0 0 auto}
+.mapNode.done{background:#e8f7eb;color:#3c7a47}.mapNode.current{background:#e9edff;color:#4056b3;border:2px solid #8fa1ff}
+.mapLine{height:3px;background:#e5e9f1;flex:1;min-width:10px}
+.keyRow{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12px;color:#657188}.keyDots{font-size:16px;letter-spacing:2px}
+.weekBadge{margin-left:auto;padding:4px 8px;border-radius:999px;background:#fff7e7;border:1px solid #efdcb2;color:#7f6229;font-weight:800}
+@media(max-width:760px){.adventureModeRail{grid-template-columns:repeat(2,minmax(0,1fr))}.adventureMode:last-child{grid-column:1/-1}}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -324,7 +342,7 @@ body:not(.younger-mode) aside nav button[data-page="youngerStars"]{display:none}
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V9.9</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V10.0</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -338,14 +356,30 @@ body:not(.younger-mode) aside nav button[data-page="youngerStars"]{display:none}
 <div class="olderOnly olderAdventure">
   <div class="adventureMission">
     <div class="muted">⚔️ 哥哥｜今日冒險</div>
-    <h3 style="margin:6px 0">能力地圖不是刷題，是找出今天要攻略的卡點</h3>
-    <div class="muted">系統會把錯題、弱點與新題混合。答題與今日任務會自動連動音效，不需要另外試聽。</div>
+    <h3 style="margin:6px 0">今天不是一直打怪，是一路探索、補弱點、開寶箱</h3>
+    <div class="muted">新題帶你走地圖；錯題變弱點怪；高難度才出 Boss；打倒怪物拿鑰匙，集滿開寶箱。</div>
     <div class="adventureMeter">
       <span class="adventureBadge">🧠 弱點怪：由錯題產生</span>
       <span class="adventureBadge">🗺 新題：探索區</span>
       <span class="adventureBadge">👑 高難度：Boss 關</span>
     </div>
     
+
+<div class="adventureModeRail">
+  <div class="adventureMode active"><span>🗺️</span><b>探索地圖</b></div>
+  <div class="adventureMode"><span>👾</span><b>弱點怪</b></div>
+  <div class="adventureMode"><span>🐲</span><b>Boss</b></div>
+  <div class="adventureMode"><span>🗝️</span><b>寶箱</b></div>
+  <div class="adventureMode"><span>🏅</span><b>能力徽章</b></div>
+</div>
+<div class="mapTrack" id="olderMapTrack">
+  <div class="mapNode current">1</div><div class="mapLine"></div>
+  <div class="mapNode">2</div><div class="mapLine"></div>
+  <div class="mapNode">3</div><div class="mapLine"></div>
+  <div class="mapNode">4</div><div class="mapLine"></div>
+  <div class="mapNode">5</div>
+</div>
+<div class="keyRow"><span>今日鑰匙</span><span class="keyDots" id="olderKeys">○ ○ ○</span><span class="weekBadge" id="olderBadgeText">本週徽章：累積中</span></div>
 <div class="adventureBattle" data-battle="home">
   <div class="monsterStage"><div class="monsterFace" data-monster-face>🧩</div></div>
   <div>
@@ -1330,7 +1364,7 @@ function recordChineseSchedule(item,outcome){
 const OLDER_ADVENTURE_KEY="older_adventure_state_v99";
 function adventureToday(){return new Date().toLocaleDateString("sv-SE")}
 function defaultAdventureState(){
-  return {date:adventureToday(),subject:null,kind:"explore",name:"今日探索怪",emoji:"🧩",skill:"",hp:3,maxHp:3,defeats:0,nextWeakSkill:null,message:"開始國文或數學後，怪物會跟著題目出現。"};
+  return {date:adventureToday(),subject:null,kind:"explore",name:"今日探索怪",emoji:"🧩",skill:"",hp:3,maxHp:3,defeats:0,nextWeakSkill:null,message:"開始國文或數學後，怪物會跟著題目出現。",mapStep:1,keys:0,badgePoints:0};
 }
 function loadAdventureState(){
   try{
@@ -1366,6 +1400,10 @@ function spawnAdventureMonster(subject,item){
   olderAdventureState.hp=hp;
   olderAdventureState.name=`${label}｜${skill}`;
   olderAdventureState.message=kind==="weak"?"這隻來自剛才的卡點，用不同題把它打掉。":(kind==="boss"?"高難度題出現，Boss 血量比較厚。":"答對就會真的扣怪物 HP。");
+  if(olderAdventureState.mapStep>=5 && olderAdventureState.hp===0){
+    olderAdventureState.message+=" 🗺️ 完成一段探索地圖！";
+    olderAdventureState.mapStep=1;
+  }
   saveAdventureState();renderAdventureBattle();
 }
 function ensureAdventureEncounter(subject,item){
@@ -1403,6 +1441,22 @@ function renderAdventureBattle(){
     if(hp)hp.textContent=`${Math.max(0,olderAdventureState.hp)} / ${olderAdventureState.maxHp}`;
     if(msg)msg.textContent=olderAdventureState.message;
   });
+
+  const nodes=[...document.querySelectorAll("#olderMapTrack .mapNode")];
+  nodes.forEach((n,i)=>{
+    n.classList.toggle("done",i+1<=(olderAdventureState.mapStep||1)-1);
+    n.classList.toggle("current",i+1===(olderAdventureState.mapStep||1));
+  });
+  const keys=document.getElementById("olderKeys");
+  if(keys){
+    const k=Math.max(0,Math.min(3,olderAdventureState.keys||0));
+    keys.textContent=[0,1,2].map(i=>i<k?"●":"○").join(" ");
+  }
+  const badge=document.getElementById("olderBadgeText");
+  if(badge){
+    const p=olderAdventureState.badgePoints||0;
+    badge.textContent=p>=5?"本週徽章：🏅 已解鎖":`本週徽章：${p}/5`;
+  }
   const log=document.getElementById("olderAdventureLog");
   if(log)log.textContent=olderAdventureState.subject?`目前對戰：${olderAdventureState.name}｜HP ${Math.max(0,olderAdventureState.hp)}/${olderAdventureState.maxHp}`:"今天還沒開戰。進入國文或數學，按「開始練習」就會遇到怪。";
 }
@@ -1420,9 +1474,16 @@ function adventureAnswer(subject,item,ok){
     olderAdventureState.hp=Math.max(0,olderAdventureState.hp-1);
     if(olderAdventureState.hp===0){
       olderAdventureState.defeats=(olderAdventureState.defeats||0)+1;
-      olderAdventureState.message=`🎁 打倒 ${olderAdventureState.name}！寶箱開啟，下一題會遇到新的怪。`;
+      olderAdventureState.mapStep=Math.min(5,(olderAdventureState.mapStep||1)+1);
+      olderAdventureState.keys=Math.min(3,(olderAdventureState.keys||0)+1);
+      olderAdventureState.badgePoints=Math.min(5,(olderAdventureState.badgePoints||0)+1);
+      olderAdventureState.message=`🎁 打倒 ${olderAdventureState.name}！拿到 1 把鑰匙並前進一格。`;
       animateAdventure("down");
       setTimeout(()=>playSound("olderChest"),180);
+      if(olderAdventureState.keys>=3){
+        olderAdventureState.message+=" 🗝️🗝️🗝️ 集滿三把鑰匙，開出今日寶箱！";
+        olderAdventureState.keys=0;
+      }
     }else{
       olderAdventureState.message=`⚔️ 命中！${olderAdventureState.name} 還剩 ${olderAdventureState.hp} HP。`;
       animateAdventure("hit");
