@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V14.0｜復旦 × 六和</title>
+<title>兄弟學習基地 V14.1｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -1684,6 +1684,102 @@ main{min-width:0}
 }
 </style>
 
+
+<style id="v141-younger-grade1-fix">
+/* 讓弟弟練習頁更像陪玩，不像說明書 */
+.youngerPracticeHud{
+  grid-template-columns:1fr auto !important;
+  padding:14px 16px !important;
+}
+.practiceBuddyMini{
+  grid-template-columns:74px 1fr !important;
+  align-items:center;
+}
+.practiceBuddyFace{
+  width:74px !important;
+  height:74px !important;
+  border-radius:20px !important;
+  font-size:38px !important;
+  box-shadow:0 10px 18px rgba(242,192,78,.18);
+}
+.practiceBuddyText b{
+  font-size:17px !important;
+}
+.practiceBuddyText span{
+  font-size:14px !important;
+  margin-top:4px !important;
+}
+.miniStatPill{
+  font-size:13px !important;
+}
+.compactGameSwitch button{
+  font-size:20px !important;
+  min-height:58px !important;
+}
+.letterStage{
+  padding:20px !important;
+}
+.letterPrompt{
+  font-size:18px !important;
+  text-align:left;
+}
+.letterChoices{
+  margin-top:12px;
+}
+.letterChoice{
+  min-height:84px !important;
+  font-size:32px !important;
+  font-weight:900 !important;
+  border-radius:18px !important;
+}
+.positionBtn{
+  min-height:66px !important;
+  font-size:18px !important;
+  border-radius:16px !important;
+}
+.youngerFeedback{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-size:18px !important;
+  line-height:1.5 !important;
+  font-weight:700;
+  color:#4d5d79;
+  background:linear-gradient(180deg,#fffdf5,#ffffff) !important;
+}
+.youngerFeedback::before{
+  content:"🐻";
+  flex:0 0 44px;
+  width:44px;
+  height:44px;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:24px;
+  background:#fff3c5;
+  border:1px solid #f0df9b;
+}
+.listenBtn{
+  min-height:56px !important;
+  font-size:18px !important;
+}
+.missionWorldCard{
+  min-height:160px !important;
+}
+.worldTitle{
+  font-size:18px !important;
+}
+.worldDesc{
+  font-size:12px !important;
+}
+@media(max-width:760px){
+  .youngerPracticeHud{grid-template-columns:1fr !important}
+  .practiceStatMini{justify-content:flex-start !important}
+  .compactGameSwitch{grid-template-columns:1fr 1fr !important}
+}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -1726,7 +1822,7 @@ main{min-width:0}
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V14.0</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V14.1</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -2201,29 +2297,29 @@ main{min-width:0}
     <div class="missionWorldScene" aria-label="弟弟今天四個遊戲任務">
       <button type="button" class="missionDot missionWorldCard" id="mission-case" data-task="case" title="大小寫配對">
         <div class="worldIcon">📚</div>
-        <div class="worldTitle">Aa 配對書屋</div>
-        <div class="worldDesc">找出大寫和小寫的小夥伴</div>
+        <div class="worldTitle">Aa 配對</div>
+        <div class="worldDesc">找一樣的一組</div>
         <div class="worldState" id="missionState-case">等待開始</div>
       </button>
 
       <button type="button" class="missionDot missionWorldCard" id="mission-position" data-task="position" title="四線格位置">
         <div class="worldIcon">✏️</div>
-        <div class="worldTitle">四線格畫板</div>
-        <div class="worldDesc">看看字母該站哪一區</div>
+        <div class="worldTitle">四線格</div>
+        <div class="worldDesc">看字母放哪裡</div>
         <div class="worldState" id="missionState-position">等待開始</div>
       </button>
 
       <button type="button" class="missionDot missionWorldCard" id="mission-look" data-task="look" title="字母辨識">
         <div class="worldIcon">🔎</div>
-        <div class="worldTitle">找找看廣場</div>
-        <div class="worldDesc">比對字母方向，不要看反</div>
+        <div class="worldTitle">找一樣</div>
+        <div class="worldDesc">看清楚方向</div>
         <div class="worldState" id="missionState-look">等待開始</div>
       </button>
 
       <button type="button" class="missionDot missionWorldCard" id="mission-listen" data-task="listen" title="聽音找字母">
         <div class="worldIcon">🎧</div>
-        <div class="worldTitle">慢慢聽小站</div>
-        <div class="worldDesc">小熊念一個字母，你來找</div>
+        <div class="worldTitle">聽一聽</div>
+        <div class="worldDesc">聽完找字母</div>
         <div class="worldState" id="missionState-listen">等待開始</div>
       </button>
     </div>
@@ -2283,7 +2379,7 @@ main{min-width:0}
     <div class="practiceTop">
       <div>
         <div class="muted">🔤 英文啟蒙</div>
-        <h3 style="margin-top:5px">直接開始練習</h3>
+        <h3 style="margin-top:5px">一起玩</h3>
       </div>
       <span class="tag" id="youngerTaskTag">準備開始</span>
     </div>
@@ -2306,8 +2402,8 @@ main{min-width:0}
     <div class="compactGameSwitch" aria-label="切換練習">
       <button type="button" data-younger-switch="case">Aa 大小寫</button>
       <button type="button" data-younger-switch="position">✍️ 四線格</button>
-      <button type="button" data-younger-switch="look">👀 字母辨識</button>
-      <button type="button" data-younger-switch="listen">👂 聽音</button>
+      <button type="button" data-younger-switch="look">👀 找一樣</button>
+      <button type="button" data-younger-switch="listen">👂 聽一聽</button>
     </div>
 
     <div id="youngerCaseTask" class="letterStage">
@@ -2340,17 +2436,17 @@ main{min-width:0}
 
 
     <div id="youngerListenTask" class="letterStage listenStage">
-      <div class="letterPrompt">先聽聲音，再找字母</div>
-      <button type="button" class="listenBtn" id="playLetterSound">🐻 小熊慢慢說一次</button>
-      <div class="listenHelper"><span class="listenPulse" id="listenPulse"></span><span class="muted">只聽一個字母，小熊會慢慢念。</span></div>
-      <div class="muted" style="margin:10px 0">聽到哪一個英文字母？</div>
+      <div class="letterPrompt">先聽，再找</div>
+      <button type="button" class="listenBtn" id="playLetterSound">🐻 再聽一次</button>
+      <div class="listenHelper"><span class="listenPulse" id="listenPulse"></span><span class="muted">小熊會慢慢念 1 個字母。</span></div>
+      <div class="muted" style="margin:10px 0">你聽到哪一個？</div>
       <div class="letterChoices" id="listenChoices"></div>
     </div>
 
-    <div class="youngerFeedback" id="youngerFeedback">選一個任務開始。</div>
+    <div class="youngerFeedback" id="youngerFeedback">🐻 小熊在這裡陪你，一次做一題就好。</div>
     <div class="practiceActions">
-      <button type="button" class="btn secondary" onclick="go('youngerHome')">回今天任務</button>
-      <button type="button" class="btn" id="youngerNextBtn">下一小題</button>
+      <button type="button" class="btn secondary" onclick="go('youngerHome')">回任務</button>
+      <button type="button" class="btn" id="youngerNextBtn">下一題</button>
     </div>
   </div>
 
@@ -3750,6 +3846,21 @@ function nextListenLetter(){
 }
 
 function shuffle(a){return [...a].sort(()=>Math.random()-.5);}
+const youngerAnswerSlotMemory={case:-1,look:-1,listen:-1};
+function placeChoices(task,correct,distractors,total=4){
+  const pool=[...new Set(distractors.filter(x=>x!==correct))];
+  while(pool.length<total-1) pool.push(...pool);
+  const picked=shuffle(pool).slice(0,total-1);
+  let slot=Math.floor(Math.random()*total);
+  if(youngerAnswerSlotMemory[task]===slot) slot=(slot+1+Math.floor(Math.random()*(total-1)))%total;
+  youngerAnswerSlotMemory[task]=slot;
+  const arr=new Array(total);
+  let di=0;
+  for(let i=0;i<total;i++){
+    arr[i]= i===slot ? correct : picked[di++];
+  }
+  return arr;
+}
 function youngerTaskLabel(task){
   return {case:"大小寫配對",position:"四線格位置",look:"字母辨識",listen:"聽音找字母"}[task]||"今天任務";
 }
@@ -3790,7 +3901,7 @@ function updateYoungerCoachPanels(){
   if(buddyBubble)buddyBubble.textContent=done>=4?"今天 4 關已經完成，弟弟可以休息一下。":`${nextLabel} ${weakHint}`;
 
   const bearStatus=document.getElementById("youngerBearStatus");
-  if(bearStatus)bearStatus.textContent=youngerProgress.streak>=3?`目前連對 ${youngerProgress.streak} 題，小熊很開心。`:"答對時會開心、答錯時會安撫。";
+  if(bearStatus)bearStatus.textContent=youngerProgress.streak>=3?`連對 ${youngerProgress.streak} 題！`:"小熊會陪你玩。";
 
   const honeyFill=document.getElementById("youngerHoneyFill");
   if(honeyFill)honeyFill.style.width=`${(done/4)*100}%`;
@@ -3825,8 +3936,8 @@ function updateYoungerCoachPanels(){
   const advice=document.getElementById("youngerNextAdvice");
   if(advice){
     if(done>=4) advice.textContent="今天四關完成了，之後可以用能力樹看哪一類還需要再練。";
-    else if(weak && weak.total>=3) advice.textContent=`建議下一輪多練「${youngerTaskShort(weak.k)}」，因為目前這一項最容易卡住。`;
-    else advice.textContent=`建議先做「${youngerTaskLabel(next)}」，讓弟弟先建立安全感。`;
+    else if(weak && weak.total>=3) advice.textContent=`下次多練「${youngerTaskShort(weak.k)}」。`;
+    else advice.textContent=`先做「${youngerTaskLabel(next)}」。`;
   }
 
   const miniStars=document.getElementById("youngerMiniStars");
@@ -3840,7 +3951,7 @@ function updateYoungerCoachPanels(){
   if(practiceFace)practiceFace.textContent=youngerProgress.streak>=3?"😄":"🐻";
 
   const sideStatus=document.getElementById("youngerHomeStatusTag");
-  if(sideStatus)sideStatus.textContent=done>=4?"今天完成":(next?`下一站：${youngerTaskShort(next)}`:"陪玩模式");
+  if(sideStatus)sideStatus.textContent=done>=4?"今天完成":(next?`下一站：${youngerTaskShort(next)}`:"陪玩");
 }
 
 function setYoungerCompanion(face,title,text,mood,hint,active=false){
@@ -3874,10 +3985,10 @@ function pulseListen(on){
   if(p)p.classList.toggle("on",!!on);
 }
 function youngerTaskIntro(type){
-  if(type==="case")setYoungerCompanion("🐻","小熊陪你找大小寫","先把大寫和小寫配起來，慢慢找就好。","配對時間","看清楚字母外形，不用急。",true);
-  else if(type==="position")setYoungerCompanion("🧸","小熊陪你找位置","看看字母站在哪一區，是往上、在中間、還是往下。","位置練習","先看四線格，再做判斷。",true);
-  else if(type==="look")setYoungerCompanion("🐻","小熊陪你找一樣的字母","特別看清楚 b、d、p、q 的方向。","觀察力開啟","圓圈在哪邊、直線在哪邊，很重要。",true);
-  else if(type==="listen")setYoungerCompanion("🐻","小熊慢慢念字母給你聽","一次只念一個字母，你聽完再找，不會很快。","聽力小關","按下按鈕，小熊會再慢慢說一次。",true);
+  if(type==="case")setYoungerCompanion("🐻","Aa 配一配","找一樣的一組。","大小寫","看清楚就好。",true);
+  else if(type==="position")setYoungerCompanion("🧸","看字母住哪裡","選上、中、下。","四線格","先看字母位置。",true);
+  else if(type==="look")setYoungerCompanion("👀","找一樣","看方向，不要看反。","找一樣","特別看 b d p q。",true);
+  else if(type==="listen")setYoungerCompanion("👂","聽一聽","聽完再找。","聽音","沒聽清楚就再按一次。",true);
 }
 function startYoungerTask(type){
   youngerTask=type;
@@ -3902,19 +4013,19 @@ function recordYounger(ok){
     youngerProgress.streak=(youngerProgress.streak||0)+1;
     youngerProgress.maxStreak=Math.max(youngerProgress.maxStreak||0,youngerProgress.streak);
     playSound("youngerGood");
-    setYoungerCompanion("😄","小熊說：答對了！","做得很好，我們繼續下一小題。","有進步喔",`目前連對 ${youngerProgress.streak} 題，慢慢變穩了。`,true);
+    setYoungerCompanion("😄","答對了","很好，做對了。","有進步","連對 "+youngerProgress.streak+" 題。",true);
   }else{
     s.bad++;
     youngerProgress.streak=0;
     playSound("youngerRetry");
-    setYoungerCompanion("🤗","小熊說：沒關係，再一次","答錯不扣星，我陪你再看一次。","再試一次","先看清楚，再選就可以。",true);
+    setYoungerCompanion("🤗","再試一次","沒關係，我陪你。","再一次","慢慢看，再選。",true);
   }
   if(ok && !youngerProgress.completed[youngerTask]){
     youngerProgress.completed[youngerTask]=true;
     youngerProgress.stars++;
     if(Object.values(youngerProgress.completed).filter(Boolean).length===4){
       playSound("youngerDone");
-      setYoungerCompanion("🥳","小熊說：今天四關完成了！","太棒了，今天的小任務都完成了。","今天通關","可以休息一下，等等再玩也可以。",true);
+      setYoungerCompanion("🥳","今天完成","四關都做完了。","完成","可以休息一下。",true);
     }
   }
   saveYoungerProgress();
@@ -3922,52 +4033,52 @@ function recordYounger(ok){
 }
 function nextYoungerQuestion(){
   const fb=document.getElementById("youngerFeedback");
-  fb.textContent="看清楚再選，不用急。";
+  fb.textContent="🐻 看清楚，再選。";
   if(youngerTask==="case"){
-    setYoungerCompanion("🐻","小熊陪你找大小寫","先把大寫和小寫配起來，慢慢找就好。","配對時間","看清楚字母外形，不用急。",true);
+    setYoungerCompanion("🐻","Aa 配一配","找一樣的一組。","大小寫","看清楚就好。",true);
     const pair=nextCasePair();
     youngerCurrent={answer:pair[1]};
     document.getElementById("casePrompt").textContent=`請找出大寫 ${pair[0]} 的小寫朋友`;
-    const distract=shuffle(casePairs.map(x=>x[1]).filter(x=>x!==pair[1])).slice(0,3);
-    const choices=shuffle([pair[1],...distract]);
+    const distract=casePairs.map(x=>x[1]).filter(x=>x!==pair[1]);
+    const choices=placeChoices("case",pair[1],distract,4);
     const wrap=document.getElementById("caseChoices");wrap.innerHTML="";
     choices.forEach(v=>{
       const b=document.createElement("button");b.type="button";b.className="letterChoice";b.textContent=v;
       b.onclick=()=>{
         const ok=v===youngerCurrent.answer;
         b.classList.add(ok?"good":"bad");
-        fb.textContent=ok?`✅ 對！${pair[0]} 和 ${pair[1]} 是一組。`:`再看一次：大寫 ${pair[0]} 要找小寫 ${pair[1]}。`;
+        fb.textContent=ok?`🐻 對了！${pair[0]} 和 ${pair[1]} 是一組。`:`🐻 再看一次，找 ${pair[1]}。`;
         recordYounger(ok);
       };wrap.appendChild(b);
     });
   }else if(youngerTask==="look"){
-    setYoungerCompanion("🧐","小熊陪你看方向","這題要看清楚字母方向，圓圈跟直線別看反。","觀察力開啟","b、d、p、q 最容易混淆。",true);
+    setYoungerCompanion("🧐","看方向","看清楚，不要看反。","找一樣","b d p q 要小心。",true);
     const item=nextLookSet();
     youngerCurrent={answer:item.target};
     document.getElementById("lookTarget").textContent=item.target;
-    document.getElementById("lookPrompt").textContent="哪一個和上面的目標字母一樣？";
+    document.getElementById("lookPrompt").textContent="哪一個一樣？";
     const wrap=document.getElementById("lookChoices");wrap.innerHTML="";
-    shuffle(item.choices).forEach(v=>{
+    placeChoices("look",item.target,item.choices.filter(v=>v!==item.target),4).forEach(v=>{
       const b=document.createElement("button");b.type="button";b.className="letterChoice";b.textContent=v;
       b.onclick=()=>{
         const ok=v===item.target;b.classList.add(ok?"good":"bad");
-        fb.textContent=ok?"✅ 找到了！形狀方向也要看清楚。":"再看一次字母的圓圈在哪邊、直線在哪邊。";
+        fb.textContent=ok?"🐻 找到了！":"🐻 再看方向。";
         recordYounger(ok);
       };wrap.appendChild(b);
     });
   }else if(youngerTask==="listen"){
-    setYoungerCompanion("👂","小熊準備念字母","一次只聽一個字母，聽清楚再選。","聽力小關","按下按鈕，小熊會慢慢說。",true);
+    setYoungerCompanion("👂","聽一聽","我先念，你再選。","聽音","沒聽清楚可再按。",true);
     const letters="ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
     const target=nextListenLetter();
     youngerCurrent={answer:target};
-    const distract=shuffle(letters.filter(x=>x!==target)).slice(0,3);
-    const choices=shuffle([target,...distract]);
+    const distract=letters.filter(x=>x!==target);
+    const choices=placeChoices("listen",target,distract,4);
     const wrap=document.getElementById("listenChoices");wrap.innerHTML="";
     const speak=()=>{
       try{
         speechSynthesis.cancel();
         pulseListen(true);
-        setYoungerCompanion("👂","小熊正在慢慢念字母","仔細聽，只會念一個字母，而且速度放慢。","慢慢聽","如果沒聽清楚，再按一次就好。",true);
+        setYoungerCompanion("👂","我念一次","仔細聽。","慢慢聽","沒聽清楚就再按一次。",true);
         const u=new SpeechSynthesisUtterance(target);
         u.lang="en-US";u.rate=.48;u.pitch=.98;u.onend=()=>pulseListen(false);u.onerror=()=>pulseListen(false);speechSynthesis.speak(u);
       }catch(e){}
@@ -3978,12 +4089,12 @@ function nextYoungerQuestion(){
       const b=document.createElement("button");b.type="button";b.className="letterChoice";b.textContent=v;
       b.onclick=()=>{
         const ok=v===target;b.classList.add(ok?"good":"bad");
-        fb.textContent=ok?`✅ 對！剛剛聽到的是 ${target}。`:`沒關係，再按一次「小熊慢慢說一次」，再聽一次。`;
+        fb.textContent=ok?`🐻 對了！是 ${target}。`:`🐻 再聽一次。`;
         recordYounger(ok);
       };wrap.appendChild(b);
     });
   }else{
-    setYoungerCompanion("✍️","小熊陪你看字母位置","看看字母主要在中間、往上長，還是往下伸。","位置練習","先看四線格，再做判斷。",true);
+    setYoungerCompanion("✍️","看位置","選上、中、下。","四線格","先看字母住哪裡。",true);
     const item=nextPositionLetter();
     youngerCurrent={answer:item.zone};
     document.getElementById("positionLetter").textContent=item.letter;
@@ -3993,7 +4104,7 @@ function nextYoungerQuestion(){
       b.onclick=()=>{
         const ok=b.dataset.zone===item.zone;b.classList.add(ok?"good":"bad");
         const desc={tall:"會往上長",middle:"主要留在中間",descender:"會往下伸"};
-        fb.textContent=ok?`✅ 對！${item.letter} ${desc[item.zone]}。`:`再看四線格：${item.letter} ${desc[item.zone]}。`;
+        fb.textContent=ok?`🐻 對了！${item.letter} ${desc[item.zone]}。`:`🐻 再看一下 ${item.letter}。`;
         recordYounger(ok);
       };
     });
@@ -4018,7 +4129,7 @@ document.getElementById("youngerBearWaveBtn")?.addEventListener("click",()=>{
     setTimeout(()=>face.classList.remove("wave"),320);
   }
   const next=nextIncompleteYoungerTask();
-  setYoungerCompanion("🐻","小熊說：我們先一題一題來","先不用擔心會不會，慢慢做，小熊會陪你。","安心練習",`現在最適合先做「${youngerTaskLabel(next)}」。`,true);
+  setYoungerCompanion("🐻","我們慢慢來","先做一題看看。","安心練習",`先玩「${youngerTaskLabel(next)}」。`,true);
   updateYoungerCoachPanels();
   renderYoungerMissionHome();
 });
@@ -4109,7 +4220,7 @@ function renderYoungerProgress(){
   updateYoungerCoachPanels();
 }
 renderYoungerProgress();
-setYoungerCompanion("🐻","小熊今天陪你玩四小關","慢慢看、慢慢選。答錯不會扣星星，我們再試一次就好。","陪你慢慢學","小熊會跟著題型、答對答錯一起變化。",false);
+setYoungerCompanion("🐻","小熊今天陪你玩","一次做一題就好。","陪你慢慢學","小熊會陪你答題。",false);
 
 // restore last profile without forcing a click loop
 document.body.classList.toggle("younger-mode",currentProfile==="younger");
