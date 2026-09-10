@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V15.1｜復旦 × 六和</title>
+<title>兄弟學習基地 V15.3｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -1958,6 +1958,174 @@ body:not(.younger-mode) .page.youngerOnly{
 }
 </style>
 
+
+<style id="v152-round-progress-fix">
+.youngerRoundProgress{
+  padding:7px 11px;
+  border-radius:999px;
+  background:#f4f7ff;
+  border:1px solid #e2e8f5;
+  color:#61708c;
+  font-size:12px;
+  font-weight:800;
+}
+.youngerRoundProgress.done{
+  background:#edf8ee;
+  border-color:#cfe7d2;
+  color:#41714a;
+}
+</style>
+
+
+<style id="v153-bear-variation-upgrade">
+/* V15.3：讓小熊真的有變化，不只是換一句話 */
+.cssBear{
+  --bear-main:#c88b55;
+  --bear-dark:#925d37;
+  --bear-body:#bd7d49;
+  --bear-light:#efd0a9;
+}
+.cssBear .bearHead,
+.cssBear .bearBody,
+.cssBear .bearArm,
+.cssBear .bearEar{transition:transform .24s ease, filter .24s ease, background .24s ease, border-color .24s ease}
+.cssBear .bearMouth{transition:all .22s ease}
+.cssBear .bearEye{transition:all .2s ease}
+.cssBear::before,
+.cssBear::after{
+  position:absolute;
+  pointer-events:none;
+  transition:all .25s ease;
+}
+
+/* 基本眨眼 */
+.cssBear .bearEye{animation:bearBlink 4.8s infinite}
+.cssBear .bearEye.right{animation-delay:.18s}
+@keyframes bearBlink{
+  0%,46%,48%,100%{transform:scaleY(1)}
+  47%{transform:scaleY(.08)}
+}
+
+/* 狀態變化 */
+.cssBear[data-mood="idle"] .bearMouth{
+  border-bottom-width:3px;
+  width:18px;
+}
+.cssBear[data-mood="happy"]{
+  animation:bearJump .52s ease 1;
+}
+.cssBear[data-mood="happy"] .bearMouth{
+  width:24px;height:12px;border-bottom-width:4px;
+}
+.cssBear[data-mood="happy"]::after{
+  content:"✨";
+  right:-2px; top:6px; font-size:22px;
+  animation:sparklePop .85s ease 1;
+}
+.cssBear[data-mood="retry"] .bearHead{transform:rotate(-8deg)}
+.cssBear[data-mood="retry"] .bearMouth{
+  width:14px;height:8px;border-bottom-width:2px;
+}
+.cssBear[data-mood="retry"]::after{
+  content:"💧";
+  right:2px; top:16px; font-size:18px;
+  animation:dropShake .85s ease 1;
+}
+.cssBear[data-mood="done"]{
+  animation:bearCelebrate .8s ease 1;
+}
+.cssBear[data-mood="done"]::after{
+  content:"⭐";
+  right:-6px; top:-2px; font-size:22px;
+  animation:sparklePop 1s ease 1;
+}
+.cssBear[data-mood="listen"] .bearHead{transform:rotate(6deg)}
+.cssBear[data-mood="listen"] .bearArm.right{transform:rotate(-42deg)}
+.cssBear[data-mood="focus"] .bearEye{
+  width:12px;height:12px;
+}
+@keyframes bearJump{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-8px)}
+}
+@keyframes bearCelebrate{
+  0%,100%{transform:translateY(0) scale(1)}
+  25%{transform:translateY(-8px) scale(1.03)}
+  50%{transform:translateY(0) scale(1.01)}
+  75%{transform:translateY(-5px) scale(1.03)}
+}
+@keyframes sparklePop{
+  0%{transform:scale(.4) rotate(-20deg);opacity:0}
+  40%{transform:scale(1.1) rotate(8deg);opacity:1}
+  100%{transform:scale(.8) rotate(15deg);opacity:0}
+}
+@keyframes dropShake{
+  0%{transform:translateY(-4px) rotate(-10deg);opacity:0}
+  25%{opacity:1}
+  70%{transform:translateY(3px) rotate(10deg)}
+  100%{transform:translateY(8px) rotate(0);opacity:0}
+}
+
+/* 題型專屬道具 / 造型 */
+.cssBear[data-role="case"]::before{
+  content:"Aa";
+  left:-14px; top:68px;
+  width:42px; height:32px;
+  display:flex; align-items:center; justify-content:center;
+  border-radius:11px; background:#fff6d9; border:1px solid #efd999;
+  font-size:18px; font-weight:900; color:#7a5e25;
+  box-shadow:0 8px 14px rgba(154,128,45,.12);
+}
+.cssBear[data-role="position"]::before{
+  content:"✏️";
+  left:-14px; top:68px;
+  font-size:28px; transform:rotate(-8deg);
+}
+.cssBear[data-role="look"]::before{
+  content:"🔎";
+  left:-16px; top:66px;
+  font-size:30px;
+}
+.cssBear[data-role="listen"]::before{
+  content:"🎧";
+  left:50%; top:0; transform:translateX(-50%);
+  font-size:24px;
+}
+.cssBear[data-role="listen"] .bearEar{filter:saturate(1.18)}
+.cssBear[data-role="listen"] .bearHead::after{
+  content:"♪";
+  position:absolute; right:-10px; top:6px; color:#6f87df; font-size:18px; font-weight:900;
+  animation:musicFloat 1.2s ease-in-out infinite;
+}
+@keyframes musicFloat{
+  0%,100%{transform:translateY(0);opacity:.5}
+  50%{transform:translateY(-5px);opacity:1}
+}
+
+/* 首頁小熊可愛一點 */
+.homeBear{
+  filter:drop-shadow(0 12px 16px rgba(110,86,60,.15));
+}
+.homeBear[data-mood="done"]::before{
+  content:"👑";
+  left:50%; top:-8px; transform:translateX(-50%);
+  font-size:26px;
+}
+.homeBear[data-mood="happy"]::before{
+  content:"🎉";
+  left:50%; top:-6px; transform:translateX(-50%);
+  font-size:22px;
+}
+
+/* 小遊戲說話框變更柔和 */
+.kidGameSpeech{
+  background:linear-gradient(180deg,#ffffff,#fbfcff);
+}
+.kidFeedback{
+  background:linear-gradient(180deg,#fffdf5,#fff);
+}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -1999,7 +2167,7 @@ body:not(.younger-mode) .page.youngerOnly{
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V15.1</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V15.3</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -2523,7 +2691,7 @@ body:not(.younger-mode) .page.youngerOnly{
     <div class="youngerFeedback kidFeedback">🐻 看清楚，再選。</div>
     <div class="kidGameBottom">
       <button type="button" class="kidNextBtn youngerNextAction">下一題 →</button>
-      <span class="youngerMiniDone">完成 0 / 4</span>
+      <span class="youngerRoundProgress">本關 0 / 4</span>
     </div>
   </div>
 </section>
@@ -2558,7 +2726,7 @@ body:not(.younger-mode) .page.youngerOnly{
     <div class="youngerFeedback kidFeedback">🐻 看字母，再選。</div>
     <div class="kidGameBottom">
       <button type="button" class="kidNextBtn youngerNextAction">下一題 →</button>
-      <span class="youngerMiniDone">完成 0 / 4</span>
+      <span class="youngerRoundProgress">本關 0 / 4</span>
     </div>
   </div>
 </section>
@@ -2586,7 +2754,7 @@ body:not(.younger-mode) .page.youngerOnly{
     <div class="youngerFeedback kidFeedback">🐻 看方向，再選。</div>
     <div class="kidGameBottom">
       <button type="button" class="kidNextBtn youngerNextAction">下一題 →</button>
-      <span class="youngerMiniDone">完成 0 / 4</span>
+      <span class="youngerRoundProgress">本關 0 / 4</span>
     </div>
   </div>
 </section>
@@ -2617,7 +2785,7 @@ body:not(.younger-mode) .page.youngerOnly{
     <div class="youngerFeedback kidFeedback">🐻 聽完，再選。</div>
     <div class="kidGameBottom">
       <button type="button" class="kidNextBtn youngerNextAction">下一題 →</button>
-      <span class="youngerMiniDone">完成 0 / 4</span>
+      <span class="youngerRoundProgress">本關 0 / 4</span>
     </div>
   </div>
 </section>
@@ -4111,6 +4279,12 @@ function updateYoungerCoachPanels(){
   document.querySelectorAll(".youngerMiniDone").forEach(el=>el.textContent=`完成 ${done} / 4`);
   document.querySelectorAll(".youngerMiniStreak").forEach(el=>el.textContent=`連對 ${youngerProgress.streak||0}`);
 
+  const roundNow=(youngerProgress.roundCorrect&&youngerProgress.roundCorrect[youngerTask])||0;
+  document.querySelectorAll(".kidGamePage.active .youngerRoundProgress").forEach(el=>{
+    el.textContent=`本關 ${roundNow} / 4`;
+    el.classList.toggle("done",roundNow>=4);
+  });
+
   const sideStatus=document.getElementById("youngerHomeStatusTag");
   if(sideStatus)sideStatus.textContent=done>=4?"今天完成":(next?`下一站：${youngerTaskShort(next)}`:"陪玩");
 }
@@ -4136,8 +4310,23 @@ function setYoungerCompanion(face,title,text,mood,hint,active=false){
     if(s)s.textContent=hint||text||"慢慢做。";
   });
 
+  let role="home";
+  if(youngerTask==="case") role="case";
+  else if(youngerTask==="position") role="position";
+  else if(youngerTask==="look") role="look";
+  else if(youngerTask==="listen") role="listen";
+
+  let moodState="idle";
+  if(face==="😄") moodState="happy";
+  else if(face==="🤗") moodState="retry";
+  else if(face==="🥳") moodState="done";
+  else if(face==="👂") moodState="listen";
+  else if(face==="🧐" || face==="👀") moodState="focus";
+
   document.querySelectorAll(".cssBear").forEach(bear=>{
     bear.classList.remove("happy","retry");
+    bear.dataset.role = bear.classList.contains("homeBear") ? "home" : role;
+    bear.dataset.mood = moodState;
     if(face==="😄"||face==="🥳")bear.classList.add("happy");
     if(face==="🤗")bear.classList.add("retry");
     if(active){ void bear.offsetWidth; }
@@ -4161,6 +4350,7 @@ function startYoungerTask(type){
   if(!page || !page.classList.contains("active"))go(targetPage);
   youngerTaskIntro(type);
   renderYoungerMissionHome();
+  renderYoungerProgress();
   nextYoungerQuestion();
 }
 function recordYounger(ok){
@@ -4201,16 +4391,20 @@ function setKidFeedback(text){
 function setKidBearMood(ok){
   document.querySelectorAll(".kidGamePage.active .cssBear").forEach(b=>{
     b.classList.remove("happy","retry");
+    b.dataset.mood = ok ? "happy" : "retry";
     void b.offsetWidth;
     b.classList.add(ok?"happy":"retry");
-    setTimeout(()=>b.classList.remove("happy","retry"),700);
+    setTimeout(()=>{
+      b.classList.remove("happy","retry");
+      b.dataset.mood="idle";
+    },900);
   });
 }
 function nextYoungerQuestion(){
   setKidFeedback("🐻 看清楚，再選。");
 
   if(youngerTask==="case"){
-    setYoungerCompanion("🐻","找小寫朋友","慢慢找。","Aa","點一個答案。",true);
+    setYoungerCompanion("🐻","找小寫朋友","看看大寫和小寫。","Aa","小熊拿字母卡陪你。",true);
     const pair=nextCasePair();
     youngerCurrent={answer:pair[1]};
     const prompt=document.getElementById("casePrompt");
@@ -4233,7 +4427,7 @@ function nextYoungerQuestion(){
   }
 
   else if(youngerTask==="position"){
-    setYoungerCompanion("🐻","看字母住哪裡","看四線格。","四線格","選上、中、下。",true);
+    setYoungerCompanion("🐻","看字母住哪裡","先看線，再選。","四線格","小熊拿鉛筆陪你。",true);
     const item=nextPositionLetter();
     youngerCurrent={answer:item.zone};
     const letter=document.getElementById("positionLetter");
@@ -4253,7 +4447,7 @@ function nextYoungerQuestion(){
   }
 
   else if(youngerTask==="look"){
-    setYoungerCompanion("🐻","找一樣","看方向。","找一樣","找跟上面一樣的。",true);
+    setYoungerCompanion("🐻","找一樣","特別看方向。","找一樣","小熊拿放大鏡陪你。",true);
     const item=nextLookSet();
     youngerCurrent={answer:item.target};
     const target=document.getElementById("lookTarget");
@@ -4273,7 +4467,7 @@ function nextYoungerQuestion(){
   }
 
   else if(youngerTask==="listen"){
-    setYoungerCompanion("🐻","先聽","聽完再找。","聽音","可以再聽一次。",true);
+    setYoungerCompanion("👂","先聽","聽完再找。","聽音","小熊戴耳機陪你。",true);
     const letters="ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
     const target=nextListenLetter();
     youngerCurrent={answer:target};
@@ -4409,7 +4603,7 @@ function renderYoungerProgress(){
   updateYoungerCoachPanels();
 }
 renderYoungerProgress();
-setYoungerCompanion("🐻","今天玩 4 小關","選一個開始。","一起玩","小熊會陪你。",false);
+setYoungerCompanion("🐻","今天玩 4 小關","選一個開始。","一起玩","每關小熊都會變。",false);
 
 // restore last profile without forcing a click loop
 document.body.classList.toggle("younger-mode",currentProfile==="younger");
