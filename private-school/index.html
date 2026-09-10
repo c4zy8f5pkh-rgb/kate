@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V13.0｜復旦 × 六和</title>
+<title>兄弟學習基地 V14.0｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -1444,6 +1444,246 @@ main{min-width:0}
 }
 </style>
 
+
+<style id="v140-younger-upgrade">
+/* ===== 哥哥區微調 ===== */
+.olderQuestPanel{
+  background:linear-gradient(180deg,#f8faff,#ffffff);
+  box-shadow:0 8px 18px rgba(82,100,152,.06);
+}
+.olderQuestButtons .btn#olderContinueBtn{
+  box-shadow:0 8px 18px rgba(83,110,221,.18);
+}
+
+/* ===== 弟弟首頁：真的改成遊戲感 ===== */
+.youngerPlayHero{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:16px;
+  margin-top:4px;
+}
+.youngerPlayHeroMain,
+.youngerPlaySide{
+  background:linear-gradient(180deg,#fffef8,#ffffff);
+  border:1px solid #e7ebf6;
+  border-radius:24px;
+  box-shadow:0 12px 26px rgba(79,95,142,.07);
+}
+.youngerPlayHeroMain{
+  display:grid;
+  grid-template-columns:160px 1fr;
+  gap:18px;
+  padding:18px;
+  align-items:center;
+}
+.bearStageDisplay{
+  position:relative;
+  min-height:180px;
+  border-radius:24px;
+  background:linear-gradient(180deg,#fef5d9 0%,#fff7e7 54%,#f5fbef 55%,#edf8e5 100%);
+  border:1px solid #f1e3b5;
+  overflow:hidden;
+}
+.bearGlow{
+  position:absolute;left:50%;top:28%;transform:translate(-50%,-50%);
+  width:100px;height:100px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,229,123,.55),rgba(255,229,123,.18) 45%,transparent 72%);
+  animation:bearGlowPulse 2s ease-in-out infinite;
+}
+@keyframes bearGlowPulse{
+  0%,100%{transform:translate(-50%,-50%) scale(.95)}
+  50%{transform:translate(-50%,-50%) scale(1.1)}
+}
+.bearStageFace{
+  position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);
+  width:96px;height:96px;border-radius:28px;
+  background:#fff8dc;border:1px solid #f1dda4;
+  display:flex;align-items:center;justify-content:center;
+  font-size:52px;box-shadow:0 10px 22px rgba(242,192,78,.18);
+  transition:transform .18s ease;
+}
+.bearStageFace.wave{transform:translate(-50%,-50%) rotate(-8deg) scale(1.04)}
+.bearStageFloor{
+  position:absolute;left:8%;right:8%;bottom:16px;height:18px;border-radius:999px;
+  background:rgba(139,206,123,.22);
+}
+.youngerPlayText h2{font-size:28px;color:#43516c}
+.bearCoachPanel{
+  display:grid;grid-template-columns:70px 1fr;gap:12px;
+  margin-top:12px;padding:14px;border-radius:20px;
+  background:#fbfcff;border:1px solid #e6ebf8;
+}
+.coachFace{
+  width:70px;height:70px;border-radius:18px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:36px;background:linear-gradient(180deg,#fff6d6,#fff0b4);
+  border:1px solid #f1e0a5;
+}
+.coachSpeech b{display:block;font-size:16px;color:#40506d}
+.coachSpeech span{display:block;margin-top:6px;color:#60708e;font-size:14px;line-height:1.6}
+.playHeroStats{
+  display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;
+}
+.playStatChip{
+  display:inline-flex;align-items:center;padding:8px 12px;border-radius:999px;
+  background:#f5f8ff;border:1px solid #e2e7f5;font-size:13px;font-weight:700;color:#596786;
+}
+.playHeroActions{
+  display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;
+}
+.youngerPlaySide{
+  padding:18px;display:grid;gap:14px;align-content:start;
+}
+.sideRewardCard{
+  padding:14px;border-radius:20px;background:#fbfcff;border:1px solid #e5ebf8;
+}
+.honeyJar.big{height:18px;margin-top:12px}
+.stickerShelf.large .stickerBadge{width:48px;height:48px;border-radius:16px}
+
+/* ===== 四個遊戲任務場景 ===== */
+.missionWorldBox{
+  margin-top:16px;padding:16px;border-radius:24px;
+  background:linear-gradient(180deg,#f9fbff 0%,#ffffff 100%);
+  border:1px solid #e4e9f7;
+  box-shadow:0 12px 24px rgba(84,101,145,.06);
+}
+.missionWorldHead{
+  display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap;
+}
+.missionWorldScene{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:14px;
+}
+.missionWorldCard{
+  min-height:180px;
+  padding:16px 14px;
+  border:1px solid #e3e8f6;
+  border-radius:22px;
+  background:linear-gradient(180deg,#ffffff,#fbfdff);
+  display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;
+  text-align:left;cursor:pointer;
+  transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+  box-shadow:0 10px 20px rgba(87,103,145,.06);
+}
+.missionWorldCard:hover{
+  transform:translateY(-3px);
+  box-shadow:0 14px 24px rgba(87,103,145,.10);
+}
+.worldIcon{
+  width:58px;height:58px;border-radius:18px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:28px;
+  background:#f2f6ff;border:1px solid #dfe7f7;
+}
+.worldTitle{
+  margin-top:12px;font-size:16px;font-weight:800;color:#43516c;line-height:1.35;
+}
+.worldDesc{
+  margin-top:8px;font-size:13px;color:#6f7d97;line-height:1.6;
+}
+.worldState{
+  margin-top:auto;
+  display:inline-flex;align-items:center;padding:8px 10px;border-radius:999px;
+  background:#f6f8ff;border:1px solid #e1e7f5;font-size:12px;font-weight:700;color:#60708e;
+}
+.missionWorldCard.done{
+  border-color:#d8eadb;background:linear-gradient(180deg,#f9fff8,#f4fcf1);
+}
+.missionWorldCard.done .worldIcon{background:#eef9e8;border-color:#d7ecce}
+.missionWorldCard.done .worldState{background:#eef9e8;border-color:#d7ecce;color:#41704d}
+.missionWorldCard.next{
+  border-color:#bfcfff;
+  box-shadow:0 0 0 4px rgba(144,166,255,.10),0 14px 26px rgba(80,100,164,.12);
+}
+.missionWorldCard.activePlay{
+  border-color:#94aaff;
+  background:linear-gradient(180deg,#ffffff,#f4f8ff);
+}
+.missionWorldFooter{
+  margin-top:12px;
+  display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;
+}
+.miniTrail{display:flex;gap:8px;align-items:center}
+.trailDot{
+  width:12px;height:12px;border-radius:50%;
+  background:#e2e8f7;border:1px solid #d7deef;
+}
+.trailDot.on{background:#ffd86a;border-color:#f5c852;box-shadow:0 0 0 4px rgba(255,216,106,.16)}
+
+/* ===== 儀表板 ===== */
+.youngerDashboardGrid{
+  display:grid;grid-template-columns:1fr .92fr;gap:16px;margin-top:16px;
+}
+.momPeekCard .treeDiag{margin-top:12px}
+.taskMeterCard,
+.momPeekCard{border-radius:22px}
+
+/* ===== 弟弟練習頁更像遊戲，而不是後台 ===== */
+.youngerPracticeHud{
+  background:linear-gradient(180deg,#fffdf5,#ffffff);
+  border:1px solid #e7ebf6;
+  border-radius:20px;
+  box-shadow:0 8px 18px rgba(88,104,149,.05);
+}
+.practiceBuddyFace{
+  background:linear-gradient(180deg,#fff6d6,#fff0b4);
+  border:1px solid #f1e0a5;
+}
+.compactGameSwitch{
+  margin-top:12px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+.compactGameSwitch button{
+  min-height:52px;
+  border-radius:16px;
+  border:1px solid #e2e8f6;
+  background:#fff;
+  font:inherit;font-weight:800;color:#4c5a77;cursor:pointer;
+  box-shadow:0 6px 14px rgba(86,103,148,.05);
+}
+.compactGameSwitch button.active{
+  background:linear-gradient(180deg,#f5f8ff,#eef4ff);
+  border-color:#b9c9ff;
+  box-shadow:0 0 0 4px rgba(144,166,255,.08);
+}
+.letterStage{
+  margin-top:14px;
+  padding:18px;
+  border-radius:22px;
+  background:linear-gradient(180deg,#fcfdff,#f9fbff);
+  border:1px solid #e5ebf8;
+}
+.letterPrompt{
+  font-size:20px;
+  font-weight:900;
+  color:#41506b;
+  margin-bottom:10px;
+}
+.youngerFeedback{
+  margin-top:14px;
+  padding:12px 14px;
+  border-radius:16px;
+  background:#fbfcff;
+  border:1px solid #e5ebf8;
+}
+.practiceActions{margin-top:12px}
+.practiceActions .btn{min-width:120px}
+
+@media(max-width:960px){
+  .youngerPlayHero{grid-template-columns:1fr}
+  .missionWorldScene{grid-template-columns:repeat(2,1fr)}
+  .youngerDashboardGrid{grid-template-columns:1fr}
+}
+@media(max-width:680px){
+  .youngerPlayHeroMain{grid-template-columns:1fr}
+  .bearStageDisplay{min-height:150px}
+  .missionWorldScene{grid-template-columns:1fr}
+  .compactGameSwitch{grid-template-columns:1fr 1fr}
+  .missionWorldCard{min-height:154px}
+}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -1486,7 +1726,7 @@ main{min-width:0}
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V13.0</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V14.0</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -1551,8 +1791,9 @@ main{min-width:0}
         <span class="tag" id="olderQuestMode">探索中</span>
       </div>
       <div class="olderQuestButtons">
-        <button type="button" class="btn" id="olderGoChinese">📖 國文主線</button>
-        <button type="button" class="btn" id="olderGoMath">🧮 數學主線</button>
+        <button type="button" class="btn" id="olderContinueBtn">⚔️ 繼續今天主線</button>
+        <button type="button" class="btn secondary" id="olderGoChinese">📖 國文主線</button>
+        <button type="button" class="btn secondary" id="olderGoMath">🧮 數學主線</button>
         <button type="button" class="btn secondary" id="olderGoWrong">🩹 看錯題補洞</button>
       </div>
       <div class="olderQuestStats">
@@ -1890,131 +2131,149 @@ main{min-width:0}
 
 
 
+
 <section id="youngerHome" class="page youngerOnly">
-  <div class="youngerHero">
-    <div class="youngerMission">
-      <div class="muted">🧒 弟弟今日任務</div>
-      <div class="focusTitle" style="margin-top:6px">短短 4 關，完成就停</div>
-      <div class="muted">先把「看得懂、放得對、配得起來」建立起來，不急著刷很多題。</div>
-      <div class="youngerProgressRow">
-        <span class="youngerChip">⏱ 5–10 分鐘</span>
-        <span class="youngerChip" id="youngerStars">⭐ 0 顆</span>
-        <span class="youngerChip" id="youngerDone">今天 0 / 4 關</span>
+  <div class="youngerPlayHero">
+    <div class="youngerPlayHeroMain">
+      <div class="bearStageDisplay">
+        <div class="bearGlow"></div>
+        <div class="bearStageFace" id="youngerBuddyFaceHome">🐻</div>
+        <div class="bearStageFloor"></div>
       </div>
-    </div>
-    <div class="youngerReward">
-      <div class="muted">今天的小目標</div>
-      <div style="font-size:36px;margin:8px 0">🌟</div>
-      <b>不是寫很多，是把位置弄懂</b>
-      <div class="muted" style="margin-top:6px">每關完成就有星星；答錯不扣星，柔和提醒再試一次。</div>
-    </div>
-  </div>
 
-  
-<div class="companionCard">
-  <div class="companionFace" id="youngerCompanionFace">🐻</div>
-  <div class="companionText">
-    <b id="youngerCompanionTitle">小熊今天陪你玩四小關 <span class="bearBadge" id="youngerCompanionMood">陪你慢慢學</span></b>
-    <span id="youngerCompanionText">慢慢看、慢慢選。答錯不會扣星星，我們再試一次就好。</span>
-    <div class="companionHint" id="youngerCompanionHint">小熊會跟著題型、答對答錯一起變化。</div>
-  </div>
-</div>
+      <div class="youngerPlayText">
+        <div class="muted">🧸 弟弟互動啟蒙站</div>
+        <h2 style="margin-top:6px">小熊森林遊戲屋</h2>
 
-
-<div class="youngerEnhanceGrid">
-  <div class="card buddyStageCard">
-    <div class="buddyTopLine">
-      <div>
-        <div class="muted">🐻 小熊陪玩區</div>
-        <h3 style="margin-top:4px">今天先陪弟弟把基礎做穩</h3>
-      </div>
-      <span class="tag" id="youngerHomeStatusTag">陪玩模式</span>
-    </div>
-    <div class="buddyStageMain">
-      <div class="buddyAvatarBig" id="youngerBuddyFaceHome">🐻</div>
-      <div class="buddySpeech">
-        <b id="youngerBuddyBubbleTitle">小熊會跟著題型一起變化</b>
-        <div class="muted" id="youngerBuddyBubble">今天先完成 4 個小任務，不求很多，求穩穩會。</div>
-        <div class="buddyActionRow">
-          <button type="button" class="btn secondary" id="youngerBearWaveBtn">👋 跟小熊打招呼</button>
-          <span class="muted" id="youngerBearStatus">答對時會開心、答錯時會安撫。</span>
+        <div class="bearCoachPanel">
+          <div class="coachFace" id="youngerCompanionFace">🐻</div>
+          <div class="coachSpeech">
+            <b id="youngerCompanionTitle">小熊今天陪你玩四小關 <span class="bearBadge" id="youngerCompanionMood">陪你慢慢學</span></b>
+            <span id="youngerCompanionText">慢慢看、慢慢選。答錯不會扣星星，我們再試一次就好。</span>
+            <div class="companionHint" id="youngerCompanionHint">小熊會跟著題型、答對答錯一起變化。</div>
+          </div>
         </div>
+
+        <div class="playHeroStats">
+          <span class="playStatChip" id="youngerStars">⭐ 0 顆</span>
+          <span class="playStatChip" id="youngerDone">今天 0 / 4 關</span>
+          <span class="playStatChip" id="youngerTodayTag">0 / 4</span>
+        </div>
+
+        <div class="playHeroActions">
+          <button type="button" class="btn" id="startTodayMission">▶ 開始今天任務</button>
+          <button type="button" class="btn secondary" id="youngerBearWaveBtn">👋 跟小熊打招呼</button>
+        </div>
+
+        <div class="muted" id="youngerBearStatus">小熊會鼓勵、提醒，也會陪你慢慢做。</div>
       </div>
     </div>
 
-    <div class="buddyRewards">
-      <div class="rewardJarCard">
-        <div class="muted">今日蜂蜜罐</div>
-        <div class="honeyJar"><span id="youngerHoneyFill"></span></div>
+    <div class="youngerPlaySide">
+      <div class="sideRewardCard">
+        <div class="muted">🍯 今日收集進度</div>
+        <div class="honeyJar big"><span id="youngerHoneyFill"></span></div>
         <div class="muted" id="youngerHoneyText">完成 0 / 4 關</div>
       </div>
-      <div class="rewardStickerCard">
-        <div class="muted">今日貼紙</div>
-        <div class="stickerShelf" id="youngerStickerShelf">
+
+      <div class="sideRewardCard">
+        <div class="muted">🏅 任務貼紙</div>
+        <div class="stickerShelf large" id="youngerStickerShelf">
           <span class="stickerBadge">Aa</span>
           <span class="stickerBadge">✍️</span>
           <span class="stickerBadge">👀</span>
           <span class="stickerBadge">👂</span>
         </div>
-        <div class="muted" id="youngerStickerNote">每完成一關，亮一枚貼紙。</div>
+        <div class="muted" id="youngerStickerNote">每完成一關，就亮一枚貼紙。</div>
       </div>
     </div>
   </div>
 
-  <div class="card taskMeterCard">
-    <div class="muted">🎯 基礎能力檢視</div>
-    <h3 style="margin-top:4px">不是看分數，是看哪裡卡住</h3>
-    <div class="meterGroup">
-      <div class="meterRow">
-        <div class="meterLabel"><b>Aa 大小寫</b><span id="youngerMeterText-case">尚未練習</span></div>
-        <div class="meterTrack"><span id="youngerMeterFill-case"></span></div>
+  <div class="missionWorldBox">
+    <div class="missionWorldHead">
+      <div>
+        <div class="muted">🌲 今天玩什麼</div>
+        <h3 style="margin-top:4px">點一個場景，直接開始</h3>
       </div>
-      <div class="meterRow">
-        <div class="meterLabel"><b>✍️ 四線格</b><span id="youngerMeterText-position">尚未練習</span></div>
-        <div class="meterTrack"><span id="youngerMeterFill-position"></span></div>
-      </div>
-      <div class="meterRow">
-        <div class="meterLabel"><b>👀 字母辨識</b><span id="youngerMeterText-look">尚未練習</span></div>
-        <div class="meterTrack"><span id="youngerMeterFill-look"></span></div>
-      </div>
-      <div class="meterRow">
-        <div class="meterLabel"><b>👂 聽音辨識</b><span id="youngerMeterText-listen">尚未練習</span></div>
-        <div class="meterTrack"><span id="youngerMeterFill-listen"></span></div>
+      <span class="tag" id="youngerHomeStatusTag">陪玩模式</span>
+    </div>
+
+    <div class="missionWorldScene" aria-label="弟弟今天四個遊戲任務">
+      <button type="button" class="missionDot missionWorldCard" id="mission-case" data-task="case" title="大小寫配對">
+        <div class="worldIcon">📚</div>
+        <div class="worldTitle">Aa 配對書屋</div>
+        <div class="worldDesc">找出大寫和小寫的小夥伴</div>
+        <div class="worldState" id="missionState-case">等待開始</div>
+      </button>
+
+      <button type="button" class="missionDot missionWorldCard" id="mission-position" data-task="position" title="四線格位置">
+        <div class="worldIcon">✏️</div>
+        <div class="worldTitle">四線格畫板</div>
+        <div class="worldDesc">看看字母該站哪一區</div>
+        <div class="worldState" id="missionState-position">等待開始</div>
+      </button>
+
+      <button type="button" class="missionDot missionWorldCard" id="mission-look" data-task="look" title="字母辨識">
+        <div class="worldIcon">🔎</div>
+        <div class="worldTitle">找找看廣場</div>
+        <div class="worldDesc">比對字母方向，不要看反</div>
+        <div class="worldState" id="missionState-look">等待開始</div>
+      </button>
+
+      <button type="button" class="missionDot missionWorldCard" id="mission-listen" data-task="listen" title="聽音找字母">
+        <div class="worldIcon">🎧</div>
+        <div class="worldTitle">慢慢聽小站</div>
+        <div class="worldDesc">小熊念一個字母，你來找</div>
+        <div class="worldState" id="missionState-listen">等待開始</div>
+      </button>
+    </div>
+
+    <div class="missionWorldFooter">
+      <span class="muted" id="nextMissionText">下一關：大小寫配對</span>
+      <div class="miniTrail">
+        <span class="trailDot" id="trail-case"></span>
+        <span class="trailDot" id="trail-position"></span>
+        <span class="trailDot" id="trail-look"></span>
+        <span class="trailDot" id="trail-listen"></span>
       </div>
     </div>
-    <div class="callout" id="youngerNextAdvice" style="margin-top:12px">先從大小寫配對開始，讓弟弟先建立安全感。</div>
   </div>
-</div>
 
-<div class="card compactTodayMission" style="margin-top:16px">
-  <div class="compactMissionHead">
-    <div>
-      <b>今天任務</b>
-      <span class="muted">4 個小能力，直接開始做題</span>
+  <div class="youngerDashboardGrid">
+    <div class="card taskMeterCard">
+      <div class="muted">🪴 成長儀表板</div>
+      <h3 style="margin-top:4px">不是看高低分，是看哪裡還不穩</h3>
+      <div class="meterGroup">
+        <div class="meterRow">
+          <div class="meterLabel"><b>Aa 大小寫</b><span id="youngerMeterText-case">尚未練習</span></div>
+          <div class="meterTrack"><span id="youngerMeterFill-case"></span></div>
+        </div>
+        <div class="meterRow">
+          <div class="meterLabel"><b>✍️ 四線格</b><span id="youngerMeterText-position">尚未練習</span></div>
+          <div class="meterTrack"><span id="youngerMeterFill-position"></span></div>
+        </div>
+        <div class="meterRow">
+          <div class="meterLabel"><b>👀 字母辨識</b><span id="youngerMeterText-look">尚未練習</span></div>
+          <div class="meterTrack"><span id="youngerMeterFill-look"></span></div>
+        </div>
+        <div class="meterRow">
+          <div class="meterLabel"><b>👂 聽音辨識</b><span id="youngerMeterText-listen">尚未練習</span></div>
+          <div class="meterTrack"><span id="youngerMeterFill-listen"></span></div>
+        </div>
+      </div>
+      <div class="callout" id="youngerNextAdvice" style="margin-top:12px">先從大小寫配對開始，讓弟弟先建立安全感。</div>
     </div>
-    <span class="tag" id="youngerTodayTag">0 / 4</span>
-  </div>
 
-  <div class="missionDots" aria-label="今天四個任務">
-    <button type="button" class="missionDot" id="mission-case" data-task="case" title="大小寫配對"><span>1</span><small>Aa</small></button>
-    <button type="button" class="missionDot" id="mission-position" data-task="position" title="四線格位置"><span>2</span><small>✍️</small></button>
-    <button type="button" class="missionDot" id="mission-look" data-task="look" title="字母辨識"><span>3</span><small>👀</small></button>
-    <button type="button" class="missionDot" id="mission-listen" data-task="listen" title="聽音找字母"><span>4</span><small>👂</small></button>
-  </div>
-
-  <div class="compactMissionAction">
-    <button type="button" class="btn" id="startTodayMission">▶ 開始／繼續今天任務</button>
-    <span class="muted" id="nextMissionText">下一關：大小寫配對</span>
-  </div>
-</div>
-
-<div class="card" style="margin-top:16px">
-    <h3>🌳 弟弟目前能力樹</h3>
-    <div class="treeDiag" id="youngerTreeHome">英文基礎
+    <div class="card momPeekCard">
+      <div class="muted">👩 媽媽快速看</div>
+      <h3 style="margin-top:4px">目前卡點小抄</h3>
+      <div class="treeDiag" id="youngerTreeHome">英文基礎
 ├─ 大小寫配對　尚未練習
 ├─ 字母辨識　　尚未練習
 ├─ 四線格位置　尚未練習
 └─ 聲音辨識　　尚未練習</div>
+      <div class="muted" style="margin-top:10px">這塊是給媽媽快速看，不是給弟弟看的主畫面。</div>
+    </div>
   </div>
 </section>
 
@@ -3579,6 +3838,9 @@ function updateYoungerCoachPanels(){
 
   const practiceFace=document.getElementById("youngerPracticeFace");
   if(practiceFace)practiceFace.textContent=youngerProgress.streak>=3?"😄":"🐻";
+
+  const sideStatus=document.getElementById("youngerHomeStatusTag");
+  if(sideStatus)sideStatus.textContent=done>=4?"今天完成":(next?`下一站：${youngerTaskShort(next)}`:"陪玩模式");
 }
 
 function setYoungerCompanion(face,title,text,mood,hint,active=false){
@@ -3630,6 +3892,7 @@ function startYoungerTask(type){
   document.getElementById("youngerTaskTag").textContent=names[type];
   document.querySelectorAll("[data-younger-switch]").forEach(b=>b.classList.toggle("active",b.dataset.youngerSwitch===type));
   youngerTaskIntro(type);
+  renderYoungerMissionHome();
   nextYoungerQuestion();
 }
 function recordYounger(ok){
@@ -3757,8 +4020,10 @@ document.getElementById("youngerBearWaveBtn")?.addEventListener("click",()=>{
   const next=nextIncompleteYoungerTask();
   setYoungerCompanion("🐻","小熊說：我們先一題一題來","先不用擔心會不會，慢慢做，小熊會陪你。","安心練習",`現在最適合先做「${youngerTaskLabel(next)}」。`,true);
   updateYoungerCoachPanels();
+  renderYoungerMissionHome();
 });
 
+document.getElementById("olderContinueBtn")?.addEventListener("click",()=>continueAdventure());
 document.getElementById("olderGoChinese")?.addEventListener("click",()=>go("chinese"));
 document.getElementById("olderGoMath")?.addEventListener("click",()=>go("math"));
 document.getElementById("olderGoWrong")?.addEventListener("click",()=>go("wrong"));
@@ -3781,17 +4046,25 @@ function renderYoungerMissionHome(){
   const keys=["case","position","look","listen"];
   const labels={case:"大小寫配對",position:"四線格位置",look:"字母辨識",listen:"聽音找字母"};
   let done=0;
+  const next=keys.find(k=>!youngerProgress.completed[k])||"";
   keys.forEach(k=>{
     const el=document.getElementById("mission-"+k);
+    const state=document.getElementById("missionState-"+k);
+    const trail=document.getElementById("trail-"+k);
     if(!el)return;
     const isDone=!!youngerProgress.completed[k];
     if(isDone)done++;
     el.classList.toggle("done",isDone);
+    el.classList.toggle("next",!isDone && k===next);
+    el.classList.toggle("activePlay",youngerTask===k);
     el.setAttribute("aria-label",`${labels[k]}｜${isDone?"已完成":"未完成"}`);
+    if(state){
+      state.textContent=isDone?"完成了":(k===next?"建議先玩":"還沒開始");
+    }
+    if(trail)trail.classList.toggle("on",isDone);
   });
   const tag=document.getElementById("youngerTodayTag");
   if(tag)tag.textContent=`${done} / 4`;
-  const next=keys.find(k=>!youngerProgress.completed[k]);
   const msg=document.getElementById("nextMissionText");
   if(msg)msg.textContent=next?`下一關：${labels[next]}`:"今天 4 關都完成了";
 }
