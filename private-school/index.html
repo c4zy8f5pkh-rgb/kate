@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V10.0｜復旦 × 六和</title>
+<title>兄弟學習基地 V10.1｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -319,7 +319,7 @@ body:not(.younger-mode) aside nav button[data-page="youngerStars"]{display:none}
     <span>🔊 學習音效</span>
     <button type="button" class="soundToggle on" id="soundToggle">開啟</button>
   </div>
-  <div style="margin-top:6px;color:#9eabc2;line-height:1.5">哥哥：冒險感｜弟弟：柔和鼓勵</div>
+  <div style="margin-top:6px;color:#9eabc2;line-height:1.5">哥哥：冒險感｜弟弟：柔和鼓勵＋題目輪替</div>
 </div>
 
   <nav class="navrow">
@@ -342,7 +342,7 @@ body:not(.younger-mode) aside nav button[data-page="youngerStars"]{display:none}
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V10.0</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V10.1</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -808,6 +808,7 @@ body:not(.younger-mode) aside nav button[data-page="youngerStars"]{display:none}
       </div>
       <span class="tag">自由練習</span>
     </div>
+    <div class="muted" style="margin-top:8px">🔁 題目會輪替：同一輪做完前不會重出；最近做過的題也會先避開。</div>
     <div class="youngerMenu">
       <div class="youngerTile" onclick="startYoungerTask('case')">
         <div class="bigIcon">Aa</div><b>大小寫配對</b>
@@ -2058,7 +2059,10 @@ document.getElementById("profileOlder")?.addEventListener("click",()=>setProfile
 document.getElementById("profileYounger")?.addEventListener("click",()=>setProfile("younger"));
 
 const casePairs=[
-  ["A","a"],["B","b"],["D","d"],["E","e"],["G","g"],["H","h"],["M","m"],["N","n"],["P","p"],["Q","q"],["R","r"],["T","t"]
+  ["A","a"],["B","b"],["C","c"],["D","d"],["E","e"],["F","f"],["G","g"],
+  ["H","h"],["I","i"],["J","j"],["K","k"],["L","l"],["M","m"],["N","n"],
+  ["O","o"],["P","p"],["Q","q"],["R","r"],["S","s"],["T","t"],["U","u"],
+  ["V","v"],["W","w"],["X","x"],["Y","y"],["Z","z"]
 ];
 const lookSets=[
   {target:"b",choices:["b","d","p","q"]},
@@ -2066,19 +2070,92 @@ const lookSets=[
   {target:"p",choices:["q","b","p","d"]},
   {target:"q",choices:["p","q","d","b"]},
   {target:"m",choices:["n","w","m","u"]},
-  {target:"n",choices:["h","r","n","m"]}
+  {target:"n",choices:["h","r","n","m"]},
+  {target:"u",choices:["v","n","u","w"]},
+  {target:"w",choices:["m","v","w","u"]},
+  {target:"h",choices:["n","b","h","r"]},
+  {target:"r",choices:["n","v","r","h"]},
+  {target:"c",choices:["c","e","o","a"]},
+  {target:"e",choices:["c","e","o","a"]},
+  {target:"a",choices:["o","e","a","c"]},
+  {target:"o",choices:["a","c","o","e"]},
+  {target:"i",choices:["i","l","j","t"]},
+  {target:"l",choices:["i","t","l","j"]}
 ];
 const positionLetters=[
   {letter:"b",zone:"tall"},{letter:"d",zone:"tall"},{letter:"f",zone:"tall"},
   {letter:"h",zone:"tall"},{letter:"k",zone:"tall"},{letter:"l",zone:"tall"},{letter:"t",zone:"tall"},
   {letter:"a",zone:"middle"},{letter:"c",zone:"middle"},{letter:"e",zone:"middle"},
-  {letter:"i",zone:"middle"},{letter:"m",zone:"middle"},{letter:"n",zone:"middle"},{letter:"o",zone:"middle"},
+  {letter:"i",zone:"middle"},{letter:"m",zone:"middle"},{letter:"n",zone:"middle"},
+  {letter:"o",zone:"middle"},{letter:"r",zone:"middle"},{letter:"s",zone:"middle"},
+  {letter:"u",zone:"middle"},{letter:"v",zone:"middle"},{letter:"w",zone:"middle"},
+  {letter:"x",zone:"middle"},{letter:"z",zone:"middle"},
   {letter:"g",zone:"descender"},{letter:"j",zone:"descender"},{letter:"p",zone:"descender"},
   {letter:"q",zone:"descender"},{letter:"y",zone:"descender"}
 ];
 
 let youngerTask="case";
 let youngerCurrent=null;
+
+// V10.1：弟弟題目循環器。
+// 每個題型都有自己的「抽題袋」；沒有把整袋做完前，不會重出同一題。
+// 換天/重開網頁也保留最近紀錄，避免昨天剛做過今天又馬上看到。
+const YOUNGER_ROTATION_KEY="younger_question_rotation_v101";
+function loadYoungerRotation(){
+  try{
+    return JSON.parse(SafeStore.get(YOUNGER_ROTATION_KEY,"null"))||{
+      case:{used:[],recent:[]},position:{used:[],recent:[]},look:{used:[],recent:[]},listen:{used:[],recent:[]}
+    };
+  }catch(e){
+    return {case:{used:[],recent:[]},position:{used:[],recent:[]},look:{used:[],recent:[]},listen:{used:[],recent:[]}};
+  }
+}
+let youngerRotation=loadYoungerRotation();
+["case","position","look","listen"].forEach(k=>{
+  if(!youngerRotation[k])youngerRotation[k]={used:[],recent:[]};
+  youngerRotation[k].used=Array.isArray(youngerRotation[k].used)?youngerRotation[k].used:[];
+  youngerRotation[k].recent=Array.isArray(youngerRotation[k].recent)?youngerRotation[k].recent:[];
+});
+function saveYoungerRotation(){SafeStore.set(YOUNGER_ROTATION_KEY,JSON.stringify(youngerRotation))}
+function nextUniqueYoungerId(task,ids,recentLimit=6){
+  const state=youngerRotation[task];
+  const cleanIds=[...new Set(ids)];
+  // 過時 id（題庫改版後）清掉
+  state.used=state.used.filter(id=>cleanIds.includes(id));
+  state.recent=state.recent.filter(id=>cleanIds.includes(id)).slice(-recentLimit);
+
+  let candidates=cleanIds.filter(id=>!state.used.includes(id) && !state.recent.includes(id));
+  if(!candidates.length){
+    // 一輪做完才重洗；即使重洗仍避開最近幾題。
+    state.used=[];
+    candidates=cleanIds.filter(id=>!state.recent.includes(id));
+  }
+  if(!candidates.length)candidates=cleanIds.filter(id=>id!==state.recent[state.recent.length-1]);
+  if(!candidates.length)candidates=cleanIds;
+
+  const chosen=candidates[Math.floor(Math.random()*candidates.length)];
+  state.used.push(chosen);
+  state.recent.push(chosen);
+  state.recent=state.recent.slice(-recentLimit);
+  saveYoungerRotation();
+  return chosen;
+}
+function nextCasePair(){
+  const id=nextUniqueYoungerId("case",casePairs.map(x=>x[0]),8);
+  return casePairs.find(x=>x[0]===id)||casePairs[0];
+}
+function nextLookSet(){
+  const id=nextUniqueYoungerId("look",lookSets.map(x=>x.target),6);
+  return lookSets.find(x=>x.target===id)||lookSets[0];
+}
+function nextPositionLetter(){
+  const id=nextUniqueYoungerId("position",positionLetters.map(x=>x.letter),8);
+  return positionLetters.find(x=>x.letter===id)||positionLetters[0];
+}
+function nextListenLetter(){
+  const letters="ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+  return nextUniqueYoungerId("listen",letters,8);
+}
 
 function shuffle(a){return [...a].sort(()=>Math.random()-.5);}
 function setYoungerCompanion(face,title,text,mood,hint,active=false){
@@ -2132,7 +2209,7 @@ function nextYoungerQuestion(){
   fb.textContent="看清楚再選，不用急。";
   if(youngerTask==="case"){
     setYoungerCompanion("🐻","小熊陪你找大小寫","先把大寫和小寫配起來，慢慢找就好。","配對時間","看清楚字母外形，不用急。",true);
-    const pair=casePairs[Math.floor(Math.random()*casePairs.length)];
+    const pair=nextCasePair();
     youngerCurrent={answer:pair[1]};
     document.getElementById("casePrompt").textContent=`請找出大寫 ${pair[0]} 的小寫朋友`;
     const distract=shuffle(casePairs.map(x=>x[1]).filter(x=>x!==pair[1])).slice(0,3);
@@ -2149,7 +2226,7 @@ function nextYoungerQuestion(){
     });
   }else if(youngerTask==="look"){
     setYoungerCompanion("🧐","小熊陪你看方向","這題要看清楚字母方向，圓圈跟直線別看反。","觀察力開啟","b、d、p、q 最容易混淆。",true);
-    const item=lookSets[Math.floor(Math.random()*lookSets.length)];
+    const item=nextLookSet();
     youngerCurrent={answer:item.target};
     document.getElementById("lookTarget").textContent=item.target;
     document.getElementById("lookPrompt").textContent="哪一個和上面的目標字母一樣？";
@@ -2164,8 +2241,8 @@ function nextYoungerQuestion(){
     });
   }else if(youngerTask==="listen"){
     setYoungerCompanion("👂","小熊準備念字母","一次只聽一個字母，聽清楚再選。","聽力小關","按下按鈕，小熊會慢慢說。",true);
-    const letters=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T"];
-    const target=letters[Math.floor(Math.random()*letters.length)];
+    const letters="ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+    const target=nextListenLetter();
     youngerCurrent={answer:target};
     const distract=shuffle(letters.filter(x=>x!==target)).slice(0,3);
     const choices=shuffle([target,...distract]);
@@ -2191,7 +2268,7 @@ function nextYoungerQuestion(){
     });
   }else{
     setYoungerCompanion("✍️","小熊陪你看字母位置","看看字母主要在中間、往上長，還是往下伸。","位置練習","先看四線格，再做判斷。",true);
-    const item=positionLetters[Math.floor(Math.random()*positionLetters.length)];
+    const item=nextPositionLetter();
     youngerCurrent={answer:item.zone};
     document.getElementById("positionLetter").textContent=item.letter;
     document.getElementById("positionPrompt").textContent=`小寫 ${item.letter} 的位置屬於哪一種？`;
