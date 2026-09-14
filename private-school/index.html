@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V16.3｜復旦 × 六和</title>
+<title>兄弟學習基地 V16.4｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -2336,6 +2336,255 @@ body:not(.younger-mode) .page.youngerOnly{
 }
 </style>
 
+
+<style id="v164-word-garden">
+.wordGardenFeature{
+  width:100%;
+  border:0;
+  margin:16px 0 14px;
+  padding:16px 18px;
+  display:grid;
+  grid-template-columns:105px 1fr auto;
+  gap:16px;
+  align-items:center;
+  text-align:left;
+  border-radius:24px;
+  background:linear-gradient(135deg,#fff8dc 0%,#f1fbeb 54%,#edf6ff 100%);
+  box-shadow:0 12px 28px rgba(83,100,120,.10);
+  border:1px solid rgba(176,194,143,.35);
+  cursor:pointer;
+}
+.wordGardenFeature:hover{transform:translateY(-1px)}
+.wordGardenFeatureArt{
+  height:82px;
+  border-radius:20px;
+  background:rgba(255,255,255,.75);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.85);
+}
+.wgLetter{font-size:24px;font-weight:1000;color:#5d6f48}
+.wgEmoji{font-size:38px}
+.wordGardenFeatureText small{
+  display:block;color:#6d7a6e;font-weight:800;margin-bottom:3px
+}
+.wordGardenFeatureText b{
+  display:block;font-size:21px;color:#3f554a
+}
+.wordGardenFeatureText span{
+  display:block;margin-top:4px;color:#738074;font-size:14px
+}
+.wordGardenFeatureGo{
+  min-width:100px;text-align:right;color:#5e6f63
+}
+.wordGardenFeatureGo strong{display:block;font-size:13px}
+.wordGardenFeatureGo span{
+  display:inline-block;margin-top:7px;padding:8px 12px;border-radius:999px;
+  background:#fff;color:#50654d;font-weight:900
+}
+
+.wordGardenShell{
+  background:linear-gradient(180deg,#fffef8,#f8fbf5);
+}
+.wordGardenBoard{
+  max-width:780px;
+  margin:14px auto 0;
+  padding:18px;
+  border-radius:26px;
+  background:linear-gradient(180deg,#fff,#fbfdf8);
+  border:1px solid #e3eadb;
+  box-shadow:0 12px 24px rgba(88,105,76,.07);
+}
+.wordLearnCard{
+  min-height:300px;
+  border-radius:24px;
+  display:grid;
+  grid-template-columns:150px 1fr;
+  grid-template-rows:auto 1fr auto;
+  align-items:center;
+  gap:4px 24px;
+  padding:24px 32px;
+  background:linear-gradient(135deg,#fff8df,#f6fbef);
+  border:2px solid #e8e2c5;
+}
+.wordLetterPair{
+  grid-row:1/4;
+  align-self:stretch;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:22px;
+  background:#fff;
+  border:2px dashed #dfd09b;
+  font-size:48px;
+  font-weight:1000;
+  color:#5d6c46;
+}
+.wordPicture{
+  font-size:78px;
+  line-height:1;
+  text-align:center;
+}
+.wordEnglish{
+  font-size:46px;
+  font-weight:1000;
+  text-align:center;
+  color:#3d4b5d;
+  letter-spacing:.5px;
+}
+.wordChinese{
+  min-height:40px;
+  font-size:25px;
+  font-weight:900;
+  text-align:center;
+  color:#7a6335;
+}
+.wordChinese.hiddenMeaning{
+  color:#aab2bd;
+  letter-spacing:5px;
+}
+.wordActionRow{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  margin-top:16px;
+}
+.wordSoundBtn,.wordQuizBtn{
+  min-height:54px;
+  padding:0 20px;
+  border:0;
+  border-radius:16px;
+  font:inherit;
+  font-weight:900;
+  cursor:pointer;
+}
+.wordSoundBtn{background:#edf3ff;color:#536aab}
+.wordQuizBtn{background:#688353;color:#fff}
+.wordQuizArea{margin-top:16px}
+.wordQuizPrompt{
+  text-align:center;
+  font-size:16px;
+  font-weight:900;
+  color:#5d6876;
+  margin-bottom:10px;
+}
+.wordChineseChoices{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+.wordChineseChoice{
+  min-height:64px;
+  border-radius:17px;
+  border:2px solid #e1e6ec;
+  background:#fff;
+  font:inherit;
+  font-size:20px;
+  font-weight:900;
+  color:#47576a;
+  cursor:pointer;
+}
+.wordChineseChoice.good{border-color:#8ec89d;background:#eef9f1;color:#3a7248}
+.wordChineseChoice.bad{border-color:#e5aaaa;background:#fff3f3;color:#a25b5b}
+
+.keyboardBonus{
+  margin-top:16px;
+  padding:16px 18px;
+  border-radius:20px;
+  background:#f0f5ff;
+  border:1px solid #d9e3f6;
+  text-align:center;
+}
+.keyboardBonusTitle{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+}
+.keyboardBonusTitle>span{font-size:30px}
+.keyboardBonusTitle b{display:block;color:#40547f}
+.keyboardBonusTitle small{display:block;color:#73819b;margin-top:2px}
+.keyboardTarget{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:150px;
+  min-height:70px;
+  margin:13px 0 7px;
+  padding:0 20px;
+  border-radius:18px;
+  background:#fff;
+  border:2px solid #b9caea;
+  font-size:33px;
+  font-weight:1000;
+  color:#455b8d;
+  box-shadow:0 6px 12px rgba(74,98,151,.07);
+}
+.keyboardTarget.hit{
+  animation:keyHit .35s ease;
+  border-color:#8fc99d;
+  background:#effaf1;
+  color:#3f774c;
+}
+@keyframes keyHit{
+  0%{transform:scale(1)}
+  50%{transform:scale(.94)}
+  100%{transform:scale(1)}
+}
+.keyboardHint{font-size:13px;color:#6f7f96}
+.keyboardSkipBtn{
+  margin-top:10px;
+  border:0;
+  background:transparent;
+  color:#75839b;
+  text-decoration:underline;
+  cursor:pointer;
+  font:inherit;
+  font-size:13px;
+}
+
+.cssBear[data-role="words"]::before{
+  content:"ABC";
+  left:-18px;top:55px;
+  width:44px;height:32px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:9px;background:#fff8da;border:1px solid #e5d18f;
+  color:#755f27;font-size:13px;font-weight:1000;
+}
+
+@media(max-width:700px){
+  .wordGardenFeature{
+    grid-template-columns:78px 1fr;
+    padding:13px;
+  }
+  .wordGardenFeatureArt{height:72px}
+  .wordGardenFeatureGo{
+    grid-column:1/-1;
+    display:flex;justify-content:space-between;align-items:center;
+    min-width:0;text-align:left;padding:0 4px
+  }
+  .wordGardenFeatureGo span{margin-top:0}
+  .wordLearnCard{
+    grid-template-columns:1fr;
+    grid-template-rows:auto auto auto auto;
+    padding:18px;
+    min-height:340px;
+  }
+  .wordLetterPair{
+    grid-row:auto;
+    min-height:78px;
+    font-size:40px;
+  }
+  .wordPicture{font-size:66px}
+  .wordEnglish{font-size:38px}
+  .wordChinese{font-size:23px}
+  .wordActionRow{flex-direction:column}
+  .wordChineseChoices{grid-template-columns:1fr}
+}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -2377,7 +2626,7 @@ body:not(.younger-mode) .page.youngerOnly{
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V16.3</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V16.4</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -2832,6 +3081,23 @@ body:not(.younger-mode) .page.youngerOnly{
       </div>
     </div>
 
+
+    <button type="button" class="wordGardenFeature" id="wordGardenEntry">
+      <div class="wordGardenFeatureArt">
+        <span class="wgLetter">A a</span>
+        <span class="wgEmoji">🍎</span>
+      </div>
+      <div class="wordGardenFeatureText">
+        <small>🌱 今天推薦先玩</small>
+        <b>字母單字樂園</b>
+        <span>A a → apple → 蘋果</span>
+      </div>
+      <div class="wordGardenFeatureGo">
+        <strong id="wordGardenHomeProgress">今日 0 / 6</strong>
+        <span>開始 →</span>
+      </div>
+    </button>
+
     <div class="kidMissionGrid" aria-label="弟弟今天四個遊戲">
       <button type="button" class="kidMissionCard missionDot" id="mission-case" data-task="case">
         <div class="kidMissionArt artBook"><span>A</span><span>a</span></div>
@@ -2879,6 +3145,69 @@ body:not(.younger-mode) .page.youngerOnly{
 </section>
 
 
+
+
+<section id="youngerWords" class="page youngerOnly kidGamePage">
+  <div class="kidGameShell wordGardenShell">
+    <div class="kidGameTop">
+      <button type="button" class="kidBackBtn" onclick="go('youngerHome')">←</button>
+      <div class="kidGameTitle"><span>🌱</span><b>字母單字樂園</b></div>
+      <div class="kidMiniScore">
+        <span id="wordGardenScore">今天 0 / 6</span>
+      </div>
+    </div>
+
+    <div class="kidBearRow">
+      <div class="cssBear miniBear wordBear" aria-hidden="true">
+        <div class="bearEar left"></div><div class="bearEar right"></div>
+        <div class="bearHead"><div class="bearEye left"></div><div class="bearEye right"></div><div class="bearMuzzle"></div><div class="bearNose"></div><div class="bearMouth"></div></div>
+        <div class="bearBody"></div><div class="bearArm left"></div><div class="bearArm right"></div>
+      </div>
+      <div class="kidGameSpeech practiceBuddyText">
+        <b>看一看、聽一聽</b>
+        <span>先認識，再找中文。</span>
+      </div>
+    </div>
+
+    <div class="wordGardenBoard">
+      <div class="wordLearnCard">
+        <div class="wordLetterPair" id="wordLetterPair">A a</div>
+        <div class="wordPicture" id="wordPicture">🍎</div>
+        <div class="wordEnglish" id="wordEnglish">apple</div>
+        <div class="wordChinese" id="wordChinese">蘋果</div>
+      </div>
+
+      <div class="wordActionRow" id="wordLearnActions">
+        <button type="button" class="wordSoundBtn" id="wordSoundBtn">🔊 聽單字</button>
+        <button type="button" class="wordQuizBtn" id="wordQuizBtn">我看過了 → 找中文</button>
+      </div>
+
+      <div class="wordQuizArea hidden" id="wordQuizArea">
+        <div class="wordQuizPrompt">哪一個中文是一樣的？</div>
+        <div class="wordChineseChoices" id="wordChineseChoices"></div>
+      </div>
+
+      <div class="keyboardBonus hidden" id="keyboardBonus">
+        <div class="keyboardBonusTitle">
+          <span>⌨️</span>
+          <div>
+            <b>鍵盤加碼</b>
+            <small>找這個字母的按鍵</small>
+          </div>
+        </div>
+        <div class="keyboardTarget" id="keyboardTarget">A / a</div>
+        <div class="keyboardHint" id="keyboardHint">大寫、小寫都算對，不用按 Shift。</div>
+        <button type="button" class="keyboardSkipBtn" id="keyboardSkipBtn">今天不用鍵盤，跳過</button>
+      </div>
+    </div>
+
+    <div class="youngerFeedback kidFeedback" id="wordGardenFeedback">🐻 先看看這個單字。</div>
+    <div class="kidGameBottom">
+      <button type="button" class="kidNextBtn hidden" id="wordNextBtn">下一個 →</button>
+      <span id="wordGardenBottomProgress">今天 0 / 6</span>
+    </div>
+  </div>
+</section>
 
 <section id="youngerCase" class="page youngerOnly kidGamePage">
   <div class="kidGameShell themeCase">
@@ -3035,7 +3364,8 @@ body:not(.younger-mode) .page.youngerOnly{
 ├─ 大小寫配對　尚未練習
 ├─ 字母辨識　　尚未練習
 ├─ 四線格位置　尚未練習
-└─ 聲音辨識　　尚未練習</div>
+├─ 聲音辨識　　尚未練習
+└─ 單字中文連結 尚未練習</div>
     </div>
   </div>
 </section>
@@ -4452,6 +4782,227 @@ const lookSets=[
   {target:"i",choices:["i","l","j","t"]},
   {target:"l",choices:["i","t","l","j"]}
 ];
+
+const beginnerWordBridge=[
+  {letter:"A",word:"apple",zh:"蘋果",emoji:"🍎"},
+  {letter:"B",word:"ball",zh:"球",emoji:"⚽"},
+  {letter:"C",word:"cup",zh:"杯子",emoji:"🥤"},
+  {letter:"C",word:"cap",zh:"帽子",emoji:"🧢"},
+  {letter:"C",word:"cat",zh:"貓",emoji:"🐱"},
+  {letter:"D",word:"duck",zh:"鴨子",emoji:"🦆"},
+  {letter:"E",word:"egg",zh:"蛋",emoji:"🥚"},
+  {letter:"F",word:"fish",zh:"魚",emoji:"🐟"},
+  {letter:"G",word:"gift",zh:"禮物",emoji:"🎁"},
+  {letter:"H",word:"hand",zh:"手",emoji:"✋"},
+  {letter:"I",word:"ice",zh:"冰",emoji:"🧊"},
+  {letter:"J",word:"juice",zh:"果汁",emoji:"🧃"},
+  {letter:"K",word:"kite",zh:"風箏",emoji:"🪁"},
+  {letter:"L",word:"lion",zh:"獅子",emoji:"🦁"},
+  {letter:"M",word:"moon",zh:"月亮",emoji:"🌙"},
+  {letter:"N",word:"nose",zh:"鼻子",emoji:"👃"},
+  {letter:"O",word:"orange",zh:"柳橙",emoji:"🍊"},
+  {letter:"P",word:"pig",zh:"豬",emoji:"🐷"},
+  {letter:"Q",word:"queen",zh:"皇后",emoji:"👑"},
+  {letter:"R",word:"rabbit",zh:"兔子",emoji:"🐰"},
+  {letter:"S",word:"sun",zh:"太陽",emoji:"☀️"},
+  {letter:"T",word:"tree",zh:"樹",emoji:"🌳"},
+  {letter:"U",word:"umbrella",zh:"雨傘",emoji:"☂️"},
+  {letter:"V",word:"van",zh:"廂型車",emoji:"🚐"},
+  {letter:"W",word:"water",zh:"水",emoji:"💧"},
+  {letter:"X",word:"xylophone",zh:"木琴",emoji:"🎼"},
+  {letter:"Y",word:"yo-yo",zh:"溜溜球",emoji:"🪀"},
+  {letter:"Z",word:"zoo",zh:"動物園",emoji:"🦒"}
+];
+
+const WORD_BRIDGE_KEY="younger_word_bridge_v164";
+function wordDayKey(){return new Date().toLocaleDateString("sv-SE");}
+function loadWordBridgeProgress(){
+  let p;
+  try{p=JSON.parse(SafeStore.get(WORD_BRIDGE_KEY,"{}")||"{}")}catch(e){p={}}
+  if(p.date!==wordDayKey()){
+    p.date=wordDayKey();
+    p.todayCorrect=0;
+    p.todayAttempts=0;
+    p.recent=[];
+  }
+  p.todayCorrect=Number(p.todayCorrect||0);
+  p.todayAttempts=Number(p.todayAttempts||0);
+  p.totalCorrect=Number(p.totalCorrect||0);
+  p.totalAttempts=Number(p.totalAttempts||0);
+  p.recent=Array.isArray(p.recent)?p.recent:[];
+  return p;
+}
+let wordBridgeProgress=loadWordBridgeProgress();
+let wordBridgeState={item:null,phase:"learn",waitingKey:false,answered:false};
+
+function saveWordBridgeProgress(){
+  SafeStore.set(WORD_BRIDGE_KEY,JSON.stringify(wordBridgeProgress));
+}
+function wordBridgeLevelText(){
+  const total=wordBridgeProgress.totalAttempts||0;
+  if(total===0)return "尚未練習";
+  if(total<6)return "練習中";
+  const pct=(wordBridgeProgress.totalCorrect||0)/total;
+  if(pct>=.8)return "✓ 穩定";
+  if(pct>=.55)return "△ 還要練";
+  return "✗ 目前卡點";
+}
+function updateWordBridgeProgressUI(){
+  const n=Math.min(6,wordBridgeProgress.todayCorrect||0);
+  ["wordGardenScore","wordGardenBottomProgress"].forEach(id=>{
+    const el=document.getElementById(id);if(el)el.textContent=`今天 ${n} / 6`;
+  });
+  const home=document.getElementById("wordGardenHomeProgress");
+  if(home)home.textContent=n>=6?"今天完成 ✓":`今日 ${n} / 6`;
+}
+function pickWordBridgeItem(){
+  const recent=new Set(wordBridgeProgress.recent||[]);
+  let pool=beginnerWordBridge.filter(x=>!recent.has(x.word));
+  if(!pool.length){wordBridgeProgress.recent=[];pool=[...beginnerWordBridge];}
+  const item=pool[Math.floor(Math.random()*pool.length)];
+  wordBridgeProgress.recent.push(item.word);
+  wordBridgeProgress.recent=wordBridgeProgress.recent.slice(-8);
+  saveWordBridgeProgress();
+  return item;
+}
+function speakWordBridge(){
+  const item=wordBridgeState.item;if(!item)return;
+  try{
+    speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(item.word);
+    u.lang="en-US";
+    u.rate=.72;
+    u.pitch=1;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+function renderWordBridgeLearn(){
+  const item=wordBridgeState.item;if(!item)return;
+  const pair=document.getElementById("wordLetterPair");
+  const pic=document.getElementById("wordPicture");
+  const en=document.getElementById("wordEnglish");
+  const zh=document.getElementById("wordChinese");
+  const actions=document.getElementById("wordLearnActions");
+  const quiz=document.getElementById("wordQuizArea");
+  const bonus=document.getElementById("keyboardBonus");
+  const next=document.getElementById("wordNextBtn");
+  if(pair)pair.textContent=`${item.letter} ${item.letter.toLowerCase()}`;
+  if(pic)pic.textContent=item.emoji;
+  if(en)en.textContent=item.word;
+  if(zh){zh.textContent=item.zh;zh.classList.remove("hiddenMeaning");}
+  if(actions)actions.classList.remove("hidden");
+  if(quiz)quiz.classList.add("hidden");
+  if(bonus)bonus.classList.add("hidden");
+  if(next)next.classList.add("hidden");
+  wordBridgeState.phase="learn";
+  wordBridgeState.waitingKey=false;
+  wordBridgeState.answered=false;
+  setKidFeedback("🐻 先看看，再聽一次。");
+  updateWordBridgeProgressUI();
+}
+function nextWordBridge(){
+  wordBridgeState.item=pickWordBridgeItem();
+  renderWordBridgeLearn();
+  setYoungerCompanion("🐻","字母單字樂園","看字母、單字和中文。","單字","先認識，再找中文。",true);
+}
+function startWordBridgeQuiz(){
+  const item=wordBridgeState.item;if(!item)return;
+  wordBridgeState.phase="quiz";
+  wordBridgeState.answered=false;
+  const actions=document.getElementById("wordLearnActions");
+  const quiz=document.getElementById("wordQuizArea");
+  const zh=document.getElementById("wordChinese");
+  if(actions)actions.classList.add("hidden");
+  if(quiz)quiz.classList.remove("hidden");
+  if(zh){zh.textContent="？";zh.classList.add("hiddenMeaning");}
+
+  const distractPool=[...new Set(beginnerWordBridge.filter(x=>x.zh!==item.zh).map(x=>x.zh))];
+  const choices=shuffle([item.zh,...shuffle(distractPool).slice(0,2)]);
+  const wrap=document.getElementById("wordChineseChoices");
+  if(wrap){
+    wrap.innerHTML="";
+    choices.forEach(v=>{
+      const b=document.createElement("button");
+      b.type="button";b.className="wordChineseChoice";b.textContent=v;
+      b.onclick=()=>answerWordBridge(v,b);
+      wrap.appendChild(b);
+    });
+  }
+  setKidFeedback("🐻 找一找中文意思。");
+  speakWordBridge();
+}
+function answerWordBridge(value,btn){
+  if(wordBridgeState.answered)return;
+  const item=wordBridgeState.item;if(!item)return;
+  wordBridgeState.answered=true;
+  const ok=value===item.zh;
+  wordBridgeProgress.todayAttempts++;
+  wordBridgeProgress.totalAttempts++;
+  if(ok){
+    wordBridgeProgress.todayCorrect++;
+    wordBridgeProgress.totalCorrect++;
+    btn?.classList.add("good");
+    setKidFeedback(`🐻 對！${item.word} 是「${item.zh}」`);
+    setKidBearMood(true);
+  }else{
+    btn?.classList.add("bad");
+    document.querySelectorAll(".wordChineseChoice").forEach(x=>{
+      if(x.textContent===item.zh)x.classList.add("good");
+    });
+    setKidFeedback(`🐻 看一下：${item.word} 是「${item.zh}」`);
+    setKidBearMood(false);
+  }
+  saveWordBridgeProgress();
+  updateWordBridgeProgressUI();
+
+  const zh=document.getElementById("wordChinese");
+  if(zh){zh.textContent=item.zh;zh.classList.remove("hiddenMeaning");}
+  const bonus=document.getElementById("keyboardBonus");
+  if(bonus)bonus.classList.remove("hidden");
+  const target=document.getElementById("keyboardTarget");
+  if(target){
+    target.textContent=`${item.letter} / ${item.letter.toLowerCase()}`;
+    target.classList.remove("hit");
+  }
+  const hint=document.getElementById("keyboardHint");
+  if(hint)hint.textContent="大寫、小寫都算對，不用按 Shift。";
+  wordBridgeState.waitingKey=true;
+
+  const next=document.getElementById("wordNextBtn");
+  if(next)next.classList.remove("hidden");
+  renderYoungerProgress();
+}
+function finishKeyboardBonus(skipped=false){
+  wordBridgeState.waitingKey=false;
+  const item=wordBridgeState.item;if(!item)return;
+  const hint=document.getElementById("keyboardHint");
+  if(hint)hint.textContent=skipped?"沒關係，下次再玩鍵盤。":"找到了！同一顆字母鍵，大寫小寫都認得。";
+  const target=document.getElementById("keyboardTarget");
+  if(target&&!skipped){
+    target.classList.remove("hit");void target.offsetWidth;target.classList.add("hit");
+    playSound("youngerGood");
+    setKidBearMood(true);
+  }
+}
+function startYoungerWordGame(){
+  youngerTask="words";
+  go("youngerWords");
+  setYoungerCompanion("🐻","字母單字樂園","看字母、單字和中文。","單字","今天先玩簡單單字。",true);
+  if(!wordBridgeState.item)nextWordBridge();
+  else renderWordBridgeLearn();
+}
+document.addEventListener("keydown",e=>{
+  if(!wordBridgeState.waitingKey || !document.getElementById("youngerWords")?.classList.contains("active"))return;
+  const item=wordBridgeState.item;if(!item)return;
+  if(String(e.key||"").toLowerCase()===item.letter.toLowerCase()){
+    e.preventDefault();
+    finishKeyboardBonus(false);
+  }else if(/^[a-zA-Z]$/.test(String(e.key||""))){
+    const hint=document.getElementById("keyboardHint");
+    if(hint)hint.textContent=`再找 ${item.letter} 這一顆。`;
+  }
+});
+
 const beginnerListenWords=[
   {word:"cat",emoji:"🐱"},
   {word:"dog",emoji:"🐶"},
@@ -4956,6 +5507,7 @@ function setYoungerCompanion(face,title,text,mood,hint,active=false){
   else if(youngerTask==="position") role="position";
   else if(youngerTask==="look") role="look";
   else if(youngerTask==="listen") role="listen";
+  else if(youngerTask==="words") role="words";
 
   let moodState="idle";
   if(face==="😄") moodState="happy";
@@ -5139,6 +5691,11 @@ document.querySelectorAll(".youngerNextAction").forEach(btn=>btn.addEventListene
 document.getElementById("newMatchBoardBtn")?.addEventListener("click",nextCaseBoard);
 document.getElementById("clearTraceBtn")?.addEventListener("click",clearTrace);
 document.getElementById("finishTraceBtn")?.addEventListener("click",finishTrace);
+document.getElementById("wordGardenEntry")?.addEventListener("click",startYoungerWordGame);
+document.getElementById("wordSoundBtn")?.addEventListener("click",speakWordBridge);
+document.getElementById("wordQuizBtn")?.addEventListener("click",startWordBridgeQuiz);
+document.getElementById("wordNextBtn")?.addEventListener("click",nextWordBridge);
+document.getElementById("keyboardSkipBtn")?.addEventListener("click",()=>finishKeyboardBonus(true));
 document.getElementById("startTodayMission")?.addEventListener("click",()=>startYoungerTask(nextIncompleteYoungerTask()));
 document.querySelectorAll(".missionDot[data-task]").forEach(card=>{
   card.addEventListener("click",()=>startYoungerTask(card.dataset.task));
@@ -5198,6 +5755,7 @@ function renderYoungerMissionHome(){
   if(tag)tag.textContent=`${done} / 4`;
   const msg=document.getElementById("nextMissionText");
   if(msg)msg.textContent=next?`下一關：${labels[next]}`:"今天完成了";
+  updateWordBridgeProgressUI();
 }
 function bestYoungerSkill(){
   const labels={case:"大小寫",position:"四線格",look:"字母辨識",listen:"聽音"};
@@ -5233,7 +5791,8 @@ function renderYoungerProgress(){
 ├─ 大小寫配對　${levelText(youngerProgress.stats.case)}
 ├─ 字母辨識　　${levelText(youngerProgress.stats.look)}
 ├─ 四線格位置　${levelText(youngerProgress.stats.position)}
-└─ 聲音辨識　　${levelText(youngerProgress.stats.listen)}`;
+├─ 聲音辨識　　${levelText(youngerProgress.stats.listen)}
+└─ 單字中文連結 ${wordBridgeLevelText()}`;
   ["youngerTreeHome","youngerTree","parentYoungerTree"].forEach(id=>{
     const el=document.getElementById(id);if(el)el.textContent=tree;
   });
@@ -5246,6 +5805,7 @@ setYoungerCompanion("🐻","今天玩 4 小關","選一個開始。","一起玩"
 document.body.classList.toggle("younger-mode",currentProfile==="younger");
 document.getElementById("profileOlder")?.classList.toggle("active",currentProfile==="older");
 document.getElementById("profileYounger")?.classList.toggle("active",currentProfile==="younger");
+updateWordBridgeProgressUI();
 setTimeout(()=>{ if(currentProfile==="younger")go("youngerHome"); },0);
 
 
