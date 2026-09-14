@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V15.3｜復旦 × 六和</title>
+<title>兄弟學習基地 V16.3｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -2126,6 +2126,216 @@ body:not(.younger-mode) .page.youngerOnly{
 }
 </style>
 
+
+<style id="v160-match-trace-games">
+/* ===== Aa 連連看 ===== */
+.matchPlayBoard{min-height:420px}
+.matchBoard{
+  position:relative;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:180px;
+  max-width:760px;
+  margin:22px auto 8px;
+  padding:12px 18px;
+}
+.matchSvg{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  overflow:visible;
+  z-index:1;
+}
+.matchCol{
+  position:relative;
+  display:grid;
+  gap:12px;
+  z-index:2;
+}
+.matchNode{
+  min-height:66px;
+  border:2px solid #dfe6f5;
+  border-radius:18px;
+  background:#fff;
+  font:inherit;
+  font-size:31px;
+  font-weight:900;
+  color:#3f4e69;
+  cursor:pointer;
+  touch-action:none;
+  user-select:none;
+  box-shadow:0 7px 15px rgba(83,100,144,.06);
+  transition:transform .15s ease, border-color .15s ease, background .15s ease;
+}
+.matchNode:hover{transform:translateY(-1px)}
+.matchNode.selected{
+  border-color:#7892ed;
+  background:#f2f6ff;
+  box-shadow:0 0 0 4px rgba(120,146,237,.11);
+}
+.matchNode.matched{
+  border-color:#9ed4ad;
+  background:#f0faF2;
+  color:#39704a;
+  pointer-events:none;
+}
+.matchNode.wrong{
+  animation:matchShake .33s ease;
+  border-color:#efabab;
+  background:#fff4f4;
+}
+@keyframes matchShake{
+  0%,100%{transform:translateX(0)}
+  30%{transform:translateX(-7px)}
+  70%{transform:translateX(7px)}
+}
+.matchLine{
+  stroke:#6f89e6;
+  stroke-width:5;
+  stroke-linecap:round;
+  opacity:.85;
+}
+.matchLine.temp{
+  stroke:#a8b5dd;
+  stroke-dasharray:8 8;
+  opacity:.65;
+}
+.matchHint{
+  margin-top:12px;
+  text-align:center;
+  font-size:13px;
+  color:#74829a;
+}
+
+/* ===== 手指描字母 ===== */
+.tracePlayBoard{min-height:460px}
+.traceCanvasWrap{
+  max-width:760px;
+  margin:18px auto 14px;
+  border-radius:24px;
+  overflow:hidden;
+  border:2px solid #dfe6f5;
+  background:#fff;
+  box-shadow:0 10px 20px rgba(83,100,144,.06);
+}
+#traceCanvas{
+  display:block;
+  width:100%;
+  height:auto;
+  touch-action:none;
+  cursor:crosshair;
+}
+.traceActions{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+}
+.traceBtn{
+  min-width:150px;
+  min-height:52px;
+  border:0;
+  border-radius:16px;
+  background:#657fe7;
+  color:#fff;
+  font:inherit;
+  font-weight:900;
+  font-size:16px;
+  cursor:pointer;
+}
+.traceBtn:disabled{opacity:.55;cursor:default}
+.traceBtn.secondary{
+  background:#f2f5fb;
+  color:#55647f;
+  border:1px solid #dde5f3;
+}
+
+/* 小熊在這兩種玩法有專屬道具 */
+#youngerCase .cssBear::before{
+  content:"Aa";
+  left:-12px;
+  top:52px;
+  width:38px;
+  height:30px;
+  border-radius:10px;
+  background:#fff6d9;
+  border:1px solid #efd999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
+  color:#775a25;
+}
+#youngerPosition .cssBear::before{
+  content:"✏️";
+  left:-15px;
+  top:50px;
+  font-size:27px;
+  transform:rotate(-12deg);
+}
+@media(max-width:700px){
+  .matchBoard{gap:70px;padding:8px}
+  .matchNode{min-height:58px;font-size:26px}
+  .matchPlayBoard{min-height:380px}
+  .tracePlayBoard{min-height:410px}
+}
+</style>
+
+
+<style id="v161-beginner-listening">
+#youngerListen .kidGameSpeech span{
+  font-size:14px;
+}
+#youngerListen .kidChoiceGrid{
+  grid-template-columns:repeat(4,1fr)!important;
+}
+.listenPictureChoice{
+  min-height:112px!important;
+  display:flex!important;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+}
+.listenEmoji{
+  font-size:54px;
+  line-height:1;
+}
+.listenWordReveal{
+  font-size:15px;
+  font-weight:900;
+  color:#43516e;
+}
+@media(max-width:680px){
+  #youngerListen .kidChoiceGrid{
+    grid-template-columns:1fr 1fr!important;
+  }
+  .listenPictureChoice{
+    min-height:104px!important;
+  }
+  .listenEmoji{
+    font-size:48px;
+  }
+}
+</style>
+
+
+<style id="v162-parent-older-tree">
+#parentOlderChineseTree,#parentOlderMathTree{
+  line-height:1.9;
+  white-space:pre-wrap;
+}
+.treeStable{color:#3e7851}
+.treeBuilding{color:#63708c}
+.treeNeeds{color:#b45b57;font-weight:800}
+.treeNext{color:#8b6d35}
+#parentTestHistoryRows td:first-child,
+#parentWrongRows td:first-child{
+  white-space:nowrap;
+}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -2167,7 +2377,7 @@ body:not(.younger-mode) .page.youngerOnly{
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V15.3</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V16.3</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -2264,7 +2474,7 @@ body:not(.younger-mode) .page.youngerOnly{
     </div>
   </div>
 
-  <div class="card" style="margin-top:16px"><div class="practiceTop"><div><h3>📊 我的學習進度</h3><div class="muted">不是看做了多少題，而是看哪些能力慢慢變穩。</div></div><span class="tag">本週</span></div><div class="progressBoard"><div class="progressCard"><div class="progressHead"><b>📖 國文</b><span id="homeChPct">0%</span></div><div class="progressTrack"><div id="homeChBar" class="progressFill" style="width:0%"></div></div><div class="muted" style="margin-top:7px">形音義＋成語＋閱讀＋表達</div></div><div class="progressCard"><div class="progressHead"><b>🧮 數學</b><span id="homeMathPct">0%</span></div><div class="progressTrack"><div id="homeMathBar" class="progressFill" style="width:0%"></div></div><div class="muted" style="margin-top:7px">基礎＋應用＋多步驟</div></div><div class="progressCard"><div class="progressHead"><b>英文</b><span>原系統</span></div><div class="progressTrack"><div class="progressFill" style="width:65%"></div></div><div class="muted" style="margin-top:7px">沿用英文 V6.83 資料</div></div></div></div>
+  <div class="card" style="margin-top:16px"><div class="practiceTop"><div><h3>📊 我的學習進度</h3><div class="muted">不是看做了多少題，而是看哪些能力慢慢變穩。</div></div><span class="tag">本週</span></div><div class="progressBoard"><div class="progressCard"><div class="progressHead"><b>📖 國文</b><span id="homeChPct">0%</span></div><div class="progressTrack"><div id="homeChBar" class="progressFill" style="width:0%"></div></div><div class="muted" style="margin-top:7px">形音義＋成語＋閱讀＋表達</div></div><div class="progressCard"><div class="progressHead"><b>🧮 數學</b><span id="homeMathPct">0%</span></div><div class="progressTrack"><div id="homeMathBar" class="progressFill" style="width:0%"></div></div><div class="muted" style="margin-top:7px">整數四則＋應用＋多步驟</div></div><div class="progressCard"><div class="progressHead"><b>英文</b><span>原系統</span></div><div class="progressTrack"><div class="progressFill" style="width:65%"></div></div><div class="muted" style="margin-top:7px">沿用英文 V6.83 資料</div></div></div></div>
 <div class="card" style="margin-top:16px">
     <h3>📅 一週學習節奏</h3>
     <div class="muted">每天只做一個主科，不把大滿貫、世說新語、網站練習全部塞在同一天。</div>
@@ -2413,6 +2623,7 @@ body:not(.younger-mode) .page.youngerOnly{
     <div class="muted">孩子頁不顯示這些分類；家長模式才看。</div>
     <table>
       <tr><th>能力</th><th>目的</th></tr>
+      <tr><td>整數四則運算</td><td>加減乘除、先乘除後加減、括號與計算順序</td></tr>
       <tr><td>基礎計算</td><td>穩定正確率</td></tr>
       <tr><td>題意判讀</td><td>找出已知與問題</td></tr>
       <tr><td>文字轉算式</td><td>把文字變成數學關係</td></tr>
@@ -2624,13 +2835,13 @@ body:not(.younger-mode) .page.youngerOnly{
     <div class="kidMissionGrid" aria-label="弟弟今天四個遊戲">
       <button type="button" class="kidMissionCard missionDot" id="mission-case" data-task="case">
         <div class="kidMissionArt artBook"><span>A</span><span>a</span></div>
-        <b>Aa 配一配</b>
+        <b>Aa 連連看</b>
         <small id="missionState-case">開始</small>
       </button>
 
       <button type="button" class="kidMissionCard missionDot" id="mission-position" data-task="position">
         <div class="kidMissionArt artLines"><i></i><i></i><i></i><i></i><strong>g</strong></div>
-        <b>字母住哪裡</b>
+        <b>手指描字母</b>
         <small id="missionState-position">開始</small>
       </button>
 
@@ -2668,68 +2879,80 @@ body:not(.younger-mode) .page.youngerOnly{
 </section>
 
 
+
 <section id="youngerCase" class="page youngerOnly kidGamePage">
   <div class="kidGameShell themeCase">
     <div class="kidGameTop">
       <button type="button" class="kidBackBtn" onclick="go('youngerHome')">←</button>
-      <div class="kidGameTitle"><span>Aa</span><b>配一配</b></div>
+      <div class="kidGameTitle"><span>Aa</span><b>連連看</b></div>
       <div class="kidMiniScore"><span class="youngerMiniStars">⭐ 0</span><span class="youngerMiniStreak">連對 0</span></div>
     </div>
+
     <div class="kidBearRow">
       <div class="cssBear miniBear" aria-hidden="true">
         <div class="bearEar left"></div><div class="bearEar right"></div>
         <div class="bearHead"><div class="bearEye left"></div><div class="bearEye right"></div><div class="bearMuzzle"></div><div class="bearNose"></div><div class="bearMouth"></div></div>
         <div class="bearBody"></div><div class="bearArm left"></div><div class="bearArm right"></div>
       </div>
-      <div class="kidGameSpeech practiceBuddyText"><b>找小寫朋友</b><span>點一個答案。</span></div>
+      <div class="kidGameSpeech practiceBuddyText"><b>把一樣的連起來</b><span>從大寫拉到小寫。</span></div>
     </div>
-    <div id="youngerCaseTask" class="kidPlayBoard">
-      <div class="kidPrompt" id="casePrompt">大寫 A 的小寫是？</div>
-      <div class="caseTarget" id="caseTargetBig">A</div>
-      <div class="letterChoices kidChoiceGrid" id="caseChoices"></div>
+
+    <div class="kidPlayBoard matchPlayBoard">
+      <div class="kidPrompt">把大寫和小寫連起來</div>
+      <div class="matchBoard" id="matchBoard">
+        <svg class="matchSvg" id="matchSvg" aria-hidden="true"></svg>
+        <div class="matchCol" id="matchLeft"></div>
+        <div class="matchCol" id="matchRight"></div>
+      </div>
+      <div class="matchHint">手指拖曳，也可以先點左邊、再點右邊。</div>
     </div>
-    <div class="youngerFeedback kidFeedback">🐻 看清楚，再選。</div>
+
+    <div class="youngerFeedback kidFeedback">🐻 連一組看看。</div>
     <div class="kidGameBottom">
-      <button type="button" class="kidNextBtn youngerNextAction">下一題 →</button>
+      <button type="button" class="kidNextBtn" id="newMatchBoardBtn">換一組</button>
       <span class="youngerRoundProgress">本關 0 / 4</span>
     </div>
   </div>
 </section>
 
+
+
 <section id="youngerPosition" class="page youngerOnly kidGamePage">
   <div class="kidGameShell themePosition">
     <div class="kidGameTop">
       <button type="button" class="kidBackBtn" onclick="go('youngerHome')">←</button>
-      <div class="kidGameTitle"><span>✍️</span><b>字母住哪裡</b></div>
+      <div class="kidGameTitle"><span>✍️</span><b>手指描字母</b></div>
       <div class="kidMiniScore"><span class="youngerMiniStars">⭐ 0</span><span class="youngerMiniStreak">連對 0</span></div>
     </div>
+
     <div class="kidBearRow">
       <div class="cssBear miniBear" aria-hidden="true">
         <div class="bearEar left"></div><div class="bearEar right"></div>
         <div class="bearHead"><div class="bearEye left"></div><div class="bearEye right"></div><div class="bearMuzzle"></div><div class="bearNose"></div><div class="bearMouth"></div></div>
         <div class="bearBody"></div><div class="bearArm left"></div><div class="bearArm right"></div>
       </div>
-      <div class="kidGameSpeech practiceBuddyText"><b>看四線格</b><span>選上、中、下。</span></div>
+      <div class="kidGameSpeech practiceBuddyText"><b>用手指描</b><span>沿著淡淡的字母寫。</span></div>
     </div>
-    <div id="youngerPositionTask" class="kidPlayBoard">
-      <div class="kidPrompt" id="positionPrompt">小寫 g 住哪裡？</div>
-      <div class="writingGuide kidWritingGuide">
-        <div class="line l1"></div><div class="line l2"></div><div class="line l3"></div><div class="line l4"></div>
-        <div class="dragLetter" id="positionLetter">g</div>
+
+    <div class="kidPlayBoard tracePlayBoard">
+      <div class="kidPrompt" id="tracePrompt">描小寫 a</div>
+      <div class="traceCanvasWrap">
+        <canvas id="traceCanvas" width="760" height="360" aria-label="字母描寫區"></canvas>
       </div>
-      <div class="positionChoices kidZoneChoices">
-        <button type="button" class="positionBtn" data-zone="tall">⬆️ 往上</button>
-        <button type="button" class="positionBtn" data-zone="middle">↔️ 中間</button>
-        <button type="button" class="positionBtn" data-zone="descender">⬇️ 往下</button>
+      <div class="traceActions">
+        <button type="button" class="traceBtn secondary" id="clearTraceBtn">↻ 重畫</button>
+        <button type="button" class="traceBtn" id="finishTraceBtn">✓ 畫好了</button>
       </div>
     </div>
-    <div class="youngerFeedback kidFeedback">🐻 看字母，再選。</div>
+
+    <div class="youngerFeedback kidFeedback">🐻 沿著字母慢慢描。</div>
     <div class="kidGameBottom">
-      <button type="button" class="kidNextBtn youngerNextAction">下一題 →</button>
+      <button type="button" class="kidNextBtn youngerNextAction">下一個字母 →</button>
       <span class="youngerRoundProgress">本關 0 / 4</span>
     </div>
   </div>
 </section>
+
 
 <section id="youngerLook" class="page youngerOnly kidGamePage">
   <div class="kidGameShell themeLook">
@@ -2772,7 +2995,7 @@ body:not(.younger-mode) .page.youngerOnly{
         <div class="bearHead"><div class="bearEye left"></div><div class="bearEye right"></div><div class="bearMuzzle"></div><div class="bearNose"></div><div class="bearMouth"></div></div>
         <div class="bearBody"></div><div class="bearArm left"></div><div class="bearArm right"></div>
       </div>
-      <div class="kidGameSpeech practiceBuddyText"><b>先聽</b><span>再找字母。</span></div>
+      <div class="kidGameSpeech practiceBuddyText"><b>先聽</b><span>聽到什麼，就點圖片。</span></div>
     </div>
     <div id="youngerListenTask" class="kidPlayBoard listenStage active">
       <button type="button" class="kidListenOrb" id="playLetterSound">
@@ -2898,8 +3121,8 @@ body:not(.younger-mode) .page.youngerOnly{
 
 <div id="back-progress" class="backendPanel">
       <div class="card">
-        <h3>能力進度</h3>
-        <div class="muted">不是只看做幾題，而是看每個能力的穩定度。</div>
+        <h3>哥哥｜能力進度</h3>
+        <div class="muted">不只看總答對率，會依能力節點整理最近表現，並保留最後練習日期。</div>
         <div class="progressBoard">
           <div class="progressCard">
             <div class="progressHead"><b>國文</b><span id="backChPct">0%</span></div>
@@ -2910,9 +3133,40 @@ body:not(.younger-mode) .page.youngerOnly{
             <div class="progressTrack"><div id="backMathBar" class="progressFill" style="width:0%"></div></div>
           </div>
           <div class="progressCard">
-            <div class="progressHead"><b>英文</b><span>沿用 V6.38</span></div>
+            <div class="progressHead"><b>英文</b><span>原英文網站</span></div>
             <div class="muted">英文學習紀錄仍由原英文網站管理。</div>
           </div>
+        </div>
+      </div>
+
+      <div class="grid g2" style="margin-top:14px">
+        <div class="card">
+          <h3>🌳 哥哥｜國文能力樹</h3>
+          <div class="muted">狀態依最近練習紀錄更新；括號顯示最後練習日期。</div>
+          <div class="treeDiag" id="parentOlderChineseTree" style="margin-top:12px">國文能力
+└─ 尚未累積資料</div>
+        </div>
+
+        <div class="card">
+          <h3>🌳 哥哥｜數學能力樹</h3>
+          <div class="muted">可以直接看出哪一類錯得多，以及最近在哪一天練過。</div>
+          <div class="treeDiag" id="parentOlderMathTree" style="margin-top:12px">數學能力
+└─ 尚未累積資料</div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:14px">
+        <div class="practiceTop">
+          <div>
+            <h3>🗓️ 哥哥｜測驗紀錄</h3>
+            <div class="muted">之後完成網站內的校準／補洞／模擬測驗，都會自動記下日期。</div>
+          </div>
+        </div>
+        <div style="overflow:auto;margin-top:10px">
+          <table>
+            <thead><tr><th>日期</th><th>學校</th><th>科目</th><th>模式</th><th>成績</th><th>主要弱點</th></tr></thead>
+            <tbody id="parentTestHistoryRows"></tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -2921,7 +3175,7 @@ body:not(.younger-mode) .page.youngerOnly{
       <div class="card">
         <h3>國文／數學錯題</h3>
         <table>
-          <thead><tr><th>科目</th><th>能力</th><th>題目</th><th>孩子答案</th><th>正解</th></tr></thead>
+          <thead><tr><th>日期</th><th>科目</th><th>能力</th><th>題目</th><th>孩子答案</th><th>正解</th></tr></thead>
           <tbody id="parentWrongRows"></tbody>
         </table>
       </div>
@@ -3651,7 +3905,37 @@ const mathBank=[
 {id:"m29",type:"逆向推理",level:4,q:"某數先乘 4，再減 18，結果是 46。原來的數是多少？",a:["16"],show:"16",why:"先逆推46＋18＝64，再64÷4＝16。"},
 {id:"m30",type:"比例概念",level:4,q:"果汁和水按照 2：5 混合。若果汁用了 18 杯，水要用幾杯？",a:["45","45杯"],show:"45",why:"18÷2＝9，每1份是9杯，水5份＝45杯。"},
 {id:"m31",type:"多步驟",level:4,q:"一本書第一天看全書的 1/4，第二天看剩下的 1/3，兩天後還剩 90 頁。全書共有幾頁？",a:["180","180頁"],show:"180",why:"第一天後剩3/4，第二天後剩其中2/3，所以剩全書1/2；90÷1/2＝180。"},
-{id:"m32",type:"邏輯推理",level:4,q:"有雞和兔共 12 隻，共有 34 隻腳。兔有幾隻？",a:["5","5隻"],show:"5",why:"若全是雞有24腳，多10腳；每換1隻兔多2腳，所以兔有5隻。"}
+
+{id:"m32",type:"邏輯推理",level:4,q:"有雞和兔共 12 隻，共有 34 隻腳。兔有幾隻？",a:["5","5隻"],show:"5",why:"若全是雞有24腳，多10腳；每換1隻兔多2腳，所以兔有5隻。"},
+
+// V16.3：新增「整數四則運算」專項，讓哥哥增加計算量，不只做應用題。
+{id:"m33",type:"整數四則運算",level:1,q:"368＋457＝？",a:["825"],show:"825",why:"368＋457＝825。"},
+{id:"m34",type:"整數四則運算",level:1,q:"900－468＝？",a:["432"],show:"432",why:"900－468＝432。"},
+{id:"m35",type:"整數四則運算",level:1,q:"47×36＝？",a:["1692"],show:"1692",why:"47×36＝1692。"},
+{id:"m36",type:"整數四則運算",level:1,q:"864÷24＝？",a:["36"],show:"36",why:"864÷24＝36。"},
+{id:"m37",type:"整數四則運算",level:1,q:"125×48＝？",a:["6000"],show:"6000",why:"125×48＝125×(50－2)＝6250－250＝6000。"},
+{id:"m38",type:"整數四則運算",level:1,q:"3024÷42＝？",a:["72"],show:"72",why:"42×72＝3024，所以3024÷42＝72。"},
+{id:"m39",type:"整數四則運算",level:1,q:"780＋345－260＝？",a:["865"],show:"865",why:"780＋345＝1125，再減260＝865。"},
+{id:"m40",type:"整數四則運算",level:1,q:"1600－375＋248＝？",a:["1473"],show:"1473",why:"1600－375＝1225，再加248＝1473。"},
+
+{id:"m41",type:"整數四則運算",level:2,q:"96÷8×7＝？",a:["84"],show:"84",why:"乘除同級，由左到右：96÷8＝12，12×7＝84。"},
+{id:"m42",type:"整數四則運算",level:2,q:"45＋18×6＝？",a:["153"],show:"153",why:"先乘除後加減：18×6＝108，45＋108＝153。"},
+{id:"m43",type:"整數四則運算",level:2,q:"360－144÷12＝？",a:["348"],show:"348",why:"先算144÷12＝12，再算360－12＝348。"},
+{id:"m44",type:"整數四則運算",level:2,q:"（75＋45）×6＝？",a:["720"],show:"720",why:"先算括號：75＋45＝120，再120×6＝720。"},
+{id:"m45",type:"整數四則運算",level:2,q:"840÷（14＋6）＝？",a:["42"],show:"42",why:"先算括號：14＋6＝20，再840÷20＝42。"},
+{id:"m46",type:"整數四則運算",level:2,q:"32×25－180＝？",a:["620"],show:"620",why:"32×25＝800，再800－180＝620。"},
+{id:"m47",type:"整數四則運算",level:2,q:"900－48×15＝？",a:["180"],show:"180",why:"先算48×15＝720，再900－720＝180。"},
+{id:"m48",type:"整數四則運算",level:2,q:"720÷9＋36×4＝？",a:["224"],show:"224",why:"先乘除：720÷9＝80，36×4＝144，再80＋144＝224。"},
+
+{id:"m49",type:"整數四則運算",level:3,q:"125×64＝？",a:["8000"],show:"8000",why:"125×64＝125×8×8＝1000×8＝8000。"},
+{id:"m50",type:"整數四則運算",level:3,q:"7560÷35＝？",a:["216"],show:"216",why:"35×216＝7560，所以7560÷35＝216。"},
+{id:"m51",type:"整數四則運算",level:3,q:"（420－168）÷7＝？",a:["36"],show:"36",why:"先算括號：420－168＝252，再252÷7＝36。"},
+{id:"m52",type:"整數四則運算",level:3,q:"36×（28－13）＋240＝？",a:["780"],show:"780",why:"先括號：28－13＝15；36×15＝540；540＋240＝780。"},
+{id:"m53",type:"整數四則運算",level:3,q:"1800÷25＋47×16＝？",a:["824"],show:"824",why:"1800÷25＝72，47×16＝752，再相加＝824。"},
+{id:"m54",type:"整數四則運算",level:3,q:"2400－（96×18＋312）＝？",a:["360"],show:"360",why:"96×18＝1728；1728＋312＝2040；2400－2040＝360。"},
+{id:"m55",type:"整數四則運算",level:3,q:"（864÷12）×（35－27）＝？",a:["576"],show:"576",why:"864÷12＝72，35－27＝8，72×8＝576。"},
+{id:"m56",type:"整數四則運算",level:3,q:"5400÷45－18×4＝？",a:["48"],show:"48",why:"5400÷45＝120，18×4＝72，再120－72＝48。"}
+
 ];
 let mathCurrent=null, mathStreak=0, mathTodayCount=0;
 
@@ -3691,6 +3975,12 @@ function mathWeightedPick(list,target,preferSkill=null){
     let w=1, d=Math.abs((item.level||1)-target);
     w*=d===0?5:(d===1?2.2:.45);
     if(preferSkill && item.type===preferSkill && h.lastDate!==mathDayKey())w*=4;
+
+    // V16.3：哥哥目前需要增加整數四則運算量。
+    // 最近尚未累積 12 題前，這一類提高出題權重；之後回到正常自適應。
+    const fourOpsAttempts=(mathHistory.recent||[]).filter(x=>x.skill==="整數四則運算").length;
+    if(item.type==="整數四則運算" && fourOpsAttempts<12)w*=2.8;
+
     if(!h.seen)w*=2.5;
     if(h.lastOutcome==="wrong" && h.dueDate<=mathDayKey())w*=3.5;
     if(h.lastOutcome==="correct")w*=.7;
@@ -3884,6 +4174,47 @@ function getParentPin(){
   const saved=String(SafeStore.get(PARENT_PIN_KEY,"")||"").trim();
   return /^\d{4,6}$/.test(saved)?saved:"2580";
 }
+
+function formatLogDate(raw){
+  if(!raw)return "舊紀錄";
+  const d=new Date(raw);
+  if(!Number.isNaN(d.getTime())){
+    const y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,"0"),day=String(d.getDate()).padStart(2,"0");
+    return `${y}/${m}/${day}`;
+  }
+  return localDayLabel(raw);
+}
+
+function olderSkillSummary(recent,bank,subjectName){
+  const skills=[...new Set(bank.map(x=>subjectName==="國文"?(x.skill||x.type):x.type).filter(Boolean))];
+  const rows=skills.map(skill=>{
+    const arr=(recent||[]).filter(x=>x.skill===skill);
+    if(!arr.length)return {skill,status:"下一個要升級",date:"—",count:0,rate:null};
+    const last=arr[arr.length-1];
+    const sample=arr.slice(-8);
+    const ok=sample.filter(x=>x.ok).length;
+    const rate=ok/sample.length;
+    let status;
+    if(sample.length<3)status="正在建立";
+    else if(rate>=.8)status="穩定";
+    else if(rate>=.55)status="正在建立";
+    else status="需要再練";
+    return {skill,status,date:last.date||"—",count:sample.length,rate};
+  });
+
+  const priority={ "需要再練":0,"正在建立":1,"下一個要升級":2,"穩定":3 };
+  rows.sort((a,b)=>priority[a.status]-priority[b.status] || a.skill.localeCompare(b.skill,"zh-Hant"));
+
+  const lines=[`${subjectName}能力`];
+  rows.forEach((r,i)=>{
+    const branch=i===rows.length-1?"└":"├";
+    const rate=r.rate===null?"":`｜近${r.count}題 ${Math.round(r.rate*100)}%`;
+    const date=r.date==="—"?"尚未練習":`最後 ${localDayLabel(r.date)}`;
+    lines.push(`${branch}─ ${r.skill}　${r.status}${rate}｜${date}`);
+  });
+  return lines.join("\\n");
+}
+
 function renderParentBackendData(){
   const ch=psStats.chinese||{answered:0,correct:0}, mt=psStats.math||{answered:0,correct:0};
   const chPct=ch.answered?Math.round(ch.correct/ch.answered*100):0;
@@ -3908,8 +4239,24 @@ function renderParentBackendData(){
   // wrongs
   const tbody=document.getElementById("parentWrongRows");
   if(tbody){
-    tbody.innerHTML=psWrongs.slice().reverse().map(x=>`<tr><td>${x.subject}</td><td>${x.ability}</td><td>${x.question}</td><td>${x.yours||"—"}</td><td>${x.answer}</td></tr>`).join("")
-      || '<tr><td colspan="5">目前沒有國文／數學錯題。</td></tr>';
+    tbody.innerHTML=psWrongs.slice().reverse().map(x=>`<tr><td>${formatLogDate(x.date)}</td><td>${x.subject}</td><td>${x.ability}</td><td>${x.question}</td><td>${x.yours||"—"}</td><td>${x.answer}</td></tr>`).join("")
+      || '<tr><td colspan="6">目前沒有國文／數學錯題。</td></tr>';
+  }
+
+  // 哥哥能力樹：國文、數學分開看，並顯示最後練習日期
+  const chTree=document.getElementById("parentOlderChineseTree");
+  if(chTree)chTree.textContent=olderSkillSummary(chHistory.recent||[],chineseBank,"國文");
+  const mtTree=document.getElementById("parentOlderMathTree");
+  if(mtTree)mtTree.textContent=olderSkillSummary(mathHistory.recent||[],mathBank,"數學");
+
+  // 哥哥網站測驗紀錄
+  const testRows=document.getElementById("parentTestHistoryRows");
+  if(testRows){
+    const sessions=loadOlderTestSessions().slice().reverse();
+    testRows.innerHTML=sessions.map(s=>{
+      const weak=(s.weak||[]).length?(s.weak||[]).slice(0,2).map(x=>`${x.skill}(${x.count})`).join("、"):"本次無明顯卡點";
+      return `<tr><td>${localDayLabel(s.date)}</td><td>${s.school||"—"}</td><td>${s.subject||"—"}</td><td>${s.mode||"—"}</td><td>${s.correct||0}/${s.total||0}（${s.pct||0}%）</td><td>${weak}</td></tr>`;
+    }).join("") || '<tr><td colspan="6">尚未有網站測驗紀錄；下一次完成測驗後會自動記日期。</td></tr>';
   }
   const counts={};
   psWrongs.forEach(x=>counts[x.subject+"｜"+x.ability]=(counts[x.subject+"｜"+x.ability]||0)+1);
@@ -4105,6 +4452,33 @@ const lookSets=[
   {target:"i",choices:["i","l","j","t"]},
   {target:"l",choices:["i","t","l","j"]}
 ];
+const beginnerListenWords=[
+  {word:"cat",emoji:"🐱"},
+  {word:"dog",emoji:"🐶"},
+  {word:"fish",emoji:"🐟"},
+  {word:"bird",emoji:"🐦"},
+  {word:"apple",emoji:"🍎"},
+  {word:"banana",emoji:"🍌"},
+  {word:"ball",emoji:"⚽"},
+  {word:"book",emoji:"📘"},
+  {word:"car",emoji:"🚗"},
+  {word:"bus",emoji:"🚌"},
+  {word:"sun",emoji:"☀️"},
+  {word:"moon",emoji:"🌙"},
+  {word:"star",emoji:"⭐"},
+  {word:"tree",emoji:"🌳"},
+  {word:"flower",emoji:"🌼"},
+  {word:"milk",emoji:"🥛"},
+  {word:"cake",emoji:"🍰"},
+  {word:"egg",emoji:"🥚"},
+  {word:"hand",emoji:"✋"},
+  {word:"eye",emoji:"👁️"},
+  {word:"ear",emoji:"👂"},
+  {word:"nose",emoji:"👃"},
+  {word:"shoe",emoji:"👟"},
+  {word:"hat",emoji:"🧢"}
+];
+
 const positionLetters=[
   {letter:"b",zone:"tall"},{letter:"d",zone:"tall"},{letter:"f",zone:"tall"},
   {letter:"h",zone:"tall"},{letter:"k",zone:"tall"},{letter:"l",zone:"tall"},{letter:"t",zone:"tall"},
@@ -4175,9 +4549,9 @@ function nextPositionLetter(){
   const id=nextUniqueYoungerId("position",positionLetters.map(x=>x.letter),8);
   return positionLetters.find(x=>x.letter===id)||positionLetters[0];
 }
-function nextListenLetter(){
-  const letters="ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-  return nextUniqueYoungerId("listen",letters,8);
+function nextListenWord(){
+  const id=nextUniqueYoungerId("listen",beginnerListenWords.map(x=>x.word),8);
+  return beginnerListenWords.find(x=>x.word===id)||beginnerListenWords[0];
 }
 
 function shuffle(a){return [...a].sort(()=>Math.random()-.5);}
@@ -4196,14 +4570,281 @@ function placeChoices(task,correct,distractors,total=4){
   }
   return arr;
 }
+
+let matchState={pairs:[],leftSelected:null,dragging:false,tempLine:null};
+
+function matchPointFor(el,board){
+  const er=el.getBoundingClientRect(), br=board.getBoundingClientRect();
+  return {
+    x:er.left-br.left+er.width/2,
+    y:er.top-br.top+er.height/2
+  };
+}
+function drawMatchLine(leftEl,rightEl,temp=false,x2=null,y2=null){
+  const svg=document.getElementById("matchSvg");
+  const board=document.getElementById("matchBoard");
+  if(!svg||!board||!leftEl)return null;
+  const p1=matchPointFor(leftEl,board);
+  let p2;
+  if(rightEl)p2=matchPointFor(rightEl,board);
+  else p2={x:x2??p1.x,y:y2??p1.y};
+  const line=document.createElementNS("http://www.w3.org/2000/svg","line");
+  line.setAttribute("x1",p1.x);line.setAttribute("y1",p1.y);
+  line.setAttribute("x2",p2.x);line.setAttribute("y2",p2.y);
+  line.setAttribute("class",temp?"matchLine temp":"matchLine");
+  svg.appendChild(line);
+  return line;
+}
+function clearTempMatchLine(){
+  if(matchState.tempLine){matchState.tempLine.remove();matchState.tempLine=null;}
+}
+function chooseMatchLeft(btn){
+  if(btn.classList.contains("matched"))return;
+  document.querySelectorAll("#matchLeft .matchNode").forEach(x=>x.classList.remove("selected"));
+  matchState.leftSelected=btn;
+  btn.classList.add("selected");
+}
+function tryMatch(rightBtn){
+  const left=matchState.leftSelected;
+  if(!left||rightBtn.classList.contains("matched"))return;
+  const ok=left.dataset.pair===rightBtn.dataset.pair;
+  if(ok){
+    left.classList.remove("selected");
+    left.classList.add("matched");
+    rightBtn.classList.add("matched");
+    drawMatchLine(left,rightBtn,false);
+    matchState.leftSelected=null;
+    setKidFeedback(`🐻 對！${left.textContent} → ${rightBtn.textContent}`);
+    setKidBearMood(true);
+    recordYounger(true);
+  }else{
+    left.classList.add("wrong");
+    rightBtn.classList.add("wrong");
+    setKidFeedback("🐻 再看一次");
+    setKidBearMood(false);
+    recordYounger(false);
+    setTimeout(()=>{left.classList.remove("wrong");rightBtn.classList.remove("wrong")},420);
+  }
+}
+function nextCaseBoard(){
+  const leftWrap=document.getElementById("matchLeft");
+  const rightWrap=document.getElementById("matchRight");
+  const svg=document.getElementById("matchSvg");
+  if(!leftWrap||!rightWrap||!svg)return;
+  leftWrap.innerHTML="";rightWrap.innerHTML="";svg.innerHTML="";
+  matchState={pairs:[],leftSelected:null,dragging:false,tempLine:null};
+
+  const selected=[];
+  for(let i=0;i<4;i++){
+    let pair=nextCasePair();
+    let guard=0;
+    while(selected.some(x=>x[0]===pair[0]) && guard<20){
+      pair=nextCasePair();guard++;
+    }
+    selected.push(pair);
+  }
+  matchState.pairs=selected;
+  const rightPairs=shuffle(selected);
+
+  selected.forEach(pair=>{
+    const b=document.createElement("button");
+    b.type="button";b.className="matchNode";b.textContent=pair[0];b.dataset.pair=pair[0];
+    b.addEventListener("click",()=>chooseMatchLeft(b));
+    b.addEventListener("pointerdown",e=>{
+      chooseMatchLeft(b);
+      matchState.dragging=true;
+      const board=document.getElementById("matchBoard");
+      const br=board.getBoundingClientRect();
+      clearTempMatchLine();
+      matchState.tempLine=drawMatchLine(b,null,true,e.clientX-br.left,e.clientY-br.top);
+      e.preventDefault();
+    });
+    leftWrap.appendChild(b);
+  });
+
+  rightPairs.forEach(pair=>{
+    const b=document.createElement("button");
+    b.type="button";b.className="matchNode";b.textContent=pair[1];b.dataset.pair=pair[0];
+    b.addEventListener("click",()=>tryMatch(b));
+    rightWrap.appendChild(b);
+  });
+
+  setKidFeedback("🐻 從左邊連到右邊。");
+}
+document.addEventListener("pointermove",e=>{
+  if(!matchState.dragging||!matchState.leftSelected||!matchState.tempLine)return;
+  const board=document.getElementById("matchBoard");if(!board)return;
+  const br=board.getBoundingClientRect();
+  matchState.tempLine.setAttribute("x2",e.clientX-br.left);
+  matchState.tempLine.setAttribute("y2",e.clientY-br.top);
+});
+document.addEventListener("pointerup",e=>{
+  if(!matchState.dragging)return;
+  matchState.dragging=false;
+  const hit=document.elementFromPoint(e.clientX,e.clientY);
+  const right=hit?.closest?.("#matchRight .matchNode");
+  clearTempMatchLine();
+  if(right)tryMatch(right);
+});
+window.addEventListener("resize",()=>{
+  const svg=document.getElementById("matchSvg");
+  if(!svg)return;
+  const matched=[...document.querySelectorAll("#matchLeft .matchNode.matched")];
+  svg.innerHTML="";
+  matched.forEach(left=>{
+    const right=document.querySelector(`#matchRight .matchNode.matched[data-pair="${left.dataset.pair}"]`);
+    if(right)drawMatchLine(left,right,false);
+  });
+});
+
+
+let traceState={
+  letter:"a",
+  drawing:false,
+  points:0,
+  length:0,
+  last:null,
+  bbox:null,
+  accepted:false
+};
+
+function traceCtx(){return document.getElementById("traceCanvas")?.getContext("2d")||null;}
+function resetTraceMetrics(){
+  traceState.drawing=false;
+  traceState.points=0;
+  traceState.length=0;
+  traceState.last=null;
+  traceState.bbox=null;
+  traceState.accepted=false;
+  const btn=document.getElementById("finishTraceBtn");
+  if(btn){btn.disabled=false;btn.textContent="✓ 畫好了";}
+}
+function drawTraceGuide(){
+  const canvas=document.getElementById("traceCanvas"),ctx=traceCtx();
+  if(!canvas||!ctx)return;
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  // 四線格
+  ctx.save();
+  ctx.strokeStyle="#c7d2e8";
+  ctx.lineWidth=2;
+  [72,145,218,291].forEach(y=>{
+    ctx.beginPath();ctx.moveTo(52,y);ctx.lineTo(canvas.width-52,y);ctx.stroke();
+  });
+  ctx.restore();
+
+  // 淡淡字母
+  ctx.save();
+  ctx.font='230px "Arial Rounded MT Bold","Trebuchet MS",Arial,sans-serif';
+  ctx.textAlign="center";
+  ctx.textBaseline="middle";
+  ctx.setLineDash([8,10]);
+  ctx.strokeStyle="#d4dcf0";
+  ctx.lineWidth=5;
+  ctx.strokeText(traceState.letter,canvas.width/2,190);
+  ctx.setLineDash([]);
+  ctx.fillStyle="rgba(215,222,239,.14)";
+  ctx.fillText(traceState.letter,canvas.width/2,190);
+  ctx.restore();
+}
+function startTraceLetter(){
+  const item=nextPositionLetter();
+  traceState.letter=item.letter;
+  resetTraceMetrics();
+  const p=document.getElementById("tracePrompt");
+  if(p)p.textContent=`描小寫 ${item.letter}`;
+  drawTraceGuide();
+  setKidFeedback("🐻 沿著淡淡的字母描。");
+}
+function tracePointFromEvent(e){
+  const canvas=document.getElementById("traceCanvas");
+  const r=canvas.getBoundingClientRect();
+  return {
+    x:(e.clientX-r.left)*(canvas.width/r.width),
+    y:(e.clientY-r.top)*(canvas.height/r.height)
+  };
+}
+function updateTraceBox(p){
+  if(!traceState.bbox)traceState.bbox={minX:p.x,maxX:p.x,minY:p.y,maxY:p.y};
+  else{
+    traceState.bbox.minX=Math.min(traceState.bbox.minX,p.x);
+    traceState.bbox.maxX=Math.max(traceState.bbox.maxX,p.x);
+    traceState.bbox.minY=Math.min(traceState.bbox.minY,p.y);
+    traceState.bbox.maxY=Math.max(traceState.bbox.maxY,p.y);
+  }
+}
+function initTraceCanvas(){
+  const canvas=document.getElementById("traceCanvas");
+  if(!canvas||canvas.dataset.bound==="1")return;
+  canvas.dataset.bound="1";
+
+  canvas.addEventListener("pointerdown",e=>{
+    traceState.drawing=true;
+    traceState.last=tracePointFromEvent(e);
+    traceState.points++;
+    updateTraceBox(traceState.last);
+    canvas.setPointerCapture?.(e.pointerId);
+    e.preventDefault();
+  });
+
+  canvas.addEventListener("pointermove",e=>{
+    if(!traceState.drawing)return;
+    const p=tracePointFromEvent(e),last=traceState.last,ctx=traceCtx();
+    if(!ctx||!last)return;
+    ctx.save();
+    ctx.strokeStyle="#5f79dc";
+    ctx.lineWidth=18;
+    ctx.lineCap="round";ctx.lineJoin="round";
+    ctx.beginPath();ctx.moveTo(last.x,last.y);ctx.lineTo(p.x,p.y);ctx.stroke();
+    ctx.restore();
+
+    const dx=p.x-last.x,dy=p.y-last.y;
+    traceState.length+=Math.sqrt(dx*dx+dy*dy);
+    traceState.points++;
+    updateTraceBox(p);
+    traceState.last=p;
+    e.preventDefault();
+  });
+
+  const end=e=>{
+    traceState.drawing=false;
+    traceState.last=null;
+    try{canvas.releasePointerCapture?.(e.pointerId)}catch(_){}
+  };
+  canvas.addEventListener("pointerup",end);
+  canvas.addEventListener("pointercancel",end);
+}
+function clearTrace(){
+  resetTraceMetrics();
+  drawTraceGuide();
+  setKidFeedback("🐻 再畫一次。");
+}
+function finishTrace(){
+  if(traceState.accepted)return;
+  const b=traceState.bbox;
+  const w=b?b.maxX-b.minX:0,h=b?b.maxY-b.minY:0;
+  const enough=traceState.length>=110 && traceState.points>=6 && (w>=35 || h>=55);
+  if(!enough){
+    setKidFeedback("🐻 再多描一點。");
+    setKidBearMood(false);
+    return;
+  }
+  traceState.accepted=true;
+  const btn=document.getElementById("finishTraceBtn");
+  if(btn){btn.disabled=true;btn.textContent="✓ 完成";}
+  setKidFeedback(`🐻 很好！${traceState.letter}`);
+  setKidBearMood(true);
+  recordYounger(true);
+}
+
 function youngerTaskLabel(task){
-  return {case:"大小寫配對",position:"四線格位置",look:"字母辨識",listen:"聽音找字母"}[task]||"今天任務";
+  return {case:"Aa 連連看",position:"手指描字母",look:"找一樣",listen:"聽一聽"}[task]||"今天任務";
 }
 function youngerTaskIcon(task){
   return {case:"Aa",position:"✍️",look:"👀",listen:"👂"}[task]||"⭐";
 }
 function youngerTaskShort(task){
-  return {case:"大小寫",position:"四線格",look:"字母辨識",listen:"聽音"}[task]||"練習";
+  return {case:"連連看",position:"描字母",look:"找一樣",listen:"聽音"}[task]||"練習";
 }
 function youngerWeakSkill(){
   let worst=null;
@@ -4337,10 +4978,10 @@ function pulseListen(on){
   if(p)p.classList.toggle("on",!!on);
 }
 function youngerTaskIntro(type){
-  if(type==="case")setYoungerCompanion("🐻","Aa 配一配","找一樣的一組。","大小寫","看清楚就好。",true);
-  else if(type==="position")setYoungerCompanion("🧸","看字母住哪裡","選上、中、下。","四線格","先看字母位置。",true);
-  else if(type==="look")setYoungerCompanion("👀","找一樣","看方向，不要看反。","找一樣","特別看 b d p q。",true);
-  else if(type==="listen")setYoungerCompanion("👂","聽一聽","聽完再找。","聽音","沒聽清楚就再按一次。",true);
+  if(type==="case")setYoungerCompanion("🐻","連連看","把大寫連到小寫。","連連看","用手指拉線。",true);
+  else if(type==="position")setYoungerCompanion("🐻","描字母","沿著淡淡的字寫。","描字母","用手指慢慢描。",true);
+  else if(type==="look")setYoungerCompanion("👀","找一樣","看方向。","找一樣","找跟上面一樣的。",true);
+  else if(type==="listen")setYoungerCompanion("👂","聽一聽","聽到什麼，就點圖片。","聽音","只念 1 個英文單字。",true);
 }
 function startYoungerTask(type){
   youngerTask=type;
@@ -4351,7 +4992,15 @@ function startYoungerTask(type){
   youngerTaskIntro(type);
   renderYoungerMissionHome();
   renderYoungerProgress();
-  nextYoungerQuestion();
+
+  if(type==="case"){
+    nextCaseBoard();
+  }else if(type==="position"){
+    initTraceCanvas();
+    startTraceLetter();
+  }else{
+    nextYoungerQuestion();
+  }
 }
 function recordYounger(ok){
   const s=youngerProgress.stats[youngerTask];
@@ -4401,52 +5050,10 @@ function setKidBearMood(ok){
   });
 }
 function nextYoungerQuestion(){
+  if(youngerTask==="case"){nextCaseBoard();return;}
+  if(youngerTask==="position"){startTraceLetter();return;}
   setKidFeedback("🐻 看清楚，再選。");
-
-  if(youngerTask==="case"){
-    setYoungerCompanion("🐻","找小寫朋友","看看大寫和小寫。","Aa","小熊拿字母卡陪你。",true);
-    const pair=nextCasePair();
-    youngerCurrent={answer:pair[1]};
-    const prompt=document.getElementById("casePrompt");
-    const target=document.getElementById("caseTargetBig");
-    if(prompt)prompt.textContent=`${pair[0]} 的小寫是？`;
-    if(target)target.textContent=pair[0];
-    const distract=casePairs.map(x=>x[1]).filter(x=>x!==pair[1]);
-    const choices=placeChoices("case",pair[1],distract,4);
-    const wrap=document.getElementById("caseChoices");
-    if(wrap){wrap.innerHTML="";choices.forEach(v=>{
-      const b=document.createElement("button");b.type="button";b.className="letterChoice";b.textContent=v;
-      b.onclick=()=>{
-        const ok=v===pair[1];
-        b.classList.add(ok?"good":"bad");
-        setKidFeedback(ok?`🐻 對！${pair[0]} → ${pair[1]}`:`🐻 再找 ${pair[1]}`);
-        setKidBearMood(ok);recordYounger(ok);
-      };
-      wrap.appendChild(b);
-    });}
-  }
-
-  else if(youngerTask==="position"){
-    setYoungerCompanion("🐻","看字母住哪裡","先看線，再選。","四線格","小熊拿鉛筆陪你。",true);
-    const item=nextPositionLetter();
-    youngerCurrent={answer:item.zone};
-    const letter=document.getElementById("positionLetter");
-    const prompt=document.getElementById("positionPrompt");
-    if(letter)letter.textContent=item.letter;
-    if(prompt)prompt.textContent=`${item.letter} 住哪裡？`;
-    document.querySelectorAll("#youngerPosition .positionBtn").forEach(b=>{
-      b.classList.remove("good","bad");
-      b.onclick=()=>{
-        const ok=b.dataset.zone===item.zone;
-        b.classList.add(ok?"good":"bad");
-        const desc={tall:"往上",middle:"中間",descender:"往下"};
-        setKidFeedback(ok?`🐻 對！${item.letter} ${desc[item.zone]}`:`🐻 再看 ${item.letter}`);
-        setKidBearMood(ok);recordYounger(ok);
-      };
-    });
-  }
-
-  else if(youngerTask==="look"){
+  if(youngerTask==="look"){
     setYoungerCompanion("🐻","找一樣","特別看方向。","找一樣","小熊拿放大鏡陪你。",true);
     const item=nextLookSet();
     youngerCurrent={answer:item.target};
@@ -4465,22 +5072,36 @@ function nextYoungerQuestion(){
       wrap.appendChild(b);
     });}
   }
-
   else if(youngerTask==="listen"){
-    setYoungerCompanion("👂","先聽","聽完再找。","聽音","小熊戴耳機陪你。",true);
-    const letters="ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-    const target=nextListenLetter();
-    youngerCurrent={answer:target};
-    const choices=placeChoices("listen",target,letters.filter(x=>x!==target),4);
+    setYoungerCompanion("👂","聽一聽","聽到什麼，就點圖片。","聽音","只會念 1 個英文單字。",true);
+
+    const item=nextListenWord();
+    youngerCurrent={answer:item.word};
+
+    const others=beginnerListenWords.filter(x=>x.word!==item.word);
+    const distract=shuffle(others).slice(0,3);
+    const rawChoices=[item,...distract];
+    const choiceWords=placeChoices(
+      "listen",
+      item.word,
+      distract.map(x=>x.word),
+      4
+    );
+    const choices=choiceWords.map(w=>rawChoices.find(x=>x.word===w) || beginnerListenWords.find(x=>x.word===w));
+
     const wrap=document.getElementById("listenChoices");
 
     const speak=()=>{
       try{
         speechSynthesis.cancel();
         pulseListen(true);
-        const u=new SpeechSynthesisUtterance(target);
-        u.lang="en-US";u.rate=.48;u.pitch=.98;
-        u.onend=()=>pulseListen(false);u.onerror=()=>pulseListen(false);
+        // 只播放單一英文單字，不加任何英文指令或句子
+        const u=new SpeechSynthesisUtterance(item.word);
+        u.lang="en-US";
+        u.rate=.72;
+        u.pitch=1.0;
+        u.onend=()=>pulseListen(false);
+        u.onerror=()=>pulseListen(false);
         speechSynthesis.speak(u);
       }catch(e){pulseListen(false);}
     };
@@ -4489,19 +5110,35 @@ function nextYoungerQuestion(){
     if(play)play.onclick=speak;
     setTimeout(speak,180);
 
-    if(wrap){wrap.innerHTML="";choices.forEach(v=>{
-      const b=document.createElement("button");b.type="button";b.className="letterChoice";b.textContent=v;
-      b.onclick=()=>{
-        const ok=v===target;
-        b.classList.add(ok?"good":"bad");
-        setKidFeedback(ok?`🐻 對！是 ${target}`:"🐻 再聽一次");
-        setKidBearMood(ok);recordYounger(ok);
-      };
-      wrap.appendChild(b);
-    });}
+    if(wrap){
+      wrap.innerHTML="";
+      choices.forEach(choice=>{
+        const b=document.createElement("button");
+        b.type="button";
+        b.className="letterChoice listenPictureChoice";
+        b.setAttribute("aria-label","圖片選項");
+        b.innerHTML=`<span class="listenEmoji">${choice.emoji}</span>`;
+        b.onclick=()=>{
+          const ok=choice.word===item.word;
+          b.classList.add(ok?"good":"bad");
+          if(ok){
+            b.innerHTML=`<span class="listenEmoji">${choice.emoji}</span><small class="listenWordReveal">${item.word}</small>`;
+            setKidFeedback(`🐻 對！${item.word}`);
+          }else{
+            setKidFeedback("🐻 再聽一次");
+          }
+          setKidBearMood(ok);
+          recordYounger(ok);
+        };
+        wrap.appendChild(b);
+      });
+    }
   }
 }
 document.querySelectorAll(".youngerNextAction").forEach(btn=>btn.addEventListener("click",nextYoungerQuestion));
+document.getElementById("newMatchBoardBtn")?.addEventListener("click",nextCaseBoard);
+document.getElementById("clearTraceBtn")?.addEventListener("click",clearTrace);
+document.getElementById("finishTraceBtn")?.addEventListener("click",finishTrace);
 document.getElementById("startTodayMission")?.addEventListener("click",()=>startYoungerTask(nextIncompleteYoungerTask()));
 document.querySelectorAll(".missionDot[data-task]").forEach(card=>{
   card.addEventListener("click",()=>startYoungerTask(card.dataset.task));
@@ -4542,7 +5179,7 @@ function levelText(stat){
 
 function renderYoungerMissionHome(){
   const keys=["case","position","look","listen"];
-  const labels={case:"Aa 配一配",position:"字母住哪裡",look:"找一樣",listen:"聽一聽"};
+  const labels={case:"Aa 連連看",position:"手指描字母",look:"找一樣",listen:"聽一聽"};
   let done=0;
   const next=keys.find(k=>!youngerProgress.completed[k])||"";
   keys.forEach(k=>{
@@ -4612,6 +5249,22 @@ document.getElementById("profileYounger")?.classList.toggle("active",currentProf
 setTimeout(()=>{ if(currentProfile==="younger")go("youngerHome"); },0);
 
 
+const OLDER_TEST_HISTORY_KEY="private_school_older_test_sessions_v162";
+function loadOlderTestSessions(){
+  try{return JSON.parse(SafeStore.get(OLDER_TEST_HISTORY_KEY,"[]")||"[]")||[]}
+  catch(e){return []}
+}
+function saveOlderTestSession(session){
+  const list=loadOlderTestSessions();
+  list.push(session);
+  SafeStore.set(OLDER_TEST_HISTORY_KEY,JSON.stringify(list.slice(-50)));
+}
+function localDayLabel(day){
+  if(!day)return "—";
+  const p=String(day).split("-");
+  return p.length===3?`${p[0]}/${p[1]}/${p[2]}`:day;
+}
+
 // ===== V9.4 歷屆題測驗區 =====
 const historyMathBank=[
  {id:"hm1",skill:"多步驟",q:"文具店每盒彩色筆 48 元，買 3 盒後再買一本 35 元的筆記本，一共多少元？",choices:["144 元","179 元","183 元","189 元"],a:1,why:"48×3＝144，再加 35，合計 179 元。"},
@@ -4654,7 +5307,7 @@ function buildHistoryQuiz(){
     pool=pool.sort((a,b)=>(histState.weak[b.skill]||0)-(histState.weak[a.skill]||0));
   }
   const count=mode==="mock"?8:5;
-  histState={questions:pool.slice(0,Math.min(count,pool.length)),idx:0,correct:0,weak:{},answered:false,school,subject,mode};
+  histState={questions:pool.slice(0,Math.min(count,pool.length)),idx:0,correct:0,weak:{},answered:false,saved:false,school,subject,mode};
 
   document.getElementById("histQuizCard").style.display="block";
   document.getElementById("histResultCard").style.display="none";
@@ -4716,7 +5369,24 @@ function finishHistoryQuiz(){
   document.getElementById("histAdvice").innerHTML=weakEntries.length
     ? `下一步建議：先補 <b>${weakEntries[0][0]}</b>，再回來做新的校準題。`
     : `本次表現穩定，可以換科目或提高到模擬測驗。`;
+
+  if(!histState.saved){
+    const today=new Date().toLocaleDateString("sv-SE");
+    saveOlderTestSession({
+      date:today,
+      school:histState.school||"—",
+      subject:histState.subject||"—",
+      mode:historyModeName(histState.mode),
+      correct:histState.correct,
+      total,
+      pct,
+      weak:weakEntries.map(([k,v])=>({skill:k,count:v}))
+    });
+    histState.saved=true;
+  }
+
   if(pct===100)playSound("olderChest");
+  renderParentBackendData();
 }
 
 document.getElementById("histStart")?.addEventListener("click",buildHistoryQuiz);
