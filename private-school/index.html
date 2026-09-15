@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V16.5｜復旦 × 六和</title>
+<title>兄弟學習基地 V16.6｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -2618,7 +2618,7 @@ body:not(.younger-mode) .page.youngerOnly{
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V16.5</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V16.6</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -3082,7 +3082,7 @@ body:not(.younger-mode) .page.youngerOnly{
       <div class="wordGardenFeatureText">
         <small>🌱 今天推薦先玩</small>
         <b>字母單字樂園</b>
-        <span>A a → apple → 蘋果</span>
+        <span>A a → apple → 蘋果 · 單字輪流出</span>
       </div>
       <div class="wordGardenFeatureGo">
         <strong id="wordGardenHomeProgress">今日 0 / 6</strong>
@@ -4815,13 +4815,19 @@ function loadWordBridgeProgress(){
     p.date=wordDayKey();
     p.todayCorrect=0;
     p.todayAttempts=0;
-    p.recent=[];
   }
   p.todayCorrect=Number(p.todayCorrect||0);
   p.todayAttempts=Number(p.todayAttempts||0);
   p.totalCorrect=Number(p.totalCorrect||0);
   p.totalAttempts=Number(p.totalAttempts||0);
-  p.recent=Array.isArray(p.recent)?p.recent:[];
+
+  // V16.6：使用「洗牌袋」降低重複。
+  // 一整輪單字原則上都走過後，才重新洗牌。
+  p.wordBag=Array.isArray(p.wordBag)?p.wordBag.filter(w=>beginnerWordBridge.some(x=>x.word===w)):[];
+  p.cycleUsed=Array.isArray(p.cycleUsed)?p.cycleUsed.filter(w=>beginnerWordBridge.some(x=>x.word===w)):[];
+  p.recent=Array.isArray(p.recent)?p.recent.slice(-12):[];
+  p.lastWord=typeof p.lastWord==="string"?p.lastWord:"";
+  p.lastLetter=typeof p.lastLetter==="string"?p.lastLetter:"";
   return p;
 }
 let wordBridgeProgress=loadWordBridgeProgress();
@@ -4847,13 +4853,55 @@ function updateWordBridgeProgressUI(){
   const home=document.getElementById("wordGardenHomeProgress");
   if(home)home.textContent=n>=6?"今天完成 ✓":`今日 ${n} / 6`;
 }
+function refillWordBridgeBag(){
+  const all=beginnerWordBridge.map(x=>x.word);
+  let bag=shuffle([...all]);
+
+  // 新一輪第一題不要跟上一題相同，並盡量避開同一個開頭字母。
+  if(bag.length>1 && wordBridgeProgress.lastWord && bag[0]===wordBridgeProgress.lastWord){
+    const i=bag.findIndex(w=>w!==wordBridgeProgress.lastWord);
+    if(i>0)[bag[0],bag[i]]=[bag[i],bag[0]];
+  }
+  if(bag.length>1 && wordBridgeProgress.lastLetter){
+    const i=bag.findIndex(w=>{
+      const obj=beginnerWordBridge.find(x=>x.word===w);
+      return obj && obj.letter!==wordBridgeProgress.lastLetter && w!==wordBridgeProgress.lastWord;
+    });
+    if(i>0)[bag[0],bag[i]]=[bag[i],bag[0]];
+  }
+
+  wordBridgeProgress.wordBag=bag;
+  wordBridgeProgress.cycleUsed=[];
+}
+
 function pickWordBridgeItem(){
-  const recent=new Set(wordBridgeProgress.recent||[]);
-  let pool=beginnerWordBridge.filter(x=>!recent.has(x.word));
-  if(!pool.length){wordBridgeProgress.recent=[];pool=[...beginnerWordBridge];}
-  const item=pool[Math.floor(Math.random()*pool.length)];
+  if(!Array.isArray(wordBridgeProgress.wordBag) || !wordBridgeProgress.wordBag.length){
+    refillWordBridgeBag();
+  }
+
+  // 優先：不要出最近 12 題，也不要連續同一個字母開頭。
+  let idx=wordBridgeProgress.wordBag.findIndex(w=>{
+    const obj=beginnerWordBridge.find(x=>x.word===w);
+    return obj &&
+      !(wordBridgeProgress.recent||[]).includes(w) &&
+      obj.letter!==wordBridgeProgress.lastLetter;
+  });
+
+  // 若袋子快空了，至少不要跟上一題完全相同。
+  if(idx<0){
+    idx=wordBridgeProgress.wordBag.findIndex(w=>w!==wordBridgeProgress.lastWord);
+  }
+  if(idx<0)idx=0;
+
+  const word=wordBridgeProgress.wordBag.splice(idx,1)[0];
+  const item=beginnerWordBridge.find(x=>x.word===word) || beginnerWordBridge[0];
+
+  wordBridgeProgress.cycleUsed.push(item.word);
   wordBridgeProgress.recent.push(item.word);
-  wordBridgeProgress.recent=wordBridgeProgress.recent.slice(-8);
+  wordBridgeProgress.recent=wordBridgeProgress.recent.slice(-12);
+  wordBridgeProgress.lastWord=item.word;
+  wordBridgeProgress.lastLetter=item.letter;
+
   saveWordBridgeProgress();
   return item;
 }
