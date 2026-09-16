@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V16.6｜復旦 × 六和</title>
+<title>兄弟學習基地 V17.0｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -2577,6 +2577,53 @@ body:not(.younger-mode) .page.youngerOnly{
 }
 </style>
 
+
+<style id="v170-grade5-math">
+.mathGrade5Card{
+  border:1px solid #dfe5ee;
+  background:linear-gradient(180deg,#ffffff,#fbfcfe);
+}
+.mathSessionStrip{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin:14px 0 10px;
+}
+.mathSessionStrip span{
+  padding:7px 11px;
+  border-radius:999px;
+  background:#f3f6fa;
+  border:1px solid #e0e6ef;
+  color:#5f6d82;
+  font-size:13px;
+  font-weight:800;
+}
+.mathGrade5Question{
+  font-size:20px;
+  line-height:1.75;
+  padding:20px 22px;
+  min-height:92px;
+}
+.mathHintBox{
+  margin:12px 0 0;
+  padding:13px 15px;
+  border-radius:14px;
+  border-left:4px solid #8296bd;
+  background:#f5f7fb;
+  color:#56647a;
+  line-height:1.65;
+  font-size:14px;
+}
+.mathHintBox b{color:#40516d}
+.mathResultSummary{
+  padding:18px;
+  border-radius:18px;
+  background:#f6f8fb;
+  border:1px solid #e1e7ef;
+}
+.mathResultSummary strong{font-size:22px;color:#35455f}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -2618,7 +2665,7 @@ body:not(.younger-mode) .page.youngerOnly{
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V16.6</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V17.0</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -2844,16 +2891,31 @@ body:not(.younger-mode) .page.youngerOnly{
     </div>
   </div>
 
-  <div class="card kidOnly">
+  <div class="card kidOnly mathGrade5Card">
     <div class="practiceTop">
-      <div><h3>數學實戰</h3><div class="muted">基礎 → 應用 → 挑戰，循序混合。</div></div>
+      <div>
+        <h3>五年級數學｜今日循序練習</h3>
+        <div class="muted">基礎計算、課內標準、應用理解、挑戰題交錯；答錯才加強，不會一直死算。</div>
+      </div>
       <span class="tag bad" id="mathTypeTag">準備開始</span>
     </div>
-    <div id="mathQuestion" class="questionBox">按「開始數學練習」出題。</div>
-    <input id="mathInput" class="answerInput" placeholder="輸入答案" style="display:none">
+
+    <div class="mathSessionStrip">
+      <span id="mathSessionStep">今日 0 / 10</span>
+      <span id="mathSessionMix">依最近表現自動配題</span>
+      <span id="mathIndependentLive">獨立完成 —</span>
+    </div>
+
+    <div id="mathQuestion" class="questionBox mathGrade5Question">按「開始今日 10 題」出題。</div>
+
+    <div id="mathHintBox" class="mathHintBox" style="display:none"></div>
+
+    <input id="mathInput" class="answerInput" placeholder="輸入答案" inputmode="decimal" style="display:none">
     <div id="mathFeedback" class="feedbackBox" style="display:none"></div>
+
     <div class="practiceActions">
-      <button type="button" class="btn" id="mathStart">開始數學練習</button>
+      <button type="button" class="btn" id="mathStart">開始今日 10 題</button>
+      <button type="button" class="btn secondary" id="mathHint" style="display:none">提示 0 / 2</button>
       <button type="button" class="btn" id="mathSubmit" style="display:none">送出答案</button>
       <button type="button" class="btn secondary" id="mathNext" style="display:none">下一題</button>
     </div>
@@ -2863,13 +2925,13 @@ body:not(.younger-mode) .page.youngerOnly{
     <h3>數學能力觀察</h3>
     <div class="muted">孩子頁不顯示這些分類；家長模式才看。</div>
     <table>
-      <tr><th>能力</th><th>目的</th></tr>
-      <tr><td>整數四則運算</td><td>加減乘除、先乘除後加減、括號與計算順序</td></tr>
-      <tr><td>基礎計算</td><td>穩定正確率</td></tr>
-      <tr><td>題意判讀</td><td>找出已知與問題</td></tr>
-      <tr><td>文字轉算式</td><td>把文字變成數學關係</td></tr>
-      <tr><td>多步驟</td><td>培養解題順序</td></tr>
-      <tr><td>挑戰題</td><td>私中型陌生題</td></tr>
+      <tr><th>能力</th><th>這版怎麼練</th></tr>
+      <tr><td>數與計算</td><td>整數四則、計算順序、因數倍數、分數與小數</td></tr>
+      <tr><td>課內標準</td><td>五年級正常單元題，不要求先全對才往下</td></tr>
+      <tr><td>應用解題</td><td>平均、分數／小數情境、單位、多步驟、資料判讀</td></tr>
+      <tr><td>讀題與列式</td><td>題目完整呈現；需要時才開提示，不先把步驟餵給孩子</td></tr>
+      <tr><td>挑戰整合</td><td>仍使用已學概念，增加條件整合、逆推與陌生情境</td></tr>
+      <tr><td>獨立完成率</td><td>答對但使用提示，會與「完全自己完成」分開記錄</td></tr>
     </table>
   </div>
 </section>
@@ -3471,7 +3533,12 @@ body:not(.younger-mode) .page.youngerOnly{
 
         <div class="card">
           <h3>🌳 哥哥｜數學能力樹</h3>
-          <div class="muted">可以直接看出哪一類錯得多，以及最近在哪一天練過。</div>
+          <div class="muted">除了答對率，現在也會分開看「不用提示、自己完成」的比例。</div>
+          <div class="mathParentMetrics" style="display:flex;gap:8px;flex-wrap:wrap;margin:10px 0">
+            <span class="tag" id="parentMathRecentRate">近20題答對 —</span>
+            <span class="tag" id="parentMathIndependentRate">獨立完成 —</span>
+            <span class="tag" id="parentMathAppRate">應用題 —</span>
+          </div>
           <div class="treeDiag" id="parentOlderMathTree" style="margin-top:12px">數學能力
 └─ 尚未累積資料</div>
         </div>
@@ -4256,10 +4323,31 @@ const mathBank=[
 {id:"m53",type:"整數四則運算",level:3,q:"1800÷25＋47×16＝？",a:["824"],show:"824",why:"1800÷25＝72，47×16＝752，再相加＝824。"},
 {id:"m54",type:"整數四則運算",level:3,q:"2400－（96×18＋312）＝？",a:["360"],show:"360",why:"96×18＝1728；1728＋312＝2040；2400－2040＝360。"},
 {id:"m55",type:"整數四則運算",level:3,q:"（864÷12）×（35－27）＝？",a:["576"],show:"576",why:"864÷12＝72，35－27＝8，72×8＝576。"},
-{id:"m56",type:"整數四則運算",level:3,q:"5400÷45－18×4＝？",a:["48"],show:"48",why:"5400÷45＝120，18×4＝72，再120－72＝48。"}
+{id:"m56",type:"整數四則運算",level:3,q:"5400÷45－18×4＝？",a:["48"],show:"48",why:"5400÷45＝120，18×4＝72，再120－72＝48。"},
 
+// V17.0：五年級應用解題。題目本身維持正常五年級樣子，提示由孩子自己決定是否開。
+{id:"m57",type:"應用問題－整數四則",group:"application",level:1,q:"文具店有 32 盒鉛筆，每盒 24 枝，今天賣出 315 枝，還剩多少枝？",a:["453","453枝"],show:"453",why:"先求全部：32×24＝768；再扣掉賣出的315枝，768－315＝453。",hints:["先判斷最後問的是「剩下多少」，所以需要知道原本一共有多少。","先算32盒共有幾枝，再減掉315枝。"]},
+{id:"m58",type:"應用問題－整數四則",group:"application",level:1,q:"禮堂有 18 排座位，每排 36 個。已經坐了 487 人，還有多少個空位？",a:["161","161個"],show:"161",why:"18×36＝648，648－487＝161。",hints:["先求禮堂全部座位數。","總座位18×36，再減掉已坐的487。"]},
+{id:"m59",type:"應用問題－整數四則",group:"application",level:1,q:"學校買了 960 張色紙，平均分給 8 個班。每班做作品用了 37 張，每班還剩多少張？",a:["83","83張"],show:"83",why:"960÷8＝120，每班120張；120－37＝83。",hints:["題目先平均分，再問每班使用後剩多少。","先算960÷8，再把每班的張數減37。"]},
+{id:"m60",type:"應用問題－多步驟",group:"application",level:2,q:"倉庫原有 15 箱零件，每箱 48 個，下午又送來 125 個。現在共有多少個零件？",a:["845","845個"],show:"845",why:"15×48＝720，720＋125＝845。",hints:["「每箱48個」表示先求15箱的總數。","15×48後，再加下午送來的125。"]},
+{id:"m61",type:"應用問題－平均",group:"application",level:2,q:"小安五天閱讀的頁數分別是 36、42、39、45、38 頁。平均每天讀多少頁？",a:["40","40頁"],show:"40",why:"36＋42＋39＋45＋38＝200，200÷5＝40。",hints:["平均要先知道五天的總頁數。","把五天頁數相加，再除以5。"]},
+{id:"m62",type:"應用問題－平均",group:"application",level:2,q:"前 4 次測驗平均 72 分，第 5 次考 82 分。5 次測驗的平均是多少分？",a:["74","74分"],show:"74",why:"前4次總分72×4＝288，加82得370；370÷5＝74。",hints:["「前4次平均72」不是總分72，要先還原總分。","72×4＋82，再把總分除以5。"]},
+{id:"m63",type:"應用問題－小數",group:"application",level:2,q:"蘋果每公斤 68.4 元，買 3.5 公斤要付多少元？",a:["239.4","239.4元"],show:"239.4",why:"68.4×3.5＝239.4。",hints:["這題是「單價×數量」。","68.4×3.5。"]},
+{id:"m64",type:"應用問題－小數",group:"application",level:2,q:"一條繩子長 12.5 公尺，剪下 3 段，每段 2.8 公尺，還剩多少公尺？",a:["4.1","4.1公尺"],show:"4.1",why:"3×2.8＝8.4，12.5－8.4＝4.1。",hints:["先求3段總共剪掉多少公尺。","2.8×3，再用12.5減掉。"]},
+{id:"m65",type:"應用問題－分數",group:"application",level:2,q:"一本書有 160 頁，第一天看了全書的 3/8，第二天又看了 35 頁。還剩多少頁？",a:["65","65頁"],show:"65",why:"160×3/8＝60；兩天共看95頁；160－95＝65。",hints:["先把「全書的3/8」換成實際頁數。","160×3/8求第一天頁數，再加35後從160扣掉。"]},
+{id:"m66",type:"應用問題－分數",group:"application",level:2,q:"一桶水有 24 公升，用掉全桶的 5/6，還剩多少公升？",a:["4","4公升"],show:"4",why:"用掉24×5/6＝20公升，所以剩24－20＝4公升。",hints:["可以先算用掉多少，也可以直接想剩下全桶的幾分之幾。","剩下1/6，所以24×1/6。"]},
+{id:"m67",type:"應用問題－單位",group:"application",level:2,q:"一條緞帶長 2.35 公尺，又接上 145 公分。接好後共長多少公分？",a:["380","380公分"],show:"380",why:"2.35公尺＝235公分，235＋145＝380公分。",hints:["相加前，兩個長度的單位要相同。","2.35公尺先換成235公分。"]},
+{id:"m68",type:"應用問題－單位",group:"application",level:2,q:"一袋米重 3 公斤 250 公克，用掉 875 公克後，還剩多少公克？",a:["2375","2375公克"],show:"2375",why:"3公斤250公克＝3250公克，3250－875＝2375公克。",hints:["先把重量全部換成公克。","3公斤250公克＝3250公克，再減875。"]},
+{id:"m69",type:"應用問題－資料判讀",group:"application",level:2,q:"圖書館四天借書本數為：星期一 28 本、星期二 35 本、星期三 42 本、星期四 31 本。四天共借出多少本？",a:["136","136本"],show:"136",why:"28＋35＋42＋31＝136。",hints:["題目問「共」多少，本題要整合四天資料。","把四天借書本數相加。"]},
+{id:"m70",type:"應用問題－資料判讀",group:"application",level:2,q:"某四天最高溫分別為 27、31、29、25 度。最高與最低相差幾度？",a:["6","6度","6°C"],show:"6",why:"最高31度，最低25度，相差31－25＝6度。",hints:["先從資料中找最大值和最小值。","31－25。"]},
+{id:"m71",type:"應用問題－多步驟",group:"application",level:3,q:"展覽會成人票每張 120 元，學生票每張 80 元。18 位成人和 26 位學生一共要付多少元？",a:["4240","4240元"],show:"4240",why:"成人120×18＝2160；學生80×26＝2080；合計4240。",hints:["成人和學生要分開算，再合起來。","120×18＋80×26。"]},
+{id:"m72",type:"應用問題－多步驟",group:"application",level:3,q:"工廠有 36 箱零件，每箱 25 個，出貨 468 個後，還剩多少個？",a:["432","432個"],show:"432",why:"36×25＝900，900－468＝432。",hints:["先求36箱一共有多少個。","36×25，再減468。"]},
+{id:"m73",type:"應用問題－因數倍數",group:"application",level:2,q:"老師有 48 枝紅筆和 60 枝藍筆，要分成內容完全相同且沒有剩下的組合，最多可以分成幾組？",a:["12","12組"],show:"12",why:"48和60的最大公因數是12，所以最多12組。",hints:["題目中的「最多幾組、每組相同、沒有剩下」要想到公因數。","求48和60的最大公因數。"]},
+{id:"m74",type:"應用問題－整數四則",group:"application",level:3,q:"校外教學有 186 位學生和 6 位老師，每輛遊覽車最多坐 40 人，至少需要幾輛車？",a:["5","5輛"],show:"5",why:"總人數186＋6＝192；192÷40＝4餘32，所以至少要5輛。",hints:["車子要坐下所有人，學生和老師都要算。","先算總人數192，再用192÷40；有餘數就還需要一輛。"]},
+{id:"m75",type:"應用問題－分數",group:"application",level:3,q:"一本書有 240 頁，第一天看了全書的 1/4，第二天看了 45 頁。還剩多少頁？",a:["135","135頁"],show:"135",why:"240×1/4＝60；60＋45＝105；240－105＝135。",hints:["第一天的頁數要先從分數換成實際頁數。","240×1/4，再加45，最後從240扣掉。"]},
+{id:"m76",type:"應用問題－平均",group:"application",level:3,q:"小杰 5 天平均每天讀 42 頁。前 4 天分別讀 38、40、45、41 頁，第 5 天讀多少頁？",a:["46","46頁"],show:"46",why:"5天總頁數42×5＝210；前4天共164頁；210－164＝46。",hints:["已知平均和天數，可以先求5天總頁數。","42×5求總數，再減去前4天38＋40＋45＋41。"]}
 ];
-let mathCurrent=null, mathStreak=0, mathTodayCount=0;
+let mathCurrent=null, mathStreak=0, mathTodayCount=0, mathHintCount=0, mathSessionAnswers=[];
 
 const MATH_QUEUE_KEY="private_school_math_queue_v96";
 const MATH_HISTORY_KEY="private_school_math_history_v96";
@@ -4276,6 +4364,53 @@ function loadMathHistory(){
 let mathQueue=loadMathQueue(),mathHistory=loadMathHistory();
 function saveMathQueue(){SafeStore.set(MATH_QUEUE_KEY,JSON.stringify(mathQueue))}
 function saveMathHistory(){SafeStore.set(MATH_HISTORY_KEY,JSON.stringify(mathHistory))}
+
+const MATH_SESSION_TARGET=10;
+
+function mathQuestionGroup(item){
+  if(item.group)return item.group;
+  if(item.type==="整數四則運算")return "foundation";
+  if((item.level||1)>=4 || ["邏輯推理","逆向推理","速率推理","幾何推理","比例概念"].includes(item.type))return "challenge";
+  if(["整數應用","小數應用","分數應用","多步驟","平均","時間","單位換算","圖表概念","文字轉算式"].includes(item.type))return "application";
+  return "standard";
+}
+
+function mathRecentAccuracy(){
+  const a=(mathHistory.recent||[]).slice(-12);
+  return a.length?a.filter(x=>x.ok).length/a.length:.7;
+}
+
+function mathSessionPlan(){
+  const acc=mathRecentAccuracy();
+  if(acc<.6){
+    return ["foundation","standard","foundation","application","standard","application","foundation","standard","application","challenge"];
+  }
+  if(acc>=.8){
+    return ["standard","application","foundation","application","standard","application","challenge","application","standard","challenge"];
+  }
+  return ["foundation","standard","application","standard","application","foundation","application","challenge","standard","application"];
+}
+
+function mathGroupName(group){
+  return {foundation:"基礎計算",standard:"課內標準",application:"應用理解",challenge:"挑戰整合",review:"錯題補洞"}[group]||"五年級練習";
+}
+
+function defaultMathHints(item){
+  const t=item.type||"";
+  if(t==="整數四則運算")return ["先檢查括號與先乘除後加減，不要急著從左一路算。","把每一步結果寫清楚，再進下一個運算。"];
+  if(t.includes("平均"))return ["先確認題目給的是「總量」還是「平均」。","平均＝總量÷份數；已知平均時，可以反過來求總量。"];
+  if(t.includes("分數"))return ["先確認分數代表的是「全部的幾分之幾」還是「剩下部分的幾分之幾」。","把分數對應到實際數量後，再處理下一步。"];
+  if(t.includes("單位"))return ["先檢查所有數量的單位是否一致。","單位統一之後再進行加減乘除。"];
+  if(t.includes("因數"))return ["注意題目中的「最多、相同、沒有剩下」。","這類條件通常需要找共同因數中的最大值。"];
+  if(t.includes("多步驟") || t.includes("應用"))return ["先確認最後要求的是哪一個量，再找出為了得到它必須先求什麼。","不要只看數字決定乘除；先把前一步需要的量算出來。"];
+  return ["先把題目要求的量和已知條件分開看。","想一想：這題真正需要哪一個運算關係？"];
+}
+
+function mathHintsFor(item){
+  const h=Array.isArray(item.hints)?item.hints:defaultMathHints(item);
+  return [h[0]||"先整理題目條件。",h[1]||"再確認需要的運算關係。"];
+}
+
 function mathAdaptiveLevel(){
   const a=(mathHistory.recent||[]).slice(-12);
   if(a.length<4)return 2;
@@ -4316,16 +4451,28 @@ function mathWeightedPick(list,target,preferSkill=null){
 }
 function chooseMathQuestion(){
   const target=mathAdaptiveLevel();
+  const plan=mathSessionPlan();
+  const desired=plan[Math.min(mathTodayCount,plan.length-1)]||"application";
+
   let pool=mathBank.filter(x=>!mathQueue.shown.includes(x.id)&&mathDue(x));
   if(!pool.length)pool=mathBank.filter(x=>!mathQueue.shown.includes(x.id)&&!mathHistory.items[x.id]);
   if(!pool.length)return null;
-  const item=mathWeightedPick(pool,target,mathQueue.reviewSkill);
+
+  let selectedPool=pool.filter(x=>mathQuestionGroup(x)===desired);
+  if(!selectedPool.length)selectedPool=pool;
+
+  // 如果上一題答錯，仍會優先補同能力，但不會把整個 session 變成一直重複同一類。
+  const prefer=mathQueue.reviewSkill;
+  const item=mathWeightedPick(selectedPool,target,prefer);
+
   mathQueue.shown.push(item.id);
   if(mathQueue.reviewSkill && item.type===mathQueue.reviewSkill)mathQueue.reviewSkill=null;
   saveMathQueue();
+
+  item.sessionGroup=desired;
   return item;
 }
-function recordMathAdaptive(item,ok){
+function recordMathAdaptive(item,ok,hintsUsed=0){
   const today=mathDayKey(),h=mathHistory.items[item.id]||{seen:0,correctStreak:0,wrongCount:0};
   h.seen=(h.seen||0)+1;h.lastDate=today;h.lastOutcome=ok?"correct":"wrong";
   if(ok){
@@ -4337,37 +4484,165 @@ function recordMathAdaptive(item,ok){
     mathQueue.reviewSkill=item.type;
   }
   mathHistory.items[item.id]=h;
-  mathHistory.recent=(mathHistory.recent||[]).concat([{date:today,id:item.id,skill:item.type,level:item.level||1,ok}]).slice(-40);
+  mathHistory.recent=(mathHistory.recent||[]).concat([{
+    date:today,
+    id:item.id,
+    skill:item.type,
+    group:mathQuestionGroup(item),
+    level:item.level||1,
+    ok,
+    hints:hintsUsed,
+    independent:ok && hintsUsed===0
+  }]).slice(-80);
   saveMathHistory();saveMathQueue();
 }
 function normMath(v){return String(v||"").trim().toLowerCase().replace(/\s+/g,"").replace(/平方公分/g,"平方公分")}
+function showMathSessionSummary(){
+  const q=mathSessionAnswers.length;
+  const correct=mathSessionAnswers.filter(x=>x.ok).length;
+  const independent=mathSessionAnswers.filter(x=>x.independent).length;
+  const app=mathSessionAnswers.filter(x=>x.group==="application");
+  const appCorrect=app.filter(x=>x.ok).length;
+
+  const f=document.getElementById("mathFeedback");
+  const question=document.getElementById("mathQuestion");
+  const pct=q?Math.round(correct/q*100):0;
+  const indPct=q?Math.round(independent/q*100):0;
+  const appText=app.length?`${appCorrect}/${app.length}`:"—";
+
+  if(question)question.innerHTML=`<div class="mathResultSummary">
+    <strong>今天 10 題完成</strong><br>
+    答對率：${pct}%　｜　獨立完成率：${indPct}%　｜　應用題：${appText}
+  </div>`;
+  if(f){
+    f.style.display="block";
+    f.innerHTML=indPct<pct
+      ?"有些題目是開提示後答對；明天可以特別看「獨立完成率」有沒有上升。"
+      :"今天答對的題目大多是自己完成。";
+  }
+
+  document.getElementById("mathInput").style.display="none";
+  document.getElementById("mathHint").style.display="none";
+  document.getElementById("mathSubmit").style.display="none";
+  document.getElementById("mathNext").style.display="none";
+  document.getElementById("mathStart").style.display="none";
+  document.getElementById("mathTypeTag").textContent="今日完成";
+  document.getElementById("mathSessionStep").textContent="今日 10 / 10";
+  renderParentBackendData();
+}
+
 function nextMath(){
+  if(mathTodayCount>=MATH_SESSION_TARGET){
+    showMathSessionSummary();
+    return;
+  }
+
   mathCurrent=chooseMathQuestion();
-  if(!mathCurrent){document.getElementById("mathQuestion").innerHTML="🎉 今天的數學題已全部完成，不再重複出題。";document.getElementById("mathInput").style.display="none";document.getElementById("mathStart").style.display="none";document.getElementById("mathSubmit").style.display="none";document.getElementById("mathNext").style.display="none";document.getElementById("mathTypeTag").textContent="今日完成";return;}
+  if(!mathCurrent){
+    document.getElementById("mathQuestion").innerHTML="🎉 今天可用的數學題已完成。";
+    document.getElementById("mathInput").style.display="none";
+    document.getElementById("mathStart").style.display="none";
+    document.getElementById("mathHint").style.display="none";
+    document.getElementById("mathSubmit").style.display="none";
+    document.getElementById("mathNext").style.display="none";
+    document.getElementById("mathTypeTag").textContent="今日完成";
+    return;
+  }
+
+  mathHintCount=0;
   mathTodayCount++;
-  const mtc=document.getElementById("mathTodayCount");if(mtc)mtc.textContent="今日 "+mathTodayCount+" 題";const mal=document.getElementById("mathAdaptiveLevel");if(mal)mal.textContent="目前難度 L"+mathAdaptiveLevel();
+
+  const group=mathQuestionGroup(mathCurrent);
+  document.getElementById("mathSessionStep").textContent=`今日 ${mathTodayCount} / ${MATH_SESSION_TARGET}`;
+  document.getElementById("mathSessionMix").textContent=`本題：${mathGroupName(group)}`;
+
+  const mtc=document.getElementById("mathTodayCount");
+  if(mtc)mtc.textContent="今日 "+mathTodayCount+" 題";
+  const mal=document.getElementById("mathAdaptiveLevel");
+  if(mal)mal.textContent="目前難度 L"+mathAdaptiveLevel();
+
   document.getElementById("mathTypeTag").textContent=`${mathCurrent.type} · L${mathCurrent.level||1}`;
   ensureAdventureEncounter("math",mathCurrent);
   document.getElementById("mathQuestion").textContent=mathCurrent.q;
-  const inp=document.getElementById("mathInput");inp.style.display="";inp.value="";inp.disabled=false;
+
+  const inp=document.getElementById("mathInput");
+  inp.style.display="";
+  inp.value="";
+  inp.disabled=false;
+
+  const hintBox=document.getElementById("mathHintBox");
+  hintBox.style.display="none";
+  hintBox.innerHTML="";
+  const hintBtn=document.getElementById("mathHint");
+  hintBtn.style.display="";
+  hintBtn.disabled=false;
+  hintBtn.textContent="提示 0 / 2";
+
   document.getElementById("mathFeedback").style.display="none";
   document.getElementById("mathStart").style.display="none";
   document.getElementById("mathSubmit").style.display="";
   document.getElementById("mathNext").style.display="none";
   setTimeout(()=>inp.focus(),30);
 }
+
+function showMathHint(){
+  if(!mathCurrent || mathHintCount>=2)return;
+  mathHintCount++;
+  const hints=mathHintsFor(mathCurrent);
+  const box=document.getElementById("mathHintBox");
+  if(box){
+    box.style.display="block";
+    box.innerHTML=`<b>提示 ${mathHintCount}</b>　${hints[mathHintCount-1]}`;
+  }
+  const btn=document.getElementById("mathHint");
+  if(btn){
+    btn.textContent=`提示 ${mathHintCount} / 2`;
+    if(mathHintCount>=2)btn.disabled=true;
+  }
+}
+
 function submitMath(){
   if(!mathCurrent)return;
   const inp=document.getElementById("mathInput"),v=inp.value.trim();if(!v)return;
   const ok=mathCurrent.a.some(x=>normMath(x)===normMath(v));
   playSound(ok?"olderHit":"olderRetry");
   psStats.math.answered++;if(ok){psStats.math.correct++;mathStreak++;}else{mathStreak=0;} const ms=document.getElementById("mathStreak");if(ms)ms.textContent="連續答對 "+mathStreak;
-  mathQueue.answers[mathCurrent.id]=ok?"correct":"wrong";recordMathAdaptive(mathCurrent,ok);adventureAnswer("math",mathCurrent,ok);if(!ok)addPracticeWrong("數學",mathCurrent.type,mathCurrent.q,v,mathCurrent.show);
-  const f=document.getElementById("mathFeedback");f.style.display="block";f.innerHTML=(ok?"✅ 答對了。":"❌ 這題答錯。正確答案：<b>"+mathCurrent.show+"</b>")+"<br>"+mathCurrent.why;
-  inp.disabled=true;document.getElementById("mathSubmit").style.display="none";document.getElementById("mathNext").style.display="";
+  const independent=ok && mathHintCount===0;
+  mathQueue.answers[mathCurrent.id]=ok?"correct":"wrong";
+  recordMathAdaptive(mathCurrent,ok,mathHintCount);
+  adventureAnswer("math",mathCurrent,ok);
+  if(!ok)addPracticeWrong("數學",mathCurrent.type,mathCurrent.q,v,mathCurrent.show);
+
+  mathSessionAnswers.push({
+    ok,
+    independent,
+    hints:mathHintCount,
+    group:mathQuestionGroup(mathCurrent),
+    skill:mathCurrent.type
+  });
+
+  const f=document.getElementById("mathFeedback");
+  f.style.display="block";
+  const status=ok
+    ? (independent?"✅ 答對，而且是自己完成。":"✅ 答對；這題有使用提示。")
+    : "❌ 這題答錯。正確答案：<b>"+mathCurrent.show+"</b>";
+  f.innerHTML=status+"<br>"+mathCurrent.why;
+
+  const done=mathSessionAnswers.length;
+  const ind=mathSessionAnswers.filter(x=>x.independent).length;
+  const indLive=document.getElementById("mathIndependentLive");
+  if(indLive)indLive.textContent=`獨立完成 ${done?Math.round(ind/done*100):0}%`;
+
+  inp.disabled=true;
+  document.getElementById("mathHint").style.display="none";
+  document.getElementById("mathSubmit").style.display="none";
+  document.getElementById("mathNext").style.display="";
+  document.getElementById("mathNext").textContent=mathTodayCount>=MATH_SESSION_TARGET?"看今天結果":"下一題";
   savePractice();
+  renderParentBackendData();
 }
 if(document.getElementById("mathStart"))document.getElementById("mathStart").onclick=nextMath;
+if(document.getElementById("mathHint"))document.getElementById("mathHint").onclick=showMathHint;
 if(document.getElementById("mathSubmit"))document.getElementById("mathSubmit").onclick=submitMath;
 if(document.getElementById("mathNext"))document.getElementById("mathNext").onclick=nextMath;
 if(document.getElementById("mathInput"))document.getElementById("mathInput").addEventListener("keydown",e=>{if(e.key==="Enter")submitMath()});
@@ -4403,8 +4678,8 @@ const WEEK_PLAN={
   ]},
   6:{day:"星期六",subject:"🧮 數學｜進階日",note:"不重複寫同一張，改做同觀念類題。",tasks:[
     "本週數學錯題：挑 2–3 題觀念",
-    "網站：文字應用 4–6 題",
-    "挑戰：1–2 題多步驟或私中型題"
+    "網站：今日循序 10 題（包含應用，不只死算）",
+    "看結果：答對率＋獨立完成率，挑 1 個卡點訂正"
   ]},
   0:{day:"星期日",subject:"🏠 家事＋休息",note:"今天不排正式學習。",tasks:[
     "完成家事",
@@ -4530,9 +4805,14 @@ function olderSkillSummary(recent,bank,subjectName){
   const lines=[`${subjectName}能力`];
   rows.forEach((r,i)=>{
     const branch=i===rows.length-1?"└":"├";
-    const rate=r.rate===null?"":`｜近${r.count}題 ${Math.round(r.rate*100)}%`;
+    const rate=r.rate===null?"":`｜近${r.count}題答對 ${Math.round(r.rate*100)}%`;
+    const skillRecent=(recent||[]).filter(x=>x.skill===r.skill).slice(-8);
+    const indRate=subjectName==="數學" && skillRecent.length
+      ? Math.round(skillRecent.filter(x=>x.ok && (x.hints||0)===0).length/skillRecent.length*100)
+      : null;
+    const independent=indRate===null?"":`｜獨立 ${indRate}%`;
     const date=r.date==="—"?"尚未練習":`最後 ${localDayLabel(r.date)}`;
-    lines.push(`${branch}─ ${r.skill}　${r.status}${rate}｜${date}`);
+    lines.push(`${branch}─ ${r.skill}　${r.status}${rate}${independent}｜${date}`);
   });
   return lines.join("\\n");
 }
@@ -4570,6 +4850,15 @@ function renderParentBackendData(){
   if(chTree)chTree.textContent=olderSkillSummary(chHistory.recent||[],chineseBank,"國文");
   const mtTree=document.getElementById("parentOlderMathTree");
   if(mtTree)mtTree.textContent=olderSkillSummary(mathHistory.recent||[],mathBank,"數學");
+
+  const mr=(mathHistory.recent||[]).slice(-20);
+  const mrRate=mr.length?Math.round(mr.filter(x=>x.ok).length/mr.length*100):null;
+  const mrInd=mr.length?Math.round(mr.filter(x=>x.ok && (x.hints||0)===0).length/mr.length*100):null;
+  const mrApp=mr.filter(x=>(x.group||"") === "application" || String(x.skill||"").includes("應用") || String(x.skill||"").includes("多步驟"));
+  const mrAppRate=mrApp.length?Math.round(mrApp.filter(x=>x.ok).length/mrApp.length*100):null;
+  setText("parentMathRecentRate",mrRate===null?"近20題答對 —":`近20題答對 ${mrRate}%`);
+  setText("parentMathIndependentRate",mrInd===null?"獨立完成 —":`獨立完成 ${mrInd}%`);
+  setText("parentMathAppRate",mrAppRate===null?"應用題 —":`應用題 ${mrAppRate}%`);
 
   // 哥哥網站測驗紀錄
   const testRows=document.getElementById("parentTestHistoryRows");
