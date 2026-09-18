@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V17.2｜復旦 × 六和</title>
+<title>兄弟學習基地 V17.3｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -2751,6 +2751,15 @@ body:not(.younger-mode) .page.youngerOnly{
 }
 </style>
 
+
+<style id="v173-no-copy-spelling">
+.wordEnglish.wordAnswerHidden{
+  letter-spacing:8px;
+  color:#aeb6c3;
+  font-size:34px;
+}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -2792,7 +2801,7 @@ body:not(.younger-mode) .page.youngerOnly{
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V17.2</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V17.3</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -5472,7 +5481,7 @@ function loadWordBridgeProgress(){
   return p;
 }
 let wordBridgeProgress=loadWordBridgeProgress();
-let wordBridgeState={item:null,phase:"learn",waitingKey:false,answered:false,spellDone:false};
+let wordBridgeState={item:null,phase:"learn",waitingKey:false,answered:false,spellDone:false,spellTries:0};
 
 function saveWordBridgeProgress(){
   SafeStore.set(WORD_BRIDGE_KEY,JSON.stringify(wordBridgeProgress));
@@ -5577,10 +5586,19 @@ function showWordSpellChallenge(){
   const gap=spellingGap(item);
   wordBridgeState.phase="spell";
   wordBridgeState.spellDone=false;
+  wordBridgeState.spellTries=0;
+  wordBridgeState.spellTries=0;
 
   document.getElementById("wordQuizArea")?.classList.add("hidden");
   document.getElementById("wordSpellArea")?.classList.remove("hidden");
   document.getElementById("keyboardBonus")?.classList.add("hidden");
+
+  // 進入拼字題後，把上方完整英文答案藏起來，避免孩子直接照抄。
+  const topEnglish=document.getElementById("wordEnglish");
+  if(topEnglish){
+    topEnglish.textContent="•••";
+    topEnglish.classList.add("wordAnswerHidden");
+  }
 
   const pic=document.getElementById("wordSpellPicture");
   const pattern=document.getElementById("wordSpellPattern");
@@ -5598,7 +5616,7 @@ function showWordSpellChallenge(){
     mini.className="wordSpellMini";
     mini.textContent=`${item.zh}｜只填中間缺少的字母`;
   }
-  setKidFeedback("🐻 聽一聽，再把中間字母補起來。");
+  setKidFeedback("🐻 看圖片、聽聲音，再把中間字母補起來。");
   setTimeout(()=>input?.focus(),40);
   return true;
 }
@@ -5617,20 +5635,44 @@ function checkWordSpelling(){
     return;
   }
 
+  wordBridgeState.spellTries=(wordBridgeState.spellTries||0)+1;
   wordBridgeProgress.spellAttempts++;
   const ok=value===gap.answer;
+
   if(ok){
     wordBridgeProgress.spellCorrect++;
     wordBridgeState.spellDone=true;
     if(input)input.disabled=true;
+
+    // 只有答對後才把完整單字重新顯示，作為確認與記憶。
+    const topEnglish=document.getElementById("wordEnglish");
+    if(topEnglish){
+      topEnglish.textContent=item.word;
+      topEnglish.classList.remove("wordAnswerHidden");
+    }
+
     if(mini){mini.className="wordSpellMini good";mini.textContent=`答對：${item.word} ✓`;}
     setKidFeedback(`🐻 對！${item.word}`);
     setKidBearMood(true);
     saveWordBridgeProgress();
-    showKeyboardBonusAfterWord();
+    setTimeout(()=>showKeyboardBonusAfterWord(),550);
   }else{
-    if(mini){mini.className="wordSpellMini retry";mini.textContent="再聽一次，看看中間少了什麼。";}
-    setKidFeedback("🐻 再試一次，不急。");
+    if(input){
+      input.value="";
+      input.focus();
+    }
+
+    // 第一次錯：只叫他再聽，不揭答案。
+    // 第二次以上：只提示中間要填幾個字母，仍不顯示完整單字。
+    if(mini){
+      mini.className="wordSpellMini retry";
+      mini.textContent=wordBridgeState.spellTries===1
+        ?"再聽一次，看看中間少了什麼。"
+        :`提示：中間要填 ${gap.answer.length} 個字母。`;
+    }
+    setKidFeedback(wordBridgeState.spellTries===1
+      ?"🐻 再聽一次，不急。"
+      :"🐻 看字頭、字尾，再聽一次。");
     setKidBearMood(false);
     saveWordBridgeProgress();
   }
@@ -5675,7 +5717,10 @@ function renderWordBridgeLearn(){
   const next=document.getElementById("wordNextBtn");
   if(pair)pair.textContent=`${item.letter} ${item.letter.toLowerCase()}`;
   if(pic)pic.textContent=item.emoji;
-  if(en)en.textContent=item.word;
+  if(en){
+    en.textContent=item.word;
+    en.classList.remove("wordAnswerHidden");
+  }
   if(zh){zh.textContent=item.zh;zh.classList.remove("hiddenMeaning");}
   if(actions)actions.classList.remove("hidden");
   if(quiz)quiz.classList.add("hidden");
