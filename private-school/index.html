@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V17.3｜復旦 × 六和</title>
+<title>兄弟學習基地 V17.4｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -2760,6 +2760,33 @@ body:not(.younger-mode) .page.youngerOnly{
 }
 </style>
 
+
+<style id="v174-recognition">
+.recognitionChip{
+  border-color:#a7b7d2!important;
+  background:#f4f7fb!important;
+}
+.recognitionChip.active{
+  background:#516783!important;
+  color:#fff!important;
+}
+.recognitionNote{
+  margin-top:12px;
+  padding:13px 15px;
+  border-radius:14px;
+  background:#f7f9fc;
+  border:1px solid #e0e6ef;
+  line-height:1.7;
+}
+.recognitionNoteGrid{
+  display:grid;
+  grid-template-columns:90px 1fr;
+  gap:6px 10px;
+}
+.recognitionNoteGrid b{color:#40516b}
+.recognitionNoteGrid span{color:#5f6d80}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -2801,7 +2828,7 @@ body:not(.younger-mode) .page.youngerOnly{
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V17.3</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V17.4</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -2948,14 +2975,15 @@ body:not(.younger-mode) .page.youngerOnly{
     <div class="kidTip" style="margin-bottom:12px">知識題會標示教育部來源；閱讀、句子與寫作則標示「原創題」。</div>
     <div class="practiceTop">
       <div>
-        <h3>國文實戰</h3>
-        <div class="muted">每次從不同能力中抽一小關。</div>
+        <h3>國文實戰｜認字＋閱讀</h3>
+        <div class="muted">認字弱時會提高字音、字形、字義題比例；也可以直接切到「認字加強」。</div>
       </div>
       <span class="tag warn" id="chTypeTag">準備開始</span>
     </div>
 
     <div class="topicRail">
       <button type="button" class="topicChip active" data-filter="all">混合</button>
+      <button type="button" class="topicChip recognitionChip" data-filter="認字加強">認字加強</button>
       <button type="button" class="topicChip" data-filter="字音">字音</button>
       <button type="button" class="topicChip" data-filter="字形">字形</button>
       <button type="button" class="topicChip" data-filter="字義">字義</button>
@@ -2967,7 +2995,7 @@ body:not(.younger-mode) .page.youngerOnly{
        <button type="button" class="topicChip" data-filter="短寫作">短寫作</button>
     </div>
 
-    <div id="chQuestion" class="questionBox">按「開始國文練習」出題。</div><div id="chSourceRow" class="sourceRow"></div>
+    <div id="chQuestion" class="questionBox">按「開始國文練習」出題；如果今天要加強認字，可先切「認字加強」。</div><div id="chSourceRow" class="sourceRow"></div>
     <div id="chChoices" class="choiceGrid"></div>
     <div id="chExtra"></div>
     <div id="chFeedback" class="feedbackBox" style="display:none"></div>
@@ -2984,7 +3012,9 @@ body:not(.younger-mode) .page.youngerOnly{
     <div class="muted">這裡給家長看，不放在孩子作答畫面。</div>
     <table>
       <tr><th>能力</th><th>訓練目的</th></tr>
-      <tr><td>形音義</td><td>穩定基本功</td></tr>
+      <tr><td>認字－字音</td><td>看到常用字詞能正確讀出</td></tr>
+      <tr><td>認字－字形</td><td>分辨易混字、常見錯別字</td></tr>
+      <tr><td>認字－字義</td><td>放進句子仍能理解意思</td></tr>
       <tr><td>成語／語詞</td><td>辨義與情境應用</td></tr>
       <tr><td>短文閱讀</td><td>找訊息、抓主旨</td></tr>
       <tr><td>閱讀推論</td><td>找證據、理解人物與因果</td></tr>
@@ -3681,7 +3711,11 @@ body:not(.younger-mode) .page.youngerOnly{
       <div class="grid g2" style="margin-top:14px">
         <div class="card">
           <h3>🌳 哥哥｜國文能力樹</h3>
-          <div class="muted">狀態依最近練習紀錄更新；括號顯示最後練習日期。</div>
+          <div class="muted">現在把認字拆成字音、字形、字義，方便看出到底卡在哪裡。</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin:10px 0">
+            <span class="tag" id="parentRecognitionRate">認字答對 —</span>
+            <span class="tag" id="parentRecognitionWeak">最弱 —</span>
+          </div>
           <div class="treeDiag" id="parentOlderChineseTree" style="margin-top:12px">國文能力
 └─ 尚未累積資料</div>
         </div>
@@ -4083,7 +4117,35 @@ note:{title:"文言小說明",origin:"出處：《論語・為政》",story:"這
 {id:"ch30",type:"文言文",level:4,skill:"文言推論",passage:"人不知而不慍，不亦君子乎？",q:"若套用到日常情境，下列哪個行為最接近這句話的精神？",choices:["別人一時不了解自己，就立刻生氣","別人沒有注意到自己的努力，仍能平和做好該做的事","一定要每個人都稱讚自己才願意繼續"],a:1,why:"「不慍」是沒有因別人不了解自己而惱怒，重點在保持平和。",source:"《論語・學而》",sourceType:"original",
 note:{title:"文言小說明",origin:"出處：《論語・學而》",story:"這句話談的是面對別人不了解自己時的態度。",modern:"做了正確的事，即使暫時沒被看見，也能保持平穩。",hook:"別人不懂我，我不因此生氣。"}},
 {id:"ch31",type:"閱讀推論",level:4,skill:"反例判斷",passage:"老師說：「如果只看一次測驗，就決定一個人永遠不會某個能力，很容易誤判。」",q:"下列哪個做法最符合老師的觀點？",choices:["只用一次成績決定能力","看多次不同題型的表現再判斷","只看答錯題數，不看題型"],a:1,why:"老師反對用單次結果下定論，因此應累積多次、不同題型的表現再判斷。",source:"原創能力題",sourceType:"original"},
-{id:"ch32",type:"短文閱讀",level:4,skill:"資訊整合",passage:"校園想減少午餐剩食。第一週只張貼「不要浪費」海報，效果不明顯；第二週開始公布每天剩食重量，學生注意度提高；第三週又讓各班討論最常剩下哪些菜，以及份量是否合適，剩食量才明顯下降。",q:"從這段經過看，哪一種方式最可能真正促成改變？",choices:["只用口號提醒","提供數據並讓使用者一起找原因","完全取消午餐"],a:1,why:"公布數據讓問題可見，再讓各班找原因，才讓行為真正改善。",source:"原創閱讀題",sourceType:"original"}
+{id:"ch32",type:"短文閱讀",level:4,skill:"資訊整合",passage:"校園想減少午餐剩食。第一週只張貼「不要浪費」海報，效果不明顯；第二週開始公布每天剩食重量，學生注意度提高；第三週又讓各班討論最常剩下哪些菜，以及份量是否合適，剩食量才明顯下降。",q:"從這段經過看，哪一種方式最可能真正促成改變？",choices:["只用口號提醒","提供數據並讓使用者一起找原因","完全取消午餐"],a:1,why:"公布數據讓問題可見，再讓各班找原因，才讓行為真正改善。",source:"原創閱讀題",sourceType:"original"},
+
+// V17.4｜哥哥認字加強：字音、字形、字義分開記錄
+{id:"ch33",type:"字音",group:"認字加強",skill:"認字－字音",level:1,q:"「暫時」的「暫」應讀作？",choices:["ㄓㄢˋ","ㄗㄢˋ","ㄓㄢ"],a:0,why:"「暫時」的「暫」讀作 ㄓㄢˋ。",source:"教育部《國語辭典簡編本》",sourceType:"moe",learn:{word:"暫時",reading:"ㄓㄢˋ ㄕˊ",meaning:"短時間之內。",example:"先暫時把資料放在桌上。"}},
+{id:"ch34",type:"字音",group:"認字加強",skill:"認字－字音",level:1,q:"「仍然」的「仍」應讀作？",choices:["ㄖㄥˊ","ㄖㄣˊ","ㄖㄥˇ"],a:0,why:"「仍然」的「仍」讀作 ㄖㄥˊ。",source:"教育部《國語辭典簡編本》",sourceType:"moe",learn:{word:"仍然",reading:"ㄖㄥˊ ㄖㄢˊ",meaning:"情況和原來一樣，沒有改變。",example:"雖然下雨，他仍然準時到校。"}},
+{id:"ch35",type:"字音",group:"認字加強",skill:"認字－字音",level:1,q:"「挫折」的「挫」應讀作？",choices:["ㄘㄨㄛˋ","ㄗㄨㄛˋ","ㄘㄨㄛ"],a:0,why:"「挫折」的「挫」讀作 ㄘㄨㄛˋ。",source:"教育部《國語辭典簡編本》",sourceType:"moe",learn:{word:"挫折",reading:"ㄘㄨㄛˋ ㄓㄜˊ",meaning:"事情不順利而受到阻礙或失敗。",example:"遇到挫折時，他會先找原因。"}},
+{id:"ch36",type:"字音",group:"認字加強",skill:"認字－字音",level:1,q:"「謙虛」的「謙」應讀作？",choices:["ㄑㄧㄢ","ㄐㄧㄢ","ㄑㄧㄢˇ"],a:0,why:"「謙虛」的「謙」讀作 ㄑㄧㄢ。",source:"教育部《國語辭典簡編本》",sourceType:"moe",learn:{word:"謙虛",reading:"ㄑㄧㄢ ㄒㄩ",meaning:"不自滿、不誇耀自己。",example:"他成績很好，態度仍然很謙虛。"}},
+{id:"ch37",type:"字音",group:"認字加強",skill:"認字－字音",level:1,q:"「酬勞」的「酬」應讀作？",choices:["ㄔㄡˊ","ㄓㄡˋ","ㄔㄡˋ"],a:0,why:"「酬勞」的「酬」讀作 ㄔㄡˊ。",source:"教育部《國語辭典簡編本》",sourceType:"moe",learn:{word:"酬勞",reading:"ㄔㄡˊ ㄌㄠˊ",meaning:"工作後所得到的報酬。",example:"完成工作後，他獲得合理的酬勞。"}},
+{id:"ch38",type:"字音",group:"認字加強",skill:"認字－字音",level:1,q:"「瀏覽」的「瀏」應讀作？",choices:["ㄌㄧㄡˊ","ㄌㄧㄡˇ","ㄌㄧㄡˋ"],a:0,why:"「瀏覽」的「瀏」讀作 ㄌㄧㄡˊ。",source:"教育部《國語辭典簡編本》",sourceType:"moe",learn:{word:"瀏覽",reading:"ㄌㄧㄡˊ ㄌㄢˇ",meaning:"大略地看過。",example:"先瀏覽文章，再找出重點。"}},
+{id:"ch39",type:"字音",group:"認字加強",skill:"認字－字音",level:1,q:"「畢竟」的「畢」應讀作？",choices:["ㄅㄧˋ","ㄆㄧˋ","ㄅㄧ"],a:0,why:"「畢竟」的「畢」讀作 ㄅㄧˋ。",source:"教育部《國語辭典簡編本》",sourceType:"moe",learn:{word:"畢竟",reading:"ㄅㄧˋ ㄐㄧㄥˋ",meaning:"終究、到底。",example:"他畢竟是第一次嘗試，不必要求太高。"}},
+{id:"ch40",type:"字音",group:"認字加強",skill:"認字－字音",level:1,q:"「規律」的「律」應讀作？",choices:["ㄌㄩˋ","ㄌㄧㄡˋ","ㄌㄩˇ"],a:0,why:"「規律」的「律」讀作 ㄌㄩˋ。",source:"教育部《國語辭典簡編本》",sourceType:"moe",learn:{word:"規律",reading:"ㄍㄨㄟ ㄌㄩˋ",meaning:"有一定的次序或規則。",example:"每天固定時間閱讀，可以建立規律。"}},
+
+{id:"ch41",type:"字形",group:"認字加強",skill:"認字－字形",level:1,q:"下列哪一個詞語寫法正確？",choices:["分辨方向","分辯方向","分瓣方向"],a:0,why:"「分辨」是分別、辨別；應寫作「辨」。",source:"教育部《國語辭典簡編本》",sourceType:"moe",learn:{word:"分辨",reading:"ㄈㄣ ㄅㄧㄢˋ",meaning:"辨別、區分。",example:"要仔細分辨兩個相似的字。"}},
+{id:"ch42",type:"字形",group:"認字加強",skill:"認字－字形",level:1,q:"下列哪一個詞語寫法正確？",choices:["辯論問題","辨論問題","瓣論問題"],a:0,why:"「辯論」是用言語說明、爭辯，應寫作「辯」。",source:"教育部《國語辭典簡編本》",sourceType:"moe",learn:{word:"辯論",reading:"ㄅㄧㄢˋ ㄌㄨㄣˋ",meaning:"針對不同意見進行說理。",example:"兩組同學針對議題進行辯論。"}},
+{id:"ch43",type:"字形",group:"認字加強",skill:"認字－字形",level:1,q:"下列哪一個詞語寫法正確？",choices:["花瓣","花辨","花辯"],a:0,why:"花朵的一片片構造寫作「花瓣」。",source:"教育部《國語辭典簡編本》",sourceType:"moe",learn:{word:"花瓣",reading:"ㄏㄨㄚ ㄅㄢˋ",meaning:"花冠的一片片構造。",example:"雨後，花瓣上還留著水珠。"}},
+{id:"ch44",type:"字形",group:"認字加強",skill:"認字－字形",level:1,q:"下列哪一個詞語寫法正確？",choices:["等候消息","等侯消息","等後消息"],a:0,why:"等待的意思應寫作「等候」。",source:"教育部《國語辭典簡編本》",sourceType:"moe",learn:{word:"等候",reading:"ㄉㄥˇ ㄏㄡˋ",meaning:"等待。",example:"大家在門口等候老師。"}},
+{id:"ch45",type:"字形",group:"認字加強",skill:"認字－字形",level:1,q:"下列哪一個詞語寫法正確？",choices:["氣候變化","氣侯變化","氣後變化"],a:0,why:"天氣長期狀況應寫作「氣候」。",source:"教育部《國語辭典簡編本》",sourceType:"moe",learn:{word:"氣候",reading:"ㄑㄧˋ ㄏㄡˋ",meaning:"一個地區長期的天氣特徵。",example:"高山氣候和城市很不一樣。"}},
+{id:"ch46",type:"字形",group:"認字加強",skill:"認字－字形",level:1,q:"下列哪一個詞語寫法正確？",choices:["既然如此","即然如此","既燃如此"],a:0,why:"表示前提已成立時，用「既然」。",source:"教育部《國語辭典簡編本》",sourceType:"moe",learn:{word:"既然",reading:"ㄐㄧˋ ㄖㄢˊ",meaning:"表示某個前提已經成立。",example:"既然決定參加，就要認真準備。"}},
+{id:"ch47",type:"字形",group:"認字加強",skill:"認字－字形",level:1,q:"下列哪一個詞語寫法正確？",choices:["即使下雨","既使下雨","即駛下雨"],a:0,why:"表示假設讓步時，用「即使」。",source:"教育部《國語辭典簡編本》",sourceType:"moe",learn:{word:"即使",reading:"ㄐㄧˊ ㄕˇ",meaning:"表示讓步的假設，相當於「就算」。",example:"即使很累，他仍把事情做完。"}},
+{id:"ch48",type:"字形",group:"認字加強",skill:"認字－字形",level:1,q:"下列哪一個詞語寫法正確？",choices:["再接再厲","再接再勵","再接再利"],a:0,why:"正確寫法是「再接再厲」，表示繼續努力。",source:"教育部《成語典》",sourceType:"idiom",learn:{word:"再接再厲",reading:"ㄗㄞˋ ㄐㄧㄝ ㄗㄞˋ ㄌㄧˋ",meaning:"繼續努力，不鬆懈。",example:"這次有進步，下次再接再厲。"}},
+
+{id:"ch49",type:"字義",group:"認字加強",skill:"認字－字義",level:1,q:"「他先瀏覽文章，再仔細閱讀重點。」其中「瀏覽」最接近哪個意思？",choices:["大略看過","全部背起來","完全不看"],a:0,why:"「瀏覽」是大略地看過。",source:"教育部《國語辭典簡編本》",sourceType:"moe",learn:{word:"瀏覽",reading:"ㄌㄧㄡˊ ㄌㄢˇ",meaning:"大略地看過。",example:"先瀏覽標題，可以快速知道文章方向。"}},
+{id:"ch50",type:"字義",group:"認字加強",skill:"認字－字義",level:1,q:"「他遇到挫折後，重新調整方法。」其中「挫折」最接近哪個意思？",choices:["受到阻礙或失敗","得到獎勵","立刻成功"],a:0,why:"「挫折」指事情不順利而受到阻礙或失敗。",source:"教育部《國語辭典簡編本》",sourceType:"moe",learn:{word:"挫折",reading:"ㄘㄨㄛˋ ㄓㄜˊ",meaning:"受到阻礙或失敗。",example:"遇到挫折時，可以先找出問題。"}},
+{id:"ch51",type:"字義",group:"認字加強",skill:"認字－字義",level:1,q:"「他很有能力，卻一直保持謙虛。」其中「謙虛」最接近哪個意思？",choices:["不自滿、不誇耀自己","故意炫耀","完全沒有自信"],a:0,why:"「謙虛」是不自滿、不自誇。",source:"教育部《國語辭典簡編本》",sourceType:"moe",learn:{word:"謙虛",reading:"ㄑㄧㄢ ㄒㄩ",meaning:"不自滿、不誇耀自己。",example:"被稱讚時，他仍保持謙虛。"}},
+{id:"ch52",type:"字義",group:"認字加強",skill:"認字－字義",level:1,q:"「我們暫時先用這個方法。」其中「暫時」最接近哪個意思？",choices:["短時間內","永遠如此","立刻結束"],a:0,why:"「暫時」表示短時間之內。",source:"教育部《國語辭典簡編本》",sourceType:"moe",learn:{word:"暫時",reading:"ㄓㄢˋ ㄕˊ",meaning:"短時間之內。",example:"這只是暫時的安排。"}},
+{id:"ch53",type:"字義",group:"認字加強",skill:"認字－字義",level:1,q:"「雖然已經很晚，他仍然把報告完成。」其中「仍然」最接近哪個意思？",choices:["還是、依舊","突然停止","完全相反"],a:0,why:"「仍然」表示情況依舊、沒有改變。",source:"教育部《國語辭典簡編本》",sourceType:"moe",learn:{word:"仍然",reading:"ㄖㄥˊ ㄖㄢˊ",meaning:"還是、依舊。",example:"下著雨，他仍然照原計畫出門。"}},
+{id:"ch54",type:"字義",group:"認字加強",skill:"認字－字義",level:1,q:"「完成工作後，他得到一筆酬勞。」其中「酬勞」最接近哪個意思？",choices:["工作所得的報酬","工作中的錯誤","額外的作業"],a:0,why:"「酬勞」是工作後得到的報酬。",source:"教育部《國語辭典簡編本》",sourceType:"moe",learn:{word:"酬勞",reading:"ㄔㄡˊ ㄌㄠˊ",meaning:"工作後所得的報酬。",example:"完成任務後，他獲得酬勞。"}},
+{id:"ch55",type:"字義",group:"認字加強",skill:"認字－字義",level:1,q:"「作息有規律，身體比較容易適應。」其中「規律」最接近哪個意思？",choices:["有一定次序或規則","完全隨機","沒有任何安排"],a:0,why:"「規律」表示有固定的次序或規則。",source:"教育部《國語辭典簡編本》",sourceType:"moe",learn:{word:"規律",reading:"ㄍㄨㄟ ㄌㄩˋ",meaning:"有一定的次序或規則。",example:"每天固定閱讀，是一種規律。"}},
+{id:"ch56",type:"字義",group:"認字加強",skill:"認字－字義",level:1,q:"「他畢竟是第一次上台，不可能完全不緊張。」其中「畢竟」最接近哪個意思？",choices:["終究、到底","立刻","偶爾"],a:0,why:"「畢竟」有終究、到底的意思。",source:"教育部《國語辭典簡編本》",sourceType:"moe",learn:{word:"畢竟",reading:"ㄅㄧˋ ㄐㄧㄥˋ",meaning:"終究、到底。",example:"他畢竟還在學習，需要時間。"}}
 ];
 let chCurrent=null,chLocked=false;
 
@@ -4152,6 +4214,16 @@ function weightedPick(list,target,preferSkill=null){
     w*=diff===0?5:(diff===1?2.2:.5);
     if(preferSkill && chSkillOf(item)===preferSkill && h.lastDate!==chDayKey())w*=4;
     if(!h.seen)w*=2.5;
+
+    // V17.4：哥哥認字不足時，在「混合」模式提高認字題比例，但不會把閱讀全部拿掉。
+    if(chFilter==="all" && item.group==="認字加強"){
+      const rec=(chHistory.recent||[]).filter(x=>String(x.skill||"").startsWith("認字－")).slice(-12);
+      const recAcc=rec.length?rec.filter(x=>x.ok).length/rec.length:null;
+      if(rec.length<8)w*=3.2;
+      else if(recAcc!==null && recAcc<.7)w*=2.6;
+      else if(recAcc!==null && recAcc<.82)w*=1.7;
+    }
+
     if(h.lastOutcome==="wrong" && h.dueDate<=chDayKey())w*=3.5;
     if(h.lastOutcome==="correct")w*=.7;
     if(chCurrent && item.type===chCurrent.type)w*=.35;
@@ -4164,10 +4236,10 @@ function weightedPick(list,target,preferSkill=null){
 }
 function eligibleChinese(){
   const target=adaptiveLevel(chHistory);
-  let pool=chineseBank.filter(x=>(chFilter==="all"||x.type===chFilter)&&!chQueue.shown.includes(x.id)&&isChDue(x));
+  let pool=chineseBank.filter(x=>(chFilter==="all"||x.type===chFilter||x.group===chFilter)&&!chQueue.shown.includes(x.id)&&isChDue(x));
   if(!pool.length){
     // 若今天真正到期題不足，只開放「從未做過」題，仍不把近期答對原題提前拿回來。
-    pool=chineseBank.filter(x=>(chFilter==="all"||x.type===chFilter)&&!chQueue.shown.includes(x.id)&&!chHistory.items[x.id]);
+    pool=chineseBank.filter(x=>(chFilter==="all"||x.type===chFilter||x.group===chFilter)&&!chQueue.shown.includes(x.id)&&!chHistory.items[x.id]);
   }
   return {pool,target};
 }
@@ -4477,6 +4549,17 @@ function renderChineseSource(item){
 
 
 function renderChineseLearnNote(item){
+  if(item&&item.learn){
+    const n=item.learn;
+    return `<div class="recognitionNote">
+      <div class="recognitionNoteGrid">
+        <b>字詞</b><span>${n.word||""}</span>
+        <b>讀音</b><span>${n.reading||""}</span>
+        <b>意思</b><span>${n.meaning||""}</span>
+        <b>例句</b><span>${n.example||""}</span>
+      </div>
+    </div>`;
+  }
   if(!item||!item.note)return "";
   const n=item.note;
   return `<div class="learnNoteCard">
@@ -5170,6 +5253,15 @@ function renderParentBackendData(){
   // 哥哥能力樹：國文、數學分開看，並顯示最後練習日期
   const chTree=document.getElementById("parentOlderChineseTree");
   if(chTree)chTree.textContent=olderSkillSummary(chHistory.recent||[],chineseBank,"國文");
+
+  const rec=(chHistory.recent||[]).filter(x=>String(x.skill||"").startsWith("認字－")).slice(-24);
+  const recRate=rec.length?Math.round(rec.filter(x=>x.ok).length/rec.length*100):null;
+  setText("parentRecognitionRate",recRate===null?"認字答對 —":`認字答對 ${recRate}%`);
+  const recSkills=["認字－字音","認字－字形","認字－字義"].map(skill=>{
+    const a=rec.filter(x=>x.skill===skill);
+    return {skill,n:a.length,rate:a.length?a.filter(x=>x.ok).length/a.length:null};
+  }).filter(x=>x.n>0).sort((a,b)=>a.rate-b.rate);
+  setText("parentRecognitionWeak",recSkills.length?`最弱 ${recSkills[0].skill.replace("認字－","")}`:"最弱 —");
   const mtTree=document.getElementById("parentOlderMathTree");
   if(mtTree)mtTree.textContent=olderSkillSummary(mathHistory.recent||[],mathBank,"數學");
 
