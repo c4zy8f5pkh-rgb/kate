@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V17.1｜復旦 × 六和</title>
+<title>兄弟學習基地 V17.2｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -2715,6 +2715,42 @@ body:not(.younger-mode) .page.youngerOnly{
 }
 </style>
 
+
+<style id="v172-count-settings">
+.countSettingGrid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+}
+.countSettingItem{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  padding:13px 14px;
+  border:1px solid #e2e7ef;
+  border-radius:15px;
+  background:#fbfcfe;
+}
+.countSettingItem span{min-width:0}
+.countSettingItem b{display:block;color:#44516a}
+.countSettingItem small{display:block;margin-top:3px;color:#7a8799}
+.countSettingItem select{
+  min-width:96px;
+  height:42px;
+  border:1px solid #d7deea;
+  border-radius:11px;
+  background:#fff;
+  padding:0 10px;
+  font:inherit;
+  font-weight:800;
+  color:#495770;
+}
+@media(max-width:700px){
+  .countSettingGrid{grid-template-columns:1fr}
+}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -2756,7 +2792,7 @@ body:not(.younger-mode) .page.youngerOnly{
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V17.1</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V17.2</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -3699,6 +3735,66 @@ body:not(.younger-mode) .page.youngerOnly{
           </div>
           <div id="savePinMsg" class="muted" style="margin-top:8px"></div>
         </div>
+        <div class="microTask questionCountSettings">
+          <b>每日題目數</b>
+          <div class="muted" style="margin-top:5px">家長可以依當天狀況調整。設定會保留，下次開啟網站仍會沿用。</div>
+
+          <div class="countSettingGrid" style="margin-top:12px">
+            <label class="countSettingItem">
+              <span><b>哥哥｜國文</b><small>每日練習題數</small></span>
+              <select id="setOlderChineseCount">
+                <option value="5">5 題</option>
+                <option value="8">8 題</option>
+                <option value="10">10 題</option>
+                <option value="12">12 題</option>
+                <option value="15">15 題</option>
+              </select>
+            </label>
+
+            <label class="countSettingItem">
+              <span><b>哥哥｜數學</b><small>循序練習總題數</small></span>
+              <select id="setOlderMathCount">
+                <option value="5">5 題</option>
+                <option value="8">8 題</option>
+                <option value="10">10 題</option>
+                <option value="12">12 題</option>
+                <option value="15">15 題</option>
+                <option value="20">20 題</option>
+              </select>
+            </label>
+
+            <label class="countSettingItem">
+              <span><b>弟弟｜單字樂園</b><small>今天要完成幾個單字</small></span>
+              <select id="setYoungerWordCount">
+                <option value="4">4 個</option>
+                <option value="6">6 個</option>
+                <option value="8">8 個</option>
+                <option value="10">10 個</option>
+                <option value="12">12 個</option>
+                <option value="15">15 個</option>
+              </select>
+            </label>
+
+            <label class="countSettingItem">
+              <span><b>弟弟｜其他小遊戲</b><small>每一關答對幾題算完成</small></span>
+              <select id="setYoungerMiniCount">
+                <option value="3">3 題</option>
+                <option value="4">4 題</option>
+                <option value="5">5 題</option>
+                <option value="6">6 題</option>
+                <option value="8">8 題</option>
+                <option value="10">10 題</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="practiceActions" style="margin-top:12px">
+            <button type="button" class="btn" id="saveQuestionCounts">儲存題目數</button>
+            <button type="button" class="btn secondary" id="resetQuestionCounts">恢復建議值</button>
+          </div>
+          <div id="questionCountSaveMsg" class="muted" style="margin-top:8px"></div>
+        </div>
+
         <div class="microTask">
           <b>系統狀態</b>
           <div id="backendStorageStatus" class="muted" style="margin-top:6px">檢查中…</div>
@@ -3743,6 +3839,94 @@ const SafeStore=(()=>{
     }
   };
 })();
+
+
+const QUESTION_COUNT_SETTINGS_KEY="family_question_count_settings_v172";
+const QUESTION_COUNT_DEFAULTS={
+  olderChinese:8,
+  olderMath:10,
+  youngerWords:8,
+  youngerMini:4
+};
+
+function clampQuestionCount(value,min,max,fallback){
+  const n=Number(value);
+  return Number.isFinite(n)?Math.max(min,Math.min(max,Math.round(n))):fallback;
+}
+function loadQuestionCountSettings(){
+  let s={};
+  try{s=JSON.parse(SafeStore.get(QUESTION_COUNT_SETTINGS_KEY,"{}")||"{}")}catch(e){s={}}
+  return {
+    olderChinese:clampQuestionCount(s.olderChinese,5,15,QUESTION_COUNT_DEFAULTS.olderChinese),
+    olderMath:clampQuestionCount(s.olderMath,5,20,QUESTION_COUNT_DEFAULTS.olderMath),
+    youngerWords:clampQuestionCount(s.youngerWords,4,15,QUESTION_COUNT_DEFAULTS.youngerWords),
+    youngerMini:clampQuestionCount(s.youngerMini,3,10,QUESTION_COUNT_DEFAULTS.youngerMini)
+  };
+}
+let questionCountSettings=loadQuestionCountSettings();
+
+function saveQuestionCountSettings(){
+  SafeStore.set(QUESTION_COUNT_SETTINGS_KEY,JSON.stringify(questionCountSettings));
+}
+function olderChineseTarget(){return questionCountSettings.olderChinese}
+function olderMathTarget(){return questionCountSettings.olderMath}
+function youngerWordTarget(){return questionCountSettings.youngerWords}
+function youngerMiniTarget(){return questionCountSettings.youngerMini}
+
+function syncQuestionCountSettingControls(){
+  const map={
+    setOlderChineseCount:questionCountSettings.olderChinese,
+    setOlderMathCount:questionCountSettings.olderMath,
+    setYoungerWordCount:questionCountSettings.youngerWords,
+    setYoungerMiniCount:questionCountSettings.youngerMini
+  };
+  Object.entries(map).forEach(([id,v])=>{
+    const el=document.getElementById(id);
+    if(el)el.value=String(v);
+  });
+}
+function refreshQuestionCountUI(){
+  // 哥哥數學
+  const mt=olderMathTarget();
+  const ms=document.getElementById("mathStart");
+  if(ms && mathTodayCount===0)ms.textContent=`開始今日 ${mt} 題`;
+  const mq=document.getElementById("mathQuestion");
+  if(mq && mathTodayCount===0 && !mathCurrent)mq.textContent=`按「開始今日 ${mt} 題」出題。`;
+  const step=document.getElementById("mathSessionStep");
+  if(step && mathTodayCount===0)step.textContent=`今日 0 / ${mt}`;
+
+  // 哥哥國文
+  const ct=olderChineseTarget();
+  const cs=document.getElementById("chStart");
+  if(cs && !chCurrent)cs.textContent=`開始今日 ${ct} 題`;
+
+  // 弟弟
+  updateWordBridgeProgressUI?.();
+  updateYoungerCoachPanels?.();
+  renderYoungerMissionHome?.();
+}
+function saveQuestionCountsFromBackend(){
+  const get=id=>Number(document.getElementById(id)?.value);
+  questionCountSettings={
+    olderChinese:clampQuestionCount(get("setOlderChineseCount"),5,15,8),
+    olderMath:clampQuestionCount(get("setOlderMathCount"),5,20,10),
+    youngerWords:clampQuestionCount(get("setYoungerWordCount"),4,15,8),
+    youngerMini:clampQuestionCount(get("setYoungerMiniCount"),3,10,4)
+  };
+  saveQuestionCountSettings();
+  syncQuestionCountSettingControls();
+  refreshQuestionCountUI();
+  const msg=document.getElementById("questionCountSaveMsg");
+  if(msg)msg.textContent=`✅ 已儲存：國文 ${olderChineseTarget()} 題｜數學 ${olderMathTarget()} 題｜單字 ${youngerWordTarget()} 個｜弟弟小遊戲每關 ${youngerMiniTarget()} 題`;
+}
+function resetQuestionCountsToDefaults(){
+  questionCountSettings={...QUESTION_COUNT_DEFAULTS};
+  saveQuestionCountSettings();
+  syncQuestionCountSettingControls();
+  refreshQuestionCountUI();
+  const msg=document.getElementById("questionCountSaveMsg");
+  if(msg)msg.textContent="已恢復建議值：國文 8、數學 10、單字 8、小遊戲每關 4。";
+}
 
 const navBtns=[...document.querySelectorAll('nav button')];
 function go(id){
@@ -3991,7 +4175,7 @@ function chooseChineseQuestion(){
 }
 function renderChCounters(){
   const c=document.getElementById("chTodayCount"),s=document.getElementById("chStreak"),l=document.getElementById("chAdaptiveLevel");
-  if(c)c.textContent="今日 "+chQueue.shown.length+" 題";
+  if(c)c.textContent=`今日 ${Math.min(chQueue.shown.length,olderChineseTarget())} / ${olderChineseTarget()} 題`;
   if(s)s.textContent="連續答對 "+chStreak;
   if(l)l.textContent="目前難度 L"+adaptiveLevel(chHistory);
 }
@@ -4299,6 +4483,22 @@ function renderChineseLearnNote(item){
 }
 
 function nextChinese(){
+  if(chQueue.shown.length>=olderChineseTarget()){
+    chCurrent=null;
+    resetChInput();
+    const q=document.getElementById("chQuestion"),choices=document.getElementById("chChoices"),
+          fb=document.getElementById("chFeedback");
+    q.innerHTML=`🎉 今天國文 ${olderChineseTarget()} 題完成。`;
+    choices.innerHTML="";
+    renderChineseSource(null);
+    fb.style.display="block";
+    fb.innerHTML="今天先做到這裡；明天會依最近表現繼續出題。";
+    document.getElementById("chStart").style.display="none";
+    document.getElementById("chNext").style.display="none";
+    document.getElementById("chTypeTag").textContent="今日完成";
+    renderChCounters();
+    return;
+  }
   chCurrent=chooseChineseQuestion();chLocked=false;resetChInput();
   const q=document.getElementById("chQuestion"),choices=document.getElementById("chChoices"),
         fb=document.getElementById("chFeedback");
@@ -4333,7 +4533,9 @@ document.addEventListener("click",e=>{
   if(!ok){b.classList.add("wrong");addPracticeWrong("國文",chCurrent.type,chCurrent.q,chCurrent.choices[idx],chCurrent.choices[chCurrent.a])}
   const f=document.getElementById("chFeedback");f.style.display="block";
   f.innerHTML=`<div class="resultBurst">${ok?"✅ 答對了！":"🔎 這題先學會就好"}</div>${chCurrent.why}${renderChineseLearnNote(chCurrent)}`;
-  document.getElementById("chNext").style.display="";savePractice();renderChCounters();
+  document.getElementById("chNext").style.display="";
+  document.getElementById("chNext").textContent=chQueue.shown.length>=olderChineseTarget()?"看今天結果":"下一題";
+  savePractice();renderChCounters();
 });
 function submitChineseText(){
   if(!chCurrent||chLocked)return;
@@ -4353,6 +4555,7 @@ function submitChineseText(){
   adventureAnswer("chinese",chCurrent,ok);
   const f=document.getElementById("chFeedback");f.style.display="block";f.innerHTML=`<div class="resultBurst">${msg}</div>${chCurrent.why}${renderChineseLearnNote(chCurrent)}`;
   inp.disabled=true;document.getElementById("chSubmitText").style.display="none";document.getElementById("chNext").style.display="";
+  document.getElementById("chNext").textContent=chQueue.shown.length>=olderChineseTarget()?"看今天結果":"下一題";
   savePractice();renderChCounters();
 }
 document.querySelectorAll(".topicChip").forEach(btn=>btn.addEventListener("click",()=>{
@@ -4475,7 +4678,7 @@ let mathQueue=loadMathQueue(),mathHistory=loadMathHistory();
 function saveMathQueue(){SafeStore.set(MATH_QUEUE_KEY,JSON.stringify(mathQueue))}
 function saveMathHistory(){SafeStore.set(MATH_HISTORY_KEY,JSON.stringify(mathHistory))}
 
-const MATH_SESSION_TARGET=10;
+function mathSessionTarget(){return olderMathTarget();}
 
 function mathQuestionGroup(item){
   if(item.group)return item.group;
@@ -4562,7 +4765,7 @@ function mathWeightedPick(list,target,preferSkill=null){
 function chooseMathQuestion(){
   const target=mathAdaptiveLevel();
   const plan=mathSessionPlan();
-  const desired=plan[Math.min(mathTodayCount,plan.length-1)]||"application";
+  const desired=plan[mathTodayCount % plan.length]||"application";
 
   let pool=mathBank.filter(x=>!mathQueue.shown.includes(x.id)&&mathDue(x));
   if(!pool.length)pool=mathBank.filter(x=>!mathQueue.shown.includes(x.id)&&!mathHistory.items[x.id]);
@@ -4621,7 +4824,7 @@ function showMathSessionSummary(){
   const appText=app.length?`${appCorrect}/${app.length}`:"—";
 
   if(question)question.innerHTML=`<div class="mathResultSummary">
-    <strong>今天 10 題完成</strong><br>
+    <strong>今天 ${mathSessionTarget()} 題完成</strong><br>
     答對率：${pct}%　｜　獨立完成率：${indPct}%　｜　應用題：${appText}
   </div>`;
   if(f){
@@ -4637,12 +4840,12 @@ function showMathSessionSummary(){
   document.getElementById("mathNext").style.display="none";
   document.getElementById("mathStart").style.display="none";
   document.getElementById("mathTypeTag").textContent="今日完成";
-  document.getElementById("mathSessionStep").textContent="今日 10 / 10";
+  document.getElementById("mathSessionStep").textContent=`今日 ${mathSessionTarget()} / ${mathSessionTarget()}`;
   renderParentBackendData();
 }
 
 function nextMath(){
-  if(mathTodayCount>=MATH_SESSION_TARGET){
+  if(mathTodayCount>=mathSessionTarget()){
     showMathSessionSummary();
     return;
   }
@@ -4663,7 +4866,7 @@ function nextMath(){
   mathTodayCount++;
 
   const group=mathQuestionGroup(mathCurrent);
-  document.getElementById("mathSessionStep").textContent=`今日 ${mathTodayCount} / ${MATH_SESSION_TARGET}`;
+  document.getElementById("mathSessionStep").textContent=`今日 ${mathTodayCount} / ${mathSessionTarget()}`;
   document.getElementById("mathSessionMix").textContent=`本題：${mathGroupName(group)}`;
 
   const mtc=document.getElementById("mathTodayCount");
@@ -4747,7 +4950,7 @@ function submitMath(){
   document.getElementById("mathHint").style.display="none";
   document.getElementById("mathSubmit").style.display="none";
   document.getElementById("mathNext").style.display="";
-  document.getElementById("mathNext").textContent=mathTodayCount>=MATH_SESSION_TARGET?"看今天結果":"下一題";
+  document.getElementById("mathNext").textContent=mathTodayCount>=mathSessionTarget()?"看今天結果":"下一題";
   savePractice();
   renderParentBackendData();
 }
@@ -4994,6 +5197,7 @@ function renderParentBackendData(){
     }catch(e){dmEl.textContent="尚未有大滿貫紀錄。"}
   }
 
+  syncQuestionCountSettingControls();
   const ss=document.getElementById("backendStorageStatus");
   if(ss) ss.textContent=SafeStore.available
     ?"✅ 瀏覽器儲存正常，學習紀錄會保留。"
@@ -5030,6 +5234,10 @@ document.querySelectorAll(".backendTab").forEach(btn=>btn.addEventListener("clic
   const p=document.getElementById("back-"+btn.dataset.backtab);if(p)p.classList.add("active");
   renderParentBackendData();
 }));
+
+if(document.getElementById("saveQuestionCounts"))document.getElementById("saveQuestionCounts").onclick=saveQuestionCountsFromBackend;
+if(document.getElementById("resetQuestionCounts"))document.getElementById("resetQuestionCounts").onclick=resetQuestionCountsToDefaults;
+syncQuestionCountSettingControls();
 
 if(document.getElementById("saveParentPin"))document.getElementById("saveParentPin").onclick=()=>{
   const inp=document.getElementById("newParentPin"),msg=document.getElementById("savePinMsg");
@@ -5279,12 +5487,13 @@ function wordBridgeLevelText(){
   return "✗ 目前卡點";
 }
 function updateWordBridgeProgressUI(){
-  const n=Math.min(8,wordBridgeProgress.todayCorrect||0);
+  const target=youngerWordTarget();
+  const n=Math.min(target,wordBridgeProgress.todayCorrect||0);
   ["wordGardenScore","wordGardenBottomProgress"].forEach(id=>{
-    const el=document.getElementById(id);if(el)el.textContent=`今天 ${n} / 8`;
+    const el=document.getElementById(id);if(el)el.textContent=`今天 ${n} / ${target}`;
   });
   const home=document.getElementById("wordGardenHomeProgress");
-  if(home)home.textContent=n>=8?"今天完成 ✓":`今日 ${n} / 8`;
+  if(home)home.textContent=n>=target?"今天完成 ✓":`今日 ${n} / ${target}`;
 }
 function refillWordBridgeBag(){
   const all=beginnerWordBridge.map(x=>x.word);
@@ -6045,8 +6254,9 @@ function updateYoungerCoachPanels(){
 
   const roundNow=(youngerProgress.roundCorrect&&youngerProgress.roundCorrect[youngerTask])||0;
   document.querySelectorAll(".kidGamePage.active .youngerRoundProgress").forEach(el=>{
-    el.textContent=`本關 ${roundNow} / 4`;
-    el.classList.toggle("done",roundNow>=4);
+    const target=youngerMiniTarget();
+    el.textContent=`本關 ${Math.min(roundNow,target)} / ${target}`;
+    el.classList.toggle("done",roundNow>=target);
   });
 
   const sideStatus=document.getElementById("youngerHomeStatusTag");
@@ -6144,7 +6354,7 @@ function recordYounger(ok){
     setYoungerCompanion("🤗","再試一次","沒關係。","再一次","慢慢看。",true);
   }
 
-  if(!youngerProgress.completed[youngerTask] && (youngerProgress.roundCorrect[youngerTask]||0)>=4){
+  if(!youngerProgress.completed[youngerTask] && (youngerProgress.roundCorrect[youngerTask]||0)>=youngerMiniTarget()){
     youngerProgress.completed[youngerTask]=true;
     youngerProgress.stars++;
     playSound("youngerDone");
@@ -6324,7 +6534,7 @@ function renderYoungerMissionHome(){
     el.classList.toggle("next",!isDone && k===next);
     el.setAttribute("aria-label",`${labels[k]}｜${isDone?"完成":"未完成"}`);
     const c=(youngerProgress.roundCorrect&&youngerProgress.roundCorrect[k])||0;
-    if(state)state.textContent=isDone?"✓ 完成":`${c} / 4`;
+    if(state)state.textContent=isDone?"✓ 完成":`${Math.min(c,youngerMiniTarget())} / ${youngerMiniTarget()}`;
   });
   const tag=document.getElementById("youngerTodayTag");
   if(tag)tag.textContent=`${done} / 4`;
@@ -6382,6 +6592,8 @@ document.body.classList.toggle("younger-mode",currentProfile==="younger");
 document.getElementById("profileOlder")?.classList.toggle("active",currentProfile==="older");
 document.getElementById("profileYounger")?.classList.toggle("active",currentProfile==="younger");
 updateWordBridgeProgressUI();
+syncQuestionCountSettingControls();
+setTimeout(()=>refreshQuestionCountUI(),0);
 setTimeout(()=>{ if(currentProfile==="younger")go("youngerHome"); },0);
 
 
