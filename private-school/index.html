@@ -1,9 +1,10 @@
+
 <!doctype html>
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V17.6｜復旦 × 六和</title>
+<title>兄弟學習基地 V17.7｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -2906,132 +2907,11 @@ body:not(.younger-mode) .page.youngerOnly{
 </style>
 
 
-<style id="v176-study-ratio">
-.studyRatioCard{
-  margin-top:16px;
-  padding:16px 18px;
-  border:1px solid #dfe6ef;
-  border-radius:18px;
-  background:linear-gradient(180deg,#ffffff,#fbfcfe);
-}
-.studyRatioHead{
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap:14px;
-}
-.studyRatioHead h3{margin:4px 0 5px}
-.studyRatioBar{
-  display:flex;
-  height:42px;
-  overflow:hidden;
-  border-radius:14px;
-  margin-top:14px;
-  border:1px solid #d9e1eb;
-}
-.studyRatioBar>div{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:1000;
-  font-size:14px;
-}
-.ratioWeb{
-  width:60%;
-  background:#e9f1ff;
-  color:#466184;
-}
-.ratioPaper{
-  width:40%;
-  background:#fff3df;
-  color:#80613a;
-}
-.studyRatioMini{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-top:10px;
-}
-.studyRatioMini span{
-  padding:7px 10px;
-  border-radius:999px;
-  background:#f5f7fa;
-  border:1px solid #e2e7ee;
-  color:#687589;
-  font-size:12px;
-  font-weight:800;
-}
-.focusTask{
-  position:relative;
-}
-.focusTaskBody{
-  flex:1;
-  min-width:0;
-}
-.focusTaskTop{
-  display:flex;
-  align-items:center;
-  gap:7px;
-  flex-wrap:wrap;
-  margin-bottom:3px;
-}
-.taskModeTag{
-  display:inline-flex;
-  align-items:center;
-  padding:3px 7px;
-  border-radius:999px;
-  font-size:11px;
-  font-weight:1000;
-}
-.taskModeTag.web{
-  background:#eaf2ff;
-  color:#4a6488;
-}
-.taskModeTag.paper{
-  background:#fff1dc;
-  color:#80603a;
-}
-.taskModeTag.rest{
-  background:#eef4ef;
-  color:#54705a;
-}
-.taskWeightTag{
-  font-size:11px;
-  color:#8a96a7;
-  font-weight:800;
-}
-.todayRatioStatus{
-  display:flex;
-  flex-wrap:wrap;
-  gap:7px;
-  margin-top:9px;
-}
-.todayRatioStatus span{
-  padding:6px 9px;
-  border-radius:999px;
-  background:#f5f7fa;
-  border:1px solid #e2e7ee;
-  color:#667488;
-  font-size:12px;
-  font-weight:800;
-}
-.dayMix{
-  display:flex;
-  gap:5px;
-  margin-top:7px;
-  flex-wrap:wrap;
-}
-.dayMix span{
-  font-size:10px;
-  font-weight:900;
-  padding:3px 6px;
-  border-radius:999px;
-}
-.dayMix .web{background:#edf3ff;color:#536b91}
-.dayMix .paper{background:#fff4e3;color:#80613c}
-@media(max-width:700px){
-  .studyRatioHead{flex-direction:column}
-}
+
+
+
+<style id="v177-task-clean">
+.focusTaskBody{flex:1;min-width:0}
 </style>
 
 </head>
@@ -3075,7 +2955,7 @@ body:not(.younger-mode) .page.youngerOnly{
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V17.6</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V17.7</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -3164,10 +3044,6 @@ body:not(.younger-mode) .page.youngerOnly{
       <div class="focusTasks" id="todayPlanTasks"></div>
       <div class="progress" style="margin-top:14px"><span id="todayPlanBar" style="width:0%"></span></div>
       <div class="muted" id="todayPlanProgress" style="margin-top:7px">完成 0 / 0</div>
-      <div class="todayRatioStatus olderOnly">
-        <span id="todayWebProgress">網站 0 / 60</span>
-        <span id="todayPaperProgress">紙本 0 / 40</span>
-      </div>
     </div>
     <div class="rewardMiniBar">
       <span class="miniPill">🎮 完成＋訂正＝今天過關</span>
@@ -3175,30 +3051,10 @@ body:not(.younger-mode) .page.youngerOnly{
       <span class="miniPill">📱 完成後再照家裡規則安排平板時間</span>
     </div>
   </div>
-
-  <div class="olderOnly studyRatioCard">
-    <div class="studyRatioHead">
-      <div>
-        <div class="muted">哥哥｜平常學習配置</div>
-        <h3>網站 60%　＋　紙本 40%</h3>
-        <div class="muted">網站負責練習、變化題、錯題回收；紙本保留列式、書寫與正式作答。</div>
-      </div>
-      <span class="tag">主練＋紙本確認</span>
-    </div>
-    <div class="studyRatioBar" aria-label="網站60%、紙本40%">
-      <div class="ratioWeb">網站 60%</div>
-      <div class="ratioPaper">紙本 40%</div>
-    </div>
-    <div class="studyRatioMini">
-      <span>💻 網站：認字／數學分類／應用／變化／錯題</span>
-      <span>✍️ 紙本：大滿貫／列式／書寫／正式作答</span>
-    </div>
-  </div>
-
   <div class="card" style="margin-top:16px"><div class="practiceTop"><div><h3>📊 我的學習進度</h3><div class="muted">不是看做了多少題，而是看哪些能力慢慢變穩。</div></div><span class="tag">本週</span></div><div class="progressBoard"><div class="progressCard"><div class="progressHead"><b>📖 國文</b><span id="homeChPct">0%</span></div><div class="progressTrack"><div id="homeChBar" class="progressFill" style="width:0%"></div></div><div class="muted" style="margin-top:7px">形音義＋成語＋閱讀＋表達</div></div><div class="progressCard"><div class="progressHead"><b>🧮 數學</b><span id="homeMathPct">0%</span></div><div class="progressTrack"><div id="homeMathBar" class="progressFill" style="width:0%"></div></div><div class="muted" style="margin-top:7px">整數四則＋應用＋多步驟</div></div><div class="progressCard"><div class="progressHead"><b>英文</b><span>原系統</span></div><div class="progressTrack"><div class="progressFill" style="width:65%"></div></div><div class="muted" style="margin-top:7px">沿用英文 V6.83 資料</div></div></div></div>
 <div class="card" style="margin-top:16px">
     <h3>📅 一週學習節奏</h3>
-    <div class="muted">每天維持一個主科；同一天用網站 60% 做主練，再用紙本 40% 確認列式、書寫與正式作答。</div>
+    <div class="muted">每天維持一個主科；同一天用 做主練，再用 確認列式、書寫與正式作答。</div>
     <div class="weekPlan" id="weekPlan"></div>
   </div>
 
@@ -4128,13 +3984,6 @@ body:not(.younger-mode) .page.youngerOnly{
           </div>
           <div id="questionCountSaveMsg" class="muted" style="margin-top:8px"></div>
         </div>
-
-        <div class="microTask">
-          <b>哥哥學習配置｜網站 60%／紙本 40%</b>
-          <div class="muted" style="margin-top:6px;line-height:1.7">
-            網站負責較高頻率的練習、錯題回收與變化題；紙本固定保留 40%，用來確認列式、手寫與正式考試作答。
-            首頁今日任務會用權重計算，不再把網站與紙本每一項都當成同樣比重。
-          </div>
         </div>
 
         <div class="microTask">
@@ -5599,46 +5448,33 @@ renderPracticeStats();renderPracticeWrongs();
 
 const WEEKLY_PLAN_KEY="private_school_weekly_plan_v1";
 const WEEK_PLAN={
-  1:{day:"星期一",subject:"📖 國文｜認字＋閱讀",note:"網站先把認字與理解做起來，紙本保留正式閱讀與書寫。",ratio:true,tasks:[
-    {mode:"web",weight:30,text:"網站：認字加強 1 組，優先練字音／字形／字義弱項"},
-    {mode:"web",weight:30,text:"網站：國文混合題，包含語詞、成語、閱讀與推論"},
-    {mode:"paper",weight:20,text:"紙本：大滿貫做 1 個小範圍，不求多，要求完整作答"},
-    {mode:"paper",weight:20,text:"紙本訂正：錯題至少寫清楚正確答案或關鍵理由"}
+  1:{day:"星期一",subject:"📖 國文｜認字＋閱讀",note:"今天以認字與閱讀理解為主。",tasks:[
+    {text:"認字加強：優先練字音／字形／字義弱項"},
+    {text:"國文混合題：語詞、成語、閱讀與推論"}
   ]},
-  2:{day:"星期二",subject:"英文｜網站主練＋紙本書寫",note:"英文網站負責反覆與即時回饋，紙本保留拼寫與句子輸出。",ratio:true,tasks:[
-    {mode:"web",weight:30,text:"英文網站：單字／句型複習"},
-    {mode:"web",weight:30,text:"英文網站：中翻英、文法或閱讀擇二"},
-    {mode:"paper",weight:20,text:"紙本：手寫本週單字或句型，確認離開平板也能寫"},
-    {mode:"paper",weight:20,text:"紙本：挑 2–3 題錯題重新寫一次"}
+  2:{day:"星期二",subject:"英文｜單字＋句型",note:"今天以英文網站練習為主。",tasks:[
+    {text:"英文網站：單字／句型複習"},
+    {text:"英文網站：中翻英、文法或閱讀擇二"}
   ]},
-  3:{day:"星期三",subject:"🧮 數學｜基礎＋課綱分類",note:"網站做分類練習與變化題，紙本確認計算、列式和書寫。",ratio:true,tasks:[
-    {mode:"web",weight:30,text:"網站：完成今天的 108 課綱分類數學配題"},
-    {mode:"web",weight:30,text:"網站：錯題補洞，至少完成 1 組同概念不同題"},
-    {mode:"paper",weight:20,text:"紙本：大滿貫目前單元做 1 個小範圍"},
-    {mode:"paper",weight:20,text:"紙本：至少 2 題完整列式，不能只寫答案"}
+  3:{day:"星期三",subject:"🧮 數學｜課綱分類練習",note:"今天依 108 課綱分類配題，搭配錯題補洞。",tasks:[
+    {text:"完成今天的 108 課綱分類數學配題"},
+    {text:"錯題補洞：至少完成 1 組同概念不同題"}
   ]},
-  4:{day:"星期四",subject:"📖 國文｜認字＋世說新語",note:"網站補底層認字，紙本保留閱讀與口語／文字整理。",ratio:true,tasks:[
-    {mode:"web",weight:30,text:"網站：認字加強，優先回收最近答錯的字"},
-    {mode:"web",weight:30,text:"網站：閱讀推論或短文理解"},
-    {mode:"paper",weight:20,text:"紙本：世說新語看 1 小段，圈出不熟的字詞"},
-    {mode:"paper",weight:20,text:"紙本／口頭：用自己的話說一次『誰做了什麼、為什麼』"}
+  4:{day:"星期四",subject:"📖 國文｜認字＋閱讀",note:"今天優先回收不熟的字，再做閱讀理解。",tasks:[
+    {text:"認字加強：優先回收最近答錯的字"},
+    {text:"閱讀推論或短文理解"}
   ]},
-  5:{day:"星期五",subject:"英文｜整合＋錯題回收",note:"網站負責熟練與變化，紙本確認拼寫和句子輸出。",ratio:true,tasks:[
-    {mode:"web",weight:30,text:"英文網站：本週單字與句型回收"},
-    {mode:"web",weight:30,text:"英文網站：閱讀／中翻英／文法做整合練習"},
-    {mode:"paper",weight:20,text:"紙本：手寫容易錯的單字與句型"},
-    {mode:"paper",weight:20,text:"紙本：本週英文錯題挑 2–3 題再做一次"}
+  5:{day:"星期五",subject:"英文｜整合＋錯題回收",note:"今天做英文整合與錯題回收。",tasks:[
+    {text:"英文網站：本週單字與句型回收"},
+    {text:"英文網站：閱讀／中翻英／文法整合練習"}
   ]},
-  6:{day:"星期六",subject:"🧮 數學｜應用＋變化題",note:"網站提高應用和活用比例，紙本確認正式考試作答習慣。",ratio:true,tasks:[
-    {mode:"web",weight:30,text:"網站：數學課綱分類配題，至少包含一般＋進階＋變化題"},
-    {mode:"web",weight:30,text:"網站：看分類答對率，針對最弱類別補 1 組錯題"},
-    {mode:"paper",weight:20,text:"紙本：大滿貫或同單元題，做 1 個小範圍"},
-    {mode:"paper",weight:20,text:"紙本：挑 2 題應用題完整列式、計算、寫單位"}
+  6:{day:"星期六",subject:"🧮 數學｜應用＋變化題",note:"今天提高應用與活用比例。",tasks:[
+    {text:"數學課綱分類配題：一般＋進階＋變化題"},
+    {text:"依分類答對率，針對最弱類別補 1 組錯題"}
   ]},
-  0:{day:"星期日",subject:"🏠 家事＋休息",note:"今天不排正式學習。",ratio:false,tasks:[
-    {mode:"rest",weight:34,text:"完成家事"},
-    {mode:"rest",weight:33,text:"整理下週用品"},
-    {mode:"rest",weight:33,text:"下午休息／平板時間"}
+  0:{day:"星期日",subject:"🏠 休息日",note:"今天不排正式網站學習。",tasks:[
+    {text:"休息"},
+    {text:"有需要再自由複習"}
   ]}
 };
 
@@ -5667,14 +5503,11 @@ function renderWeekPlan(){
   box.innerHTML=order.map(d=>{
     const p=WEEK_PLAN[d],vals=weeklyState.days[d]||[];
     const done=vals.filter(Boolean).length;
-    const webWeight=p.tasks.filter(x=>x.mode==="web").reduce((s,x)=>s+x.weight,0);
-    const paperWeight=p.tasks.filter(x=>x.mode==="paper").reduce((s,x)=>s+x.weight,0);
     return `<div class="dayCard ${d===today?"today":""}">
       ${d===today?'<span class="todayMark">今天</span>':""}
       <div class="dayName">${p.day}</div>
       <div class="daySubject">${p.subject}</div>
-      ${p.ratio?`<div class="dayMix"><span class="web">網站 ${webWeight}%</span><span class="paper">紙本 ${paperWeight}%</span></div>`:""}
-      <div class="dayTask">${p.tasks.slice(0,2).map(x=>"• "+x.text).join("<br>")}</div>
+      <div class="dayTask">${p.tasks.map(x=>"• "+x.text).join("<br>")}</div>
       <div class="muted" style="margin-top:8px">${done} / ${p.tasks.length} 完成</div>
     </div>`;
   }).join("");
@@ -5690,47 +5523,21 @@ function renderTodayPlan(){
   const vals=Array(p.tasks.length).fill(false).map((_,i)=>Boolean(old[i]));
   weeklyState.days[today]=vals;
 
-  const modeName={web:"網站",paper:"紙本",rest:"今天"};
-  const modeClass={web:"web",paper:"paper",rest:"rest"};
-
   const box=document.getElementById("todayPlanTasks");
   box.innerHTML=p.tasks.map((t,i)=>`<label class="focusTask">
     <input type="checkbox" class="weeklyChk" data-i="${i}" ${vals[i]?"checked":""}>
-    <span class="focusTaskBody">
-      <span class="focusTaskTop">
-        <span class="taskModeTag ${modeClass[t.mode]}">${modeName[t.mode]}</span>
-        ${p.ratio?`<span class="taskWeightTag">${t.weight}%</span>`:""}
-      </span>
-      <span>${t.text}</span>
-    </span>
+    <span class="focusTaskBody"><span>${t.text}</span></span>
   </label>`).join("");
   updateTodayPlanProgress();
 }
 
 function updateTodayPlanProgress(){
   const today=new Date().getDay(),p=WEEK_PLAN[today],vals=weeklyState.days[today]||[];
-
-  let doneWeight=0,webDone=0,paperDone=0;
-  p.tasks.forEach((task,i)=>{
-    if(vals[i]){
-      doneWeight+=task.weight||0;
-      if(task.mode==="web")webDone+=task.weight||0;
-      if(task.mode==="paper")paperDone+=task.weight||0;
-    }
-  });
-
-  const pct=Math.max(0,Math.min(100,Math.round(doneWeight)));
   const done=vals.filter(Boolean).length,total=p.tasks.length;
+  const pct=total?Math.round(done/total*100):0;
   document.getElementById("todayPlanBar").style.width=pct+"%";
-  document.getElementById("todayPlanProgress").textContent=p.ratio
-    ? `整體完成 ${pct}%${pct>=100?"　🎉 今天過關！":""}`
-    : `完成 ${done} / ${total}${done===total?"　🎉 今天完成！":""}`;
-
-  const webEl=document.getElementById("todayWebProgress");
-  const paperEl=document.getElementById("todayPaperProgress");
-  if(webEl)webEl.textContent=p.ratio?`網站 ${webDone} / 60`:"今天不排正式網站練習";
-  if(paperEl)paperEl.textContent=p.ratio?`紙本 ${paperDone} / 40`:"今天以休息與家事為主";
-
+  document.getElementById("todayPlanProgress").textContent=
+    `完成 ${done} / ${total}${done===total?"　🎉 今天完成！":""}`;
   renderWeekPlan();
 }
 
