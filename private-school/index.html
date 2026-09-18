@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V17.4｜復旦 × 六和</title>
+<title>兄弟學習基地 V17.5｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -2787,6 +2787,124 @@ body:not(.younger-mode) .page.youngerOnly{
 .recognitionNoteGrid span{color:#5f6d80}
 </style>
 
+
+<style id="v175-math-curriculum">
+.mathTotalReadOnly strong{
+  min-width:86px;
+  text-align:center;
+  padding:9px 11px;
+  border-radius:11px;
+  background:#eef3fa;
+  color:#43546f;
+}
+.mathCategorySettingPanel{
+  margin-top:14px;
+  padding:15px;
+  border-radius:18px;
+  border:1px solid #dfe6ef;
+  background:#f8fafc;
+}
+.mathCategorySettingHead{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:12px;
+}
+.mathCategorySettingHead small{
+  display:block;
+  margin-top:4px;
+  color:#748198;
+}
+#mathCategoryTotalBadge{
+  white-space:nowrap;
+  padding:7px 11px;
+  border-radius:999px;
+  background:#e9f0fa;
+  color:#435a7c;
+  font-weight:900;
+}
+.mathCategorySettingGrid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:9px;
+  margin-top:12px;
+}
+.mathCategorySettingGrid label{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:11px 12px;
+  border-radius:13px;
+  background:#fff;
+  border:1px solid #e3e8f0;
+}
+.mathCategorySettingGrid label b{display:block;color:#46546a}
+.mathCategorySettingGrid label small{display:block;color:#8a94a5;margin-top:2px}
+.mathCategorySettingGrid select{
+  min-width:68px;height:39px;border:1px solid #d4dce8;border-radius:10px;background:#fff;
+  font:inherit;font-weight:900;text-align:center;
+}
+.mathLevelLegend{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:11px;
+}
+.mathLevelLegend span{
+  padding:7px 9px;border-radius:10px;background:#fff;border:1px solid #e4e8ee;
+  font-size:12px;color:#657185;
+}
+
+.mathExplainCard{
+  margin-top:12px;
+  padding:15px;
+  border-radius:16px;
+  background:#fbfcff;
+  border:1px solid #dfe6f0;
+}
+.mathExplainMeta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.mathExplainMeta span{
+  padding:5px 8px;border-radius:999px;background:#edf2f8;color:#53647d;font-size:12px;font-weight:800;
+}
+.mathExplainRow{margin-top:8px;line-height:1.75}
+.mathExplainRow b{display:inline-block;min-width:76px;color:#3f506a}
+.mathFormula{
+  margin-top:10px;padding:10px 12px;border-radius:12px;background:#f4f7fb;color:#43536d;font-weight:800;
+}
+.mathFlowDiagram{
+  display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin-top:12px;
+}
+.mathFlowDiagram span{
+  padding:8px 10px;border-radius:11px;background:#fff;border:1px solid #dfe5ee;color:#536176;font-weight:800;
+}
+.mathFlowDiagram i{font-style:normal;color:#94a0b2}
+.mathMiniSvg{
+  width:100%;max-width:420px;height:160px;display:block;margin:12px auto 0;
+  background:#fff;border:1px solid #e1e6ee;border-radius:14px;
+}
+.mathFractionSteps{
+  display:flex;gap:7px;align-items:center;justify-content:center;flex-wrap:wrap;margin-top:12px;
+}
+.mathFractionSteps span{
+  padding:8px 10px;border-radius:10px;background:#fff7e8;border:1px solid #ead8b5;color:#725f3a;font-weight:900;
+}
+.mathCategoryPerformance{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:8px;
+  margin-top:10px;
+}
+.mathCategoryPerformance .row{
+  padding:9px 10px;border:1px solid #e2e7ef;border-radius:12px;background:#fbfcfe;
+  font-size:13px;color:#58677d;
+}
+.mathCategoryPerformance .row b{color:#3f4f67}
+@media(max-width:700px){
+  .mathCategorySettingGrid,.mathCategoryPerformance{grid-template-columns:1fr}
+}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -2828,7 +2946,7 @@ body:not(.younger-mode) .page.youngerOnly{
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V17.4</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V17.5</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -3730,6 +3848,7 @@ body:not(.younger-mode) .page.youngerOnly{
           </div>
           <div class="treeDiag" id="parentOlderMathTree" style="margin-top:12px">數學能力
 └─ 尚未累積資料</div>
+          <div class="mathCategoryPerformance" id="parentMathCategoryPerformance"></div>
         </div>
       </div>
 
@@ -3794,16 +3913,9 @@ body:not(.younger-mode) .page.youngerOnly{
               </select>
             </label>
 
-            <label class="countSettingItem">
-              <span><b>哥哥｜數學</b><small>循序練習總題數</small></span>
-              <select id="setOlderMathCount">
-                <option value="5">5 題</option>
-                <option value="8">8 題</option>
-                <option value="10">10 題</option>
-                <option value="12">12 題</option>
-                <option value="15">15 題</option>
-                <option value="20">20 題</option>
-              </select>
+            <label class="countSettingItem mathTotalReadOnly">
+              <span><b>哥哥｜數學</b><small>總題數由下方 108 課綱分類自動加總</small></span>
+              <strong id="mathCategoryTotalSetting">10 題</strong>
             </label>
 
             <label class="countSettingItem">
@@ -3829,6 +3941,33 @@ body:not(.younger-mode) .page.youngerOnly{
                 <option value="10">10 題</option>
               </select>
             </label>
+          </div>
+
+          <div class="mathCategorySettingPanel">
+            <div class="mathCategorySettingHead">
+              <div>
+                <b>哥哥｜數學課綱分類配題</b>
+                <small>設 0 代表今天不出該類；預設合計 10 題。每類題庫都含一般、進階、變化題。</small>
+              </div>
+              <span id="mathCategoryTotalBadge">共 10 題</span>
+            </div>
+
+            <div class="mathCategorySettingGrid">
+              <label><span><b>四則與計算規律</b><small>R-5-2</small></span><select id="setMathCat_arithmetic"><option>0</option><option>1</option><option selected>2</option><option>3</option><option>4</option></select></label>
+              <label><span><b>應用與多步驟</b><small>N-5-2／R-5-1</small></span><select id="setMathCat_application"><option>0</option><option>1</option><option selected>2</option><option>3</option><option>4</option></select></label>
+              <label><span><b>因數與倍數</b><small>n-Ⅲ-3</small></span><select id="setMathCat_factor"><option>0</option><option selected>1</option><option>2</option><option>3</option><option>4</option></select></label>
+              <label><span><b>分數</b><small>N-5-4／n-Ⅲ-6</small></span><select id="setMathCat_fraction"><option>0</option><option selected>1</option><option>2</option><option>3</option><option>4</option></select></label>
+              <label><span><b>小數乘除</b><small>N-5-8／N-5-9</small></span><select id="setMathCat_decimal"><option>0</option><option selected>1</option><option>2</option><option>3</option><option>4</option></select></label>
+              <label><span><b>量與單位</b><small>N-5-12／N-5-16</small></span><select id="setMathCat_measure"><option>0</option><option selected>1</option><option>2</option><option>3</option><option>4</option></select></label>
+              <label><span><b>幾何與線對稱</b><small>S-5-1／S-5-4</small></span><select id="setMathCat_geometry"><option>0</option><option selected>1</option><option>2</option><option>3</option><option>4</option></select></label>
+              <label><span><b>資料與折線圖</b><small>D-5-1</small></span><select id="setMathCat_data"><option>0</option><option selected>1</option><option>2</option><option>3</option><option>4</option></select></label>
+            </div>
+
+            <div class="mathLevelLegend">
+              <span><b>一般題</b>：確認課內基本能力</span>
+              <span><b>進階題</b>：增加步驟或計算負荷</span>
+              <span><b>變化題</b>：同概念換情境／逆推／整合資訊</span>
+            </div>
           </div>
 
           <div class="practiceActions" style="margin-top:12px">
@@ -3884,6 +4023,63 @@ const SafeStore=(()=>{
 })();
 
 
+
+const MATH_CATEGORY_SETTINGS_KEY="family_math_category_settings_v175";
+const MATH_CATEGORY_DEFAULTS={
+  arithmetic:2,
+  application:2,
+  factor:1,
+  fraction:1,
+  decimal:1,
+  measure:1,
+  geometry:1,
+  data:1
+};
+const MATH_CATEGORY_ORDER=["arithmetic","application","factor","fraction","decimal","measure","geometry","data"];
+
+function loadMathCategorySettings(){
+  let s={};
+  try{s=JSON.parse(SafeStore.get(MATH_CATEGORY_SETTINGS_KEY,"{}")||"{}")}catch(e){s={}}
+  const out={};
+  MATH_CATEGORY_ORDER.forEach(k=>{
+    const n=Number(s[k]);
+    out[k]=Number.isFinite(n)?Math.max(0,Math.min(4,Math.round(n))):MATH_CATEGORY_DEFAULTS[k];
+  });
+  if(Object.values(out).reduce((a,b)=>a+b,0)===0)return {...MATH_CATEGORY_DEFAULTS};
+  return out;
+}
+let mathCategorySettings=loadMathCategorySettings();
+function saveMathCategorySettings(){
+  SafeStore.set(MATH_CATEGORY_SETTINGS_KEY,JSON.stringify(mathCategorySettings));
+}
+function mathCategoryTargetTotal(){
+  return MATH_CATEGORY_ORDER.reduce((sum,k)=>sum+(mathCategorySettings[k]||0),0);
+}
+function syncMathCategorySettingControls(){
+  MATH_CATEGORY_ORDER.forEach(k=>{
+    const el=document.getElementById(`setMathCat_${k}`);
+    if(el)el.value=String(mathCategorySettings[k]||0);
+  });
+  const total=mathCategoryTargetTotal();
+  setText("mathCategoryTotalSetting",`${total} 題`);
+  setText("mathCategoryTotalBadge",`共 ${total} 題`);
+}
+function readMathCategorySettingsFromBackend(){
+  const next={};
+  MATH_CATEGORY_ORDER.forEach(k=>{
+    const n=Number(document.getElementById(`setMathCat_${k}`)?.value);
+    next[k]=Number.isFinite(n)?Math.max(0,Math.min(4,Math.round(n))):MATH_CATEGORY_DEFAULTS[k];
+  });
+  if(Object.values(next).reduce((a,b)=>a+b,0)===0)next.arithmetic=1;
+  mathCategorySettings=next;
+  saveMathCategorySettings();
+  if(typeof mathQueue!=="undefined"){
+    mathQueue.sessionPlan=[];
+    saveMathQueue?.();
+  }
+  syncMathCategorySettingControls();
+}
+
 const QUESTION_COUNT_SETTINGS_KEY="family_question_count_settings_v172";
 const QUESTION_COUNT_DEFAULTS={
   olderChinese:8,
@@ -3912,14 +4108,13 @@ function saveQuestionCountSettings(){
   SafeStore.set(QUESTION_COUNT_SETTINGS_KEY,JSON.stringify(questionCountSettings));
 }
 function olderChineseTarget(){return questionCountSettings.olderChinese}
-function olderMathTarget(){return questionCountSettings.olderMath}
+function olderMathTarget(){return mathCategoryTargetTotal()}
 function youngerWordTarget(){return questionCountSettings.youngerWords}
 function youngerMiniTarget(){return questionCountSettings.youngerMini}
 
 function syncQuestionCountSettingControls(){
   const map={
     setOlderChineseCount:questionCountSettings.olderChinese,
-    setOlderMathCount:questionCountSettings.olderMath,
     setYoungerWordCount:questionCountSettings.youngerWords,
     setYoungerMiniCount:questionCountSettings.youngerMini
   };
@@ -3927,6 +4122,7 @@ function syncQuestionCountSettingControls(){
     const el=document.getElementById(id);
     if(el)el.value=String(v);
   });
+  syncMathCategorySettingControls();
 }
 function refreshQuestionCountUI(){
   // 哥哥數學
@@ -3950,9 +4146,10 @@ function refreshQuestionCountUI(){
 }
 function saveQuestionCountsFromBackend(){
   const get=id=>Number(document.getElementById(id)?.value);
+  readMathCategorySettingsFromBackend();
   questionCountSettings={
     olderChinese:clampQuestionCount(get("setOlderChineseCount"),5,15,8),
-    olderMath:clampQuestionCount(get("setOlderMathCount"),5,20,10),
+    olderMath:mathCategoryTargetTotal(),
     youngerWords:clampQuestionCount(get("setYoungerWordCount"),4,15,8),
     youngerMini:clampQuestionCount(get("setYoungerMiniCount"),3,10,4)
   };
@@ -3964,11 +4161,14 @@ function saveQuestionCountsFromBackend(){
 }
 function resetQuestionCountsToDefaults(){
   questionCountSettings={...QUESTION_COUNT_DEFAULTS};
+  mathCategorySettings={...MATH_CATEGORY_DEFAULTS};
   saveQuestionCountSettings();
+  saveMathCategorySettings();
   syncQuestionCountSettingControls();
   refreshQuestionCountUI();
+  if(typeof mathQueue!=="undefined"){mathQueue.sessionPlan=[];saveMathQueue?.();}
   const msg=document.getElementById("questionCountSaveMsg");
-  if(msg)msg.textContent="已恢復建議值：國文 8、數學 10、單字 8、小遊戲每關 4。";
+  if(msg)msg.textContent="已恢復建議值：國文 8、數學依課綱分類共 10 題、單字 8、小遊戲每關 4。";
 }
 
 const navBtns=[...document.querySelectorAll('nav button')];
@@ -4751,6 +4951,39 @@ const mathBank=[
 {id:"m74",type:"應用問題－整數四則",group:"application",level:3,q:"校外教學有 186 位學生和 6 位老師，每輛遊覽車最多坐 40 人，至少需要幾輛車？",a:["5","5輛"],show:"5",why:"總人數186＋6＝192；192÷40＝4餘32，所以至少要5輛。",hints:["車子要坐下所有人，學生和老師都要算。","先算總人數192，再用192÷40；有餘數就還需要一輛。"]},
 {id:"m75",type:"應用問題－分數",group:"application",level:3,q:"一本書有 240 頁，第一天看了全書的 1/4，第二天看了 45 頁。還剩多少頁？",a:["135","135頁"],show:"135",why:"240×1/4＝60；60＋45＝105；240－105＝135。",hints:["第一天的頁數要先從分數換成實際頁數。","240×1/4，再加45，最後從240扣掉。"]},
 {id:"m76",type:"應用問題－平均",group:"application",level:3,q:"小杰 5 天平均每天讀 42 頁。前 4 天分別讀 38、40、45、41 頁，第 5 天讀多少頁？",a:["46","46頁"],show:"46",why:"5天總頁數42×5＝210；前4天共164頁；210－164＝46。",hints:["已知平均和天數，可以先求5天總頁數。","42×5求總數，再減去前4天38＋40＋45＋41。"]}
+,
+{id:"m77",category:"arithmetic",style:"standard",curriculum:"R-5-2",type:"四則與計算規律",level:2,q:"560－24×15＝？",a:["200"],show:"200",why:"先算乘法：24×15＝360，再算560－360＝200。",formula:"先乘除，後加減；同級運算由左到右。"},
+{id:"m78",category:"arithmetic",style:"advanced",curriculum:"R-5-2",type:"四則與計算規律",level:3,q:"（936÷18）＋27×14＝？",a:["430"],show:"430",why:"936÷18＝52；27×14＝378；52＋378＝430。",formula:"括號先算，再依乘除→加減的順序計算。"},
+{id:"m79",category:"arithmetic",style:"variation",curriculum:"R-5-2",type:"四則與計算規律",level:3,q:"125×36＋125×64＝？",a:["12500","12,500"],show:"12500",why:"兩項都有125，可用分配律：125×(36＋64)＝125×100＝12500。",formula:"a×b＋a×c＝a×(b＋c)",diagram:{type:"flow",steps:["125×36＋125×64","125×(36＋64)","125×100","12500"]}},
+
+{id:"m80",category:"application",style:"standard",curriculum:"N-5-2／R-5-1",type:"應用與多步驟",level:2,q:"倉庫有18箱飲料，每箱32瓶，送出235瓶後，還剩多少瓶？",a:["341","341瓶"],show:"341",why:"先求18箱共有18×32＝576瓶，再用576－235＝341瓶。",formula:"總量＝每箱數量×箱數；剩下＝總量－已用量",diagram:{type:"flow",steps:["18箱×32瓶","576瓶","－235瓶","341瓶"]}},
+{id:"m81",category:"application",style:"advanced",curriculum:"N-5-2／R-5-1",type:"應用與多步驟",level:3,q:"小宇5天平均每天讀48頁。前4天分別讀45、52、47、50頁，第5天讀多少頁？",a:["46","46頁"],show:"46",why:"5天總頁數48×5＝240；前4天共45＋52＋47＋50＝194；第5天240－194＝46頁。",formula:"總量＝平均×份數；未知量＝總量－已知量"},
+{id:"m82",category:"application",style:"variation",curriculum:"N-5-2／R-5-1",type:"應用與多步驟",level:3,q:"學校買了24盒色鉛筆，每盒36枝，先拿出168枝給美術社，剩下的平均分給8班。每班分到幾枝？",a:["87","87枝"],show:"87",why:"24×36＝864；864－168＝696；696÷8＝87。這是一題三步驟應用。",formula:"(每盒數量×盒數－先使用量)÷班級數＝每班分到量",diagram:{type:"flow",steps:["24×36","864","－168","696","÷8","87"]}},
+
+{id:"m83",category:"factor",style:"standard",curriculum:"n-Ⅲ-3",type:"因數與倍數",level:2,q:"42和56的最大公因數是多少？",a:["14"],show:"14",why:"42的因數有1、2、3、6、7、14、21、42；56的因數有1、2、4、7、8、14、28、56，共同因數中最大的是14。",formula:"最大公因數＝兩數共同因數中最大的數"},
+{id:"m84",category:"factor",style:"advanced",curriculum:"n-Ⅲ-3",type:"因數與倍數",level:3,q:"18和24的最小公倍數是多少？",a:["72"],show:"72",why:"18的倍數：18、36、54、72…；24的倍數：24、48、72…，最小共同倍數是72。",formula:"最小公倍數＝兩數共同倍數中最小的數"},
+{id:"m85",category:"factor",style:"variation",curriculum:"n-Ⅲ-3",type:"因數與倍數",level:3,q:"老師有84枝紅筆和126枝藍筆，要分成最多組、每組內容完全相同且沒有剩下。最多可分成幾組？",a:["42","42組"],show:"42",why:"要「最多組、每組相同、沒有剩下」，求84和126的最大公因數＝42，所以最多42組。",formula:"分成最多相同組數 → 求最大公因數",diagram:{type:"flow",steps:["84枝紅筆","126枝藍筆","找最大公因數","42組"]}},
+
+{id:"m86",category:"fraction",style:"standard",curriculum:"N-5-4",type:"分數",level:2,q:"3/4＋2/3＝？",a:["17/12","1 5/12","1又5/12"],show:"1又5/12",why:"3/4＝9/12，2/3＝8/12；9/12＋8/12＝17/12＝1又5/12。",formula:"異分母加減：先通分 → 分母相同後加減 → 最後化簡",diagram:{type:"fraction"}},
+{id:"m87",category:"fraction",style:"advanced",curriculum:"N-5-4",type:"分數",level:3,q:"5/6－3/8＝？",a:["11/24"],show:"11/24",why:"最小公倍數是24。5/6＝20/24，3/8＝9/24，所以20/24－9/24＝11/24。",formula:"異分母相減先通分；6與8的最小公倍數是24。",diagram:{type:"fraction"}},
+{id:"m88",category:"fraction",style:"variation",curriculum:"n-Ⅲ-6",type:"分數",level:3,q:"一桶水有120公升，先用掉1/4，再用掉剩下水量的2/5。最後剩多少公升？",a:["54","54公升"],show:"54",why:"先剩120×3/4＝90公升；第二次用掉90×2/5＝36公升；最後90－36＝54公升。",formula:"剩餘量要以『當下剩下的量』為基準，不是一直以原量計算。",diagram:{type:"flow",steps:["120","剩3/4＝90","再用90的2/5＝36","90－36＝54"]}},
+
+{id:"m89",category:"decimal",style:"standard",curriculum:"N-5-8",type:"小數乘除",level:2,q:"3.6×2.5＝？",a:["9","9.0"],show:"9",why:"36×25＝900；原式共有2位小數，所以900要退2位成9。",formula:"小數乘法：先按整數乘法計算，再依兩數小數位數決定積的小數位數。"},
+{id:"m90",category:"decimal",style:"advanced",curriculum:"N-5-9",type:"小數乘除",level:3,q:"18.9÷7＝？",a:["2.7"],show:"2.7",why:"189÷7＝27，因18.9比189小10倍，所以商是2.7。",formula:"小數除以整數：依位值做直式除法，小數點在商中對齊。"},
+{id:"m91",category:"decimal",style:"variation",curriculum:"n-Ⅲ-7",type:"小數乘除",level:3,q:"一條繩子長12.5公尺，剪下3段，每段2.35公尺，還剩多少公尺？",a:["5.45","5.45公尺"],show:"5.45",why:"先算剪掉的總長：2.35×3＝7.05；再算12.5－7.05＝5.45公尺。",formula:"剩餘量＝原有量－每段長×段數",diagram:{type:"flow",steps:["2.35×3＝7.05","12.5－7.05","5.45公尺"]}},
+
+{id:"m92",category:"measure",style:"standard",curriculum:"n-Ⅲ-11",type:"量與單位",level:2,q:"2.4公尺等於多少公分？",a:["240","240公分"],show:"240",why:"1公尺＝100公分，所以2.4×100＝240公分。",formula:"1公尺＝100公分"},
+{id:"m93",category:"measure",style:"advanced",curriculum:"N-5-12",type:"量與單位",level:3,q:"一塊長方形土地長35公尺、寬24公尺，面積是多少平方公尺？",a:["840","840平方公尺","840m2","840m²"],show:"840",why:"長方形面積＝長×寬＝35×24＝840平方公尺。",formula:"長方形面積＝長×寬",diagram:{type:"rectangle",a:"35 m",b:"24 m"}},
+{id:"m94",category:"measure",style:"variation",curriculum:"N-5-12",type:"量與單位",level:3,q:"2.5公頃等於多少平方公尺？",a:["25000","25,000","25000平方公尺"],show:"25000",why:"1公頃＝10000平方公尺，所以2.5×10000＝25000平方公尺。",formula:"1公頃＝10000平方公尺"},
+
+{id:"m95",category:"geometry",style:"standard",curriculum:"S-5-1",type:"幾何與線對稱",level:2,q:"一個三角形的兩個內角分別是55°和65°，第三個內角是多少度？",a:["60","60度","60°"],show:"60°",why:"三角形內角和是180°，所以180－55－65＝60°。",formula:"三角形三內角和＝180°",diagram:{type:"triangle",labels:["55°","65°","?"]}},
+{id:"m96",category:"geometry",style:"advanced",curriculum:"S-5-1",type:"幾何與線對稱",level:3,q:"平行四邊形的一個內角是112°，和它相鄰的內角是多少度？",a:["68","68度","68°"],show:"68°",why:"平行四邊形相鄰兩角互補，所以180－112＝68°。",formula:"平行四邊形相鄰兩內角和＝180°"},
+{id:"m97",category:"geometry",style:"variation",curriculum:"S-5-4",type:"幾何與線對稱",level:3,q:"一個不是正方形的長方形有幾條對稱軸？",a:["2","2條"],show:"2",why:"一般長方形有水平與垂直兩條對稱軸；對角線不是它的對稱軸。",formula:"線對稱：沿對稱軸對折後兩側能完全重合。",diagram:{type:"symmetry"}},
+
+{id:"m98",category:"data",style:"standard",curriculum:"D-5-1",type:"資料與折線圖",level:2,q:"某週每日閱讀分鐘數為20、26、31、29、34。最高和最低相差多少分鐘？",a:["14","14分鐘"],show:"14",why:"最高34，最低20，相差34－20＝14分鐘。",formula:"差＝最大值－最小值",diagram:{type:"line",values:[20,26,31,29,34],labels:["一","二","三","四","五"]}},
+{id:"m99",category:"data",style:"advanced",curriculum:"D-5-1",type:"資料與折線圖",level:3,q:"某週每日閱讀分鐘數為20、26、31、29、34。五天總共閱讀多少分鐘？",a:["140","140分鐘"],show:"140",why:"20＋26＋31＋29＋34＝140分鐘。",formula:"總量＝各日資料相加",diagram:{type:"line",values:[20,26,31,29,34],labels:["一","二","三","四","五"]}},
+{id:"m100",category:"data",style:"variation",curriculum:"D-5-1",type:"資料與折線圖",level:3,q:"某植物連續5天高度為12、18、15、24、21公分。哪兩天之間增加最多？",a:["第3天到第4天","3到4","3-4","第3到第4天"],show:"第3天到第4天",why:"第1→2天增加6；第2→3天下降3；第3→4天增加9；第4→5天下降3，所以第3天到第4天增加最多。",formula:"看折線變化量：後一天數值－前一天數值",diagram:{type:"line",values:[12,18,15,24,21],labels:["1","2","3","4","5"]}}
+
 ];
 let mathCurrent=null, mathStreak=0, mathTodayCount=0, mathHintCount=0, mathSessionAnswers=[];
 
@@ -4772,6 +5005,56 @@ function saveMathHistory(){SafeStore.set(MATH_HISTORY_KEY,JSON.stringify(mathHis
 
 function mathSessionTarget(){return olderMathTarget();}
 
+const MATH_CATEGORY_META={
+  arithmetic:{name:"四則與計算規律",code:"R-5-2"},
+  application:{name:"應用與多步驟",code:"N-5-2／R-5-1"},
+  factor:{name:"因數與倍數",code:"n-Ⅲ-3"},
+  fraction:{name:"分數",code:"N-5-4／n-Ⅲ-6"},
+  decimal:{name:"小數乘除",code:"N-5-8／N-5-9"},
+  measure:{name:"量與單位",code:"N-5-12／N-5-16"},
+  geometry:{name:"幾何與線對稱",code:"S-5-1／S-5-4"},
+  data:{name:"資料與折線圖",code:"D-5-1"}
+};
+function mathCategoryName(key){return MATH_CATEGORY_META[key]?.name||"五年級數學"}
+function mathCategoryCode(key){return MATH_CATEGORY_META[key]?.code||""}
+function mathStyleName(style){return {standard:"一般題",advanced:"進階題",variation:"變化題"}[style]||"一般題"}
+
+function mathCurriculumCategory(item){
+  if(item.category)return item.category;
+  const t=item.type||"";
+  if(t==="整數四則運算")return "arithmetic";
+  if(t.includes("因數")||t.includes("倍數"))return "factor";
+  if(t.includes("分數"))return "fraction";
+  if(t.includes("小數"))return "decimal";
+  if(["面積","周長","時間","單位換算"].includes(t)||t.includes("單位"))return "measure";
+  if(t.includes("幾何")||t.includes("線對稱"))return "geometry";
+  if(t.includes("圖表")||t.includes("資料"))return "data";
+  return "application";
+}
+function mathQuestionStyle(item){
+  if(item.style)return item.style;
+  const lv=item.level||1;
+  if(lv>=4)return "variation";
+  if(lv>=3)return "advanced";
+  return "standard";
+}
+function mathCategoryRecentRate(category){
+  const a=(mathHistory.recent||[]).filter(x=>(x.category||mathCurriculumCategoryBySkill(x.skill))===category).slice(-10);
+  return a.length?a.filter(x=>x.ok).length/a.length:null;
+}
+function mathCurriculumCategoryBySkill(skill){
+  const t=String(skill||"");
+  if(t.includes("四則"))return "arithmetic";
+  if(t.includes("因數")||t.includes("倍數"))return "factor";
+  if(t.includes("分數"))return "fraction";
+  if(t.includes("小數"))return "decimal";
+  if(t.includes("面積")||t.includes("周長")||t.includes("時間")||t.includes("單位"))return "measure";
+  if(t.includes("幾何")||t.includes("線對稱"))return "geometry";
+  if(t.includes("圖表")||t.includes("資料"))return "data";
+  return "application";
+}
+
+
 function mathQuestionGroup(item){
   if(item.group)return item.group;
   if(item.type==="整數四則運算")return "foundation";
@@ -4786,14 +5069,18 @@ function mathRecentAccuracy(){
 }
 
 function mathSessionPlan(){
-  const acc=mathRecentAccuracy();
-  if(acc<.6){
-    return ["foundation","standard","foundation","application","standard","application","foundation","standard","application","challenge"];
+  // 依家長設定輪流穿插各課綱分類；同一分類第1題一般、第2題進階、第3題變化。
+  const plan=[];
+  const max=Math.max(...MATH_CATEGORY_ORDER.map(k=>mathCategorySettings[k]||0),0);
+  const styleCycle=["standard","advanced","variation","standard"];
+  for(let round=0;round<max;round++){
+    MATH_CATEGORY_ORDER.forEach(category=>{
+      if((mathCategorySettings[category]||0)>round){
+        plan.push({category,style:styleCycle[round%styleCycle.length]});
+      }
+    });
   }
-  if(acc>=.8){
-    return ["standard","application","foundation","application","standard","application","challenge","application","standard","challenge"];
-  }
-  return ["foundation","standard","application","standard","application","foundation","application","challenge","standard","application"];
+  return plan;
 }
 
 function mathGroupName(group){
@@ -4855,18 +5142,18 @@ function mathWeightedPick(list,target,preferSkill=null){
   return scored[scored.length-1].item;
 }
 function chooseMathQuestion(){
-  const target=mathAdaptiveLevel();
   const plan=mathSessionPlan();
-  const desired=plan[mathTodayCount % plan.length]||"application";
+  const slot=plan[mathTodayCount % Math.max(1,plan.length)]||{category:"arithmetic",style:"standard"};
 
   let pool=mathBank.filter(x=>!mathQueue.shown.includes(x.id)&&mathDue(x));
   if(!pool.length)pool=mathBank.filter(x=>!mathQueue.shown.includes(x.id)&&!mathHistory.items[x.id]);
   if(!pool.length)return null;
 
-  let selectedPool=pool.filter(x=>mathQuestionGroup(x)===desired);
+  let selectedPool=pool.filter(x=>mathCurriculumCategory(x)===slot.category && mathQuestionStyle(x)===slot.style);
+  if(!selectedPool.length)selectedPool=pool.filter(x=>mathCurriculumCategory(x)===slot.category);
   if(!selectedPool.length)selectedPool=pool;
 
-  // 如果上一題答錯，仍會優先補同能力，但不會把整個 session 變成一直重複同一類。
+  const target=slot.style==="standard"?2:(slot.style==="advanced"?3:3);
   const prefer=mathQueue.reviewSkill;
   const item=mathWeightedPick(selectedPool,target,prefer);
 
@@ -4874,7 +5161,8 @@ function chooseMathQuestion(){
   if(mathQueue.reviewSkill && item.type===mathQueue.reviewSkill)mathQueue.reviewSkill=null;
   saveMathQueue();
 
-  item.sessionGroup=desired;
+  item.sessionCategory=slot.category;
+  item.sessionStyle=slot.style;
   return item;
 }
 function recordMathAdaptive(item,ok,hintsUsed=0){
@@ -4894,6 +5182,8 @@ function recordMathAdaptive(item,ok,hintsUsed=0){
     id:item.id,
     skill:item.type,
     group:mathQuestionGroup(item),
+    category:mathCurriculumCategory(item),
+    style:mathQuestionStyle(item),
     level:item.level||1,
     ok,
     hints:hintsUsed,
@@ -4958,15 +5248,17 @@ function nextMath(){
   mathTodayCount++;
 
   const group=mathQuestionGroup(mathCurrent);
+  const category=mathCurrent.sessionCategory||mathCurriculumCategory(mathCurrent);
+  const style=mathCurrent.sessionStyle||mathQuestionStyle(mathCurrent);
   document.getElementById("mathSessionStep").textContent=`今日 ${mathTodayCount} / ${mathSessionTarget()}`;
-  document.getElementById("mathSessionMix").textContent=`本題：${mathGroupName(group)}`;
+  document.getElementById("mathSessionMix").textContent=`${mathCategoryName(category)}｜${mathStyleName(style)}`;
 
   const mtc=document.getElementById("mathTodayCount");
   if(mtc)mtc.textContent="今日 "+mathTodayCount+" 題";
   const mal=document.getElementById("mathAdaptiveLevel");
   if(mal)mal.textContent="目前難度 L"+mathAdaptiveLevel();
 
-  document.getElementById("mathTypeTag").textContent=`${mathCurrent.type} · L${mathCurrent.level||1}`;
+  document.getElementById("mathTypeTag").textContent=`${mathCategoryName(category)} · ${mathStyleName(style)}`;
   ensureAdventureEncounter("math",mathCurrent);
   document.getElementById("mathQuestion").textContent=mathCurrent.q;
 
@@ -5006,6 +5298,90 @@ function showMathHint(){
   }
 }
 
+
+function mathFormulaFor(item){
+  if(item.formula)return item.formula;
+  const c=mathCurriculumCategory(item);
+  return {
+    arithmetic:"括號 → 乘除 → 加減；同級運算由左到右。",
+    application:"先找題目要求 → 求必要的中間量 → 再求最後答案。",
+    factor:"平均分成最多相同組 → 最大公因數；週期再次同時發生 → 最小公倍數。",
+    fraction:"異分母先通分；分數乘法先乘分子、分母，再約分。",
+    decimal:"依位值進行小數乘除，最後檢查小數點與單位。",
+    measure:"不同單位先換成相同單位，再進行計算。",
+    geometry:"先使用圖形性質或公式，再代入已知條件。",
+    data:"先正確讀值，再比較、加總或計算變化量。"
+  }[c]||"整理已知條件，再決定運算關係。";
+}
+function renderMathDiagram(item){
+  const d=item.diagram;
+  const c=mathCurriculumCategory(item);
+
+  if(d?.type==="flow"){
+    return `<div class="mathFlowDiagram">${d.steps.map((s,i)=>`${i?'<i>→</i>':''}<span>${s}</span>`).join("")}</div>`;
+  }
+  if(d?.type==="fraction" || c==="fraction"){
+    return `<div class="mathFractionSteps"><span>找共同分母</span><i>→</i><span>通分</span><i>→</i><span>加減／化簡</span></div>`;
+  }
+  if(d?.type==="triangle"){
+    return `<svg class="mathMiniSvg" viewBox="0 0 420 160" role="img" aria-label="三角形示意圖">
+      <polygon points="210,20 70,135 350,135" fill="#f7f9fc" stroke="#617493" stroke-width="3"/>
+      <text x="192" y="55" font-size="17" fill="#40516a">${d.labels?.[0]||""}</text>
+      <text x="87" y="126" font-size="17" fill="#40516a">${d.labels?.[1]||""}</text>
+      <text x="305" y="126" font-size="17" fill="#40516a">${d.labels?.[2]||""}</text>
+    </svg>`;
+  }
+  if(d?.type==="rectangle"){
+    return `<svg class="mathMiniSvg" viewBox="0 0 420 160" role="img" aria-label="長方形示意圖">
+      <rect x="90" y="35" width="240" height="90" rx="3" fill="#f7f9fc" stroke="#617493" stroke-width="3"/>
+      <text x="185" y="150" font-size="16" fill="#40516a">${d.a||""}</text>
+      <text x="336" y="86" font-size="16" fill="#40516a">${d.b||""}</text>
+    </svg>`;
+  }
+  if(d?.type==="symmetry"){
+    return `<svg class="mathMiniSvg" viewBox="0 0 420 160" role="img" aria-label="長方形對稱軸示意圖">
+      <rect x="100" y="35" width="220" height="90" fill="#f7f9fc" stroke="#617493" stroke-width="3"/>
+      <line x1="210" y1="20" x2="210" y2="140" stroke="#d27a65" stroke-width="3" stroke-dasharray="7 6"/>
+      <line x1="75" y1="80" x2="345" y2="80" stroke="#d27a65" stroke-width="3" stroke-dasharray="7 6"/>
+    </svg>`;
+  }
+  if(d?.type==="line"){
+    const vals=d.values||[];
+    if(vals.length<2)return "";
+    const W=420,H=160,p=28,max=Math.max(...vals),min=Math.min(...vals);
+    const range=Math.max(1,max-min);
+    const pts=vals.map((v,i)=>{
+      const x=p+i*(W-2*p)/(vals.length-1);
+      const y=H-p-(v-min)/range*(H-2*p);
+      return {x,y,v,label:d.labels?.[i]||String(i+1)};
+    });
+    return `<svg class="mathMiniSvg" viewBox="0 0 420 160" role="img" aria-label="折線圖示意">
+      <line x1="${p}" y1="${H-p}" x2="${W-p}" y2="${H-p}" stroke="#aeb8c7"/>
+      <polyline points="${pts.map(q=>`${q.x},${q.y}`).join(" ")}" fill="none" stroke="#5f79a8" stroke-width="3"/>
+      ${pts.map(q=>`<circle cx="${q.x}" cy="${q.y}" r="4" fill="#5f79a8"/><text x="${q.x-8}" y="${q.y-9}" font-size="12" fill="#46566e">${q.v}</text><text x="${q.x-5}" y="${H-8}" font-size="12" fill="#6d798b">${q.label}</text>`).join("")}
+    </svg>`;
+  }
+  if(c==="application"){
+    return `<div class="mathFlowDiagram"><span>讀題</span><i>→</i><span>找中間量</span><i>→</i><span>列式</span><i>→</i><span>檢查單位</span></div>`;
+  }
+  return "";
+}
+function renderMathExplanation(item){
+  const c=mathCurriculumCategory(item);
+  const s=mathQuestionStyle(item);
+  return `<div class="mathExplainCard">
+    <div class="mathExplainMeta">
+      <span>${mathCategoryName(c)}</span>
+      <span>${mathStyleName(s)}</span>
+      <span>${item.curriculum||mathCategoryCode(c)}</span>
+    </div>
+    <div class="mathExplainRow"><b>正確答案</b>${item.show}</div>
+    <div class="mathFormula"><b>觀念／公式：</b>${mathFormulaFor(item)}</div>
+    <div class="mathExplainRow"><b>正確解法</b>${item.why}</div>
+    ${renderMathDiagram(item)}
+  </div>`;
+}
+
 function submitMath(){
   if(!mathCurrent)return;
   const inp=document.getElementById("mathInput"),v=inp.value.trim();if(!v)return;
@@ -5016,13 +5392,18 @@ function submitMath(){
   mathQueue.answers[mathCurrent.id]=ok?"correct":"wrong";
   recordMathAdaptive(mathCurrent,ok,mathHintCount);
   adventureAnswer("math",mathCurrent,ok);
-  if(!ok)addPracticeWrong("數學",mathCurrent.type,mathCurrent.q,v,mathCurrent.show);
+  if(!ok){
+    const c=mathCurriculumCategory(mathCurrent),s=mathQuestionStyle(mathCurrent);
+    addPracticeWrong("數學",`${mathCategoryName(c)}｜${mathStyleName(s)}`,mathCurrent.q,v,mathCurrent.show);
+  }
 
   mathSessionAnswers.push({
     ok,
     independent,
     hints:mathHintCount,
     group:mathQuestionGroup(mathCurrent),
+    category:mathCurriculumCategory(mathCurrent),
+    style:mathQuestionStyle(mathCurrent),
     skill:mathCurrent.type
   });
 
@@ -5031,7 +5412,9 @@ function submitMath(){
   const status=ok
     ? (independent?"✅ 答對，而且是自己完成。":"✅ 答對；這題有使用提示。")
     : "❌ 這題答錯。正確答案：<b>"+mathCurrent.show+"</b>";
-  f.innerHTML=status+"<br>"+mathCurrent.why;
+  f.innerHTML=ok
+    ? status+"<br>"+mathCurrent.why
+    : status+renderMathExplanation(mathCurrent);
 
   const done=mathSessionAnswers.length;
   const ind=mathSessionAnswers.filter(x=>x.independent).length;
@@ -5274,6 +5657,16 @@ function renderParentBackendData(){
   setText("parentMathIndependentRate",mrInd===null?"獨立完成 —":`獨立完成 ${mrInd}%`);
   setText("parentMathAppRate",mrAppRate===null?"應用題 —":`應用題 ${mrAppRate}%`);
 
+  const catBox=document.getElementById("parentMathCategoryPerformance");
+  if(catBox){
+    catBox.innerHTML=MATH_CATEGORY_ORDER.map(cat=>{
+      const a=(mathHistory.recent||[]).filter(x=>(x.category||mathCurriculumCategoryBySkill(x.skill))===cat).slice(-12);
+      const rate=a.length?Math.round(a.filter(x=>x.ok).length/a.length*100):null;
+      const ind=a.length?Math.round(a.filter(x=>x.ok&&(x.hints||0)===0).length/a.length*100):null;
+      return `<div class="row"><b>${mathCategoryName(cat)}</b><br>${rate===null?"尚未累積":`答對 ${rate}%｜獨立 ${ind}%｜${a.length}題`}</div>`;
+    }).join("");
+  }
+
   // 哥哥網站測驗紀錄
   const testRows=document.getElementById("parentTestHistoryRows");
   if(testRows){
@@ -5336,6 +5729,11 @@ document.querySelectorAll(".backendTab").forEach(btn=>btn.addEventListener("clic
   renderParentBackendData();
 }));
 
+document.querySelectorAll('[id^="setMathCat_"]').forEach(el=>el.addEventListener("change",()=>{
+  const total=[...document.querySelectorAll('[id^="setMathCat_"]')].reduce((s,x)=>s+Number(x.value||0),0);
+  setText("mathCategoryTotalSetting",`${total} 題`);
+  setText("mathCategoryTotalBadge",`共 ${total} 題`);
+}));
 if(document.getElementById("saveQuestionCounts"))document.getElementById("saveQuestionCounts").onclick=saveQuestionCountsFromBackend;
 if(document.getElementById("resetQuestionCounts"))document.getElementById("resetQuestionCounts").onclick=resetQuestionCountsToDefaults;
 syncQuestionCountSettingControls();
