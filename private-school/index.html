@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V17.0｜復旦 × 六和</title>
+<title>兄弟學習基地 V17.1｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -2624,6 +2624,97 @@ body:not(.younger-mode) .page.youngerOnly{
 .mathResultSummary strong{font-size:22px;color:#35455f}
 </style>
 
+
+<style id="v171-word-spelling">
+.wordSpellArea{
+  margin-top:16px;
+  padding:18px;
+  border-radius:22px;
+  background:linear-gradient(180deg,#fffaf0,#fff);
+  border:1px solid #eadfbe;
+}
+.wordSpellHead{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:9px;
+  text-align:left;
+}
+.wordSpellHead>span{font-size:28px}
+.wordSpellHead b{display:block;color:#5e553d}
+.wordSpellHead small{display:block;color:#8a7e67;margin-top:2px}
+.wordSpellPicture{
+  margin-top:12px;
+  text-align:center;
+  font-size:54px;
+}
+.wordSpellListen{
+  display:block;
+  margin:8px auto 0;
+  border:0;
+  border-radius:999px;
+  background:#edf3ff;
+  color:#526aa8;
+  font:inherit;
+  font-weight:900;
+  padding:9px 15px;
+  cursor:pointer;
+}
+.wordSpellPattern{
+  margin:14px auto 10px;
+  text-align:center;
+  font-size:38px;
+  font-weight:1000;
+  letter-spacing:7px;
+  color:#40506b;
+}
+.wordSpellInputRow{
+  display:flex;
+  gap:9px;
+  justify-content:center;
+  max-width:430px;
+  margin:0 auto;
+}
+.wordSpellInput{
+  flex:1;
+  min-width:0;
+  height:54px;
+  border-radius:15px;
+  border:2px solid #d8deea;
+  padding:0 14px;
+  font:inherit;
+  font-size:22px;
+  font-weight:900;
+  text-align:center;
+  text-transform:lowercase;
+  outline:none;
+}
+.wordSpellInput:focus{border-color:#849be0;box-shadow:0 0 0 4px rgba(132,155,224,.12)}
+.wordSpellCheck{
+  min-width:92px;
+  border:0;
+  border-radius:15px;
+  background:#657fe7;
+  color:#fff;
+  font:inherit;
+  font-weight:900;
+  cursor:pointer;
+}
+.wordSpellMini{
+  margin-top:8px;
+  text-align:center;
+  font-size:13px;
+  color:#7c8798;
+}
+.wordSpellMini.good{color:#3f7950;font-weight:900}
+.wordSpellMini.retry{color:#9a6750;font-weight:800}
+@media(max-width:640px){
+  .wordSpellPattern{font-size:31px;letter-spacing:5px}
+  .wordSpellInputRow{flex-direction:column}
+  .wordSpellCheck{min-height:48px}
+}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -2665,7 +2756,7 @@ body:not(.younger-mode) .page.youngerOnly{
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V17.0</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V17.1</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -3147,7 +3238,7 @@ body:not(.younger-mode) .page.youngerOnly{
         <span>A a → apple → 蘋果 · 單字輪流出</span>
       </div>
       <div class="wordGardenFeatureGo">
-        <strong id="wordGardenHomeProgress">今日 0 / 6</strong>
+        <strong id="wordGardenHomeProgress">今日 0 / 8</strong>
         <span>開始 →</span>
       </div>
     </button>
@@ -3207,7 +3298,7 @@ body:not(.younger-mode) .page.youngerOnly{
       <button type="button" class="kidBackBtn" onclick="go('youngerHome')">←</button>
       <div class="kidGameTitle"><span>🌱</span><b>字母單字樂園</b></div>
       <div class="kidMiniScore">
-        <span id="wordGardenScore">今天 0 / 6</span>
+        <span id="wordGardenScore">今天 0 / 8</span>
       </div>
     </div>
 
@@ -3241,6 +3332,24 @@ body:not(.younger-mode) .page.youngerOnly{
         <div class="wordChineseChoices" id="wordChineseChoices"></div>
       </div>
 
+      <div class="wordSpellArea hidden" id="wordSpellArea">
+        <div class="wordSpellHead">
+          <span>🔤</span>
+          <div>
+            <b>拼字小挑戰</b>
+            <small>保留字頭、字尾，把中間補起來。</small>
+          </div>
+        </div>
+        <div class="wordSpellPicture" id="wordSpellPicture">🐱</div>
+        <button type="button" class="wordSpellListen" id="wordSpellListen">🔊 慢慢聽</button>
+        <div class="wordSpellPattern" id="wordSpellPattern">c _ t</div>
+        <div class="wordSpellInputRow">
+          <input id="wordSpellInput" class="wordSpellInput" inputmode="text" autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="4" placeholder="輸入中間字母">
+          <button type="button" class="wordSpellCheck" id="wordSpellCheck">檢查</button>
+        </div>
+        <div class="wordSpellMini" id="wordSpellMini">提示：只要填空格裡的字母。</div>
+      </div>
+
       <div class="keyboardBonus hidden" id="keyboardBonus">
         <div class="keyboardBonusTitle">
           <span>⌨️</span>
@@ -3258,7 +3367,7 @@ body:not(.younger-mode) .page.youngerOnly{
     <div class="youngerFeedback kidFeedback" id="wordGardenFeedback">🐻 先看看這個單字。</div>
     <div class="kidGameBottom">
       <button type="button" class="kidNextBtn hidden" id="wordNextBtn">下一個 →</button>
-      <span id="wordGardenBottomProgress">今天 0 / 6</span>
+      <span id="wordGardenBottomProgress">今天 0 / 8</span>
     </div>
   </div>
 </section>
@@ -3419,7 +3528,8 @@ body:not(.younger-mode) .page.youngerOnly{
 ├─ 字母辨識　　尚未練習
 ├─ 四線格位置　尚未練習
 ├─ 聲音辨識　　尚未練習
-└─ 單字中文連結 尚未練習</div>
+├─ 單字中文連結 尚未練習
+└─ 單字拼寫　　尚未練習</div>
     </div>
   </div>
 </section>
@@ -5066,30 +5176,62 @@ const lookSets=[
 
 const beginnerWordBridge=[
   {letter:"A",word:"apple",zh:"蘋果",emoji:"🍎"},
+  {letter:"A",word:"ant",zh:"螞蟻",emoji:"🐜"},
   {letter:"B",word:"ball",zh:"球",emoji:"⚽"},
-  {letter:"C",word:"cup",zh:"杯子",emoji:"🥤"},
-  {letter:"C",word:"cap",zh:"帽子",emoji:"🧢"},
+  {letter:"B",word:"bag",zh:"袋子",emoji:"👜"},
+  {letter:"B",word:"book",zh:"書",emoji:"📘"},
+  {letter:"B",word:"bus",zh:"公車",emoji:"🚌"},
   {letter:"C",word:"cat",zh:"貓",emoji:"🐱"},
+  {letter:"C",word:"cap",zh:"帽子",emoji:"🧢"},
+  {letter:"C",word:"cup",zh:"杯子",emoji:"🥤"},
+  {letter:"C",word:"car",zh:"汽車",emoji:"🚗"},
+  {letter:"C",word:"cake",zh:"蛋糕",emoji:"🍰"},
+  {letter:"D",word:"dog",zh:"狗",emoji:"🐶"},
   {letter:"D",word:"duck",zh:"鴨子",emoji:"🦆"},
+  {letter:"D",word:"desk",zh:"書桌",emoji:"🪑"},
+  {letter:"D",word:"door",zh:"門",emoji:"🚪"},
   {letter:"E",word:"egg",zh:"蛋",emoji:"🥚"},
+  {letter:"E",word:"ear",zh:"耳朵",emoji:"👂"},
   {letter:"F",word:"fish",zh:"魚",emoji:"🐟"},
+  {letter:"F",word:"fan",zh:"電扇",emoji:"🪭"},
+  {letter:"F",word:"frog",zh:"青蛙",emoji:"🐸"},
   {letter:"G",word:"gift",zh:"禮物",emoji:"🎁"},
+  {letter:"G",word:"girl",zh:"女孩",emoji:"👧"},
+  {letter:"G",word:"goat",zh:"山羊",emoji:"🐐"},
   {letter:"H",word:"hand",zh:"手",emoji:"✋"},
+  {letter:"H",word:"hat",zh:"帽子",emoji:"🎩"},
+  {letter:"H",word:"hen",zh:"母雞",emoji:"🐔"},
   {letter:"I",word:"ice",zh:"冰",emoji:"🧊"},
+  {letter:"I",word:"ink",zh:"墨水",emoji:"🖋️"},
   {letter:"J",word:"juice",zh:"果汁",emoji:"🧃"},
+  {letter:"J",word:"jam",zh:"果醬",emoji:"🍓"},
   {letter:"K",word:"kite",zh:"風箏",emoji:"🪁"},
+  {letter:"K",word:"key",zh:"鑰匙",emoji:"🔑"},
   {letter:"L",word:"lion",zh:"獅子",emoji:"🦁"},
+  {letter:"L",word:"leg",zh:"腿",emoji:"🦵"},
   {letter:"M",word:"moon",zh:"月亮",emoji:"🌙"},
+  {letter:"M",word:"milk",zh:"牛奶",emoji:"🥛"},
+  {letter:"M",word:"map",zh:"地圖",emoji:"🗺️"},
   {letter:"N",word:"nose",zh:"鼻子",emoji:"👃"},
+  {letter:"N",word:"net",zh:"網子",emoji:"🥅"},
   {letter:"O",word:"orange",zh:"柳橙",emoji:"🍊"},
+  {letter:"O",word:"owl",zh:"貓頭鷹",emoji:"🦉"},
   {letter:"P",word:"pig",zh:"豬",emoji:"🐷"},
+  {letter:"P",word:"pen",zh:"筆",emoji:"🖊️"},
+  {letter:"P",word:"pan",zh:"平底鍋",emoji:"🍳"},
   {letter:"Q",word:"queen",zh:"皇后",emoji:"👑"},
   {letter:"R",word:"rabbit",zh:"兔子",emoji:"🐰"},
+  {letter:"R",word:"rain",zh:"雨",emoji:"🌧️"},
   {letter:"S",word:"sun",zh:"太陽",emoji:"☀️"},
+  {letter:"S",word:"star",zh:"星星",emoji:"⭐"},
+  {letter:"S",word:"sock",zh:"襪子",emoji:"🧦"},
   {letter:"T",word:"tree",zh:"樹",emoji:"🌳"},
+  {letter:"T",word:"toy",zh:"玩具",emoji:"🧸"},
   {letter:"U",word:"umbrella",zh:"雨傘",emoji:"☂️"},
   {letter:"V",word:"van",zh:"廂型車",emoji:"🚐"},
+  {letter:"V",word:"vest",zh:"背心",emoji:"🦺"},
   {letter:"W",word:"water",zh:"水",emoji:"💧"},
+  {letter:"W",word:"web",zh:"蜘蛛網",emoji:"🕸️"},
   {letter:"X",word:"xylophone",zh:"木琴",emoji:"🎼"},
   {letter:"Y",word:"yo-yo",zh:"溜溜球",emoji:"🪀"},
   {letter:"Z",word:"zoo",zh:"動物園",emoji:"🦒"}
@@ -5109,6 +5251,8 @@ function loadWordBridgeProgress(){
   p.todayAttempts=Number(p.todayAttempts||0);
   p.totalCorrect=Number(p.totalCorrect||0);
   p.totalAttempts=Number(p.totalAttempts||0);
+  p.spellCorrect=Number(p.spellCorrect||0);
+  p.spellAttempts=Number(p.spellAttempts||0);
 
   // V16.6：使用「洗牌袋」降低重複。
   // 一整輪單字原則上都走過後，才重新洗牌。
@@ -5120,7 +5264,7 @@ function loadWordBridgeProgress(){
   return p;
 }
 let wordBridgeProgress=loadWordBridgeProgress();
-let wordBridgeState={item:null,phase:"learn",waitingKey:false,answered:false};
+let wordBridgeState={item:null,phase:"learn",waitingKey:false,answered:false,spellDone:false};
 
 function saveWordBridgeProgress(){
   SafeStore.set(WORD_BRIDGE_KEY,JSON.stringify(wordBridgeProgress));
@@ -5135,12 +5279,12 @@ function wordBridgeLevelText(){
   return "✗ 目前卡點";
 }
 function updateWordBridgeProgressUI(){
-  const n=Math.min(6,wordBridgeProgress.todayCorrect||0);
+  const n=Math.min(8,wordBridgeProgress.todayCorrect||0);
   ["wordGardenScore","wordGardenBottomProgress"].forEach(id=>{
-    const el=document.getElementById(id);if(el)el.textContent=`今天 ${n} / 6`;
+    const el=document.getElementById(id);if(el)el.textContent=`今天 ${n} / 8`;
   });
   const home=document.getElementById("wordGardenHomeProgress");
-  if(home)home.textContent=n>=6?"今天完成 ✓":`今日 ${n} / 6`;
+  if(home)home.textContent=n>=8?"今天完成 ✓":`今日 ${n} / 8`;
 }
 function refillWordBridgeBag(){
   const all=beginnerWordBridge.map(x=>x.word);
@@ -5194,13 +5338,117 @@ function pickWordBridgeItem(){
   saveWordBridgeProgress();
   return item;
 }
+
+const beginnerSpellingWords=new Set([
+  "ant","ball","bag","book","bus","cat","cap","cup","car","dog","duck","desk",
+  "door","egg","ear","fish","fan","frog","gift","girl","goat","hand","hat","hen",
+  "ice","ink","jam","kite","key","leg","moon","milk","map","nose","net","owl",
+  "pig","pen","pan","rain","sun","star","sock","tree","toy","van","vest","web","zoo"
+]);
+
+function spellingGap(item){
+  const w=item.word.toLowerCase().replace(/[^a-z]/g,"");
+  if(w.length<3)return null;
+  const middle=w.slice(1,-1);
+  if(!middle || middle.length>4)return null;
+  return {
+    full:w,
+    first:w[0],
+    last:w[w.length-1],
+    answer:middle,
+    pattern:`${w[0]} ${Array.from(middle).map(()=>"_").join(" ")} ${w[w.length-1]}`
+  };
+}
+function canSpellItem(item){
+  return beginnerSpellingWords.has(item.word) && !!spellingGap(item);
+}
+function showWordSpellChallenge(){
+  const item=wordBridgeState.item;
+  if(!item || !canSpellItem(item))return false;
+  const gap=spellingGap(item);
+  wordBridgeState.phase="spell";
+  wordBridgeState.spellDone=false;
+
+  document.getElementById("wordQuizArea")?.classList.add("hidden");
+  document.getElementById("wordSpellArea")?.classList.remove("hidden");
+  document.getElementById("keyboardBonus")?.classList.add("hidden");
+
+  const pic=document.getElementById("wordSpellPicture");
+  const pattern=document.getElementById("wordSpellPattern");
+  const input=document.getElementById("wordSpellInput");
+  const mini=document.getElementById("wordSpellMini");
+  if(pic)pic.textContent=item.emoji;
+  if(pattern)pattern.textContent=gap.pattern;
+  if(input){
+    input.value="";
+    input.maxLength=gap.answer.length;
+    input.placeholder=gap.answer.length===1?"輸入 1 個字母":`輸入 ${gap.answer.length} 個字母`;
+    input.disabled=false;
+  }
+  if(mini){
+    mini.className="wordSpellMini";
+    mini.textContent=`${item.zh}｜只填中間缺少的字母`;
+  }
+  setKidFeedback("🐻 聽一聽，再把中間字母補起來。");
+  setTimeout(()=>input?.focus(),40);
+  return true;
+}
+function checkWordSpelling(){
+  if(wordBridgeState.spellDone)return;
+  const item=wordBridgeState.item;
+  if(!item)return;
+  const gap=spellingGap(item);
+  if(!gap)return;
+
+  const input=document.getElementById("wordSpellInput");
+  const mini=document.getElementById("wordSpellMini");
+  const value=(input?.value||"").trim().toLowerCase().replace(/[^a-z]/g,"");
+  if(!value){
+    if(mini){mini.className="wordSpellMini retry";mini.textContent="先輸入空格裡缺少的字母。";}
+    return;
+  }
+
+  wordBridgeProgress.spellAttempts++;
+  const ok=value===gap.answer;
+  if(ok){
+    wordBridgeProgress.spellCorrect++;
+    wordBridgeState.spellDone=true;
+    if(input)input.disabled=true;
+    if(mini){mini.className="wordSpellMini good";mini.textContent=`答對：${item.word} ✓`;}
+    setKidFeedback(`🐻 對！${item.word}`);
+    setKidBearMood(true);
+    saveWordBridgeProgress();
+    showKeyboardBonusAfterWord();
+  }else{
+    if(mini){mini.className="wordSpellMini retry";mini.textContent="再聽一次，看看中間少了什麼。";}
+    setKidFeedback("🐻 再試一次，不急。");
+    setKidBearMood(false);
+    saveWordBridgeProgress();
+  }
+}
+function showKeyboardBonusAfterWord(){
+  const item=wordBridgeState.item;if(!item)return;
+  document.getElementById("wordSpellArea")?.classList.add("hidden");
+  const bonus=document.getElementById("keyboardBonus");
+  if(bonus)bonus.classList.remove("hidden");
+  const target=document.getElementById("keyboardTarget");
+  if(target){
+    target.textContent=`${item.letter} / ${item.letter.toLowerCase()}`;
+    target.classList.remove("hit");
+  }
+  const hint=document.getElementById("keyboardHint");
+  if(hint)hint.textContent="大寫、小寫都算對，不用按 Shift。";
+  wordBridgeState.waitingKey=true;
+  document.getElementById("wordNextBtn")?.classList.remove("hidden");
+}
+
 function speakWordBridge(){
   const item=wordBridgeState.item;if(!item)return;
   try{
     speechSynthesis.cancel();
     const u=new SpeechSynthesisUtterance(item.word);
     u.lang="en-US";
-    u.rate=.72;
+    u.rate=.56;
     u.pitch=1;
     speechSynthesis.speak(u);
   }catch(e){}
@@ -5213,6 +5461,7 @@ function renderWordBridgeLearn(){
   const zh=document.getElementById("wordChinese");
   const actions=document.getElementById("wordLearnActions");
   const quiz=document.getElementById("wordQuizArea");
+  const spell=document.getElementById("wordSpellArea");
   const bonus=document.getElementById("keyboardBonus");
   const next=document.getElementById("wordNextBtn");
   if(pair)pair.textContent=`${item.letter} ${item.letter.toLowerCase()}`;
@@ -5221,11 +5470,13 @@ function renderWordBridgeLearn(){
   if(zh){zh.textContent=item.zh;zh.classList.remove("hiddenMeaning");}
   if(actions)actions.classList.remove("hidden");
   if(quiz)quiz.classList.add("hidden");
+  if(spell)spell.classList.add("hidden");
   if(bonus)bonus.classList.add("hidden");
   if(next)next.classList.add("hidden");
   wordBridgeState.phase="learn";
   wordBridgeState.waitingKey=false;
   wordBridgeState.answered=false;
+  wordBridgeState.spellDone=false;
   setKidFeedback("🐻 先看看，再聽一次。");
   updateWordBridgeProgressUI();
 }
@@ -5286,19 +5537,11 @@ function answerWordBridge(value,btn){
 
   const zh=document.getElementById("wordChinese");
   if(zh){zh.textContent=item.zh;zh.classList.remove("hiddenMeaning");}
-  const bonus=document.getElementById("keyboardBonus");
-  if(bonus)bonus.classList.remove("hidden");
-  const target=document.getElementById("keyboardTarget");
-  if(target){
-    target.textContent=`${item.letter} / ${item.letter.toLowerCase()}`;
-    target.classList.remove("hit");
-  }
-  const hint=document.getElementById("keyboardHint");
-  if(hint)hint.textContent="大寫、小寫都算對，不用按 Shift。";
-  wordBridgeState.waitingKey=true;
 
-  const next=document.getElementById("wordNextBtn");
-  if(next)next.classList.remove("hidden");
+  // 先做拼字小挑戰；太長或較難的單字直接進鍵盤加碼。
+  if(!showWordSpellChallenge()){
+    showKeyboardBonusAfterWord();
+  }
   renderYoungerProgress();
 }
 function finishKeyboardBonus(skipped=false){
@@ -6023,6 +6266,9 @@ document.getElementById("finishTraceBtn")?.addEventListener("click",finishTrace)
 document.getElementById("wordGardenEntry")?.addEventListener("click",startYoungerWordGame);
 document.getElementById("wordSoundBtn")?.addEventListener("click",speakWordBridge);
 document.getElementById("wordQuizBtn")?.addEventListener("click",startWordBridgeQuiz);
+document.getElementById("wordSpellListen")?.addEventListener("click",speakWordBridge);
+document.getElementById("wordSpellCheck")?.addEventListener("click",checkWordSpelling);
+document.getElementById("wordSpellInput")?.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();checkWordSpelling();}});
 document.getElementById("wordNextBtn")?.addEventListener("click",nextWordBridge);
 document.getElementById("keyboardSkipBtn")?.addEventListener("click",()=>finishKeyboardBonus(true));
 document.getElementById("startTodayMission")?.addEventListener("click",()=>startYoungerTask(nextIncompleteYoungerTask()));
@@ -6121,7 +6367,8 @@ function renderYoungerProgress(){
 ├─ 字母辨識　　${levelText(youngerProgress.stats.look)}
 ├─ 四線格位置　${levelText(youngerProgress.stats.position)}
 ├─ 聲音辨識　　${levelText(youngerProgress.stats.listen)}
-└─ 單字中文連結 ${wordBridgeLevelText()}`;
+├─ 單字中文連結 ${wordBridgeLevelText()}
+└─ 單字拼寫　　${wordBridgeProgress.spellAttempts<4?"尚在累積":(wordBridgeProgress.spellCorrect/wordBridgeProgress.spellAttempts>=.8?"✓ 穩定":wordBridgeProgress.spellCorrect/wordBridgeProgress.spellAttempts>=.55?"△ 還要練":"✗ 目前卡點")}`;
   ["youngerTreeHome","youngerTree","parentYoungerTree"].forEach(id=>{
     const el=document.getElementById(id);if(el)el.textContent=tree;
   });
