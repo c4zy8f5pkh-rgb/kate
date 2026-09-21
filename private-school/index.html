@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V18.1｜復旦 × 六和</title>
+<title>兄弟學習基地 V18.2｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -3332,6 +3332,58 @@ body:not(.younger-mode) .page.youngerOnly{
 </style>
 
 
+
+<style id="v182-phonics-ui-fix">
+/* 拼音頁：不顯示小熊旁邊多餘的字母卡，避免被熊擋住 */
+#youngerPhonics .cssBear::before,
+#youngerPhonics .cssBear::after{
+  content:none !important;
+  display:none !important;
+}
+
+/* 確保答案按鈕一定出現在題目下方，不被頁面高度/overflow 截掉 */
+#youngerPhonics .phonicsQuiz{
+  overflow:visible !important;
+  padding-bottom:24px !important;
+}
+#youngerPhonics .phonicsChoiceRow{
+  display:flex !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  min-height:72px;
+  margin:12px auto 6px;
+  position:relative;
+  z-index:5;
+}
+#youngerPhonics .phonicsChoice{
+  display:inline-flex !important;
+  align-items:center;
+  justify-content:center;
+}
+#youngerPhonics .kidGameShell{
+  overflow:visible !important;
+}
+#youngerPhonics{
+  overflow:visible !important;
+}
+.phonicsTapHint{
+  text-align:center;
+  margin-top:7px;
+  color:#7b8798;
+  font-size:13px;
+  font-weight:800;
+}
+@media(max-width:700px){
+  #youngerPhonics .phonicsChoiceRow{
+    gap:10px;
+  }
+  #youngerPhonics .phonicsChoice{
+    min-width:78px;
+    min-height:62px;
+  }
+}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -3373,7 +3425,7 @@ body:not(.younger-mode) .page.youngerOnly{
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V18.1</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V18.2</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -4010,6 +4062,7 @@ body:not(.younger-mode) .page.youngerOnly{
 
       <div class="phonicsQuestionText" id="phonicsQuestionText">這個字中間是哪一個母音？</div>
       <div class="phonicsChoiceRow" id="phonicsChoices"></div>
+      <div class="phonicsTapHint">直接點下面的母音答案，不用鍵盤輸入。</div>
 
       <div class="phonicsExplain hidden" id="phonicsExplain">
         <div class="phonicsExplainWord" id="phonicsExplainWord"></div>
@@ -6994,9 +7047,11 @@ function nextPhonicsQuestion(){
 
   const choices=document.getElementById("phonicsChoices");
   if(choices){
-    const arr=item.choices.slice();
+    const arr=(Array.isArray(item.choices)&&item.choices.length?item.choices:["a","e","i","o","u"]).slice();
     if(Math.random()<.5)arr.reverse();
     choices.innerHTML=arr.map(c=>`<button type="button" class="phonicsChoice ${item.type==="word"?"wordChoice":""}" data-answer="${c}">${c}</button>`).join("");
+    choices.style.display="flex";
+    choices.style.visibility="visible";
     choices.querySelectorAll(".phonicsChoice").forEach(btn=>{
       btn.onclick=()=>answerPhonics(btn.dataset.answer,btn);
     });
