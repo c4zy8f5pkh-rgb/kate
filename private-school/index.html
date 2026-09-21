@@ -1,10 +1,9 @@
-
 <!doctype html>
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V17.7｜復旦 × 六和</title>
+<title>兄弟學習基地 V17.8｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -2955,7 +2954,7 @@ body:not(.younger-mode) .page.youngerOnly{
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V17.7</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V17.8</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -3054,7 +3053,7 @@ body:not(.younger-mode) .page.youngerOnly{
   <div class="card" style="margin-top:16px"><div class="practiceTop"><div><h3>📊 我的學習進度</h3><div class="muted">不是看做了多少題，而是看哪些能力慢慢變穩。</div></div><span class="tag">本週</span></div><div class="progressBoard"><div class="progressCard"><div class="progressHead"><b>📖 國文</b><span id="homeChPct">0%</span></div><div class="progressTrack"><div id="homeChBar" class="progressFill" style="width:0%"></div></div><div class="muted" style="margin-top:7px">形音義＋成語＋閱讀＋表達</div></div><div class="progressCard"><div class="progressHead"><b>🧮 數學</b><span id="homeMathPct">0%</span></div><div class="progressTrack"><div id="homeMathBar" class="progressFill" style="width:0%"></div></div><div class="muted" style="margin-top:7px">整數四則＋應用＋多步驟</div></div><div class="progressCard"><div class="progressHead"><b>英文</b><span>原系統</span></div><div class="progressTrack"><div class="progressFill" style="width:65%"></div></div><div class="muted" style="margin-top:7px">沿用英文 V6.83 資料</div></div></div></div>
 <div class="card" style="margin-top:16px">
     <h3>📅 一週學習節奏</h3>
-    <div class="muted">每天維持一個主科；同一天用 做主練，再用 確認列式、書寫與正式作答。</div>
+    <div class="muted">每天維持一個主科，網站只顯示今天要完成的學習任務。</div>
     <div class="weekPlan" id="weekPlan"></div>
   </div>
 
@@ -4033,6 +4032,7 @@ const SafeStore=(()=>{
 
 
 
+function setUiText(id,val){const e=document.getElementById(id);if(e)e.textContent=val;}
 const MATH_CATEGORY_SETTINGS_KEY="family_math_category_settings_v175";
 const MATH_CATEGORY_DEFAULTS={
   arithmetic:2,
@@ -4070,8 +4070,8 @@ function syncMathCategorySettingControls(){
     if(el)el.value=String(mathCategorySettings[k]||0);
   });
   const total=mathCategoryTargetTotal();
-  setText("mathCategoryTotalSetting",`${total} 題`);
-  setText("mathCategoryTotalBadge",`共 ${total} 題`);
+  setUiText("mathCategoryTotalSetting",`${total} 題`);
+  setUiText("mathCategoryTotalBadge",`共 ${total} 題`);
 }
 function readMathCategorySettingsFromBackend(){
   const next={};
@@ -5742,8 +5742,8 @@ document.querySelectorAll(".backendTab").forEach(btn=>btn.addEventListener("clic
 
 document.querySelectorAll('[id^="setMathCat_"]').forEach(el=>el.addEventListener("change",()=>{
   const total=[...document.querySelectorAll('[id^="setMathCat_"]')].reduce((s,x)=>s+Number(x.value||0),0);
-  setText("mathCategoryTotalSetting",`${total} 題`);
-  setText("mathCategoryTotalBadge",`共 ${total} 題`);
+  setUiText("mathCategoryTotalSetting",`${total} 題`);
+  setUiText("mathCategoryTotalBadge",`共 ${total} 題`);
 }));
 if(document.getElementById("saveQuestionCounts"))document.getElementById("saveQuestionCounts").onclick=saveQuestionCountsFromBackend;
 if(document.getElementById("resetQuestionCounts"))document.getElementById("resetQuestionCounts").onclick=resetQuestionCountsToDefaults;
