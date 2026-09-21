@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V18.0｜復旦 × 六和</title>
+<title>兄弟學習基地 V18.1｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -3119,13 +3119,14 @@ body:not(.younger-mode) .page.youngerOnly{
 </style>
 
 
-<style id="v180-phonics-lab">
+
+<style id="v181-phonics-lab">
 .phonicsFeature{
   width:100%;
   margin:12px 0 14px;
   padding:14px 16px;
   display:grid;
-  grid-template-columns:120px 1fr auto;
+  grid-template-columns:140px 1fr auto;
   gap:14px;
   align-items:center;
   border:1px solid #dfe4ef;
@@ -3146,8 +3147,8 @@ body:not(.younger-mode) .page.youngerOnly{
   border:1px solid #e3e7ef;
   font-weight:1000;
 }
-.phonicsFeatureArt .pfJ,
-.phonicsFeatureArt .pfDge{
+.vowelArt{padding:0 10px; flex-wrap:wrap}
+.vowelArt .pfV{
   display:inline-flex;
   min-width:34px;
   min-height:42px;
@@ -3157,13 +3158,8 @@ body:not(.younger-mode) .page.youngerOnly{
   padding:0 8px;
   background:#eef3ff;
   color:#4f6592;
-  font-size:26px;
+  font-size:24px;
 }
-.phonicsFeatureArt .pfDge{
-  background:#fff0e5;
-  color:#8a6245;
-}
-.phonicsFeatureArt .pfEquals{color:#8e98aa;font-size:20px}
 .phonicsFeatureText small{display:block;color:#7a8799;font-weight:900;margin-bottom:3px}
 .phonicsFeatureText b{display:block;font-size:21px;color:#46536b}
 .phonicsFeatureText span{display:block;margin-top:4px;color:#788496;font-size:13px}
@@ -3188,8 +3184,11 @@ body:not(.younger-mode) .page.youngerOnly{
 }
 .phonicsCompareGrid{
   display:grid;
-  grid-template-columns:1fr 1fr;
+  grid-template-columns:repeat(2,1fr);
   gap:12px;
+}
+.vowelGrid{
+  grid-template-columns:repeat(5,1fr);
 }
 .phonicsCompareCard{
   text-align:center;
@@ -3198,6 +3197,7 @@ body:not(.younger-mode) .page.youngerOnly{
   border-radius:17px;
   background:#fff;
 }
+.vowelCard small{line-height:1.6}
 .phonicsListenWord,
 .phonicsBigListen,
 .phonicsRepeatBtn{
@@ -3255,6 +3255,14 @@ body:not(.younger-mode) .page.youngerOnly{
 }
 .phonicsPicture{text-align:center;font-size:64px;margin-top:13px}
 .phonicsChinese{text-align:center;font-size:17px;font-weight:900;color:#6a7587}
+.phonicsPattern{
+  margin-top:8px;
+  text-align:center;
+  font-size:31px;
+  font-weight:1000;
+  color:#4e5b72;
+  letter-spacing:4px;
+}
 .phonicsBigListen{display:block;margin:12px auto;font-size:17px;padding:12px 20px}
 .phonicsQuestionText{
   margin:14px auto 10px;
@@ -3272,7 +3280,7 @@ body:not(.younger-mode) .page.youngerOnly{
   flex-wrap:wrap;
 }
 .phonicsChoice{
-  min-width:126px;
+  min-width:84px;
   min-height:68px;
   border:2px solid #dce3ed;
   border-radius:17px;
@@ -3282,6 +3290,11 @@ body:not(.younger-mode) .page.youngerOnly{
   font-size:27px;
   font-weight:1000;
   cursor:pointer;
+  padding:0 10px;
+}
+.phonicsChoice.wordChoice{
+  min-width:126px;
+  font-size:24px;
 }
 .phonicsChoice.good{border-color:#97c4a4;background:#f1faf3}
 .phonicsChoice.bad{border-color:#ddb2a0;background:#fff4ef}
@@ -3306,13 +3319,18 @@ body:not(.younger-mode) .page.youngerOnly{
 }
 .explainBoxes{margin:10px 0}
 .phonicsRepeatBtn{background:#f5f1ff;color:#66568d}
+@media(max-width:850px){
+  .vowelGrid{grid-template-columns:repeat(3,1fr)}
+}
 @media(max-width:700px){
   .phonicsFeature{grid-template-columns:92px 1fr}
   .phonicsFeatureGo{grid-column:1 / -1;text-align:center}
   .phonicsCompareGrid{grid-template-columns:1fr}
+  .vowelGrid{grid-template-columns:repeat(2,1fr)}
   .phonicsQuestionText{font-size:20px}
 }
 </style>
+
 
 </head>
 <body>
@@ -3355,7 +3373,7 @@ body:not(.younger-mode) .page.youngerOnly{
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V18.0</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V18.1</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -3845,18 +3863,20 @@ body:not(.younger-mode) .page.youngerOnly{
     </button>
 
     <button type="button" class="phonicsFeature" id="phonicsLabEntry">
-      <div class="phonicsFeatureArt" aria-hidden="true">
-        <span class="pfJ">j</span>
-        <span class="pfEquals">≈</span>
-        <span class="pfDge">dge</span>
+      <div class="phonicsFeatureArt vowelArt" aria-hidden="true">
+        <span class="pfV">a</span>
+        <span class="pfV">e</span>
+        <span class="pfV">i</span>
+        <span class="pfV">o</span>
+        <span class="pfV">u</span>
       </div>
       <div class="phonicsFeatureText">
         <small>🔊 新的拼讀練習</small>
         <b>拼音小實驗室</b>
-        <span>jug / judge · 聽聲音、看字母組合</span>
+        <span>a e i o u · 聽中間音、找對單字</span>
       </div>
       <div class="phonicsFeatureGo">
-        <strong id="phonicsHomeProgress">今日 0 / 6</strong>
+        <strong id="phonicsHomeProgress">今日 0 / 8</strong>
         <span>開始 →</span>
       </div>
     </button>
@@ -3916,7 +3936,7 @@ body:not(.younger-mode) .page.youngerOnly{
     <div class="kidGameTop">
       <button type="button" class="kidBackBtn" onclick="go('youngerHome')">←</button>
       <div class="kidGameTitle"><span>🔊</span><b>拼音小實驗室</b></div>
-      <div class="kidMiniScore"><span id="phonicsScore">今天 0 / 6</span></div>
+      <div class="kidMiniScore"><span id="phonicsScore">今天 0 / 8</span></div>
     </div>
 
     <div class="kidBearRow">
@@ -3926,66 +3946,81 @@ body:not(.younger-mode) .page.youngerOnly{
         <div class="bearBody"></div><div class="bearArm left"></div><div class="bearArm right"></div>
       </div>
       <div class="kidGameSpeech">
-        <b id="phonicsBuddyTitle">同一個聲音，也可能長得不一樣</b>
-        <span id="phonicsBuddyText">先從 j 和 dge 開始。</span>
+        <b id="phonicsBuddyTitle">先聽中間的母音</b>
+        <span id="phonicsBuddyText">從 a e i o u 開始，不急著拼整個字。</span>
       </div>
     </div>
 
     <div id="phonicsIntro" class="phonicsIntro">
       <div class="phonicsRuleCard">
-        <div class="phonicsRuleTitle">先看這兩個字</div>
+        <div class="phonicsRuleTitle">今天先認識 5 個短母音</div>
 
-        <div class="phonicsCompareGrid">
-          <div class="phonicsCompareCard">
-            <button type="button" class="phonicsListenWord" data-word="jug">🔊 jug</button>
-            <div class="soundBoxes" aria-label="jug 拆音">
-              <span class="sameSound">j</span><span>u</span><span>g</span>
-            </div>
-            <small>最後是 <b>g</b></small>
+        <div class="phonicsCompareGrid vowelGrid">
+          <div class="phonicsCompareCard vowelCard">
+            <button type="button" class="phonicsListenWord" data-word="cat">🔊 a</button>
+            <div class="soundBoxes"><span class="sameSound">a</span></div>
+            <small>像 <b>cat</b>、<b>bag</b></small>
           </div>
 
-          <div class="phonicsCompareCard">
-            <button type="button" class="phonicsListenWord" data-word="judge">🔊 judge</button>
-            <div class="soundBoxes" aria-label="judge 拆音">
-              <span class="sameSound">j</span><span>u</span><span class="sameSound">dge</span>
-            </div>
-            <small>最後的 <b>dge</b>，聲音跟開頭 <b>j</b> 一樣</small>
+          <div class="phonicsCompareCard vowelCard">
+            <button type="button" class="phonicsListenWord" data-word="bed">🔊 e</button>
+            <div class="soundBoxes"><span class="sameSound">e</span></div>
+            <small>像 <b>bed</b>、<b>pen</b></small>
+          </div>
+
+          <div class="phonicsCompareCard vowelCard">
+            <button type="button" class="phonicsListenWord" data-word="pig">🔊 i</button>
+            <div class="soundBoxes"><span class="sameSound">i</span></div>
+            <small>像 <b>pig</b>、<b>sit</b></small>
+          </div>
+
+          <div class="phonicsCompareCard vowelCard">
+            <button type="button" class="phonicsListenWord" data-word="dog">🔊 o</button>
+            <div class="soundBoxes"><span class="sameSound">o</span></div>
+            <small>像 <b>dog</b>、<b>box</b></small>
+          </div>
+
+          <div class="phonicsCompareCard vowelCard">
+            <button type="button" class="phonicsListenWord" data-word="sun">🔊 u</button>
+            <div class="soundBoxes"><span class="sameSound">u</span></div>
+            <small>像 <b>sun</b>、<b>bus</b></small>
           </div>
         </div>
 
         <div class="phonicsRuleHint">
-          <b>記法：</b>先聽聲音，再看它在字的哪裡。<br>
-          <span>j 常在字開頭；dge 常出現在字尾。</span>
+          <b>先做這兩步：</b><br>
+          <span>① 聽完整單字　② 找中間的母音</span>
         </div>
       </div>
 
-      <button type="button" class="kidPrimaryBtn phonicsStartBtn" id="phonicsStartBtn">開始 6 題 →</button>
+      <button type="button" class="kidPrimaryBtn phonicsStartBtn" id="phonicsStartBtn">開始 8 題 →</button>
     </div>
 
     <div id="phonicsQuiz" class="phonicsQuiz hidden">
       <div class="phonicsRoundTop">
-        <span id="phonicsRound">第 1 / 6 題</span>
-        <span id="phonicsFocus">聽結尾</span>
+        <span id="phonicsRound">第 1 / 8 題</span>
+        <span id="phonicsFocus">聽中間音</span>
       </div>
 
-      <div class="phonicsPicture" id="phonicsPicture">🏺</div>
-      <div class="phonicsChinese" id="phonicsChinese">壺</div>
+      <div class="phonicsPicture" id="phonicsPicture">🐱</div>
+      <div class="phonicsChinese" id="phonicsChinese">貓</div>
+      <div class="phonicsPattern" id="phonicsPattern">c _ t</div>
 
       <button type="button" class="phonicsBigListen" id="phonicsListenBtn">🔊 慢慢聽</button>
 
-      <div class="phonicsQuestionText" id="phonicsQuestionText">這個字最後是 g 還是 dge？</div>
+      <div class="phonicsQuestionText" id="phonicsQuestionText">這個字中間是哪一個母音？</div>
       <div class="phonicsChoiceRow" id="phonicsChoices"></div>
 
       <div class="phonicsExplain hidden" id="phonicsExplain">
         <div class="phonicsExplainWord" id="phonicsExplainWord"></div>
         <div class="soundBoxes explainBoxes" id="phonicsExplainBoxes"></div>
         <div class="phonicsExplainText" id="phonicsExplainText"></div>
-        <button type="button" class="phonicsRepeatBtn" id="phonicsRepeatBtn">🔊 再聽一次，我跟著念</button>
+        <button type="button" class="phonicsRepeatBtn" id="phonicsRepeatBtn">🔊 再聽一次</button>
       </div>
 
       <div class="kidGameBottom">
         <button type="button" class="kidNextBtn hidden" id="phonicsNextBtn">下一題 →</button>
-        <span id="phonicsBottomProgress">今天 0 / 6</span>
+        <span id="phonicsBottomProgress">今天 0 / 8</span>
       </div>
     </div>
   </div>
@@ -6797,24 +6832,36 @@ const lookSets=[
 ];
 
 
-const PHONICS_J_DGE_BANK=[
-  {id:"pj01",word:"jug",zh:"壺",emoji:"🏺",focus:"ending",answer:"g",choices:["g","dge"],segments:["j","u","g"],explain:"jug = j | u | g。開頭 j 是那個聲音，但最後是 g。"},
-  {id:"pj02",word:"judge",zh:"法官",emoji:"⚖️",focus:"ending",answer:"dge",choices:["g","dge"],segments:["j","u","dge"],explain:"judge = j | u | dge。開頭 j 和結尾 dge 會出現同一個聲音。"},
-  {id:"pj03",word:"jam",zh:"果醬",emoji:"🍓",focus:"beginning",answer:"j",choices:["j","dge"],segments:["j","a","m"],explain:"jam 的開頭用 j。"},
-  {id:"pj04",word:"jet",zh:"噴射機",emoji:"✈️",focus:"beginning",answer:"j",choices:["j","dge"],segments:["j","e","t"],explain:"jet 的開頭用 j。"},
-  {id:"pj05",word:"jog",zh:"慢跑",emoji:"🏃",focus:"beginning",answer:"j",choices:["j","dge"],segments:["j","o","g"],explain:"jog 的開頭用 j；最後是 g。"},
-  {id:"pj06",word:"jump",zh:"跳",emoji:"🦘",focus:"beginning",answer:"j",choices:["j","dge"],segments:["j","u","mp"],explain:"jump 的開頭用 j。"},
-  {id:"pj07",word:"job",zh:"工作",emoji:"💼",focus:"beginning",answer:"j",choices:["j","dge"],segments:["j","o","b"],explain:"job 的開頭用 j。"},
-  {id:"pj08",word:"badge",zh:"徽章",emoji:"🏅",focus:"ending",answer:"dge",choices:["g","dge"],segments:["b","a","dge"],explain:"badge 的結尾用 dge。"},
-  {id:"pj09",word:"edge",zh:"邊緣",emoji:"📏",focus:"ending",answer:"dge",choices:["g","dge"],segments:["e","dge"],explain:"edge 的結尾用 dge。"},
-  {id:"pj10",word:"bridge",zh:"橋",emoji:"🌉",focus:"ending",answer:"dge",choices:["g","dge"],segments:["br","i","dge"],explain:"bridge 的結尾用 dge。"},
-  {id:"pj11",word:"fudge",zh:"軟糖",emoji:"🍫",focus:"ending",answer:"dge",choices:["g","dge"],segments:["f","u","dge"],explain:"fudge 的結尾用 dge。"},
-  {id:"pj12",word:"ridge",zh:"山脊",emoji:"⛰️",focus:"ending",answer:"dge",choices:["g","dge"],segments:["r","i","dge"],explain:"ridge 的結尾用 dge。"},
-  {id:"pj13",word:"dodge",zh:"閃躲",emoji:"↔️",focus:"ending",answer:"dge",choices:["g","dge"],segments:["d","o","dge"],explain:"dodge 的結尾用 dge。"},
-  {id:"pj14",word:"budge",zh:"移動",emoji:"📦",focus:"ending",answer:"dge",choices:["g","dge"],segments:["b","u","dge"],explain:"budge 的結尾用 dge。"}
+
+const PHONICS_VOWEL_BANK=[
+  {id:"pv01",type:"middle",word:"cat",zh:"貓",emoji:"🐱",vowel:"a",pattern:"c _ t",segments:["c","a","t"],choices:["a","e","i"],explain:"cat 的中間是 a。念起來像 c-a-t。"},
+  {id:"pv02",type:"middle",word:"bag",zh:"袋子",emoji:"👜",vowel:"a",pattern:"b _ g",segments:["b","a","g"],choices:["a","o","u"],explain:"bag 的中間是 a。"},
+  {id:"pv03",type:"middle",word:"map",zh:"地圖",emoji:"🗺️",vowel:"a",pattern:"m _ p",segments:["m","a","p"],choices:["a","e","u"],explain:"map 的中間是 a。"},
+  {id:"pv04",type:"middle",word:"bed",zh:"床",emoji:"🛏️",vowel:"e",pattern:"b _ d",segments:["b","e","d"],choices:["e","a","i"],explain:"bed 的中間是 e。"},
+  {id:"pv05",type:"middle",word:"pen",zh:"筆",emoji:"🖊️",vowel:"e",pattern:"p _ n",segments:["p","e","n"],choices:["e","i","u"],explain:"pen 的中間是 e。"},
+  {id:"pv06",type:"middle",word:"net",zh:"網子",emoji:"🥅",vowel:"e",pattern:"n _ t",segments:["n","e","t"],choices:["e","o","u"],explain:"net 的中間是 e。"},
+  {id:"pv07",type:"middle",word:"pig",zh:"豬",emoji:"🐷",vowel:"i",pattern:"p _ g",segments:["p","i","g"],choices:["i","e","o"],explain:"pig 的中間是 i。"},
+  {id:"pv08",type:"middle",word:"sit",zh:"坐",emoji:"🪑",vowel:"i",pattern:"s _ t",segments:["s","i","t"],choices:["i","a","u"],explain:"sit 的中間是 i。"},
+  {id:"pv09",type:"middle",word:"fin",zh:"魚鰭",emoji:"🐟",vowel:"i",pattern:"f _ n",segments:["f","i","n"],choices:["i","e","a"],explain:"fin 的中間是 i。"},
+  {id:"pv10",type:"middle",word:"dog",zh:"狗",emoji:"🐶",vowel:"o",pattern:"d _ g",segments:["d","o","g"],choices:["o","a","u"],explain:"dog 的中間是 o。"},
+  {id:"pv11",type:"middle",word:"box",zh:"箱子",emoji:"📦",vowel:"o",pattern:"b _ x",segments:["b","o","x"],choices:["o","e","i"],explain:"box 的中間是 o。"},
+  {id:"pv12",type:"middle",word:"fox",zh:"狐狸",emoji:"🦊",vowel:"o",pattern:"f _ x",segments:["f","o","x"],choices:["o","a","u"],explain:"fox 的中間是 o。"},
+  {id:"pv13",type:"middle",word:"sun",zh:"太陽",emoji:"☀️",vowel:"u",pattern:"s _ n",segments:["s","u","n"],choices:["u","a","o"],explain:"sun 的中間是 u。"},
+  {id:"pv14",type:"middle",word:"bus",zh:"公車",emoji:"🚌",vowel:"u",pattern:"b _ s",segments:["b","u","s"],choices:["u","i","e"],explain:"bus 的中間是 u。"},
+  {id:"pv15",type:"middle",word:"cup",zh:"杯子",emoji:"🥤",vowel:"u",pattern:"c _ p",segments:["c","u","p"],choices:["u","o","a"],explain:"cup 的中間是 u。"},
+  {id:"pv16",type:"word",word:"cat",zh:"貓",emoji:"🐱",vowel:"a",pattern:"c _ t",segments:["c","a","t"],choices:["cat","cot","cut"],answerWord:"cat",explain:"你聽到的是 cat，所以中間是 a。"},
+  {id:"pv17",type:"word",word:"pen",zh:"筆",emoji:"🖊️",vowel:"e",pattern:"p _ n",segments:["p","e","n"],choices:["pan","pen","pin"],answerWord:"pen",explain:"你聽到的是 pen，所以中間是 e。"},
+  {id:"pv18",type:"word",word:"pig",zh:"豬",emoji:"🐷",vowel:"i",pattern:"p _ g",segments:["p","i","g"],choices:["peg","pig","pug"],answerWord:"pig",explain:"你聽到的是 pig，所以中間是 i。"},
+  {id:"pv19",type:"word",word:"dog",zh:"狗",emoji:"🐶",vowel:"o",pattern:"d _ g",segments:["d","o","g"],choices:["dig","dog","dug"],answerWord:"dog",explain:"你聽到的是 dog，所以中間是 o。"},
+  {id:"pv20",type:"word",word:"sun",zh:"太陽",emoji:"☀️",vowel:"u",pattern:"s _ n",segments:["s","u","n"],choices:["san","sin","sun"],answerWord:"sun",explain:"你聽到的是 sun，所以中間是 u。"},
+  {id:"pv21",type:"word",word:"bag",zh:"袋子",emoji:"👜",vowel:"a",pattern:"b _ g",segments:["b","a","g"],choices:["bag","beg","bug"],answerWord:"bag",explain:"你聽到的是 bag，所以中間是 a。"},
+  {id:"pv22",type:"word",word:"bed",zh:"床",emoji:"🛏️",vowel:"e",pattern:"b _ d",segments:["b","e","d"],choices:["bad","bed","bid"],answerWord:"bed",explain:"你聽到的是 bed，所以中間是 e。"},
+  {id:"pv23",type:"word",word:"sit",zh:"坐",emoji:"🪑",vowel:"i",pattern:"s _ t",segments:["s","i","t"],choices:["sat","sit","sot"],answerWord:"sit",explain:"你聽到的是 sit，所以中間是 i。"},
+  {id:"pv24",type:"word",word:"box",zh:"箱子",emoji:"📦",vowel:"o",pattern:"b _ x",segments:["b","o","x"],choices:["box","bax","bux"],answerWord:"box",explain:"你聽到的是 box，所以中間是 o。"},
+  {id:"pv25",type:"word",word:"cup",zh:"杯子",emoji:"🥤",vowel:"u",pattern:"c _ p",segments:["c","u","p"],choices:["cap","cop","cup"],answerWord:"cup",explain:"你聽到的是 cup，所以中間是 u。"}
 ];
 
-const PHONICS_PROGRESS_KEY="younger_phonics_j_dge_v180";
+const PHONICS_PROGRESS_KEY="younger_phonics_vowels_v181";
 function phonicsDayKey(){return new Date().toLocaleDateString("sv-SE")}
 function loadPhonicsProgress(){
   let p={};
@@ -6828,13 +6875,13 @@ function loadPhonicsProgress(){
   p.todayAttempts=Number(p.todayAttempts||0);
   p.totalCorrect=Number(p.totalCorrect||0);
   p.totalAttempts=Number(p.totalAttempts||0);
-  p.bag=Array.isArray(p.bag)?p.bag.filter(id=>PHONICS_J_DGE_BANK.some(x=>x.id===id)):[];
-  p.recent=Array.isArray(p.recent)?p.recent.filter(id=>PHONICS_J_DGE_BANK.some(x=>x.id===id)).slice(-6):[];
-  p.byAnswer=p.byAnswer&&typeof p.byAnswer==="object"?p.byAnswer:{j:{ok:0,bad:0},dge:{ok:0,bad:0},g:{ok:0,bad:0}};
-  ["j","dge","g"].forEach(k=>{
-    p.byAnswer[k]=p.byAnswer[k]||{ok:0,bad:0};
-    p.byAnswer[k].ok=Number(p.byAnswer[k].ok||0);
-    p.byAnswer[k].bad=Number(p.byAnswer[k].bad||0);
+  p.bag=Array.isArray(p.bag)?p.bag.filter(id=>PHONICS_VOWEL_BANK.some(x=>x.id===id)):[];
+  p.recent=Array.isArray(p.recent)?p.recent.filter(id=>PHONICS_VOWEL_BANK.some(x=>x.id===id)).slice(-8):[];
+  p.byVowel=p.byVowel&&typeof p.byVowel==="object"?p.byVowel:{a:{ok:0,bad:0},e:{ok:0,bad:0},i:{ok:0,bad:0},o:{ok:0,bad:0},u:{ok:0,bad:0}};
+  ["a","e","i","o","u"].forEach(k=>{
+    p.byVowel[k]=p.byVowel[k]||{ok:0,bad:0};
+    p.byVowel[k].ok=Number(p.byVowel[k].ok||0);
+    p.byVowel[k].bad=Number(p.byVowel[k].bad||0);
   });
   return p;
 }
@@ -6845,13 +6892,11 @@ function savePhonicsProgress(){
   SafeStore.set(PHONICS_PROGRESS_KEY,JSON.stringify(phonicsProgress));
 }
 function refillPhonicsBag(){
-  let ids=PHONICS_J_DGE_BANK.map(x=>x.id);
-  // Fisher–Yates
+  let ids=PHONICS_VOWEL_BANK.map(x=>x.id);
   for(let i=ids.length-1;i>0;i--){
     const j=Math.floor(Math.random()*(i+1));
     [ids[i],ids[j]]=[ids[j],ids[i]];
   }
-  // 新一輪第一題不要跟剛剛最後一題一樣
   if(phonicsProgress.recent.length && ids[0]===phonicsProgress.recent[phonicsProgress.recent.length-1] && ids.length>1){
     [ids[0],ids[1]]=[ids[1],ids[0]];
   }
@@ -6862,9 +6907,9 @@ function nextPhonicsItem(){
   let idx=phonicsProgress.bag.findIndex(id=>!phonicsProgress.recent.includes(id));
   if(idx<0)idx=0;
   const id=phonicsProgress.bag.splice(idx,1)[0];
-  phonicsProgress.recent=[...phonicsProgress.recent,id].slice(-6);
+  phonicsProgress.recent=[...phonicsProgress.recent,id].slice(-8);
   savePhonicsProgress();
-  return PHONICS_J_DGE_BANK.find(x=>x.id===id)||PHONICS_J_DGE_BANK[0];
+  return PHONICS_VOWEL_BANK.find(x=>x.id===id)||PHONICS_VOWEL_BANK[0];
 }
 function speakPhonicsWord(word){
   try{
@@ -6886,24 +6931,26 @@ function phonicsLevelText(){
   return "✗ 目前卡點";
 }
 function updatePhonicsProgressUI(){
-  const n=Math.min(6,phonicsProgress.todayCorrect||0);
+  const n=Math.min(8,phonicsProgress.todayCorrect||0);
   ["phonicsScore","phonicsBottomProgress"].forEach(id=>{
-    const el=document.getElementById(id);if(el)el.textContent=`今天 ${n} / 6`;
+    const el=document.getElementById(id);if(el)el.textContent=`今天 ${n} / 8`;
   });
   const home=document.getElementById("phonicsHomeProgress");
-  if(home)home.textContent=n>=6?"今天完成 ✓":`今日 ${n} / 6`;
+  if(home)home.textContent=n>=8?"今天完成 ✓":`今日 ${n} / 8`;
 }
 function phonicsSoundBoxesHtml(segments){
-  return segments.map((s,i)=>{
-    const same=(s==="j"||s==="dge")?"sameSound":"";
-    return `<span class="${same}">${s}</span>`;
-  }).join("");
+  return segments.map((s)=>`<span class="${["a","e","i","o","u"].includes(s)?"sameSound":""}">${s}</span>`).join("");
 }
 function startPhonicsLab(){
   go("youngerPhonics");
   document.getElementById("phonicsIntro")?.classList.remove("hidden");
   document.getElementById("phonicsQuiz")?.classList.add("hidden");
   updatePhonicsProgressUI();
+  const q=document.getElementById("phonicsQuiz");
+  if(q && q.dataset.finished==="1"){
+    // restore base quiz shell when re-entering after finish
+    location.reload();
+  }
 }
 function startPhonicsQuiz(){
   phonicsState.round=0;
@@ -6913,16 +6960,19 @@ function startPhonicsQuiz(){
   nextPhonicsQuestion();
 }
 function nextPhonicsQuestion(){
-  if(phonicsState.round>=6 || phonicsProgress.todayCorrect>=6){
+  if(phonicsState.round>=8 || phonicsProgress.todayCorrect>=8){
     const q=document.getElementById("phonicsQuiz");
-    if(q)q.innerHTML=`<div class="phonicsRuleCard" style="text-align:center">
-      <div style="font-size:48px">🎉</div>
-      <h3>今天拼讀完成</h3>
-      <div class="muted">先記住：j 和 dge 有時會出現同一個聲音，但位置和拼法不同。</div>
-      <button type="button" class="kidPrimaryBtn" style="margin-top:14px" onclick="go('youngerHome')">回今天任務</button>
-    </div>`;
+    if(q){
+      q.dataset.finished="1";
+      q.innerHTML=`<div class="phonicsRuleCard" style="text-align:center">
+        <div style="font-size:48px">🎉</div>
+        <h3>今天拼讀完成</h3>
+        <div class="muted">先記住：先聽完整單字，再找中間的 a e i o u。</div>
+        <button type="button" class="kidPrimaryBtn" style="margin-top:14px" onclick="go('youngerHome')">回今天任務</button>
+      </div>`;
+    }
     updatePhonicsProgressUI();
-    renderYoungerProgress?.();
+    if(typeof renderYoungerProgress==="function")renderYoungerProgress();
     return;
   }
 
@@ -6931,13 +6981,12 @@ function nextPhonicsQuestion(){
   const item=nextPhonicsItem();
   phonicsState.item=item;
 
-  setText("phonicsRound",`第 ${phonicsState.round} / 6 題`);
-  setText("phonicsFocus",item.focus==="beginning"?"聽開頭":"聽結尾");
+  setText("phonicsRound",`第 ${phonicsState.round} / 8 題`);
+  setText("phonicsFocus",item.type==="middle"?"找中間音":"選對單字");
   setText("phonicsPicture",item.emoji);
   setText("phonicsChinese",item.zh);
-  setText("phonicsQuestionText",item.focus==="beginning"
-    ?"這個字的開頭，用哪一組字母？"
-    :"這個字的結尾，用哪一組字母？");
+  setText("phonicsPattern",item.pattern);
+  setText("phonicsQuestionText",item.type==="middle"?"這個字中間是哪一個母音？":"聽一聽，選對的單字。");
 
   const explain=document.getElementById("phonicsExplain");
   if(explain)explain.classList.add("hidden");
@@ -6947,44 +6996,45 @@ function nextPhonicsQuestion(){
   if(choices){
     const arr=item.choices.slice();
     if(Math.random()<.5)arr.reverse();
-    choices.innerHTML=arr.map(c=>`<button type="button" class="phonicsChoice" data-answer="${c}">${c}</button>`).join("");
+    choices.innerHTML=arr.map(c=>`<button type="button" class="phonicsChoice ${item.type==="word"?"wordChoice":""}" data-answer="${c}">${c}</button>`).join("");
     choices.querySelectorAll(".phonicsChoice").forEach(btn=>{
       btn.onclick=()=>answerPhonics(btn.dataset.answer,btn);
     });
   }
 
-  setText("phonicsBuddyTitle",item.focus==="beginning"?"先聽開頭":"先聽結尾");
-  setText("phonicsBuddyText","不用急著看答案，先聽完整單字。");
+  setText("phonicsBuddyTitle",item.type==="middle"?"先聽中間的聲音":"先聽，再選對單字");
+  setText("phonicsBuddyText","不用急著猜，先聽完整單字。");
   setTimeout(()=>speakPhonicsWord(item.word),180);
 }
 function answerPhonics(value,btn){
   if(phonicsState.answered)return;
   const item=phonicsState.item;if(!item)return;
   phonicsState.answered=true;
-  const ok=value===item.answer;
+  const correct=item.type==="middle"?item.vowel:item.answerWord;
+  const ok=value===correct;
 
   phonicsProgress.todayAttempts++;
   phonicsProgress.totalAttempts++;
-  phonicsProgress.byAnswer[item.answer]=phonicsProgress.byAnswer[item.answer]||{ok:0,bad:0};
+  phonicsProgress.byVowel[item.vowel]=phonicsProgress.byVowel[item.vowel]||{ok:0,bad:0};
 
   document.querySelectorAll("#phonicsChoices .phonicsChoice").forEach(b=>{
     b.disabled=true;
-    if(b.dataset.answer===item.answer)b.classList.add("good");
+    if(b.dataset.answer===correct)b.classList.add("good");
   });
 
   if(ok){
     phonicsProgress.todayCorrect++;
     phonicsProgress.totalCorrect++;
-    phonicsProgress.byAnswer[item.answer].ok++;
-    setKidBearMood(true);
+    phonicsProgress.byVowel[item.vowel].ok++;
+    if(typeof setKidBearMood==="function")setKidBearMood(true);
     setText("phonicsBuddyTitle","答對了");
     setText("phonicsBuddyText","現在看它怎麼拆。");
   }else{
-    phonicsProgress.byAnswer[item.answer].bad++;
+    phonicsProgress.byVowel[item.vowel].bad++;
     if(btn)btn.classList.add("bad");
-    setKidBearMood(false);
+    if(typeof setKidBearMood==="function")setKidBearMood(false);
     setText("phonicsBuddyTitle","先看拆音");
-    setText("phonicsBuddyText","聲音一樣，不代表字母一定一樣。");
+    setText("phonicsBuddyText","先找到中間的母音，再把字拼起來。");
   }
   savePhonicsProgress();
   updatePhonicsProgressUI();
@@ -6992,12 +7042,13 @@ function answerPhonics(value,btn){
   setText("phonicsExplainWord",item.word);
   const boxes=document.getElementById("phonicsExplainBoxes");
   if(boxes)boxes.innerHTML=phonicsSoundBoxesHtml(item.segments);
-  setText("phonicsExplainText",item.explain);
+  setText("phonicsExplainText",`${item.explain}　這題的母音是 ${item.vowel}。`);
   document.getElementById("phonicsExplain")?.classList.remove("hidden");
   document.getElementById("phonicsNextBtn")?.classList.remove("hidden");
 }
 
 const beginnerWordBridge=[
+
   {letter:"A",word:"apple",zh:"蘋果",emoji:"🍎"},
   {letter:"A",word:"ant",zh:"螞蟻",emoji:"🐜"},
   {letter:"B",word:"ball",zh:"球",emoji:"⚽"},
