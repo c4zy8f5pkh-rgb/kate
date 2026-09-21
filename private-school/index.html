@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V18.2｜復旦 × 六和</title>
+<title>兄弟學習基地 V18.3｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -3384,6 +3384,64 @@ body:not(.younger-mode) .page.youngerOnly{
 }
 </style>
 
+
+<style id="v183-fixed-vowel-buttons">
+#youngerPhonics .fixedVowelChoices{
+  display:grid !important;
+  grid-template-columns:repeat(5,72px) !important;
+  justify-content:center !important;
+  align-items:center !important;
+  gap:12px !important;
+  min-height:76px !important;
+  margin:16px auto 8px !important;
+}
+#youngerPhonics .fixedVowelChoices .vowelAnswerBtn{
+  display:flex !important;
+  width:72px !important;
+  height:68px !important;
+  min-width:72px !important;
+  min-height:68px !important;
+  align-items:center !important;
+  justify-content:center !important;
+  border:2px solid #b9c8e5 !important;
+  border-radius:18px !important;
+  background:#f6f9ff !important;
+  color:#40577f !important;
+  font-size:30px !important;
+  font-weight:1000 !important;
+  cursor:pointer !important;
+  visibility:visible !important;
+  opacity:1 !important;
+}
+#youngerPhonics .fixedVowelChoices .vowelAnswerBtn:hover{
+  transform:translateY(-1px);
+  border-color:#7f98cb !important;
+}
+#youngerPhonics .fixedVowelChoices .vowelAnswerBtn.good{
+  background:#eef9f0 !important;
+  border-color:#85bc94 !important;
+  color:#3e7350 !important;
+}
+#youngerPhonics .fixedVowelChoices .vowelAnswerBtn.bad{
+  background:#fff2ed !important;
+  border-color:#d99d86 !important;
+  color:#995f48 !important;
+}
+@media(max-width:600px){
+  #youngerPhonics .fixedVowelChoices{
+    grid-template-columns:repeat(5,56px) !important;
+    gap:7px !important;
+  }
+  #youngerPhonics .fixedVowelChoices .vowelAnswerBtn{
+    width:56px !important;
+    height:58px !important;
+    min-width:56px !important;
+    min-height:58px !important;
+    font-size:26px !important;
+  }
+}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -3425,7 +3483,7 @@ body:not(.younger-mode) .page.youngerOnly{
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V18.2</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V18.3</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -4061,8 +4119,14 @@ body:not(.younger-mode) .page.youngerOnly{
       <button type="button" class="phonicsBigListen" id="phonicsListenBtn">🔊 慢慢聽</button>
 
       <div class="phonicsQuestionText" id="phonicsQuestionText">這個字中間是哪一個母音？</div>
-      <div class="phonicsChoiceRow" id="phonicsChoices"></div>
-      <div class="phonicsTapHint">直接點下面的母音答案，不用鍵盤輸入。</div>
+      <div class="phonicsChoiceRow fixedVowelChoices" id="phonicsChoices" aria-label="母音答案">
+        <button type="button" class="phonicsChoice vowelAnswerBtn" data-answer="a">a</button>
+        <button type="button" class="phonicsChoice vowelAnswerBtn" data-answer="e">e</button>
+        <button type="button" class="phonicsChoice vowelAnswerBtn" data-answer="i">i</button>
+        <button type="button" class="phonicsChoice vowelAnswerBtn" data-answer="o">o</button>
+        <button type="button" class="phonicsChoice vowelAnswerBtn" data-answer="u">u</button>
+      </div>
+      <div class="phonicsTapHint">點一個母音：a　e　i　o　u</div>
 
       <div class="phonicsExplain hidden" id="phonicsExplain">
         <div class="phonicsExplainWord" id="phonicsExplainWord"></div>
@@ -6945,7 +7009,7 @@ function savePhonicsProgress(){
   SafeStore.set(PHONICS_PROGRESS_KEY,JSON.stringify(phonicsProgress));
 }
 function refillPhonicsBag(){
-  let ids=PHONICS_VOWEL_BANK.map(x=>x.id);
+  let ids=PHONICS_VOWEL_BANK.filter(x=>x.type==="middle").map(x=>x.id);
   for(let i=ids.length-1;i>0;i--){
     const j=Math.floor(Math.random()*(i+1));
     [ids[i],ids[j]]=[ids[j],ids[i]];
@@ -7035,11 +7099,11 @@ function nextPhonicsQuestion(){
   phonicsState.item=item;
 
   setText("phonicsRound",`第 ${phonicsState.round} / 8 題`);
-  setText("phonicsFocus",item.type==="middle"?"找中間音":"選對單字");
+  setText("phonicsFocus","找中間音");
   setText("phonicsPicture",item.emoji);
   setText("phonicsChinese",item.zh);
   setText("phonicsPattern",item.pattern);
-  setText("phonicsQuestionText",item.type==="middle"?"這個字中間是哪一個母音？":"聽一聽，選對的單字。");
+  setText("phonicsQuestionText","這個字中間是哪一個母音？");
 
   const explain=document.getElementById("phonicsExplain");
   if(explain)explain.classList.add("hidden");
@@ -7047,17 +7111,15 @@ function nextPhonicsQuestion(){
 
   const choices=document.getElementById("phonicsChoices");
   if(choices){
-    const arr=(Array.isArray(item.choices)&&item.choices.length?item.choices:["a","e","i","o","u"]).slice();
-    if(Math.random()<.5)arr.reverse();
-    choices.innerHTML=arr.map(c=>`<button type="button" class="phonicsChoice ${item.type==="word"?"wordChoice":""}" data-answer="${c}">${c}</button>`).join("");
     choices.style.display="flex";
     choices.style.visibility="visible";
-    choices.querySelectorAll(".phonicsChoice").forEach(btn=>{
-      btn.onclick=()=>answerPhonics(btn.dataset.answer,btn);
+    choices.querySelectorAll(".vowelAnswerBtn").forEach(btn=>{
+      btn.disabled=false;
+      btn.classList.remove("good","bad");
     });
   }
 
-  setText("phonicsBuddyTitle",item.type==="middle"?"先聽中間的聲音":"先聽，再選對單字");
+  setText("phonicsBuddyTitle","先聽中間的聲音");
   setText("phonicsBuddyText","不用急著猜，先聽完整單字。");
   setTimeout(()=>speakPhonicsWord(item.word),180);
 }
@@ -7065,7 +7127,7 @@ function answerPhonics(value,btn){
   if(phonicsState.answered)return;
   const item=phonicsState.item;if(!item)return;
   phonicsState.answered=true;
-  const correct=item.type==="middle"?item.vowel:item.answerWord;
+  const correct=item.vowel;
   const ok=value===correct;
 
   phonicsProgress.todayAttempts++;
@@ -8236,6 +8298,9 @@ document.getElementById("phonicsStartBtn")?.addEventListener("click",startPhonic
 document.getElementById("phonicsListenBtn")?.addEventListener("click",()=>{if(phonicsState.item)speakPhonicsWord(phonicsState.item.word);});
 document.getElementById("phonicsRepeatBtn")?.addEventListener("click",()=>{if(phonicsState.item)speakPhonicsWord(phonicsState.item.word);});
 document.getElementById("phonicsNextBtn")?.addEventListener("click",nextPhonicsQuestion);
+document.querySelectorAll("#phonicsChoices .vowelAnswerBtn").forEach(btn=>{
+  btn.addEventListener("click",()=>answerPhonics(btn.dataset.answer,btn));
+});
 document.querySelectorAll(".phonicsListenWord[data-word]").forEach(btn=>{
   btn.addEventListener("click",()=>speakPhonicsWord(btn.dataset.word));
 });
