@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V18.5｜復旦 × 六和</title>
+<title>兄弟學習基地 V18.8｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -3504,7 +3504,7 @@ body:not(.younger-mode) .page.youngerOnly{
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V18.5</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V18.8</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -4566,7 +4566,7 @@ body:not(.younger-mode) .page.youngerOnly{
         <div class="practiceTop">
           <div>
             <h3>🖨️ 五年級紙本考卷產生器</h3>
-            <div class="muted">從目前網站題庫出題；答案與解說會獨立放在後面，不會印在學生作答頁。</div>
+            <div class="muted">數學八大分類都使用大型變化題池；換卷會優先避開近期與上一份題目。答案與解說獨立放在後面。</div>
           </div>
           <span class="tag">家長專用</span>
         </div>
@@ -4618,7 +4618,7 @@ body:not(.younger-mode) .page.youngerOnly{
 
         <div class="practiceActions">
           <button type="button" class="btn" id="paperGenerateBtn">產生考卷</button>
-          <button type="button" class="btn secondary" id="paperRerollBtn">換一份題目</button>
+          <button type="button" class="btn secondary" id="paperRerollBtn">換一份題目（避開上一份）</button>
           <button type="button" class="btn secondary" id="paperPrintBtn" disabled>列印／另存 PDF</button>
         </div>
         <div id="paperGeneratorMsg" class="muted" style="margin-top:9px"></div>
@@ -4714,7 +4714,7 @@ body:not(.younger-mode) .page.youngerOnly{
             <div class="mathCategorySettingGrid">
               <label><span><b>四則與計算規律</b><small>R-5-2</small></span><select id="setMathCat_arithmetic"><option>0</option><option>1</option><option selected>2</option><option>3</option><option>4</option></select></label>
               <label><span><b>應用與多步驟</b><small>N-5-2／R-5-1</small></span><select id="setMathCat_application"><option>0</option><option>1</option><option selected>2</option><option>3</option><option>4</option></select></label>
-              <label><span><b>因數與倍數</b><small>n-Ⅲ-3</small></span><select id="setMathCat_factor"><option>0</option><option selected>1</option><option>2</option><option>3</option><option>4</option></select></label>
+              <label><span><b>因數／公因數／倍數／公倍數</b><small>n-Ⅲ-3</small></span><select id="setMathCat_factor"><option>0</option><option selected>1</option><option>2</option><option>3</option><option>4</option></select></label>
               <label><span><b>分數</b><small>N-5-4／n-Ⅲ-6</small></span><select id="setMathCat_fraction"><option>0</option><option selected>1</option><option>2</option><option>3</option><option>4</option></select></label>
               <label><span><b>小數乘除</b><small>N-5-8／N-5-9</small></span><select id="setMathCat_decimal"><option>0</option><option selected>1</option><option>2</option><option>3</option><option>4</option></select></label>
               <label><span><b>量與單位</b><small>N-5-12／N-5-16</small></span><select id="setMathCat_measure"><option>0</option><option selected>1</option><option>2</option><option>3</option><option>4</option></select></label>
@@ -6492,6 +6492,582 @@ if(document.getElementById("parentPinInput"))document.getElementById("parentPinI
 if(document.getElementById("parentLogoutBtn"))document.getElementById("parentLogoutBtn").onclick=closeParentBackend;
 
 
+
+// ===== V18.6 紙本專用：因數／公因數／倍數／公倍數大型變化題池 =====
+function paperGcd(a,b){
+  a=Math.abs(a);b=Math.abs(b);
+  while(b){const t=a%b;a=b;b=t;}
+  return a;
+}
+function paperLcm(a,b){
+  return Math.abs(a*b)/paperGcd(a,b);
+}
+function buildFactorPaperVariants(){
+  const out=[];
+  const seen=new Set();
+
+  function add(q){
+    if(seen.has(q.q))return;
+    seen.add(q.q);
+    out.push(q);
+  }
+
+  // 一般題：直接算 GCD / LCM，建立基本功。
+  let si=1;
+  for(let a=6;a<=36;a++){
+    for(let b=a+2;b<=54;b++){
+      const g=paperGcd(a,b),l=paperLcm(a,b);
+      if(g<=1 || l>360)continue;
+
+      if(si<=36){
+        add({
+          id:`pf_s_gcd_${si}`,category:"factor",style:"standard",curriculum:"n-Ⅲ-3",
+          type:"因數與倍數",
+          q:`${a} 和 ${b} 的最大公因數是多少？`,
+          show:String(g),a:[String(g)],
+          why:`${a} 和 ${b} 的共同因數中，最大的數是 ${g}。`,
+          formula:"最大公因數＝兩數共同因數中最大的數"
+        });
+      }
+      if(si<=72){
+        add({
+          id:`pf_s_lcm_${si}`,category:"factor",style:"standard",curriculum:"n-Ⅲ-3",
+          type:"因數與倍數",
+          q:`${a} 和 ${b} 的最小公倍數是多少？`,
+          show:String(l),a:[String(l)],
+          why:`找出 ${a} 和 ${b} 的共同倍數，其中最小的是 ${l}。`,
+          formula:"最小公倍數＝兩數共同倍數中最小的數"
+        });
+      }
+      si++;
+      if(out.filter(x=>x.style==="standard").length>=72)break;
+    }
+    if(out.filter(x=>x.style==="standard").length>=72)break;
+  }
+
+  // 進階題：問倍數、公倍數、未知數與判斷。
+  let ai=1;
+  const advancedPairs=[
+    [12,18],[15,20],[16,24],[18,30],[21,28],[24,36],[27,45],[28,42],[30,45],[32,48],
+    [35,50],[36,54],[40,60],[42,63],[45,60],[48,72],[50,75],[54,81],[56,84],[60,90],
+    [18,24],[20,30],[22,33],[24,40],[25,40],[26,39],[28,35],[30,42],[32,40],[36,45],
+    [40,48],[42,56],[44,66],[45,75],[48,64],[50,60],[52,78],[54,72],[55,66],[56,70]
+  ];
+  advancedPairs.forEach(([a,b],idx)=>{
+    const g=paperGcd(a,b),l=paperLcm(a,b);
+
+    add({
+      id:`pf_a_lcm_${++ai}`,category:"factor",style:"advanced",curriculum:"n-Ⅲ-3",
+      type:"因數與倍數",
+      q:`${a} 的倍數中，同時也是 ${b} 的倍數，最小的正整數是多少？`,
+      show:String(l),a:[String(l)],
+      why:`這是在找 ${a} 和 ${b} 的最小公倍數，所以答案是 ${l}。`,
+      formula:"同時是兩數的倍數，而且要最小 → 最小公倍數"
+    });
+
+    add({
+      id:`pf_a_gcd_${++ai}`,category:"factor",style:"advanced",curriculum:"n-Ⅲ-3",
+      type:"因數與倍數",
+      q:`一個正整數同時是 ${a} 和 ${b} 的因數。這樣的數中最大的是多少？`,
+      show:String(g),a:[String(g)],
+      why:`同時是兩數的因數，且要求最大，所以求最大公因數＝${g}。`,
+      formula:"同時是兩數的因數，而且要最大 → 最大公因數"
+    });
+
+    add({
+      id:`pf_a_next_${++ai}`,category:"factor",style:"advanced",curriculum:"n-Ⅲ-3",
+      type:"因數與倍數",
+      q:`${a} 和 ${b} 的最小公倍數是 ${l}。下一個同時是兩數倍數的正整數是多少？`,
+      show:String(l*2),a:[String(l*2)],
+      why:`所有公倍數都是最小公倍數 ${l} 的倍數，下一個就是 ${l}×2＝${l*2}。`,
+      formula:"公倍數＝最小公倍數的倍數"
+    });
+  });
+
+  // 變化題：生活情境，交錯最大公因數 / 最小公倍數。
+  const schedulePairs=[
+    [4,6],[6,8],[6,9],[8,12],[9,12],[10,15],[12,18],[14,21],[15,20],[16,24],
+    [18,24],[20,30],[21,28],[24,36],[25,30],[27,36],[28,42],[30,45],[32,48],[35,50],
+    [36,54],[40,60],[42,63],[45,60],[48,72],[50,75],[54,81],[56,84],[60,90],[24,30]
+  ];
+  schedulePairs.forEach(([a,b],idx)=>{
+    const l=paperLcm(a,b);
+    const templates=[
+      [`甲燈每 ${a} 秒閃一次，乙燈每 ${b} 秒閃一次。兩盞燈現在同時閃，至少再過幾秒會再次同時閃？`,
+       `再次同時發生要找 ${a} 和 ${b} 的最小公倍數，所以是 ${l} 秒。`],
+      [`A 公車每 ${a} 分鐘一班，B 公車每 ${b} 分鐘一班。兩班車現在同時到站，至少再過幾分鐘會再次同時到站？`,
+       `兩個週期再次重合，求最小公倍數：${l} 分鐘。`],
+      [`小明每 ${a} 天整理一次書桌，小華每 ${b} 天整理一次。今天兩人剛好同一天整理，下次至少幾天後又會同一天整理？`,
+       `求 ${a} 和 ${b} 的最小公倍數，得到 ${l} 天。`]
+    ];
+    const [q,why]=templates[idx%templates.length];
+    add({
+      id:`pf_v_lcm_${idx+1}`,category:"factor",style:"variation",curriculum:"n-Ⅲ-3",
+      type:"因數與倍數",q,show:String(l),a:[String(l)],
+      why,formula:"週期再次同時發生 → 求最小公倍數",
+      diagram:{type:"flow",steps:[`${a} 的週期`,`${b} 的週期`,"找最小公倍數",String(l)]}
+    });
+  });
+
+  const groupingPairs=[
+    [24,36],[28,42],[30,45],[32,48],[36,54],[40,60],[42,56],[45,60],[48,72],[50,75],
+    [54,72],[56,84],[60,90],[63,84],[64,80],[66,88],[70,98],[72,96],[75,100],[78,104],
+    [80,120],[84,126],[88,132],[90,120],[96,144],[98,126],[100,150],[108,144],[112,168],[120,180]
+  ];
+  groupingPairs.forEach(([a,b],idx)=>{
+    const g=paperGcd(a,b);
+    const red=a/g,blue=b/g;
+    const templates=[
+      `老師有 ${a} 枝紅筆和 ${b} 枝藍筆，要分成最多組，而且每組紅筆數、藍筆數都相同且沒有剩下。最多可以分成幾組？`,
+      `有 ${a} 個蘋果和 ${b} 個橘子，要裝成最多份內容完全相同的水果袋，而且全部用完。最多可以裝成幾袋？`,
+      `美術教室有 ${a} 張紅色卡紙和 ${b} 張藍色卡紙，要平均分成最多份相同材料包且不剩。最多可以分成幾份？`
+    ];
+    add({
+      id:`pf_v_gcd_${idx+1}`,category:"factor",style:"variation",curriculum:"n-Ⅲ-3",
+      type:"因數與倍數",q:templates[idx%templates.length],
+      show:String(g),a:[String(g)],
+      why:`要求「最多份、每份完全相同、沒有剩下」，所以求 ${a} 和 ${b} 的最大公因數＝${g}。`,
+      formula:"最多分成相同組且無剩餘 → 求最大公因數",
+      diagram:{type:"flow",steps:[String(a),String(b),"找最大公因數",`${g} 組`]}
+    });
+  });
+
+  return out;
+}
+const PAPER_FACTOR_VARIANTS=buildFactorPaperVariants();
+
+// ===== V18.7 紙本專用：完整數學八大分類大型題池 =====
+function paperFrac(n,d){
+  const g=paperGcd(n,d);
+  n/=g; d/=g;
+  return d===1 ? String(n) : `${n}/${d}`;
+}
+function paperFmt1(n){
+  return Number.isInteger(n) ? String(n) : String(Math.round(n*10)/10);
+}
+function paperFmt2(n){
+  return Number.isInteger(n) ? String(n) : String(Math.round(n*100)/100);
+}
+
+// 四則與計算規律
+function buildArithmeticPaperVariants(){
+  const out=[],seen=new Set();
+  const add=q=>{if(!seen.has(q.q)){seen.add(q.q);out.push(q)}};
+
+  // 一般題 72
+  for(let i=1;i<=24;i++){
+    const a=120+i*13,b=7+(i%8),c=20+(i%11);
+    add({id:`pa_s1_${i}`,category:"arithmetic",style:"standard",curriculum:"R-5-2",type:"四則與計算規律",
+      q:`${a}＋${b}×${c}＝？`,show:String(a+b*c),a:[String(a+b*c)],
+      why:`先算乘法 ${b}×${c}＝${b*c}，再算 ${a}＋${b*c}＝${a+b*c}。`,
+      formula:"先乘除，後加減。"});
+  }
+  for(let i=1;i<=24;i++){
+    const b=6+(i%7),c=12+(i%9),qv=20+(i%12),a=b*c*qv;
+    add({id:`pa_s2_${i}`,category:"arithmetic",style:"standard",curriculum:"R-5-2",type:"四則與計算規律",
+      q:`${a}÷${b}－${c}＝？`,show:String(a/b-c),a:[String(a/b-c)],
+      why:`先算 ${a}÷${b}＝${a/b}，再減 ${c}，得到 ${a/b-c}。`,
+      formula:"同一算式先做乘除，再做加減。"});
+  }
+  for(let i=1;i<=24;i++){
+    const a=30+i,b=14+(i%10),c=3+(i%6);
+    const ans=(a+b)*c;
+    add({id:`pa_s3_${i}`,category:"arithmetic",style:"standard",curriculum:"R-5-2",type:"四則與計算規律",
+      q:`（${a}＋${b}）×${c}＝？`,show:String(ans),a:[String(ans)],
+      why:`先算括號 ${a}＋${b}＝${a+b}，再乘 ${c}，得到 ${ans}。`,
+      formula:"有括號先算括號。"});
+  }
+
+  // 進階題 72
+  for(let i=1;i<=24;i++){
+    const a=18+(i%10),b=25+(i%12),c=6+(i%8),d=9+(i%7);
+    const ans=a*b-c*d;
+    add({id:`pa_a1_${i}`,category:"arithmetic",style:"advanced",curriculum:"R-5-2",type:"四則與計算規律",
+      q:`${a}×${b}－${c}×${d}＝？`,show:String(ans),a:[String(ans)],
+      why:`先分別算兩個乘法：${a}×${b}＝${a*b}，${c}×${d}＝${c*d}，再相減得 ${ans}。`,
+      formula:"兩個乘法都先完成，再做減法。"});
+  }
+  for(let i=1;i<=24;i++){
+    const x=6+(i%9),y=5+(i%8),z=4+(i%6),k=10+(i%9);
+    const total=(x+y)*z*k;
+    const ans=total/z-y*k; // crafted integer
+    add({id:`pa_a2_${i}`,category:"arithmetic",style:"advanced",curriculum:"R-5-2",type:"四則與計算規律",
+      q:`${total}÷${z}－${y}×${k}＝？`,show:String(ans),a:[String(ans)],
+      why:`${total}÷${z}＝${total/z}，${y}×${k}＝${y*k}，再相減得 ${ans}。`,
+      formula:"乘除同級，先完成乘除，再處理加減。"});
+  }
+  for(let i=1;i<=24;i++){
+    const a=20+(i%15),b=12+(i%10),c=5+(i%6),d=30+(i%13);
+    const ans=(a-b)*c+d;
+    add({id:`pa_a3_${i}`,category:"arithmetic",style:"advanced",curriculum:"R-5-2",type:"四則與計算規律",
+      q:`（${a}－${b}）×${c}＋${d}＝？`,show:String(ans),a:[String(ans)],
+      why:`先算括號 ${a}－${b}＝${a-b}，再乘 ${c}，最後加 ${d}，答案是 ${ans}。`,
+      formula:"括號 → 乘除 → 加減。"});
+  }
+
+  // 變化題 72
+  for(let i=1;i<=24;i++){
+    const k=[25,50,75,125][i%4],a=20+(i%15),b=100-a;
+    const ans=k*100;
+    add({id:`pa_v1_${i}`,category:"arithmetic",style:"variation",curriculum:"R-5-2",type:"四則與計算規律",
+      q:`${k}×${a}＋${k}×${b}＝？（想想看能不能簡化）`,show:String(ans),a:[String(ans)],
+      why:`兩項都有 ${k}，可用分配律：${k}×（${a}＋${b}）＝${k}×100＝${ans}。`,
+      formula:"a×b＋a×c＝a×（b＋c）",
+      diagram:{type:"flow",steps:[`${k}×${a}＋${k}×${b}`,`${k}×(${a}+${b})`,`${k}×100`,String(ans)]}});
+  }
+  for(let i=1;i<=24;i++){
+    const a=12+(i%9),b=7+(i%8),target=(a+b)*(5+(i%7)),c=target/(a+b);
+    add({id:`pa_v2_${i}`,category:"arithmetic",style:"variation",curriculum:"R-5-2",type:"四則與計算規律",
+      q:`（${a}＋${b}）×□＝${target}，□是多少？`,show:String(c),a:[String(c)],
+      why:`先算括號 ${a}＋${b}＝${a+b}，再用 ${target}÷${a+b}＝${c}。`,
+      formula:"已知積與其中一個因數，可用除法求另一個因數。"});
+  }
+  for(let i=1;i<=24;i++){
+    const n=90+i*5,a=20+(i%17),b=10+(i%9),ans=n-(a+b);
+    add({id:`pa_v3_${i}`,category:"arithmetic",style:"variation",curriculum:"R-5-2",type:"四則與計算規律",
+      q:`${n}－（${a}＋${b}）＝？`,show:String(ans),a:[String(ans)],
+      why:`先算括號 ${a}＋${b}＝${a+b}，再用 ${n}－${a+b}＝${ans}。`,
+      formula:"減去一個和，要先確定括號代表的總量。"});
+  }
+  return out;
+}
+
+// 應用與多步驟
+function buildApplicationPaperVariants(){
+  const out=[],seen=new Set();
+  const add=q=>{if(!seen.has(q.q)){seen.add(q.q);out.push(q)}};
+
+  for(let i=1;i<=60;i++){
+    const boxes=8+(i%17),each=18+(i%19),used=40+(i*7)%180,total=boxes*each;
+    if(used>=total)continue;
+    add({id:`pap_s_${i}`,category:"application",style:"standard",curriculum:"N-5-2／R-5-1",type:"應用與多步驟",
+      q:`倉庫有 ${boxes} 箱物品，每箱 ${each} 個，送出 ${used} 個後，還剩多少個？`,
+      show:String(total-used),a:[String(total-used)],
+      why:`先求總數：${boxes}×${each}＝${total}；再扣掉 ${used}，剩 ${total-used}。`,
+      formula:"剩下＝每箱數量×箱數－已使用量",
+      diagram:{type:"flow",steps:[`${boxes}×${each}`,String(total),`－${used}`,String(total-used)]}});
+  }
+
+  for(let i=1;i<=60;i++){
+    const days=5,avg=32+(i%17),a=28+(i%8),b=31+(i%9),c=34+(i%7),d=30+(i%10);
+    const total=avg*days, known=a+b+c+d, last=total-known;
+    if(last<=0)continue;
+    add({id:`pap_a_${i}`,category:"application",style:"advanced",curriculum:"N-5-2／R-5-1",type:"應用與多步驟",
+      q:`小宇 5 天平均每天讀 ${avg} 頁。前 4 天分別讀 ${a}、${b}、${c}、${d} 頁，第 5 天讀多少頁？`,
+      show:String(last),a:[String(last)],
+      why:`5天總頁數＝${avg}×5＝${total}；前4天共 ${known} 頁；第5天＝${total}－${known}＝${last}。`,
+      formula:"總量＝平均×份數；未知量＝總量－已知量"});
+  }
+
+  for(let i=1;i<=60;i++){
+    const boxes=12+(i%15),each=24+(i%16),give=80+(i*9)%160,classes=4+(i%7),total=boxes*each;
+    const remain=total-give;
+    if(remain<=0 || remain%classes!==0)continue;
+    const ans=remain/classes;
+    add({id:`pap_v_${i}`,category:"application",style:"variation",curriculum:"N-5-2／R-5-1",type:"應用與多步驟",
+      q:`學校有 ${boxes} 盒材料，每盒 ${each} 份，先拿出 ${give} 份給社團，剩下的平均分給 ${classes} 班。每班分到幾份？`,
+      show:String(ans),a:[String(ans)],
+      why:`先算總量 ${boxes}×${each}＝${total}，再減 ${give} 得 ${remain}，最後 ${remain}÷${classes}＝${ans}。`,
+      formula:"（每盒數量×盒數－先使用量）÷班級數",
+      diagram:{type:"flow",steps:[`${boxes}×${each}`,String(total),`－${give}`,String(remain),`÷${classes}`,String(ans)]}});
+  }
+
+  // 補足 variation 數量
+  let k=1;
+  while(out.filter(x=>x.style==="variation").length<60){
+    const groups=6+(k%8),per=15+(k%11),left=10+(k%9);
+    const original=groups*per+left;
+    add({id:`pap_vr_${k}`,category:"application",style:"variation",curriculum:"N-5-2／R-5-1",type:"應用與多步驟",
+      q:`一些物品平均分成 ${groups} 組，每組 ${per} 個，最後還剩 ${left} 個。原來共有多少個？`,
+      show:String(original),a:[String(original)],
+      why:`已分出的數量＝${groups}×${per}＝${groups*per}，再加剩下 ${left}，原來共有 ${original} 個。`,
+      formula:"原量＝平均分出的總量＋剩餘量"});
+    k++;
+  }
+  return out;
+}
+
+// 分數
+function buildFractionPaperVariants(){
+  const out=[],seen=new Set();
+  const add=q=>{if(!seen.has(q.q)){seen.add(q.q);out.push(q)}};
+  const dens=[3,4,5,6,8,10,12];
+
+  let c=1;
+  for(const d1 of dens){
+    for(const d2 of dens){
+      if(d1===d2)continue;
+      const n1=1+(c%(d1-1)),n2=1+((c*2)%(d2-1));
+      const num=n1*d2+n2*d1,den=d1*d2;
+      add({id:`pfr_s_add_${c}`,category:"fraction",style:"standard",curriculum:"N-5-4",type:"分數",
+        q:`${n1}/${d1}＋${n2}/${d2}＝？`,show:paperFrac(num,den),a:[paperFrac(num,den)],
+        why:`先通分，再相加，最後化簡為 ${paperFrac(num,den)}。`,
+        formula:"異分母加減：先通分，再加減，最後化簡。"});
+      c++; if(out.filter(x=>x.style==="standard").length>=60)break;
+    }
+    if(out.filter(x=>x.style==="standard").length>=60)break;
+  }
+  while(out.filter(x=>x.style==="standard").length<60){
+    const i=out.filter(x=>x.style==="standard").length+1,d1=4+(i%5),d2=6+(i%7),n1=1+(i%(d1-1)),n2=1+(i%(d2-1));
+    const L=paperLcm(d1,d2),A=n1*(L/d1),B=n2*(L/d2);
+    const big=Math.max(A,B)+L,small=Math.min(A,B);
+    add({id:`pfr_s_sub_${i}`,category:"fraction",style:"standard",curriculum:"N-5-4",type:"分數",
+      q:`${big}/${L}－${small}/${L}＝？`,show:paperFrac(big-small,L),a:[paperFrac(big-small,L)],
+      why:`分母相同，分子相減，再化簡為 ${paperFrac(big-small,L)}。`,
+      formula:"同分母分數相減：分母不變，分子相減。"});
+  }
+
+  for(let i=1;i<=60;i++){
+    const n1=2+(i%7),d1=3+(i%8),n2=2+((i*2)%6),d2=4+((i*3)%7);
+    const num=n1*n2,den=d1*d2;
+    add({id:`pfr_a_mul_${i}`,category:"fraction",style:"advanced",curriculum:"n-Ⅲ-6",type:"分數",
+      q:`${n1}/${d1}×${n2}/${d2}＝？`,show:paperFrac(num,den),a:[paperFrac(num,den)],
+      why:`分子相乘、分母相乘，再約分：${n1}×${n2}/${d1}×${d2}＝${paperFrac(num,den)}。`,
+      formula:"分數乘法：分子×分子，分母×分母，最後約分。"});
+  }
+
+  for(let i=1;i<=60;i++){
+    const total=60+12*(i%16),n=1+(i%4),d=[3,4,5,6][i%4];
+    if(total%d!==0)continue;
+    const first=total*n/d, remain=total-first;
+    const secondDen=[2,3,4,5][i%4],secondNum=1;
+    if(remain%secondDen!==0)continue;
+    const second=remain*secondNum/secondDen,ans=remain-second;
+    add({id:`pfr_v_${i}`,category:"fraction",style:"variation",curriculum:"n-Ⅲ-6",type:"分數",
+      q:`一批物品共有 ${total} 個，先用掉全部的 ${n}/${d}，再用掉剩下的 1/${secondDen}。最後剩多少個？`,
+      show:String(ans),a:[String(ans)],
+      why:`第一次用掉 ${first}，剩 ${remain}；第二次用掉剩下的 1/${secondDen}＝${second}；最後剩 ${ans}。`,
+      formula:"第二次的分數要以『剩下的量』為基準。",
+      diagram:{type:"flow",steps:[String(total),`先用 ${n}/${d}`,String(remain),`再用剩下的 1/${secondDen}`,String(ans)]}});
+  }
+  let vi=1;
+  while(out.filter(x=>x.style==="variation").length<60){
+    const d=4+(vi%5),part=2+(vi%4),unit=6+(vi%9),whole=d*unit,used=part*unit,remain=whole-used;
+    add({id:`pfr_vr_${vi}`,category:"fraction",style:"variation",curriculum:"N-5-4",type:"分數",
+      q:`一條緞帶全長 ${whole} 公分，用掉全長的 ${part}/${d}，還剩多少公分？`,
+      show:String(remain),a:[String(remain)],
+      why:`先算用掉 ${whole}×${part}/${d}＝${used} 公分，再用 ${whole}－${used}＝${remain} 公分。`,
+      formula:"部分量＝全部量×分率；剩餘量＝全部量－部分量"});
+    vi++;
+  }
+  return out;
+}
+
+// 小數乘除
+function buildDecimalPaperVariants(){
+  const out=[],seen=new Set();
+  const add=q=>{if(!seen.has(q.q)){seen.add(q.q);out.push(q)}};
+
+  for(let i=1;i<=60;i++){
+    const a=(11+i)/10,b=2+(i%8),ans=a*b;
+    add({id:`pde_s_${i}`,category:"decimal",style:"standard",curriculum:"N-5-8",type:"小數乘除",
+      q:`${a.toFixed(1)}×${b}＝？`,show:paperFmt1(ans),a:[paperFmt1(ans)],
+      why:`先按整數乘法計算，再依小數位值放回小數點，答案是 ${paperFmt1(ans)}。`,
+      formula:"小數乘法：先算乘法，再確認小數位數。"});
+  }
+
+  for(let i=1;i<=60;i++){
+    const divisor=2+(i%8),quot=(15+(i%35))/10,dividend=divisor*quot;
+    add({id:`pde_a_${i}`,category:"decimal",style:"advanced",curriculum:"N-5-9",type:"小數乘除",
+      q:`${paperFmt1(dividend)}÷${divisor}＝？`,show:paperFmt1(quot),a:[paperFmt1(quot)],
+      why:`${paperFmt1(dividend)}÷${divisor}＝${paperFmt1(quot)}。`,
+      formula:"小數除以整數：按位值除，小數點在商中對齊。"});
+  }
+
+  for(let i=1;i<=60;i++){
+    const price=(45+(i%40))/10,qty=2+(i%5),pay=price*qty,extra=(10+(i%25))/10,total=pay+extra;
+    add({id:`pde_v_${i}`,category:"decimal",style:"variation",curriculum:"n-Ⅲ-7",type:"小數乘除",
+      q:`每公斤水果 ${price.toFixed(1)} 元，買 ${qty} 公斤，再加一個 ${extra.toFixed(1)} 元的袋子，共要付多少元？`,
+      show:paperFmt1(total),a:[paperFmt1(total)],
+      why:`水果費 ${price.toFixed(1)}×${qty}＝${paperFmt1(pay)}，再加袋子 ${extra.toFixed(1)}，共 ${paperFmt1(total)} 元。`,
+      formula:"總價＝單價×數量＋其他費用",
+      diagram:{type:"flow",steps:[`${price.toFixed(1)}×${qty}`,paperFmt1(pay),`＋${extra.toFixed(1)}`,paperFmt1(total)]}});
+  }
+  return out;
+}
+
+// 量與單位
+function buildMeasurePaperVariants(){
+  const out=[],seen=new Set();
+  const add=q=>{if(!seen.has(q.q)){seen.add(q.q);out.push(q)}};
+
+  for(let i=1;i<=20;i++){
+    const m=(12+i)/10,cm=m*100;
+    add({id:`pme_s_len_${i}`,category:"measure",style:"standard",curriculum:"n-Ⅲ-11",type:"量與單位",
+      q:`${m.toFixed(1)} 公尺等於多少公分？`,show:String(cm),a:[String(cm)],
+      why:`1公尺＝100公分，所以 ${m.toFixed(1)}×100＝${cm} 公分。`,formula:"1 公尺＝100 公分"});
+  }
+  for(let i=1;i<=20;i++){
+    const kg=(15+i)/10,g=kg*1000;
+    add({id:`pme_s_w_${i}`,category:"measure",style:"standard",curriculum:"n-Ⅲ-11",type:"量與單位",
+      q:`${kg.toFixed(1)} 公斤等於多少公克？`,show:String(g),a:[String(g)],
+      why:`1公斤＝1000公克，所以 ${kg.toFixed(1)}×1000＝${g} 公克。`,formula:"1 公斤＝1000 公克"});
+  }
+  for(let i=1;i<=20;i++){
+    const hr=1+(i%5),min=15*(i%4),total=hr*60+min;
+    add({id:`pme_s_t_${i}`,category:"measure",style:"standard",curriculum:"N-5-16",type:"量與單位",
+      q:`${hr} 小時 ${min} 分鐘，共是多少分鐘？`,show:String(total),a:[String(total)],
+      why:`${hr} 小時＝${hr*60} 分鐘，再加 ${min} 分鐘，共 ${total} 分鐘。`,formula:"1 小時＝60 分鐘"});
+  }
+
+  for(let i=1;i<=30;i++){
+    const l=20+(i%21),w=12+(i%17),area=l*w;
+    add({id:`pme_a_area_${i}`,category:"measure",style:"advanced",curriculum:"N-5-12",type:"量與單位",
+      q:`長方形長 ${l} 公尺、寬 ${w} 公尺，面積是多少平方公尺？`,show:String(area),a:[String(area)],
+      why:`長方形面積＝${l}×${w}＝${area} 平方公尺。`,formula:"長方形面積＝長×寬",
+      diagram:{type:"rectangle",a:`${l} m`,b:`${w} m`}});
+  }
+  for(let i=1;i<=30;i++){
+    const l=5+(i%8),w=4+(i%7),h=3+(i%6),vol=l*w*h;
+    add({id:`pme_a_vol_${i}`,category:"measure",style:"advanced",curriculum:"N-5-15",type:"量與單位",
+      q:`長方體長 ${l} 公分、寬 ${w} 公分、高 ${h} 公分，體積是多少立方公分？`,show:String(vol),a:[String(vol)],
+      why:`長方體體積＝${l}×${w}×${h}＝${vol} 立方公分。`,formula:"長方體體積＝長×寬×高"});
+  }
+
+  for(let i=1;i<=30;i++){
+    const ha=(10+i)/10,ans=ha*10000;
+    add({id:`pme_v_ha_${i}`,category:"measure",style:"variation",curriculum:"N-5-12",type:"量與單位",
+      q:`${ha.toFixed(1)} 公頃等於多少平方公尺？`,show:String(ans),a:[String(ans)],
+      why:`1公頃＝10000平方公尺，所以 ${ha.toFixed(1)}×10000＝${ans} 平方公尺。`,formula:"1 公頃＝10000 平方公尺"});
+  }
+  for(let i=1;i<=30;i++){
+    const startH=8+(i%5),startM=(i%4)*10,duration=70+(i%7)*15,total=startH*60+startM+duration,endH=Math.floor(total/60),endM=total%60;
+    add({id:`pme_v_time_${i}`,category:"measure",style:"variation",curriculum:"N-5-16",type:"量與單位",
+      q:`活動從 ${startH}:${String(startM).padStart(2,"0")} 開始，持續 ${duration} 分鐘，結束時間是幾點幾分？`,
+      show:`${endH}:${String(endM).padStart(2,"0")}`,a:[`${endH}:${String(endM).padStart(2,"0")}`],
+      why:`先把 ${duration} 分鐘加到開始時間，得到 ${endH}:${String(endM).padStart(2,"0")}。`,
+      formula:"結束時間＝開始時間＋經過時間"});
+  }
+  return out;
+}
+
+// 幾何與線對稱
+function buildGeometryPaperVariants(){
+  const out=[],seen=new Set();
+  const add=q=>{if(!seen.has(q.q)){seen.add(q.q);out.push(q)}};
+
+  for(let i=1;i<=48;i++){
+    const a=35+(i%40),b=45+((i*3)%45);
+    if(a+b>=170)continue;
+    const c=180-a-b;
+    add({id:`pge_s_tri_${i}`,category:"geometry",style:"standard",curriculum:"S-5-1",type:"幾何與線對稱",
+      q:`三角形的兩個內角分別是 ${a}° 和 ${b}°，第三個內角是多少度？`,
+      show:`${c}°`,a:[String(c),`${c}°`],
+      why:`三角形內角和是180°，所以 180－${a}－${b}＝${c}°。`,
+      formula:"三角形三內角和＝180°",diagram:{type:"triangle",labels:[`${a}°`,`${b}°`,"?"]}});
+  }
+  let gs=out.filter(x=>x.style==="standard").length+1;
+  while(out.filter(x=>x.style==="standard").length<48){
+    const angle=80+(gs%50),ans=180-angle;
+    add({id:`pge_s_para_${gs}`,category:"geometry",style:"standard",curriculum:"S-5-1",type:"幾何與線對稱",
+      q:`平行四邊形的一個內角是 ${angle}°，相鄰的內角是多少度？`,show:`${ans}°`,a:[String(ans),`${ans}°`],
+      why:`平行四邊形相鄰兩角和為180°，所以 180－${angle}＝${ans}°。`,
+      formula:"平行四邊形相鄰兩內角和＝180°"});
+    gs++;
+  }
+
+  for(let i=1;i<=48;i++){
+    const l=10+(i%16),w=6+(i%11),p=2*(l+w);
+    add({id:`pge_a_per_${i}`,category:"geometry",style:"advanced",curriculum:"S-5-1",type:"幾何與線對稱",
+      q:`一個長方形長 ${l} 公分、寬 ${w} 公分，它的周長是多少公分？`,
+      show:String(p),a:[String(p),`${p}公分`],
+      why:`長方形周長＝（${l}＋${w}）×2＝${p} 公分。`,
+      formula:"長方形周長＝（長＋寬）×2",diagram:{type:"rectangle",a:`${l} cm`,b:`${w} cm`}});
+  }
+
+  for(let i=1;i<=30;i++){
+    const l=12+i,w=7+(i%11),area=l*w,cut=2+(i%5),cutArea=cut*cut,ans=area-cutArea;
+    add({id:`pge_v_area_${i}`,category:"geometry",style:"variation",curriculum:"S-5-1",type:"幾何與線對稱",
+      q:`一個 ${l}×${w} 的長方形紙片，剪去一個邊長 ${cut} 的正方形角落，剩下面積是多少平方單位？`,
+      show:String(ans),a:[String(ans)],
+      why:`原長方形面積 ${l}×${w}＝${area}，剪去 ${cut}×${cut}＝${cutArea}，剩 ${ans}。`,
+      formula:"剩餘面積＝原面積－剪去面積"});
+  }
+  for(let i=1;i<=30;i++){
+    const l=10+i,w=5+(i%10),p=2*(l+w),known=l,ans=w;
+    add({id:`pge_v_rev_${i}`,category:"geometry",style:"variation",curriculum:"S-5-1",type:"幾何與線對稱",
+      q:`一個長方形的周長是 ${p} 公分，長是 ${known} 公分，寬是多少公分？`,
+      show:String(ans),a:[String(ans),`${ans}公分`],
+      why:`周長的一半是 ${p}÷2＝${p/2}，再減去長 ${known}，寬是 ${ans} 公分。`,
+      formula:"寬＝周長÷2－長",diagram:{type:"rectangle",a:`${known} cm`,b:"?"}});
+  }
+  return out;
+}
+
+// 資料與折線圖
+function buildDataPaperVariants(){
+  const out=[],seen=new Set();
+  const add=q=>{if(!seen.has(q.q)){seen.add(q.q);out.push(q)}};
+
+  for(let i=1;i<=45;i++){
+    const base=10+i;
+    const vals=[base,base+4+(i%3),base+9+(i%5),base+2+(i%6),base+7+(i%4)];
+    const max=Math.max(...vals),min=Math.min(...vals),ans=max-min;
+    add({id:`pda_s_${i}`,category:"data",style:"standard",curriculum:"D-5-1",type:"資料與折線圖",
+      q:`五天的閱讀分鐘數是 ${vals.join("、")}。最高和最低相差多少分鐘？`,
+      show:String(ans),a:[String(ans),`${ans}分鐘`],
+      why:`最高是 ${max}，最低是 ${min}，相差 ${max}－${min}＝${ans}。`,
+      formula:"差＝最大值－最小值",diagram:{type:"line",values:vals,labels:["一","二","三","四","五"]}});
+  }
+
+  for(let i=1;i<=45;i++){
+    const base=14+i;
+    const vals=[base,base+3+(i%4),base+7+(i%5),base+5+(i%6),base+10+(i%7)];
+    const total=vals.reduce((a,b)=>a+b,0);
+    add({id:`pda_a_${i}`,category:"data",style:"advanced",curriculum:"D-5-1",type:"資料與折線圖",
+      q:`某五天的資料是 ${vals.join("、")}。五天合計是多少？`,
+      show:String(total),a:[String(total)],
+      why:`把五天資料相加：${vals.join("＋")}＝${total}。`,
+      formula:"總量＝各日資料相加",diagram:{type:"line",values:vals,labels:["1","2","3","4","5"]}});
+  }
+
+  for(let i=1;i<=45;i++){
+    const base=8+i;
+    const vals=[base,base+5+(i%4),base+2+(i%3),base+11+(i%5),base+7+(i%6)];
+    let best=1,bestInc=-Infinity;
+    for(let j=1;j<vals.length;j++){
+      const inc=vals[j]-vals[j-1];
+      if(inc>bestInc){bestInc=inc;best=j;}
+    }
+    const show=`第${best}天到第${best+1}天`;
+    add({id:`pda_v_${i}`,category:"data",style:"variation",curriculum:"D-5-1",type:"資料與折線圖",
+      q:`某項數據連續5天為 ${vals.join("、")}。哪兩天之間增加最多？`,
+      show,a:[show,`${best}到${best+1}`],
+      why:`逐段比較變化量後，最大增加量出現在第${best}天到第${best+1}天。`,
+      formula:"相鄰變化量＝後一天－前一天",diagram:{type:"line",values:vals,labels:["1","2","3","4","5"]}});
+  }
+  return out;
+}
+
+const PAPER_ARITHMETIC_VARIANTS=buildArithmeticPaperVariants();
+const PAPER_APPLICATION_VARIANTS=buildApplicationPaperVariants();
+const PAPER_FRACTION_VARIANTS=buildFractionPaperVariants();
+const PAPER_DECIMAL_VARIANTS=buildDecimalPaperVariants();
+const PAPER_MEASURE_VARIANTS=buildMeasurePaperVariants();
+const PAPER_GEOMETRY_VARIANTS=buildGeometryPaperVariants();
+const PAPER_DATA_VARIANTS=buildDataPaperVariants();
+
+const PAPER_MATH_VARIANT_POOLS={
+  arithmetic:PAPER_ARITHMETIC_VARIANTS,
+  application:PAPER_APPLICATION_VARIANTS,
+  factor:PAPER_FACTOR_VARIANTS,
+  fraction:PAPER_FRACTION_VARIANTS,
+  decimal:PAPER_DECIMAL_VARIANTS,
+  measure:PAPER_MEASURE_VARIANTS,
+  geometry:PAPER_GEOMETRY_VARIANTS,
+  data:PAPER_DATA_VARIANTS
+};
+
+function paperMathExpandedBank(categories){
+  const extra=[];
+  (categories||[]).forEach(cat=>{
+    const arr=PAPER_MATH_VARIANT_POOLS[cat]||[];
+    extra.push(...arr);
+  });
+  return mathBank.concat(extra);
+}
+
+
 // ===== V17.9 家長中心：紙本考卷產生器 =====
 const PAPER_HISTORY_KEY="family_paper_generator_history_v179";
 const PAPER_CH_CATEGORIES=["字音","字形","字義","成語","短文閱讀","閱讀推論","文言文","句子重組","短寫作"];
@@ -6499,7 +7075,7 @@ const PAPER_MATH_CATEGORIES=["arithmetic","application","factor","fraction","dec
 const PAPER_MATH_LABELS={
   arithmetic:"四則與計算規律",
   application:"應用與多步驟",
-  factor:"因數與倍數",
+  factor:"因數／公因數／倍數／公倍數",
   fraction:"分數",
   decimal:"小數乘除",
   measure:"量與單位",
@@ -6516,7 +7092,7 @@ function paperLoadHistory(){
 }
 function paperSaveHistory(ids){
   const old=paperLoadHistory().ids||[];
-  const merged=[...ids,...old.filter(id=>!ids.includes(id))].slice(0,80);
+  const merged=[...ids,...old.filter(id=>!ids.includes(id))].slice(0,500);
   SafeStore.set(PAPER_HISTORY_KEY,JSON.stringify({ids:merged,updated:new Date().toISOString()}));
 }
 function paperShuffle(arr){
@@ -6617,14 +7193,17 @@ function paperRecentWrongCategories(subject){
   return result;
 }
 function paperCandidatePool(subject,categories,diffs){
-  const bank=subject==="math"?mathBank:chineseBank;
+  const bank=subject==="math"
+    ? paperMathExpandedBank(categories)
+    : chineseBank;
   return bank.filter(item=>categories.includes(paperCategory(item,subject))&&diffs.includes(paperStyle(item,subject)));
 }
-function paperPickRoundRobin(pool,count,subject,mode,categories){
+function paperPickRoundRobin(pool,count,subject,mode,categories,avoidIds=[]){
   const chosen=[];
   const used=new Set();
+  const avoid=new Set(avoidIds||[]);
   const recentIds=new Set(paperRecentIds(subject));
-  const printedIds=new Set(paperLoadHistory().ids.slice(0,35));
+  const printedIds=new Set(paperLoadHistory().ids.slice(0,500));
   const weak=paperWeakScores(subject);
   const wrongCats=paperRecentWrongCategories(subject);
 
@@ -6651,8 +7230,11 @@ function paperPickRoundRobin(pool,count,subject,mode,categories){
     if(!options.length)break;
 
     // 優先避開最近線上做過與上一份紙本出過的原題
-    let clean=options.filter(x=>!recentIds.has(x.id)&&!printedIds.has(x.id));
-    if(!clean.length)clean=options.filter(x=>!recentIds.has(x.id));
+    // 第一優先：絕不跟上一份考卷重複。
+    let clean=options.filter(x=>!avoid.has(x.id)&&!recentIds.has(x.id)&&!printedIds.has(x.id));
+    if(!clean.length)clean=options.filter(x=>!avoid.has(x.id)&&!recentIds.has(x.id));
+    if(!clean.length)clean=options.filter(x=>!avoid.has(x.id));
+    // 只有可用題庫真的不足，才允許回收上一份題目。
     if(!clean.length)clean=options;
 
     if(mode==="weak"){
@@ -6676,10 +7258,17 @@ function paperPickRoundRobin(pool,count,subject,mode,categories){
     }
   }
 
-  // 若勾選太窄導致不足，最後才從符合科目的其他題補足
+  // 若題數不足，仍只從使用者勾選的分類／難度補，不跨到別的數學單元。
   if(chosen.length<count){
-    const bank=subject==="math"?mathBank:chineseBank;
-    const extra=paperShuffle(bank.filter(x=>!used.has(x.id)));
+    let extra=paperShuffle(pool.filter(x=>!used.has(x.id)&&!avoid.has(x.id)));
+    for(const x of extra){
+      if(chosen.length>=count)break;
+      used.add(x.id);chosen.push(x);
+    }
+  }
+  // 真的連同範圍都不足時，才允許重複上一份，並由訊息提示。
+  if(chosen.length<count){
+    let extra=paperShuffle(pool.filter(x=>!used.has(x.id)));
     for(const x of extra){
       if(chosen.length>=count)break;
       used.add(x.id);chosen.push(x);
@@ -6778,7 +7367,11 @@ function generatePaperExam(){
     return;
   }
 
-  const items=paperPickRoundRobin(pool,count,subject,mode,categories);
+  const previousIds=(lastGeneratedPaper && lastGeneratedPaper.subject===subject)
+    ? lastGeneratedPaper.ids.slice()
+    : [];
+  const items=paperPickRoundRobin(pool,count,subject,mode,categories,previousIds);
+  const repeatCount=items.filter(x=>previousIds.includes(x.id)).length;
   const out=paperBuildHtml(subject,items,mode);
   const preview=document.getElementById("paperPreview");
   const printArea=document.getElementById("paperPrintArea");
@@ -6792,7 +7385,13 @@ function generatePaperExam(){
   if(msg){
     const weakText=mode==="weak"?"；已依最近答題紀錄提高弱項比例":
       mode==="wrongSimilar"?"；已優先出最近錯題的同類型不同題":"";
-    msg.textContent=`✅ 已產生 ${items.length} 題${paperSubjectLabel(subject)}考卷${weakText}。答案在最後一頁。`;
+    const repeatText=previousIds.length
+      ? `；與上一份重複 ${repeatCount} 題`
+      : "";
+    const poolText=subject==="math"
+      ? `；目前勾選範圍可用題池 ${pool.length} 題`
+      : "";
+    msg.textContent=`✅ 已產生 ${items.length} 題${paperSubjectLabel(subject)}考卷${weakText}${repeatText}${poolText}。答案在最後一頁。`;
   }
   const btn=document.getElementById("paperPrintBtn");
   if(btn)btn.disabled=false;
