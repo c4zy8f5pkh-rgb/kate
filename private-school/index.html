@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V18.8｜復旦 × 六和</title>
+<title>兄弟學習基地 V19.0｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -249,7 +249,7 @@ body:not(.younger-mode) aside nav button[data-page="youngerStars"]{display:none}
 .youngerTodayItem .state{margin-left:auto;font-size:12px;padding:7px 11px;border-radius:999px;background:#eef2ff;color:#4f63b9;font-weight:800;white-space:nowrap}
 .youngerTodayItem.done{background:#fbfefb;border-color:#d8eadb}.youngerTodayItem.done .state{background:#eef8ef;color:#3c7a47}
 .youngerTodayActions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.youngerTodayItem:focus-visible{outline:3px solid #8fa1ff;outline-offset:2px}@media(hover:hover){.youngerTodayItem:hover{transform:translateY(-1px);border-color:#b9c4f5;background:#fafbff}}
-.starShelf{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px}
+.starShelf{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:14px}
 .starCard{padding:16px;border:1px solid #e2e8f3;border-radius:16px;background:#fff;text-align:center}
 .starBig{font-size:32px;font-weight:900;margin:6px 0}
 @media(max-width:650px){.starShelf{grid-template-columns:1fr}}
@@ -3463,6 +3463,58 @@ body:not(.younger-mode) .page.youngerOnly{
 }
 </style>
 
+
+<style id="v189-caselet-paper">
+.paperCaseBlock{
+  break-inside:avoid;
+  page-break-inside:avoid;
+  margin:22px 0 8px;
+  padding-top:2px;
+}
+.paperCaseHeader{
+  padding:10px 12px;
+  border:1px solid #b9c0ca;
+  border-bottom:0;
+  background:#f1f3f6;
+  font-size:15px;
+  font-weight:900;
+}
+.paperCasePassage{
+  padding:11px 13px;
+  border:1px solid #b9c0ca;
+  background:#fff;
+  line-height:1.85;
+  font-size:14px;
+}
+.paperCaseBlock .paperQuestion{
+  margin-top:14px;
+  padding-left:8px;
+}
+.paperCaseTag{
+  display:inline-block;
+  margin-left:8px;
+  padding:2px 7px;
+  border-radius:999px;
+  background:#eef1f5;
+  color:#667181;
+  font-size:11px;
+  font-weight:800;
+}
+.paperCaseAnswerHead{
+  margin-top:22px;
+  padding:8px 10px;
+  background:#f0f2f5;
+  border-radius:8px;
+  font-weight:900;
+}
+@media print{
+  body.printing-paper .paperCaseBlock{
+    break-inside:avoid;
+    page-break-inside:avoid;
+  }
+}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -3504,7 +3556,7 @@ body:not(.younger-mode) .page.youngerOnly{
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V18.8</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V19.0</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -4566,7 +4618,7 @@ body:not(.younger-mode) .page.youngerOnly{
         <div class="practiceTop">
           <div>
             <h3>🖨️ 五年級紙本考卷產生器</h3>
-            <div class="muted">數學八大分類都使用大型變化題池；換卷會優先避開近期與上一份題目。答案與解說獨立放在後面。</div>
+            <div class="muted">數學八大分類都有大型題池，另外加入「情境題組」：同一段短文會連續考不同觀念，避免只換數字。換卷會優先避開近期與上一份題目。</div>
           </div>
           <span class="tag">家長專用</span>
         </div>
@@ -4599,11 +4651,20 @@ body:not(.younger-mode) .page.youngerOnly{
               <option value="wrongSimilar">最近錯題類型</option>
             </select>
           </label>
+
+          <label>
+            <span>考卷結構</span>
+            <select id="paperStructure">
+              <option value="scenarioMix" selected>情境混合（建議）</option>
+              <option value="caseHeavy">題組閱讀／邏輯</option>
+              <option value="skills">單題練習</option>
+            </select>
+          </label>
         </div>
 
         <div class="paperOptionBlock">
           <b>題型分類</b>
-          <div class="muted">可自己勾選；如果全不勾，系統會視為全部類型。</div>
+          <div class="muted">可自己勾選；「情境混合」會讓同一段短文串不同觀念，不是每題只換數字。</div>
           <div id="paperCategoryChoices" class="paperChoiceGrid"></div>
         </div>
 
@@ -4628,7 +4689,7 @@ body:not(.younger-mode) .page.youngerOnly{
         <div class="practiceTop">
           <div>
             <h3>考卷預覽</h3>
-            <div class="muted">列印時會自動排成 A4；解答從新的一頁開始。</div>
+            <div class="muted">列印時會自動排成 A4；同一題組只顯示一次短文，再接不同類型子題。解答從新的一頁開始。</div>
           </div>
         </div>
         <div id="paperPreview" class="paperScreenPreview">
@@ -7068,6 +7129,310 @@ function paperMathExpandedBank(categories){
 }
 
 
+
+// ===== V18.9 數學情境題組：同一段短文跨不同題型 =====
+function caseItem(caseId,sub,idSuffix,category,style,q,show,why,formula,extra={}){
+  return {
+    id:`pc_${caseId}_${idSuffix}`,
+    caseId,caseSub:sub,
+    category,style,
+    curriculum:MATH_CATEGORY_META?.[category]?.code||"",
+    type:PAPER_MATH_LABELS?.[category]||category,
+    q,show:String(show),a:[String(show)],
+    why,formula,
+    ...extra
+  };
+}
+
+function buildMathCaselets(){
+  const cases=[];
+  const add=(id,title,passage,items)=>cases.push({id,title,passage,items});
+
+  // 1 園遊會飲料攤：四則＋分數＋小數
+  for(let v=1;v<=4;v++){
+    const boxes=18+v*3, each=24, total=boxes*each;
+    const soldNum=2+v, soldDen=6; // 3/6..6/6 would hit 1 at v4; cap
+    const den=8, num=[3,4,5,6][v-1];
+    const sold=total*num/den, remain=total-sold;
+    const price=[12.5,13.5,14.5,15.5][v-1], revenue=sold*price;
+    add(`fair${v}`,"園遊會飲料攤",
+      `五年級在園遊會準備了 ${boxes} 箱飲料，每箱 ${each} 瓶。上午賣出了全部的 ${num}/${den}，每瓶售價 ${price.toFixed(1)} 元。`,
+      [
+        caseItem(`fair${v}`,1,"a","arithmetic","standard",`一共準備了多少瓶飲料？`,total,`${boxes}×${each}＝${total}。`,"總量＝箱數×每箱數量"),
+        caseItem(`fair${v}`,2,"b","fraction","advanced",`上午賣出後，還剩多少瓶？`,remain,`賣出 ${total}×${num}/${den}＝${sold} 瓶，所以剩 ${total}－${sold}＝${remain} 瓶。`,"先求分率對應的部分量，再求剩餘量"),
+        caseItem(`fair${v}`,3,"c","decimal","variation",`上午賣出的飲料收入是多少元？`,paperFmt1(revenue),`${sold}×${price.toFixed(1)}＝${paperFmt1(revenue)}。`,"收入＝售價×售出數量")
+      ]);
+  }
+
+  // 2 圖書館閱讀週：資料＋平均應用＋比較
+  for(let v=1;v<=4;v++){
+    const vals=[28+v,34+v*2,31+v,40+v*2,37+v];
+    const total=vals.reduce((a,b)=>a+b,0),avg=total/5,max=Math.max(...vals),min=Math.min(...vals);
+    add(`read${v}`,"圖書館閱讀週",
+      `小安在閱讀週記錄了週一到週五的閱讀頁數：${vals.join("、")} 頁。`,
+      [
+        caseItem(`read${v}`,1,"a","data","standard",`五天一共讀了多少頁？`,total,`${vals.join("＋")}＝${total}。`,"總量＝各日資料相加",{diagram:{type:"line",values:vals,labels:["一","二","三","四","五"]}}),
+        caseItem(`read${v}`,2,"b","application","advanced",`平均每天讀多少頁？`,paperFmt1(avg),`${total}÷5＝${paperFmt1(avg)}。`,"平均＝總量÷份數"),
+        caseItem(`read${v}`,3,"c","data","variation",`閱讀最多的一天比最少的一天多幾頁？`,max-min,`${max}－${min}＝${max-min}。`,"差＝最大值－最小值",{diagram:{type:"line",values:vals,labels:["一","二","三","四","五"]}})
+      ]);
+  }
+
+  // 3 校外教學巴士：公倍數＋時間＋分組
+  for(let v=1;v<=4;v++){
+    const a=[12,15,18,20][v-1],b=[18,20,24,30][v-1],l=paperLcm(a,b);
+    const students=96+v*12,perBus=24, buses=students/perBus;
+    const duration=85+v*10, startH=8,startM=20+v*5,totalMin=startH*60+startM+duration,endH=Math.floor(totalMin/60),endM=totalMin%60;
+    add(`trip${v}`,"校外教學巴士",
+      `校外教學集合時，A 線接駁車每 ${a} 分鐘一班，B 線每 ${b} 分鐘一班，8:00 兩線剛好同時發車。五年級共有 ${students} 位學生，每台遊覽車坐 ${perBus} 人。正式行程從 ${startH}:${String(startM).padStart(2,"0")} 開始，進行 ${duration} 分鐘。`,
+      [
+        caseItem(`trip${v}`,1,"a","factor","variation",`A、B 兩線至少再過幾分鐘會再次同時發車？`,l,`求 ${a} 和 ${b} 的最小公倍數＝${l}。`,"週期再次同時發生 → 最小公倍數"),
+        caseItem(`trip${v}`,2,"b","application","standard",`五年級至少需要幾台遊覽車？`,buses,`${students}÷${perBus}＝${buses}。`,"車輛數＝總人數÷每車人數"),
+        caseItem(`trip${v}`,3,"c","measure","advanced",`正式行程結束時間是幾點幾分？`,`${endH}:${String(endM).padStart(2,"0")}`,`開始時間加 ${duration} 分鐘，得到 ${endH}:${String(endM).padStart(2,"0")}。`,"結束時間＝開始時間＋經過時間")
+      ]);
+  }
+
+  // 4 校園花圃：幾何＋分數＋應用
+  for(let v=1;v<=4;v++){
+    const l=18+v*2,w=10+v,area=l*w,num=[1,2,3,2][v-1],den=[4,5,8,6][v-1];
+    const flower=area*num/den,remain=area-flower,plantsPer=4+v,plants=Math.floor(remain*plantsPer);
+    add(`garden${v}`,"校園花圃",
+      `學校有一塊長 ${l} 公尺、寬 ${w} 公尺的長方形花圃，其中 ${num}/${den} 的面積種花，其餘種香草。每平方公尺香草區預計種 ${plantsPer} 株。`,
+      [
+        caseItem(`garden${v}`,1,"a","geometry","standard",`這塊花圃的總面積是多少平方公尺？`,area,`${l}×${w}＝${area}。`,"長方形面積＝長×寬",{diagram:{type:"rectangle",a:`${l} m`,b:`${w} m`}}),
+        caseItem(`garden${v}`,2,"b","fraction","advanced",`種花的面積是多少平方公尺？`,flower,`${area}×${num}/${den}＝${flower}。`,"部分量＝全部量×分率"),
+        caseItem(`garden${v}`,3,"c","application","variation",`香草區共可種多少株？`,plants,`香草區面積 ${area}－${flower}＝${remain}，再乘每平方公尺 ${plantsPer} 株，得 ${plants} 株。`,"先求剩餘面積，再乘單位面積數量")
+      ]);
+  }
+
+  // 5 烘焙社：小數＋分數＋四則
+  for(let v=1;v<=4;v++){
+    const batches=3+v, flourPer=1.25+v*0.25,totalFlour=batches*flourPer;
+    const usedNum=[1,2,3,1][v-1],usedDen=[4,5,8,3][v-1],used=totalFlour*usedNum/usedDen,remain=totalFlour-used;
+    const cookies=24+v*6,totalCookies=batches*cookies;
+    add(`bake${v}`,"烘焙社做餅乾",
+      `烘焙社今天做 ${batches} 批餅乾，每批用麵粉 ${flourPer.toFixed(2)} 公斤，每批可烤 ${cookies} 片。先用掉全部麵粉的 ${usedNum}/${usedDen} 做第一輪。`,
+      [
+        caseItem(`bake${v}`,1,"a","decimal","standard",`準備的麵粉一共有多少公斤？`,paperFmt2(totalFlour),`${flourPer.toFixed(2)}×${batches}＝${paperFmt2(totalFlour)}。`,"總量＝每批用量×批數"),
+        caseItem(`bake${v}`,2,"b","fraction","advanced",`第一輪後還剩多少公斤麵粉？`,paperFmt2(remain),`先用 ${paperFmt2(used)} 公斤，所以剩 ${paperFmt2(remain)} 公斤。`,"剩餘量＝總量－分率對應的部分量"),
+        caseItem(`bake${v}`,3,"c","arithmetic","variation",`全部烤完共可得到多少片餅乾？`,totalCookies,`${batches}×${cookies}＝${totalCookies}。`,"總量＝每批數量×批數")
+      ]);
+  }
+
+  // 6 美術材料包：最大公因數＋應用＋四則
+  for(let v=1;v<=4;v++){
+    const red=[84,96,108,120][v-1],blue=[126,144,162,180][v-1],g=paperGcd(red,blue);
+    const r=red/g,b=blue/g,cost=6+v,totalCost=(red+blue)*cost;
+    add(`art${v}`,"美術材料包",
+      `美術教室有 ${red} 張紅色卡紙和 ${blue} 張藍色卡紙，要分成最多份完全相同的材料包，而且全部用完。每張卡紙成本 ${cost} 元。`,
+      [
+        caseItem(`art${v}`,1,"a","factor","variation",`最多可以分成幾份材料包？`,g,`求 ${red} 和 ${blue} 的最大公因數＝${g}。`,"最多分成相同組且無剩餘 → 最大公因數"),
+        caseItem(`art${v}`,2,"b","application","advanced",`每一份材料包有幾張紅色和幾張藍色卡紙？`,`紅${r}、藍${b}`,`${red}÷${g}＝${r}，${blue}÷${g}＝${b}。`,"每份數量＝總數÷組數"),
+        caseItem(`art${v}`,3,"c","arithmetic","standard",`全部卡紙的成本共多少元？`,totalCost,`（${red}＋${blue}）×${cost}＝${totalCost}。`,"總成本＝總張數×單價")
+      ]);
+  }
+
+  // 7 資源回收：小數＋資料＋應用
+  for(let v=1;v<=4;v++){
+    const vals=[12.5+v,15.2+v*0.5,13.8+v,18.1+v*0.4,16.4+v*0.6];
+    const total=vals.reduce((a,b)=>a+b,0),max=Math.max(...vals),min=Math.min(...vals),price=4.5+v*0.5,revenue=total*price;
+    add(`recycle${v}`,"資源回收週",
+      `五年級週一到週五回收紙類重量分別是 ${vals.map(x=>x.toFixed(1)).join("、")} 公斤。回收商每公斤支付 ${price.toFixed(1)} 元。`,
+      [
+        caseItem(`recycle${v}`,1,"a","data","standard",`五天一共回收多少公斤？`,paperFmt1(total),`${vals.map(x=>x.toFixed(1)).join("＋")}＝${paperFmt1(total)}。`,"總量＝各日資料相加"),
+        caseItem(`recycle${v}`,2,"b","data","variation",`最多的一天比最少的一天多多少公斤？`,paperFmt1(max-min),`${paperFmt1(max)}－${paperFmt1(min)}＝${paperFmt1(max-min)}。`,"差＝最大值－最小值"),
+        caseItem(`recycle${v}`,3,"c","decimal","advanced",`這五天的紙類可以換得多少元？`,paperFmt1(revenue),`${paperFmt1(total)}×${price.toFixed(1)}＝${paperFmt1(revenue)}。`,"收入＝重量×每公斤單價")
+      ]);
+  }
+
+  // 8 科學實驗用水：量與單位＋小數＋邏輯
+  for(let v=1;v<=4;v++){
+    const bottles=8+v*2,ml=350+v*50,totalMl=bottles*ml,totalL=totalMl/1000;
+    const use=1.2+v*0.3,remain=totalL-use;
+    add(`science${v}`,"科學實驗用水",
+      `自然課準備 ${bottles} 瓶水，每瓶 ${ml} 毫升。第一個實驗用了 ${use.toFixed(1)} 公升，其餘留給第二個實驗。`,
+      [
+        caseItem(`science${v}`,1,"a","measure","standard",`全部的水共有多少毫升？`,totalMl,`${bottles}×${ml}＝${totalMl}。`,"總量＝瓶數×每瓶容量"),
+        caseItem(`science${v}`,2,"b","measure","advanced",`全部的水換成公升是多少公升？`,paperFmt2(totalL),`${totalMl}÷1000＝${paperFmt2(totalL)} 公升。`,"1000 毫升＝1 公升"),
+        caseItem(`science${v}`,3,"c","decimal","variation",`第一個實驗後還剩多少公升？`,paperFmt2(remain),`${paperFmt2(totalL)}－${use.toFixed(1)}＝${paperFmt2(remain)}。`,"剩餘量＝原量－已用量")
+      ]);
+  }
+
+  // 9 班級義賣：四則＋小數＋反推
+  for(let v=1;v<=4;v++){
+    const qty=36+v*6,cost=8+v,price=15+v*2,sold=qty-(3+v),income=sold*price,profit=income-qty*cost;
+    add(`sale${v}`,"班級義賣",
+      `班上準備 ${qty} 個手作小物，每個成本 ${cost} 元，售價 ${price} 元。活動結束時剩下 ${qty-sold} 個沒有賣出。`,
+      [
+        caseItem(`sale${v}`,1,"a","arithmetic","standard",`一共賣出多少個？`,sold,`${qty}－${qty-sold}＝${sold}。`,"賣出數＝準備數－剩餘數"),
+        caseItem(`sale${v}`,2,"b","application","advanced",`賣出商品共收入多少元？`,income,`${sold}×${price}＝${income}。`,"收入＝售價×售出數量"),
+        caseItem(`sale${v}`,3,"c","application","variation",`如果所有商品的製作成本都已支出，這次義賣盈餘是多少元？`,profit,`收入 ${income}－總成本 ${qty*cost}＝${profit}。`,"盈餘＝收入－總成本")
+      ]);
+  }
+
+  // 10 操場鋪墊：幾何＋單位＋反推
+  for(let v=1;v<=4;v++){
+    const l=24+v*3,w=15+v*2,area=l*w,tile=3,tiles=area/(tile*tile);
+    add(`field${v}`,"操場活動區鋪墊",
+      `學校要在長 ${l} 公尺、寬 ${w} 公尺的長方形活動區鋪正方形軟墊，每塊軟墊邊長 ${tile} 公尺，恰好鋪滿。`,
+      [
+        caseItem(`field${v}`,1,"a","geometry","standard",`活動區面積是多少平方公尺？`,area,`${l}×${w}＝${area}。`,"長方形面積＝長×寬",{diagram:{type:"rectangle",a:`${l}m`,b:`${w}m`}}),
+        caseItem(`field${v}`,2,"b","geometry","advanced",`每塊軟墊面積是多少平方公尺？`,tile*tile,`${tile}×${tile}＝${tile*tile}。`,"正方形面積＝邊長×邊長"),
+        caseItem(`field${v}`,3,"c","application","variation",`一共需要幾塊軟墊？`,tiles,`${area}÷${tile*tile}＝${tiles}。`,"塊數＝總面積÷每塊面積")
+      ]);
+  }
+
+  // 11 露營分組：GCD＋分數＋應用
+  for(let v=1;v<=4;v++){
+    const boys=[24,30,36,42][v-1],girls=[36,45,54,63][v-1],g=paperGcd(boys,girls),total=boys+girls;
+    const oneGroup=total/g;
+    add(`camp${v}`,"露營分組",
+      `露營活動有男生 ${boys} 人、女生 ${girls} 人，要分成最多組，而且每組男生人數相同、女生人數也相同。`,
+      [
+        caseItem(`camp${v}`,1,"a","factor","variation",`最多可以分成幾組？`,g,`求 ${boys} 和 ${girls} 的最大公因數＝${g}。`,"最多相同組且無剩餘 → 最大公因數"),
+        caseItem(`camp${v}`,2,"b","application","standard",`每組共有多少人？`,oneGroup,`每組男生 ${boys/g} 人、女生 ${girls/g} 人，共 ${oneGroup} 人。`,"每組總人數＝每組男生＋每組女生"),
+        caseItem(`camp${v}`,3,"c","fraction","advanced",`每組女生占全組人數的幾分之幾？`,paperFrac(girls/g,oneGroup),`女生 ${girls/g} 人，全組 ${oneGroup} 人，所以是 ${paperFrac(girls/g,oneGroup)}。`,"分率＝部分量÷全部量")
+      ]);
+  }
+
+  // 12 水果採買：小數＋單位＋比較
+  for(let v=1;v<=4;v++){
+    const appleKg=2.5+v*0.5,orangeKg=1.8+v*0.4,appleP=48+v*3,orangeP=42+v*2;
+    const appleCost=appleKg*appleP,orangeCost=orangeKg*orangeP,total=appleCost+orangeCost;
+    add(`fruit${v}`,"水果採買",
+      `班上買了蘋果 ${appleKg.toFixed(1)} 公斤，每公斤 ${appleP} 元；柳橙 ${orangeKg.toFixed(1)} 公斤，每公斤 ${orangeP} 元。`,
+      [
+        caseItem(`fruit${v}`,1,"a","decimal","standard",`蘋果要付多少元？`,paperFmt1(appleCost),`${appleKg.toFixed(1)}×${appleP}＝${paperFmt1(appleCost)}。`,"金額＝重量×單價"),
+        caseItem(`fruit${v}`,2,"b","decimal","advanced",`全部水果共要付多少元？`,paperFmt1(total),`${paperFmt1(appleCost)}＋${paperFmt1(orangeCost)}＝${paperFmt1(total)}。`,"總金額＝各項金額相加"),
+        caseItem(`fruit${v}`,3,"c","measure","variation",`兩種水果合計重多少公克？`,(appleKg+orangeKg)*1000,`${paperFmt1(appleKg+orangeKg)} 公斤＝${(appleKg+orangeKg)*1000} 公克。`,"1 公斤＝1000 公克")
+      ]);
+  }
+
+  // 13 校慶闖關券：四則＋因數倍數＋邏輯
+  for(let v=1;v<=4;v++){
+    const a=[6,8,9,10][v-1],b=[8,12,15,18][v-1],l=paperLcm(a,b);
+    const book=120+v*20,used=35+v*5,remain=book-used;
+    add(`ticket${v}`,"校慶闖關券",
+      `校慶闖關活動中，紅站每完成 ${a} 人就發一次加碼券，藍站每完成 ${b} 人發一次加碼券。兩站從第 1 人開始計數。服務台原本有 ${book} 張券，上午用了 ${used} 張。`,
+      [
+        caseItem(`ticket${v}`,1,"a","factor","advanced",`至少到第幾人時，兩站會同時發加碼券？`,l,`求 ${a} 和 ${b} 的最小公倍數＝${l}。`,"兩個週期第一次重合 → 最小公倍數"),
+        caseItem(`ticket${v}`,2,"b","arithmetic","standard",`服務台還剩多少張券？`,remain,`${book}－${used}＝${remain}。`,"剩餘＝原有－已用"),
+        caseItem(`ticket${v}`,3,"c","application","variation",`若下午預計再用上午用量的 2 倍，現有剩餘券夠不夠？還差或多幾張？`,remain-used*2,
+          `下午需要 ${used}×2＝${used*2} 張；${remain}－${used*2}＝${remain-used*2}。正數表示足夠，負數表示不足。`,
+          "先求需求量，再用現有量－需求量判斷")
+      ]);
+  }
+
+  // 14 魚缸換水：分數＋容量＋小數
+  for(let v=1;v<=4;v++){
+    const cap=40+v*10,num=[1,2,3,2][v-1],den=[5,5,8,6][v-1],drain=cap*num/den,remain=cap-drain,addL=6.5+v*0.5,final=remain+addL;
+    add(`tank${v}`,"魚缸換水",
+      `自然教室魚缸原有 ${cap} 公升水，先放掉全部的 ${num}/${den}，再加入 ${addL.toFixed(1)} 公升新水。`,
+      [
+        caseItem(`tank${v}`,1,"a","fraction","standard",`先放掉多少公升水？`,drain,`${cap}×${num}/${den}＝${drain}。`,"部分量＝全部量×分率"),
+        caseItem(`tank${v}`,2,"b","measure","advanced",`放水後剩多少公升？`,remain,`${cap}－${drain}＝${remain}。`,"剩餘量＝原量－用掉量"),
+        caseItem(`tank${v}`,3,"c","decimal","variation",`加入新水後共有多少公升？`,paperFmt1(final),`${remain}＋${addL.toFixed(1)}＝${paperFmt1(final)}。`,"最後量＝剩餘量＋新增量")
+      ]);
+  }
+
+  // 15 班級點數：資料＋平均＋反推
+  for(let v=1;v<=4;v++){
+    const vals=[18+v,22+v,25+2*v,20+v,30+v],total=vals.reduce((a,b)=>a+b,0),targetAvg=25+v,targetTotal=targetAvg*6,last=targetTotal-total;
+    add(`points${v}`,"班級學習點數",
+      `小組週一到週五得到的學習點數是 ${vals.join("、")} 點。老師希望加上週六後，六天平均能達到 ${targetAvg} 點。`,
+      [
+        caseItem(`points${v}`,1,"a","data","standard",`前五天共得到多少點？`,total,`${vals.join("＋")}＝${total}。`,"總量＝各日資料相加"),
+        caseItem(`points${v}`,2,"b","application","advanced",`六天總點數至少要多少點，平均才會是 ${targetAvg} 點？`,targetTotal,`${targetAvg}×6＝${targetTotal}。`,"總量＝平均×份數"),
+        caseItem(`points${v}`,3,"c","application","variation",`週六至少要得到多少點？`,last,`${targetTotal}－${total}＝${last}。`,"未知量＝目標總量－已知總量")
+      ]);
+  }
+
+  // 16 文具店進貨：四則＋小數＋平均
+  for(let v=1;v<=4;v++){
+    const boxes=12+v*2,each=20+v*5,total=boxes*each,cost=3.5+v*0.5,totalCost=total*cost,classes=5+v,per=Math.floor(total/classes);
+    add(`stationery${v}`,"文具店進貨",
+      `文具店收到 ${boxes} 箱鉛筆，每箱 ${each} 枝，每枝進貨成本 ${cost.toFixed(1)} 元。學校想把這批鉛筆平均分給 ${classes} 個班。`,
+      [
+        caseItem(`stationery${v}`,1,"a","arithmetic","standard",`一共有多少枝鉛筆？`,total,`${boxes}×${each}＝${total}。`,"總量＝箱數×每箱數量"),
+        caseItem(`stationery${v}`,2,"b","decimal","advanced",`這批鉛筆的進貨成本共多少元？`,paperFmt1(totalCost),`${total}×${cost.toFixed(1)}＝${paperFmt1(totalCost)}。`,"總成本＝數量×單價"),
+        caseItem(`stationery${v}`,3,"c","application","variation",`若平均分給 ${classes} 班，每班最多可拿幾枝？會剩幾枝？`,
+          `每班${Math.floor(total/classes)}、剩${total%classes}`,
+          `${total}÷${classes}＝${Math.floor(total/classes)}…${total%classes}。`,
+          "平均分配：商是每份數量，餘數是剩下數量")
+      ]);
+  }
+
+  return cases;
+}
+
+const PAPER_MATH_CASELETS=buildMathCaselets();
+
+function caseletEligibleItems(caselet,categories,diffs){
+  return caselet.items.filter(x=>categories.includes(x.category)&&diffs.includes(x.style));
+}
+function paperCaseQuestionCount(items){
+  return items.filter(x=>x.caseId).length;
+}
+function paperUniqueCaseCount(items){
+  return new Set(items.filter(x=>x.caseId).map(x=>x.caseId)).size;
+}
+
+function paperPickCaseletItems(count,categories,diffs,avoidIds=[],structure="scenarioMix",avoidTitles=[]){
+  const avoid=new Set(avoidIds||[]);
+  const avoidTitleSet=new Set(avoidTitles||[]);
+  const usedTitles=new Set();
+
+  // 先排除上一份考卷用過的情境；如果題數真的不足，才回收舊情境。
+  const fresh=PAPER_MATH_CASELETS.filter(c=>{
+    const eligible=caseletEligibleItems(c,categories,diffs).filter(x=>!avoid.has(x.id));
+    return eligible.length>=2 && !avoidTitleSet.has(c.title);
+  });
+  const fallback=PAPER_MATH_CASELETS.filter(c=>{
+    const eligible=caseletEligibleItems(c,categories,diffs).filter(x=>!avoid.has(x.id));
+    return eligible.length>=2 && avoidTitleSet.has(c.title);
+  });
+  let caselets=[...paperShuffle(fresh),...paperShuffle(fallback)];
+
+  const targetRatio=structure==="caseHeavy"?.9:.68;
+  const target=Math.min(count,Math.max(0,Math.round(count*targetRatio)));
+  const chosen=[];
+  const used=new Set();
+
+  for(const c of caselets){
+    // 同一張考卷同一種情境只出現一次，例如不會連續兩組都是「園遊會飲料攤」。
+    if(usedTitles.has(c.title))continue;
+    if(chosen.length>=target)break;
+    let eligible=caseletEligibleItems(c,categories,diffs).filter(x=>!avoid.has(x.id)&&!used.has(x.id));
+    if(eligible.length<2)continue;
+
+    // 題組至少 2 題，最多 3 題，並保留原子題順序。
+    const take=Math.min(3,eligible.length,target-chosen.length);
+    if(take<2 && chosen.length>0)continue;
+
+    eligible.slice(0,take).forEach(x=>{
+      chosen.push({...x,caseTitle:c.title,casePassage:c.passage});
+      used.add(x.id);
+    });
+    usedTitles.add(c.title);
+  }
+  return chosen;
+}
+
+function paperCombineScenarioAndSkills(pool,count,subject,mode,categories,diffs,avoidIds,structure,avoidTitles=[]){
+  if(subject!=="math" || structure==="skills"){
+    return paperPickRoundRobin(pool,count,subject,mode,categories,avoidIds);
+  }
+
+  const caseItems=paperPickCaseletItems(count,categories,diffs,avoidIds,structure,avoidTitles);
+  const usedIds=new Set(caseItems.map(x=>x.id));
+  const need=count-caseItems.length;
+  const skillPool=pool.filter(x=>!usedIds.has(x.id));
+  const skillItems=need>0
+    ? paperPickRoundRobin(skillPool,need,subject,mode,categories,[...(avoidIds||[]),...usedIds])
+    : [];
+
+  return [...caseItems,...skillItems].slice(0,count);
+}
+
 // ===== V17.9 家長中心：紙本考卷產生器 =====
 const PAPER_HISTORY_KEY="family_paper_generator_history_v179";
 const PAPER_CH_CATEGORIES=["字音","字形","字義","成語","短文閱讀","閱讀推論","文言文","句子重組","短寫作"];
@@ -7287,8 +7652,55 @@ function paperQuestionLines(item,subject){
   if(["application","geometry","data","measure"].includes(cat)||paperMathStyle(item)!=="standard")return 3;
   return 2;
 }
+
+function paperRenderQuestionCore(item,index,subject){
+  const choices=Array.isArray(item.choices)
+    ? `<div class="paperChoices">${item.choices.map((c,i)=>`<div class="paperChoice">${paperChoiceLetter(i)}. ${c}</div>`).join("")}</div>`
+    :"";
+  const lines=Array.from({length:paperQuestionLines(item,subject)},()=>'<div class="paperWorkLine"></div>').join("");
+  return `<div class="paperQuestion">
+    <div><span class="paperQuestionNo">${index+1}.</span>${item.q}</div>
+    ${choices}
+    <div class="paperWorkLines">${lines}</div>
+  </div>`;
+}
+function paperRenderExamItems(items,subject){
+  let html="",i=0;
+  while(i<items.length){
+    const item=items[i];
+    if(item.caseId){
+      const cid=item.caseId;
+      const group=[];
+      let j=i;
+      while(j<items.length && items[j].caseId===cid){group.push(items[j]);j++;}
+      html+=`<div class="paperCaseBlock">
+        <div class="paperCaseHeader">題組｜${item.caseTitle||"情境題"} <span class="paperCaseTag">${group.length} 題共用情境・跨觀念</span></div>
+        <div class="paperCasePassage">${item.casePassage||""}</div>
+        ${group.map((x,k)=>paperRenderQuestionCore(x,i+k,subject)).join("")}
+      </div>`;
+      i=j;
+    }else{
+      html+=paperRenderQuestion(item,i,subject);
+      i++;
+    }
+  }
+  return html;
+}
+function paperRenderAnswerItems(items,subject){
+  let html="",lastCase=null;
+  items.forEach((item,i)=>{
+    if(item.caseId && item.caseId!==lastCase){
+      html+=`<div class="paperCaseAnswerHead">題組｜${item.caseTitle||"情境題"}</div>`;
+      lastCase=item.caseId;
+    }
+    html+=paperRenderAnswer(item,i,subject);
+    if(!item.caseId)lastCase=null;
+  });
+  return html;
+}
+
 function paperRenderQuestion(item,index,subject){
-  const passage=item.passage?`<div class="paperPassage">${item.passage}</div>`:"";
+  const passage=(!item.caseId&&item.passage)?`<div class="paperPassage">${item.passage}</div>`:"";
   const choices=Array.isArray(item.choices)
     ? `<div class="paperChoices">${item.choices.map((c,i)=>`<div class="paperChoice">${paperChoiceLetter(i)}. ${c}</div>`).join("")}</div>`
     :"";
@@ -7336,20 +7748,23 @@ function paperRenderAnswer(item,index,subject){
 function paperModeLabel(mode){
   return {balanced:"均衡出題",weak:"弱項加強",wrongSimilar:"最近錯題類型"}[mode]||"均衡出題";
 }
-function paperBuildHtml(subject,items,mode){
+function paperStructureLabel(v){
+  return {scenarioMix:"情境混合",caseHeavy:"題組閱讀／邏輯",skills:"單題練習"}[v]||"情境混合";
+}
+function paperBuildHtml(subject,items,mode,structure="scenarioMix"){
   const title=`五年級${paperSubjectLabel(subject)}練習卷`;
   const date=new Date().toLocaleDateString("zh-TW");
   const categories=[...new Set(items.map(x=>paperLabel(paperCategory(x,subject),subject)))];
   const exam=`<section class="paperSheet">
     <h1>${title}</h1>
     <div class="paperMeta"><span>姓名：＿＿＿＿＿＿</span><span>日期：${date}</span><span>得分：＿＿＿＿</span></div>
-    <div class="paperInfoLine">模式：${paperModeLabel(mode)}　｜　題數：${items.length}　｜　範圍：${categories.join("、")}</div>
-    ${items.map((x,i)=>paperRenderQuestion(x,i,subject)).join("")}
+    <div class="paperInfoLine">模式：${paperModeLabel(mode)}　｜　卷型：${paperStructureLabel(structure)}　｜　題數：${items.length}　｜　範圍：${categories.join("、")}</div>
+    ${paperRenderExamItems(items,subject)}
   </section>`;
   const answer=`<section class="paperSheet paperAnswerSheet">
     <h1>${title}｜答案與解說</h1>
     <div class="paperMeta"><span>家長用</span><span>${date}</span><span>共 ${items.length} 題</span></div>
-    ${items.map((x,i)=>paperRenderAnswer(x,i,subject)).join("")}
+    ${paperRenderAnswerItems(items,subject)}
   </section>`;
   return exam+answer;
 }
@@ -7357,6 +7772,7 @@ function generatePaperExam(){
   const subject=document.getElementById("paperSubject")?.value||"math";
   const count=Math.max(5,Math.min(30,Number(document.getElementById("paperCount")?.value||15)));
   const mode=document.getElementById("paperMode")?.value||"balanced";
+  const structure=document.getElementById("paperStructure")?.value||"scenarioMix";
   const categories=paperSelectedCategories(subject);
   const diffs=paperSelectedDifficulties();
   const pool=paperCandidatePool(subject,categories,diffs);
@@ -7370,15 +7786,24 @@ function generatePaperExam(){
   const previousIds=(lastGeneratedPaper && lastGeneratedPaper.subject===subject)
     ? lastGeneratedPaper.ids.slice()
     : [];
-  const items=paperPickRoundRobin(pool,count,subject,mode,categories,previousIds);
+  const previousCaseTitles=(lastGeneratedPaper && lastGeneratedPaper.subject===subject)
+    ? (lastGeneratedPaper.caseTitles||[]).slice()
+    : [];
+  const items=paperCombineScenarioAndSkills(
+    pool,count,subject,mode,categories,diffs,previousIds,structure,previousCaseTitles
+  );
   const repeatCount=items.filter(x=>previousIds.includes(x.id)).length;
-  const out=paperBuildHtml(subject,items,mode);
+  const out=paperBuildHtml(subject,items,mode,structure);
   const preview=document.getElementById("paperPreview");
   const printArea=document.getElementById("paperPrintArea");
   if(preview)preview.innerHTML=out;
   if(printArea)printArea.innerHTML=out;
 
-  lastGeneratedPaper={subject,count,mode,ids:items.map(x=>x.id)};
+  lastGeneratedPaper={
+    subject,count,mode,structure,
+    ids:items.map(x=>x.id),
+    caseTitles:[...new Set(items.filter(x=>x.caseId).map(x=>x.caseTitle))]
+  };
   paperSaveHistory(lastGeneratedPaper.ids);
 
   const msg=document.getElementById("paperGeneratorMsg");
@@ -7389,9 +7814,13 @@ function generatePaperExam(){
       ? `；與上一份重複 ${repeatCount} 題`
       : "";
     const poolText=subject==="math"
-      ? `；目前勾選範圍可用題池 ${pool.length} 題`
+      ? `；目前勾選範圍可用單題 ${pool.length} 題`
       : "";
-    msg.textContent=`✅ 已產生 ${items.length} 題${paperSubjectLabel(subject)}考卷${weakText}${repeatText}${poolText}。答案在最後一頁。`;
+    const caseTitleCount=[...new Set(items.filter(x=>x.caseId).map(x=>x.caseTitle))].length;
+    const caseText=subject==="math"&&structure!=="skills"
+      ? `；情境題 ${paperCaseQuestionCount(items)} 題／${paperUniqueCaseCount(items)} 個題組／${caseTitleCount} 種不同情境`
+      : "";
+    msg.textContent=`✅ 已產生 ${items.length} 題${paperSubjectLabel(subject)}考卷${weakText}${repeatText}${caseText}${poolText}。答案在最後一頁。`;
   }
   const btn=document.getElementById("paperPrintBtn");
   if(btn)btn.disabled=false;
