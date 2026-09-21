@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V19.0｜復旦 × 六和</title>
+<title>兄弟學習基地 V19.1｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -3556,7 +3556,7 @@ body:not(.younger-mode) .page.youngerOnly{
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V19.0</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V19.1</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -7131,13 +7131,24 @@ function paperMathExpandedBank(categories){
 
 
 // ===== V18.9 數學情境題組：同一段短文跨不同題型 =====
+const CASELET_MATH_LABELS={
+  arithmetic:"四則與計算規律",
+  application:"應用與多步驟",
+  factor:"因數／公因數／倍數／公倍數",
+  fraction:"分數",
+  decimal:"小數乘除",
+  measure:"量與單位",
+  geometry:"幾何與線對稱",
+  data:"資料與折線圖"
+};
+
 function caseItem(caseId,sub,idSuffix,category,style,q,show,why,formula,extra={}){
   return {
     id:`pc_${caseId}_${idSuffix}`,
     caseId,caseSub:sub,
     category,style,
     curriculum:MATH_CATEGORY_META?.[category]?.code||"",
-    type:PAPER_MATH_LABELS?.[category]||category,
+    type:CASELET_MATH_LABELS[category]||category,
     q,show:String(show),a:[String(show)],
     why,formula,
     ...extra
@@ -7834,6 +7845,10 @@ function printPaperExam(){
   setTimeout(()=>window.print(),60);
 }
 function paperAfterPrint(){document.body.classList.remove("printing-paper")}
+
+document.documentElement.dataset.backendTabsReady=String(
+  document.querySelectorAll(".backendTab").length===document.querySelectorAll(".backendPanel").length
+);
 
 document.querySelectorAll(".backendTab").forEach(btn=>btn.addEventListener("click",()=>{
   document.querySelectorAll(".backendTab").forEach(x=>x.classList.remove("active"));
