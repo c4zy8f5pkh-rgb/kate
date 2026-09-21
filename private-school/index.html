@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V20.3｜復旦 × 六和</title>
+<title>兄弟學習基地 V20.5｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -3841,28 +3841,56 @@ body.younger-mode main{
 .bubbleTarget{font-size:clamp(58px,11vw,90px);font-weight:1000;line-height:1;color:#47678f;margin:4px 0}
 .bubbleTargetPair{font-size:20px;font-weight:900;color:#8b99ad}
 .bubbleField{
-  min-height:300px;display:flex;align-content:center;justify-content:center;align-items:center;flex-wrap:wrap;
-  gap:17px;padding:18px;border-radius:28px;
+  min-height:380px;height:380px;position:relative;overflow:hidden;
+  padding:18px;border-radius:28px;
   background:radial-gradient(circle at 15% 20%,rgba(190,236,255,.42),transparent 28%),
              radial-gradient(circle at 85% 25%,rgba(255,207,227,.38),transparent 30%),
+             radial-gradient(circle at 48% 78%,rgba(255,239,180,.32),transparent 27%),
              linear-gradient(180deg,#f9fdff,#fff);
   border:1px solid #e2edf4
 }
 .letterBubble{
+  position:absolute;
   width:92px;height:92px;border-radius:50%;border:2px solid rgba(112,183,215,.42);
   background:radial-gradient(circle at 30% 24%,#fff 0 13%,#dff6ff 35%,#c9ebf9 100%);
   color:#47698f;font-size:38px;font-weight:1000;display:grid;place-items:center;cursor:pointer;
   box-shadow:inset -8px -10px 18px rgba(98,176,209,.12),inset 9px 9px 16px rgba(255,255,255,.8),0 8px 17px rgba(69,135,164,.11);
-  animation:bubbleGlow 2.8s ease-in-out infinite;transition:.15s
+  translate:0 0;
+  animation:bubbleWander var(--bubbleDur,6s) ease-in-out infinite;
+  transition:filter .15s,box-shadow .15s;
+  touch-action:manipulation;
+  will-change:translate;
 }
-.letterBubble:nth-child(2n){background:radial-gradient(circle at 30% 24%,#fff 0 13%,#ffe8f1 35%,#ffd8e8 100%);animation-delay:-.8s}
-.letterBubble:nth-child(3n){background:radial-gradient(circle at 30% 24%,#fff 0 13%,#fff4cf 35%,#ffe9a9 100%);animation-delay:-1.5s}
-.letterBubble:hover{transform:scale(1.06)}
-.letterBubble.pop{animation:bubblePop .32s ease forwards;pointer-events:none}
-.letterBubble.wrong{animation:bubbleWiggle .35s ease}
-@keyframes bubbleGlow{0%,100%{filter:brightness(1)}50%{filter:brightness(1.07)}}
-@keyframes bubblePop{0%{transform:scale(1);opacity:1}65%{transform:scale(1.25);opacity:.7}100%{transform:scale(.05);opacity:0}}
-@keyframes bubbleWiggle{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.letterBubble:nth-child(2n){background:radial-gradient(circle at 30% 24%,#fff 0 13%,#ffe8f1 35%,#ffd8e8 100%)}
+.letterBubble:nth-child(3n){background:radial-gradient(circle at 30% 24%,#fff 0 13%,#fff4cf 35%,#ffe9a9 100%)}
+.letterBubble:hover,.letterBubble:focus-visible{
+  animation-play-state:paused;
+  filter:brightness(1.06);
+  box-shadow:inset -8px -10px 18px rgba(98,176,209,.12),inset 9px 9px 16px rgba(255,255,255,.8),0 11px 21px rgba(69,135,164,.16)
+}
+.letterBubble.pop{
+  animation:bubblePop .32s ease forwards!important;
+  pointer-events:none
+}
+.letterBubble.wrong{
+  animation:bubbleWiggle .38s ease!important
+}
+@keyframes bubbleWander{
+  0%,100%{translate:0 0}
+  24%{translate:var(--dx1,18px) var(--dy1,-12px)}
+  52%{translate:var(--dx2,-24px) var(--dy2,20px)}
+  76%{translate:var(--dx3,14px) var(--dy3,14px)}
+}
+@keyframes bubblePop{
+  0%{transform:scale(1);opacity:1}
+  65%{transform:scale(1.25);opacity:.7}
+  100%{transform:scale(.05);opacity:0}
+}
+@keyframes bubbleWiggle{
+  0%,100%{transform:translateX(0)}
+  25%{transform:translateX(-7px)}
+  75%{transform:translateX(7px)}
+}
 .bubbleFeedback{text-align:center;font-size:18px;font-weight:900;color:#718197;padding:10px}
 
 .cuteCollectionGrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
@@ -3930,6 +3958,7 @@ body.younger-mode main{
   .cuteAdventurePath{gap:3px}.cutePathStop{width:48px;height:52px;border-radius:16px}.cutePathStop span{font-size:17px}.cuteChest{min-width:60px}
   .cuteChest .chestLid{font-size:42px}
   .cuteRewardGrid,.cuteCollectionGrid{grid-template-columns:1fr}
+  .bubbleField{height:340px;min-height:340px}
   .letterBubble{width:78px;height:78px;font-size:32px}
   .stickerAlbum{grid-template-columns:repeat(4,minmax(0,1fr))}
 }
@@ -3976,7 +4005,7 @@ body.younger-mode main{
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V20.3</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V20.5</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -4769,7 +4798,7 @@ body.younger-mode main{
       </div>
       <div class="kidGameSpeech">
         <b id="bubbleBuddyTitle">找到指定字母</b>
-        <span id="bubbleBuddyText">戳對泡泡，它就會「啵！」消失。</span>
+        <span id="bubbleBuddyText">泡泡會慢慢飄，找到正確的再戳！</span>
       </div>
     </div>
 
@@ -4784,7 +4813,7 @@ body.younger-mode main{
     <div class="bubbleFeedback" id="bubbleFeedback">先找一找，不急。</div>
 
     <div class="kidGameBottom">
-      <button type="button" class="kidNextBtn hidden" id="bubbleNextBtn">下一題 →</button>
+      <button type="button" class="kidNextBtn hidden" id="bubbleNextBtn" style="display:none!important">下一題 →</button>
       <span id="bubbleRoundText">第 1 / 5 題</span>
     </div>
   </div>
@@ -8949,10 +8978,66 @@ function bubbleAllowedLetters(){
   const list=youngerAllowedLetters?.()||["A","B","C","D","E","F"];
   return list.length?list:["A"];
 }
+let bubbleAnswerSlotMemory=-1;
+
+function bubbleShuffle(arr){
+  const a=arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
 function bubbleChoices(target){
   const allowed=bubbleAllowedLetters();
-  const distract=shuffle(allowed.filter(x=>x!==target)).slice(0,Math.min(5,Math.max(1,allowed.length-1)));
-  return shuffle([target,...distract]);
+  const total=Math.min(6,Math.max(1,allowed.length));
+  const distract=bubbleShuffle(allowed.filter(x=>x!==target)).slice(0,total-1);
+
+  let slot=Math.floor(Math.random()*total);
+  if(total>1 && slot===bubbleAnswerSlotMemory){
+    slot=(slot+1+Math.floor(Math.random()*(total-1)))%total;
+  }
+  bubbleAnswerSlotMemory=slot;
+
+  const out=new Array(total);
+  let di=0;
+  for(let i=0;i<total;i++){
+    out[i]=i===slot?target:distract[di++];
+  }
+  return out;
+}
+
+function bubbleSpatialSlots(field,count){
+  const w=Math.max(300,field.clientWidth||600);
+  const h=Math.max(300,field.clientHeight||380);
+  const size=w<=520?78:92;
+  const pad=18;
+
+  const cols=count<=4?2:3;
+  const rows=Math.ceil(count/cols);
+  const usableW=Math.max(20,w-size-pad*2);
+  const usableH=Math.max(20,h-size-pad*2);
+
+  const slots=[];
+  for(let r=0;r<rows;r++){
+    for(let c=0;c<cols;c++){
+      if(slots.length>=count)break;
+      const x=pad+(cols===1?usableW/2:(usableW*c/(cols-1)));
+      const y=pad+(rows===1?usableH/2:(usableH*r/(rows-1)));
+      slots.push({x,y});
+    }
+  }
+  return bubbleShuffle(slots);
+}
+function bubbleMotion(){
+  const rand=(min,max)=>Math.round(min+Math.random()*(max-min));
+  return {
+    dx1:rand(-24,24),dy1:rand(-20,20),
+    dx2:rand(-34,34),dy2:rand(-26,26),
+    dx3:rand(-24,24),dy3:rand(-20,20),
+    duration:(4.8+Math.random()*2.6).toFixed(2),
+    delay:(-Math.random()*3).toFixed(2)
+  };
 }
 function startBubbleGame(){
   go("youngerBubble");
@@ -8982,21 +9067,42 @@ function nextBubbleRound(){
   phonicsSetText?.("bubbleTargetPair",`${target} ${target.toLowerCase()}`);
   phonicsSetText?.("bubbleScore",`${bubbleGame.correct} / 5`);
   phonicsSetText?.("bubbleRoundText",`第 ${bubbleGame.round} / 5 題`);
-  phonicsSetText?.("bubbleFeedback","找到一樣的字母泡泡。");
+  phonicsSetText?.("bubbleFeedback","找到正確泡泡，它會自己帶你去下一題。");
   phonicsSetText?.("bubbleBuddyTitle","找找看 "+target);
-  phonicsSetText?.("bubbleBuddyText","戳對泡泡，它就會啵一聲。");
+  phonicsSetText?.("bubbleBuddyText","戳對後會自動換下一題，不用再按按鈕。");
   document.getElementById("bubbleNextBtn")?.classList.add("hidden");
 
   const field=document.getElementById("bubbleField");
   if(!field)return;
   field.innerHTML="";
-  bubbleChoices(target).forEach((letter,idx)=>{
+
+  const choices=bubbleChoices(target);
+  const slots=bubbleSpatialSlots(field,choices.length);
+
+  choices.forEach((letter,idx)=>{
     const b=document.createElement("button");
+    const p=slots[idx]||{x:20+idx*80,y:40};
+    const motion=bubbleMotion();
+
     b.type="button";
     b.className="letterBubble";
     b.dataset.answer=letter;
+    b.dataset.slot=String(idx);
     b.textContent=letter;
-    b.style.animationDuration=`${2.3+(idx%3)*.35}s`;
+
+    b.style.left=`${p.x}px`;
+    b.style.top=`${p.y}px`;
+    b.style.setProperty("--dx1",`${motion.dx1}px`);
+    b.style.setProperty("--dy1",`${motion.dy1}px`);
+    b.style.setProperty("--dx2",`${motion.dx2}px`);
+    b.style.setProperty("--dy2",`${motion.dy2}px`);
+    b.style.setProperty("--dx3",`${motion.dx3}px`);
+    b.style.setProperty("--dy3",`${motion.dy3}px`);
+    b.style.setProperty("--bubbleDur",`${motion.duration}s`);
+    b.style.animationDelay=`${motion.delay}s`;
+
+    // 按下時先暫停，避免孩子手指碰到後泡泡還繼續溜走。
+    b.addEventListener("pointerdown",()=>{b.style.animationPlayState="paused"});
     b.onclick=()=>answerBubble(letter,b);
     field.appendChild(b);
   });
@@ -9011,7 +9117,12 @@ function answerBubble(letter,btn){
     phonicsSetText?.("bubbleScore",`${bubbleGame.correct} / 5`);
     setKidBearMood?.(true);
     playSound?.("youngerGood");
-    setTimeout(()=>document.getElementById("bubbleNextBtn")?.classList.remove("hidden"),330);
+
+    // 正確泡泡消失後，題目自動連動到下一題。
+    // 留一小段時間讓孩子看見「答對」回饋，不需要再按下一題。
+    setTimeout(()=>{
+      nextBubbleRound();
+    },650);
   }else{
     btn.classList.remove("wrong");
     void btn.offsetWidth;
@@ -9019,6 +9130,10 @@ function answerBubble(letter,btn){
     phonicsSetText?.("bubbleFeedback","差一點，再找 "+bubbleGame.target+"。");
     setKidBearMood?.(false);
     playSound?.("youngerRetry");
+    setTimeout(()=>{
+      btn.classList.remove("wrong");
+      btn.style.animationPlayState="running";
+    },430);
   }
 }
 
