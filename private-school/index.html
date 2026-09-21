@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V18.3｜復旦 × 六和</title>
+<title>兄弟學習基地 V18.5｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -3442,6 +3442,27 @@ body:not(.younger-mode) .page.youngerOnly{
 }
 </style>
 
+
+<style id="v184-vowel-state-fix">
+#youngerPhonics .fixedVowelChoices .vowelAnswerBtn,
+#youngerPhonics .fixedVowelChoices .vowelAnswerBtn:visited,
+#youngerPhonics .fixedVowelChoices .vowelAnswerBtn:focus{
+  background:#f6f9ff !important;
+  border-color:#b9c8e5 !important;
+  color:#40577f !important;
+}
+#youngerPhonics .fixedVowelChoices .vowelAnswerBtn.good{
+  background:#eef9f0 !important;
+  border-color:#85bc94 !important;
+  color:#3e7350 !important;
+}
+#youngerPhonics .fixedVowelChoices .vowelAnswerBtn.bad{
+  background:#fff2ed !important;
+  border-color:#d99d86 !important;
+  color:#995f48 !important;
+}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -3483,7 +3504,7 @@ body:not(.younger-mode) .page.youngerOnly{
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V18.3</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V18.5</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -4126,7 +4147,7 @@ body:not(.younger-mode) .page.youngerOnly{
         <button type="button" class="phonicsChoice vowelAnswerBtn" data-answer="o">o</button>
         <button type="button" class="phonicsChoice vowelAnswerBtn" data-answer="u">u</button>
       </div>
-      <div class="phonicsTapHint">點一個母音：a　e　i　o　u</div>
+      <div class="phonicsTapHint">先按「慢慢聽」，再選中間缺少的母音。</div>
 
       <div class="phonicsExplain hidden" id="phonicsExplain">
         <div class="phonicsExplainWord" id="phonicsExplainWord"></div>
@@ -4728,6 +4749,13 @@ body:not(.younger-mode) .page.youngerOnly{
 </main>
 </div>
 
+
+<script id="v184-global-helper">
+function setText(id,val){
+  const e=document.getElementById(id);
+  if(e)e.textContent=val;
+}
+</script>
 <script>
 const SafeStore=(()=>{
   const mem={};
@@ -6950,6 +6978,17 @@ const lookSets=[
 
 
 
+function phonicsSetText(id,val){
+  const e=document.getElementById(id);
+  if(e)e.textContent=val;
+}
+function phonicsValidItem(item){
+  if(!item || item.type!=="middle")return false;
+  if(!["a","e","i","o","u"].includes(item.vowel))return false;
+  const w=String(item.word||"").toLowerCase();
+  return w.length>=3 && String(item.pattern||"").includes("_");
+}
+
 const PHONICS_VOWEL_BANK=[
   {id:"pv01",type:"middle",word:"cat",zh:"貓",emoji:"🐱",vowel:"a",pattern:"c _ t",segments:["c","a","t"],choices:["a","e","i"],explain:"cat 的中間是 a。念起來像 c-a-t。"},
   {id:"pv02",type:"middle",word:"bag",zh:"袋子",emoji:"👜",vowel:"a",pattern:"b _ g",segments:["b","a","g"],choices:["a","o","u"],explain:"bag 的中間是 a。"},
@@ -7026,7 +7065,8 @@ function nextPhonicsItem(){
   const id=phonicsProgress.bag.splice(idx,1)[0];
   phonicsProgress.recent=[...phonicsProgress.recent,id].slice(-8);
   savePhonicsProgress();
-  return PHONICS_VOWEL_BANK.find(x=>x.id===id)||PHONICS_VOWEL_BANK[0];
+  const item=PHONICS_VOWEL_BANK.find(x=>x.id===id && phonicsValidItem(x));
+  return item || PHONICS_VOWEL_BANK.find(phonicsValidItem);
 }
 function speakPhonicsWord(word){
   try{
@@ -7076,6 +7116,25 @@ function startPhonicsQuiz(){
   document.getElementById("phonicsQuiz")?.classList.remove("hidden");
   nextPhonicsQuestion();
 }
+function renderPhonicsQuestion(item){
+  if(!phonicsValidItem(item))return false;
+
+  phonicsState.item=item;
+  const quiz=document.getElementById("phonicsQuiz");
+  if(quiz){
+    quiz.dataset.correct=item.vowel;
+    quiz.dataset.word=item.word;
+    quiz.dataset.questionId=item.id;
+  }
+
+  phonicsSetText("phonicsFocus","找中間音");
+  phonicsSetText("phonicsPicture",item.emoji);
+  phonicsSetText("phonicsChinese",item.zh);
+  phonicsSetText("phonicsPattern",item.pattern);
+  phonicsSetText("phonicsQuestionText","這個字中間是哪一個母音？");
+  return true;
+}
+
 function nextPhonicsQuestion(){
   if(phonicsState.round>=8 || phonicsProgress.todayCorrect>=8){
     const q=document.getElementById("phonicsQuiz");
@@ -7096,14 +7155,9 @@ function nextPhonicsQuestion(){
   phonicsState.round++;
   phonicsState.answered=false;
   const item=nextPhonicsItem();
-  phonicsState.item=item;
+  if(!renderPhonicsQuestion(item))return;
 
-  setText("phonicsRound",`第 ${phonicsState.round} / 8 題`);
-  setText("phonicsFocus","找中間音");
-  setText("phonicsPicture",item.emoji);
-  setText("phonicsChinese",item.zh);
-  setText("phonicsPattern",item.pattern);
-  setText("phonicsQuestionText","這個字中間是哪一個母音？");
+  phonicsSetText("phonicsRound",`第 ${phonicsState.round} / 8 題`);
 
   const explain=document.getElementById("phonicsExplain");
   if(explain)explain.classList.add("hidden");
@@ -7116,17 +7170,36 @@ function nextPhonicsQuestion(){
     choices.querySelectorAll(".vowelAnswerBtn").forEach(btn=>{
       btn.disabled=false;
       btn.classList.remove("good","bad");
+      btn.removeAttribute("aria-current");
     });
   }
 
-  setText("phonicsBuddyTitle","先聽中間的聲音");
-  setText("phonicsBuddyText","不用急著猜，先聽完整單字。");
+  phonicsSetText("phonicsBuddyTitle","先聽中間的聲音");
+  phonicsSetText("phonicsBuddyText","不用急著猜，先聽完整單字。");
   setTimeout(()=>speakPhonicsWord(item.word),180);
 }
 function answerPhonics(value,btn){
   if(phonicsState.answered)return;
-  const item=phonicsState.item;if(!item)return;
+
+  const quiz=document.getElementById("phonicsQuiz");
+  const questionId=quiz?.dataset.questionId||"";
+  const item=PHONICS_VOWEL_BANK.find(x=>x.id===questionId);
+
+  // 畫面沒有有效題目時不判分，避免「看見 cat 卻判成 o」。
+  if(!phonicsValidItem(item))return;
+
+  const displayedWord=quiz?.dataset.word||"";
+  const displayedCorrect=quiz?.dataset.correct||"";
+
+  // 畫面、題庫、答案三者必須一致，不一致就重新渲染，不進行錯誤判分。
+  if(displayedWord!==item.word || displayedCorrect!==item.vowel){
+    renderPhonicsQuestion(item);
+    return;
+  }
+
+  phonicsState.item=item;
   phonicsState.answered=true;
+
   const correct=item.vowel;
   const ok=value===correct;
 
@@ -7136,7 +7209,12 @@ function answerPhonics(value,btn){
 
   document.querySelectorAll("#phonicsChoices .phonicsChoice").forEach(b=>{
     b.disabled=true;
-    if(b.dataset.answer===correct)b.classList.add("good");
+    b.classList.remove("good","bad");
+    b.removeAttribute("aria-current");
+    if(b.dataset.answer===correct){
+      b.classList.add("good");
+      b.setAttribute("aria-current","true");
+    }
   });
 
   if(ok){
@@ -7144,22 +7222,23 @@ function answerPhonics(value,btn){
     phonicsProgress.totalCorrect++;
     phonicsProgress.byVowel[item.vowel].ok++;
     if(typeof setKidBearMood==="function")setKidBearMood(true);
-    setText("phonicsBuddyTitle","答對了");
-    setText("phonicsBuddyText","現在看它怎麼拆。");
+    phonicsSetText("phonicsBuddyTitle","答對了");
+    phonicsSetText("phonicsBuddyText","現在看它怎麼拆。");
   }else{
     phonicsProgress.byVowel[item.vowel].bad++;
     if(btn)btn.classList.add("bad");
     if(typeof setKidBearMood==="function")setKidBearMood(false);
-    setText("phonicsBuddyTitle","先看拆音");
-    setText("phonicsBuddyText","先找到中間的母音，再把字拼起來。");
+    phonicsSetText("phonicsBuddyTitle","再聽一次");
+    phonicsSetText("phonicsBuddyText","看看中間缺少哪一個母音。");
   }
+
   savePhonicsProgress();
   updatePhonicsProgressUI();
 
-  setText("phonicsExplainWord",item.word);
+  phonicsSetText("phonicsExplainWord",item.word);
   const boxes=document.getElementById("phonicsExplainBoxes");
   if(boxes)boxes.innerHTML=phonicsSoundBoxesHtml(item.segments);
-  setText("phonicsExplainText",`${item.explain}　這題的母音是 ${item.vowel}。`);
+  phonicsSetText("phonicsExplainText",`${item.explain}　中間的母音是 ${item.vowel}。`);
   document.getElementById("phonicsExplain")?.classList.remove("hidden");
   document.getElementById("phonicsNextBtn")?.classList.remove("hidden");
 }
