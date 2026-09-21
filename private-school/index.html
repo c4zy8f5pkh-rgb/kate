@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V19.1｜復旦 × 六和</title>
+<title>兄弟學習基地 V19.4｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -3556,7 +3556,7 @@ body:not(.younger-mode) .page.youngerOnly{
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V19.1</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V19.4</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -4618,7 +4618,7 @@ body:not(.younger-mode) .page.youngerOnly{
         <div class="practiceTop">
           <div>
             <h3>🖨️ 五年級紙本考卷產生器</h3>
-            <div class="muted">數學八大分類都有大型題池，另外加入「情境題組」：同一段短文會連續考不同觀念，避免只換數字。換卷會優先避開近期與上一份題目。</div>
+            <div class="muted">數學八大分類都有大型題池；情境題組會做「長期輪替」，優先出現次數較少、近期沒出過的情境，避免園遊會／烘焙等題材一直重複。</div>
           </div>
           <span class="tag">家長專用</span>
         </div>
@@ -7377,6 +7377,61 @@ function buildMathCaselets(){
 
 const PAPER_MATH_CASELETS=buildMathCaselets();
 
+const PAPER_CASE_ROTATION_KEY="family_math_case_rotation_v194";
+
+function loadPaperCaseRotation(){
+  let x={counts:{},recent:[],variantRecent:{}};
+  try{
+    const raw=JSON.parse(SafeStore.get(PAPER_CASE_ROTATION_KEY,"{}")||"{}");
+    if(raw&&typeof raw==="object")x={...x,...raw};
+  }catch(e){}
+  x.counts=x.counts&&typeof x.counts==="object"?x.counts:{};
+  x.recent=Array.isArray(x.recent)?x.recent.slice(-12):[];
+  x.variantRecent=x.variantRecent&&typeof x.variantRecent==="object"?x.variantRecent:{};
+  return x;
+}
+let paperCaseRotation=loadPaperCaseRotation();
+
+function savePaperCaseRotation(){
+  SafeStore.set(PAPER_CASE_ROTATION_KEY,JSON.stringify(paperCaseRotation));
+}
+
+function paperCaseUsage(title){
+  return Number(paperCaseRotation.counts?.[title]||0);
+}
+
+function paperCaseRecentRank(title){
+  const i=paperCaseRotation.recent.lastIndexOf(title);
+  return i<0 ? -1 : i;
+}
+
+function recordPaperCaseUsage(items){
+  const titles=[...new Set(items.filter(x=>x.caseId).map(x=>x.caseTitle).filter(Boolean))];
+  titles.forEach(title=>{
+    paperCaseRotation.counts[title]=paperCaseUsage(title)+1;
+  });
+
+  // 最近使用情境保留 12 種；新的放最後
+  paperCaseRotation.recent=[
+    ...paperCaseRotation.recent.filter(t=>!titles.includes(t)),
+    ...titles
+  ].slice(-12);
+
+  // 每個情境保留最近使用的 variant caseId，避免下次同情境又抽到同一版數字
+  items.filter(x=>x.caseId&&x.caseTitle).forEach(x=>{
+    const arr=Array.isArray(paperCaseRotation.variantRecent[x.caseTitle])
+      ? paperCaseRotation.variantRecent[x.caseTitle]
+      : [];
+    paperCaseRotation.variantRecent[x.caseTitle]=[
+      ...arr.filter(id=>id!==x.caseId),
+      x.caseId
+    ].slice(-3);
+  });
+
+  savePaperCaseRotation();
+}
+
+
 function caseletEligibleItems(caselet,categories,diffs){
   return caselet.items.filter(x=>categories.includes(x.category)&&diffs.includes(x.style));
 }
@@ -7392,39 +7447,71 @@ function paperPickCaseletItems(count,categories,diffs,avoidIds=[],structure="sce
   const avoidTitleSet=new Set(avoidTitles||[]);
   const usedTitles=new Set();
 
-  // 先排除上一份考卷用過的情境；如果題數真的不足，才回收舊情境。
-  const fresh=PAPER_MATH_CASELETS.filter(c=>{
-    const eligible=caseletEligibleItems(c,categories,diffs).filter(x=>!avoid.has(x.id));
-    return eligible.length>=2 && !avoidTitleSet.has(c.title);
-  });
-  const fallback=PAPER_MATH_CASELETS.filter(c=>{
-    const eligible=caseletEligibleItems(c,categories,diffs).filter(x=>!avoid.has(x.id));
-    return eligible.length>=2 && avoidTitleSet.has(c.title);
-  });
-  let caselets=[...paperShuffle(fresh),...paperShuffle(fallback)];
-
   const targetRatio=structure==="caseHeavy"?.9:.68;
   const target=Math.min(count,Math.max(0,Math.round(count*targetRatio)));
   const chosen=[];
   const used=new Set();
 
-  for(const c of caselets){
-    // 同一張考卷同一種情境只出現一次，例如不會連續兩組都是「園遊會飲料攤」。
-    if(usedTitles.has(c.title))continue;
+  // 先依情境名稱分組。每個名稱有 4 個數值/版本變化。
+  const titleGroups=new Map();
+  for(const c of PAPER_MATH_CASELETS){
+    const eligible=caseletEligibleItems(c,categories,diffs).filter(x=>!avoid.has(x.id));
+    if(eligible.length<2)continue;
+    if(!titleGroups.has(c.title))titleGroups.set(c.title,[]);
+    titleGroups.get(c.title).push({caselet:c,eligible});
+  }
+
+  // 排序規則：
+  // 1. 上一份考卷沒出過
+  // 2. 歷史使用次數少的優先
+  // 3. 最近較久沒出現的優先
+  // 4. 完全同分才隨機
+  let titles=[...titleGroups.keys()];
+  const tieRand=new Map(titles.map(t=>[t,Math.random()]));
+  titles.sort((a,b)=>{
+    const aPrev=avoidTitleSet.has(a)?1:0;
+    const bPrev=avoidTitleSet.has(b)?1:0;
+    if(aPrev!==bPrev)return aPrev-bPrev;
+
+    const ac=paperCaseUsage(a),bc=paperCaseUsage(b);
+    if(ac!==bc)return ac-bc;
+
+    const ar=paperCaseRecentRank(a),br=paperCaseRecentRank(b);
+    if(ar!==br)return ar-br; // -1 表示最近完全沒出過，最優先
+
+    return tieRand.get(a)-tieRand.get(b);
+  });
+
+  for(const title of titles){
     if(chosen.length>=target)break;
-    let eligible=caseletEligibleItems(c,categories,diffs).filter(x=>!avoid.has(x.id)&&!used.has(x.id));
+    if(usedTitles.has(title))continue;
+
+    let variants=titleGroups.get(title)||[];
+    const recentVariants=new Set(paperCaseRotation.variantRecent?.[title]||[]);
+
+    // 同情境內也優先選最近沒出過的 variant。
+    variants=paperShuffle(variants).sort((a,b)=>{
+      const av=recentVariants.has(a.caselet.id)?1:0;
+      const bv=recentVariants.has(b.caselet.id)?1:0;
+      return av-bv;
+    });
+
+    const selected=variants[0];
+    if(!selected)continue;
+
+    const eligible=selected.eligible.filter(x=>!used.has(x.id));
     if(eligible.length<2)continue;
 
-    // 題組至少 2 題，最多 3 題，並保留原子題順序。
     const take=Math.min(3,eligible.length,target-chosen.length);
     if(take<2 && chosen.length>0)continue;
 
     eligible.slice(0,take).forEach(x=>{
-      chosen.push({...x,caseTitle:c.title,casePassage:c.passage});
+      chosen.push({...x,caseTitle:title,casePassage:selected.caselet.passage});
       used.add(x.id);
     });
-    usedTitles.add(c.title);
+    usedTitles.add(title);
   }
+
   return chosen;
 }
 
@@ -7816,6 +7903,9 @@ function generatePaperExam(){
     caseTitles:[...new Set(items.filter(x=>x.caseId).map(x=>x.caseTitle))]
   };
   paperSaveHistory(lastGeneratedPaper.ids);
+  if(subject==="math"&&structure!=="skills"){
+    recordPaperCaseUsage(items);
+  }
 
   const msg=document.getElementById("paperGeneratorMsg");
   if(msg){
@@ -7849,6 +7939,45 @@ function paperAfterPrint(){document.body.classList.remove("printing-paper")}
 document.documentElement.dataset.backendTabsReady=String(
   document.querySelectorAll(".backendTab").length===document.querySelectorAll(".backendPanel").length
 );
+
+
+function runFamilySiteSelfCheck(){
+  const requiredIds=[
+    "back-overview","back-progress","back-wrongs","back-paper","back-dm","back-settings",
+    "paperSubject","paperCount","paperMode","paperStructure","paperGenerateBtn","paperRerollBtn","paperPrintBtn",
+    "youngerHome","youngerPhonics","youngerWords","phonicsChoices"
+  ];
+  const missing=requiredIds.filter(id=>!document.getElementById(id));
+
+  const tabs=[...document.querySelectorAll(".backendTab")].map(x=>x.dataset.backtab);
+  const missingPanels=tabs.filter(t=>!document.getElementById("back-"+t));
+
+  const caseletOk=Array.isArray(PAPER_MATH_CASELETS)&&PAPER_MATH_CASELETS.length===64;
+  const mathPoolsOk=typeof PAPER_MATH_VARIANT_POOLS==="object" &&
+    ["arithmetic","application","factor","fraction","decimal","measure","geometry","data"]
+      .every(k=>Array.isArray(PAPER_MATH_VARIANT_POOLS[k])&&PAPER_MATH_VARIANT_POOLS[k].length>0);
+
+  let paperCoreOk=false;
+  try{
+    const cats=["arithmetic","application","factor","fraction","decimal","measure","geometry","data"];
+    const diffs=["standard","advanced","variation"];
+    const pool=paperCandidatePool("math",cats,diffs);
+    const sample=paperCombineScenarioAndSkills(pool,10,"math","balanced",cats,diffs,[],"scenarioMix",[]);
+    paperCoreOk=sample.length===10 && new Set(sample.map(x=>x.id)).size===10;
+  }catch(e){
+    paperCoreOk=false;
+  }
+
+  const result={
+    ok:missing.length===0&&missingPanels.length===0&&tabs.length===6&&caseletOk&&mathPoolsOk&&paperCoreOk,
+    missing,missingPanels,tabs:tabs.length,caselets:PAPER_MATH_CASELETS.length,paperCoreOk
+  };
+  window.__familySiteSelfTest=result;
+  document.documentElement.dataset.familySiteReady=result.ok?"true":"false";
+  if(!result.ok)console.error("Family site self-check failed",result);
+  return result;
+}
+window.addEventListener("load",()=>setTimeout(runFamilySiteSelfCheck,0));
 
 document.querySelectorAll(".backendTab").forEach(btn=>btn.addEventListener("click",()=>{
   document.querySelectorAll(".backendTab").forEach(x=>x.classList.remove("active"));
