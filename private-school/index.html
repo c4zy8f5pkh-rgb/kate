@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V20.8｜復旦 × 六和</title>
+<title>兄弟學習基地 V20.9｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -3876,10 +3876,11 @@ body.younger-mode main{
   animation:bubbleWiggle .38s ease!important
 }
 @keyframes bubbleWander{
-  0%,100%{translate:0 0}
-  24%{translate:var(--dx1,18px) var(--dy1,-12px)}
-  52%{translate:var(--dx2,-24px) var(--dy2,20px)}
-  76%{translate:var(--dx3,14px) var(--dy3,14px)}
+  0%,100%{translate:0 0;rotate:0deg}
+  18%{translate:var(--dx1,28px) var(--dy1,-18px);rotate:2deg}
+  39%{translate:var(--dx2,-48px) var(--dy2,28px);rotate:-3deg}
+  61%{translate:var(--dx3,36px) var(--dy3,24px);rotate:2deg}
+  82%{translate:var(--dx4,-30px) var(--dy4,-22px);rotate:-2deg}
 }
 @keyframes bubblePop{
   0%{transform:scale(1);opacity:1}
@@ -4006,7 +4007,7 @@ body.younger-mode main{
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V20.8</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V20.9</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -9011,8 +9012,11 @@ function bubbleChoices(target){
 function bubbleSpatialSlots(field,count){
   const w=Math.max(300,field.clientWidth||600);
   const h=Math.max(300,field.clientHeight||380);
-  const size=w<=520?78:92;
-  const pad=18;
+  const compact=w<=520;
+  const size=compact?78:92;
+
+  // 留出漂移空間，避免泡泡浮動變大後被邊框切掉。
+  const pad=compact?48:62;
 
   const cols=count<=4?2:3;
   const rows=Math.ceil(count/cols);
@@ -9030,14 +9034,28 @@ function bubbleSpatialSlots(field,count){
   }
   return bubbleShuffle(slots);
 }
-function bubbleMotion(){
-  const rand=(min,max)=>Math.round(min+Math.random()*(max-min));
-  return {
-    dx1:rand(-24,24),dy1:rand(-20,20),
-    dx2:rand(-34,34),dy2:rand(-26,26),
-    dx3:rand(-24,24),dy3:rand(-20,20),
-    duration:(4.8+Math.random()*2.6).toFixed(2),
-    delay:(-Math.random()*3).toFixed(2)
+function bubbleMotion(field){
+  const compact=(field?.clientWidth||600)<=520;
+  const signed=(min,max)=>{
+    const n=Math.round(min+Math.random()*(max-min));
+    return Math.random()<.5?-n:n;
+  };
+
+  // 每顆泡泡都有不同路線；桌機移動較大，手機略縮小避免跑出框。
+  return compact ? {
+    dx1:signed(14,28),dy1:signed(10,22),
+    dx2:signed(24,42),dy2:signed(14,30),
+    dx3:signed(18,34),dy3:signed(12,26),
+    dx4:signed(12,30),dy4:signed(10,24),
+    duration:(4.2+Math.random()*1.7).toFixed(2),
+    delay:(-Math.random()*2.8).toFixed(2)
+  } : {
+    dx1:signed(20,40),dy1:signed(14,30),
+    dx2:signed(36,58),dy2:signed(20,38),
+    dx3:signed(26,48),dy3:signed(18,34),
+    dx4:signed(18,42),dy4:signed(14,32),
+    duration:(3.9+Math.random()*1.8).toFixed(2),
+    delay:(-Math.random()*3.2).toFixed(2)
   };
 }
 function startBubbleGame(){
@@ -9085,7 +9103,7 @@ function nextBubbleRound(){
   choices.forEach((letter,idx)=>{
     const b=document.createElement("button");
     const p=slots[idx]||{x:20+idx*80,y:40};
-    const motion=bubbleMotion();
+    const motion=bubbleMotion(field);
 
     b.type="button";
     b.className="letterBubble";
@@ -9101,6 +9119,8 @@ function nextBubbleRound(){
     b.style.setProperty("--dy2",`${motion.dy2}px`);
     b.style.setProperty("--dx3",`${motion.dx3}px`);
     b.style.setProperty("--dy3",`${motion.dy3}px`);
+    b.style.setProperty("--dx4",`${motion.dx4}px`);
+    b.style.setProperty("--dy4",`${motion.dy4}px`);
     b.style.setProperty("--bubbleDur",`${motion.duration}s`);
     b.style.animationDelay=`${motion.delay}s`;
 
@@ -9119,7 +9139,7 @@ function answerBubble(letter,btn){
     phonicsSetText?.("bubbleFeedback","啵！找到了！");
     phonicsSetText?.("bubbleScore",`${bubbleGame.correct} / 5`);
     setKidBearMood?.(true);
-    playSound?.("youngerGood");
+    playBubblePopSound();
 
     // 正確泡泡消失後，題目自動連動到下一題。
     // 留一小段時間讓孩子看見「答對」回饋，不需要再按下一題。
@@ -9210,6 +9230,36 @@ function tone(freq,dur=0.12,type="sine",vol=0.045,delay=0){
   g.gain.exponentialRampToValueAtTime(vol,t+0.015);
   g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
   o.start(t);o.stop(t+dur+0.02);
+}
+function playBubblePopSound(){
+  if(!soundEnabled)return;
+  const ctx=getAudioCtx(); if(!ctx)return;
+
+  const t=ctx.currentTime;
+
+  // 主體：快速由高往低滑，做出「啵」的氣泡破裂感。
+  const osc=ctx.createOscillator();
+  const gain=ctx.createGain();
+  osc.type="sine";
+  osc.frequency.setValueAtTime(920,t);
+  osc.frequency.exponentialRampToValueAtTime(165,t+.11);
+  gain.gain.setValueAtTime(.0001,t);
+  gain.gain.exponentialRampToValueAtTime(.055,t+.006);
+  gain.gain.exponentialRampToValueAtTime(.0001,t+.13);
+  osc.connect(gain); gain.connect(ctx.destination);
+  osc.start(t); osc.stop(t+.14);
+
+  // 很短的「啪」點，讓它跟一般答對的雙音提示明顯不同。
+  const click=ctx.createOscillator();
+  const clickGain=ctx.createGain();
+  click.type="triangle";
+  click.frequency.setValueAtTime(1450,t);
+  click.frequency.exponentialRampToValueAtTime(520,t+.035);
+  clickGain.gain.setValueAtTime(.0001,t);
+  clickGain.gain.exponentialRampToValueAtTime(.018,t+.003);
+  clickGain.gain.exponentialRampToValueAtTime(.0001,t+.045);
+  click.connect(clickGain); clickGain.connect(ctx.destination);
+  click.start(t); click.stop(t+.05);
 }
 function playSound(kind){
   if(!soundEnabled)return;
