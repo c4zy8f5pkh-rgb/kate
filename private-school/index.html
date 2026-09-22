@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V20.6｜復旦 × 六和</title>
+<title>兄弟學習基地 V20.8｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -3903,8 +3903,8 @@ body.younger-mode main{
 .petShelf{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
 .petBadge{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;background:#f4f6f9;font-size:28px;border:1px solid #e1e5eb}
 .petBadge.locked{filter:grayscale(1);opacity:.35}
-.wardrobePreview{height:150px;display:flex;align-items:center;justify-content:center}
-.wardrobeBear{transform:scale(.82);transform-origin:center}
+.wardrobePreview{height:170px;display:flex;align-items:flex-end;justify-content:center;padding:6px 0 2px;overflow:hidden}
+.wardrobeBear{position:relative;left:0;top:0;right:auto;bottom:auto;transform:scale(.72);transform-origin:center bottom;margin:0 auto}
 .wardrobeChoices{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
 .wardrobeBtn{
   min-width:62px;border:1px solid #dfe4ec;background:#fff;border-radius:16px;padding:8px 7px;cursor:pointer;
@@ -3918,6 +3918,7 @@ body.younger-mode main{
   pointer-events:none;text-shadow:0 2px 4px rgba(0,0,0,.08)
 }
 .cssBear{position:relative}
+.wardrobePreview .cssBear[data-role]::before{content:none !important;display:none !important}
 .stickerAlbum{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-top:14px}
 .stickerSlot{
   min-height:78px;border-radius:18px;background:#f6f7fa;border:1px dashed #d9dee6;
@@ -4005,7 +4006,7 @@ body.younger-mode main{
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V20.6</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V20.8</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
