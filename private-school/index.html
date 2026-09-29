@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V21.2｜復旦 × 六和</title>
+<title>兄弟學習基地 V22.3｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -3970,26 +3970,114 @@ body.younger-mode main{
 <style id="v210-trace-stroke-order">
 @media(max-width:950px){.app{grid-template-columns:minmax(0,1fr)}aside,main{min-width:0}}
 #youngerPosition .tracePlayBoard{min-height:500px}
-#youngerPosition .traceCoach{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;max-width:760px;margin:10px auto 4px;padding:10px 12px;border-radius:18px;background:#fbfbfb;border:1px solid #ececec}
-#youngerPosition .traceCoachText{display:flex;align-items:center;flex-wrap:wrap;gap:8px;font-size:17px;color:#646464;font-weight:850}
-#youngerPosition #traceStepBadge{border-radius:999px;padding:7px 12px;background:#f1f1f1;color:#6c6c6c;font-weight:1000;white-space:nowrap}
-#youngerPosition .traceDemoBtn{min-height:46px;border-radius:15px;border:1px solid #dfdfdf;background:#fff;color:#666;padding:9px 15px;font-size:16px;font-weight:1000;cursor:pointer}
+#youngerPosition .traceCoach{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;max-width:760px;margin:12px auto 6px;padding:12px 14px;border-radius:22px;background:linear-gradient(180deg,#fffefb 0%,#fff9ef 100%);border:1px solid #eee5d2;box-shadow:0 10px 24px rgba(160,136,85,.08)}
+#youngerPosition .traceCoachText{display:flex;align-items:center;flex-wrap:wrap;gap:8px;font-size:17px;color:#6f6653;font-weight:850}
+#youngerPosition #traceStepBadge{border-radius:999px;padding:9px 14px;background:linear-gradient(180deg,#fff5f0 0%,#ffe8de 100%);color:#a35a3c;font-weight:1000;white-space:nowrap;border:1px solid #f0c4b0;box-shadow:0 3px 10px rgba(228,152,116,.12)}
+#youngerPosition .traceDemoBtn{min-height:46px;border-radius:15px;border:1px solid #e3dac8;background:#fff;color:#7a6b4b;padding:9px 15px;font-size:16px;font-weight:1000;cursor:pointer;box-shadow:0 4px 10px rgba(90,74,35,.05)}
 #youngerPosition .traceDemoBtn:disabled{opacity:.6;cursor:default}
-#youngerPosition .traceStrokeSteps{display:flex;justify-content:center;align-items:center;gap:8px;margin:10px auto 0;flex-wrap:wrap}
-#youngerPosition .traceStrokeStep{min-height:34px;display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:5px 10px;background:#fff;border:1px solid #e2e2e2;color:#7d7d7d;font-size:14px;font-weight:900}
-#youngerPosition .traceStrokeStep.active{background:#f0f0f0;border-color:#d1d1d1;color:#555;box-shadow:none}
-#youngerPosition .traceStrokeStep.done{background:#f6f6f6;border-color:#d7d7d7;color:#555}
-#youngerPosition .traceCanvasWrap{margin:12px auto 14px;border-color:#e8e8e8;background:#fafafa;box-shadow:0 8px 18px rgba(0,0,0,.04)}
-#youngerPosition #traceCanvas{display:block;max-width:100%;touch-action:none;background:#fafafa}
-#youngerPosition #finishTraceBtn:not(:disabled){background:#4b9b73;box-shadow:0 5px 0 rgba(45,118,81,.13)}
+#youngerPosition .traceStrokeSteps{display:flex;justify-content:center;align-items:center;gap:8px;margin:12px auto 0;flex-wrap:wrap}
+#youngerPosition .traceStrokeStep{min-width:72px;height:34px;padding:0 12px;display:inline-flex;align-items:center;justify-content:center;border-radius:999px;background:#fff;border:1px solid #e8e1d5;color:#a69679;font-size:14px;font-weight:900;box-shadow:none}
+#youngerPosition .traceStrokeStep.active{background:linear-gradient(180deg,#fff0ea 0%,#ffe4d7 100%);border-color:#efb49c;color:#9f5236;box-shadow:0 0 0 3px rgba(244,173,141,.16)}
+#youngerPosition .traceStrokeStep.done{background:#eef7f0;border-color:#b8d8be;color:#557b5e}
+#youngerPosition .traceCanvasWrap{margin:14px auto 14px;padding:16px;border-radius:28px;border:1px solid #eee4d5;background:linear-gradient(180deg,#fffdf9 0%,#fffaf0 100%);box-shadow:0 14px 28px rgba(109,88,46,.07)}
+#youngerPosition #traceCanvas{display:block;max-width:100%;touch-action:none;background:#fffefb;border-radius:22px;border:1px solid #efe6d6}
+#youngerPosition .traceActions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+#youngerPosition .traceBtn{min-width:150px;min-height:52px;border-radius:16px;border:0;font:inherit;font-weight:900;font-size:16px;cursor:pointer}
+#youngerPosition .traceBtn.secondary{background:#f5f2ea;color:#7a6d58;border:1px solid #e6dccb}
+#youngerPosition #finishTraceBtn:not(:disabled){background:#7db56c;box-shadow:0 7px 0 rgba(88,142,71,.16)}
 @media(max-width:700px){
  #youngerPosition .traceCoach{padding:10px;gap:8px}
  #youngerPosition .traceCoachText{font-size:15px}
  #youngerPosition .traceDemoBtn{width:100%;font-size:16px}
  #youngerPosition .traceActions{gap:9px}
  #youngerPosition .traceBtn{min-width:0;flex:1;font-size:16px;padding:0 8px}
- #youngerPosition .traceStrokeStep{font-size:13px;padding:5px 9px}
+ #youngerPosition .traceStrokeStep{width:38px;height:38px;font-size:15px}
+ #youngerPosition .traceCanvasWrap{padding:10px}
 }
+</style>
+<style id="v223-trace-step-cards">
+/* Clear, separate stroke instructions for a child on tablet or phone. */
+#youngerPosition .traceStrokeSteps{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(175px,1fr));
+  gap:13px; width:min(760px,100%); max-width:760px;
+  margin:14px auto 16px; align-items:stretch;
+}
+#youngerPosition .traceStrokeStep{
+  box-sizing:border-box; width:auto; height:auto; min-width:0; min-height:86px;
+  padding:13px 15px; border-radius:18px; display:flex;
+  align-items:stretch; justify-content:center; flex-direction:column; gap:8px;
+  border:2px solid #e4e8ef; background:#fff;
+  color:#738096; box-shadow:0 5px 14px rgba(68,88,111,.045);
+  text-align:left; line-height:1.35;
+}
+#youngerPosition .traceStrokeStep .traceStepCardHead{
+  display:flex; justify-content:space-between; align-items:center; gap:9px;
+}
+#youngerPosition .traceStrokeStep .traceStepOrdinal{
+  font-size:19px; font-weight:1000; letter-spacing:.02em; white-space:nowrap;
+}
+#youngerPosition .traceStrokeStep .traceStepState{
+  flex:0 0 auto; border-radius:999px; padding:4px 8px;
+  font-size:12px; font-weight:900; background:#f1f4f7; color:#7d8998;
+}
+#youngerPosition .traceStrokeStep .traceStepDesc{
+  font-size:15px; font-weight:800; color:#738096; white-space:normal;
+}
+#youngerPosition .traceStrokeStep.active{
+  border-color:#eea78c; background:#fff4ed; color:#a25234;
+  box-shadow:0 0 0 3px rgba(238,167,140,.14);
+}
+#youngerPosition .traceStrokeStep.active .traceStepState{
+  background:#e68b67; color:#fff;
+}
+#youngerPosition .traceStrokeStep.active .traceStepDesc{color:#865d48}
+#youngerPosition .traceStrokeStep.done{
+  border-color:#b9d9bf; background:#f2faf3; color:#487756;
+}
+#youngerPosition .traceStrokeStep.done .traceStepState{
+  background:#d9ecdd; color:#487756;
+}
+#youngerPosition .traceStrokeStep.done .traceStepDesc{color:#66806d}
+#youngerPosition .traceCoachText{gap:9px 14px}
+#youngerPosition #traceStepHint{line-height:1.5}
+@media(max-width:560px){
+  #youngerPosition .traceStrokeSteps{grid-template-columns:1fr;gap:10px}
+  #youngerPosition .traceStrokeStep{min-height:77px;padding:10px 14px}
+}
+</style>
+
+<style id="v214-trace-same-path">
+#youngerPosition .traceCoach{background:#fffdf9;border-color:#e6e4df;box-shadow:none}
+#youngerPosition .traceCanvasWrap{max-width:650px;padding:12px;background:#fffdf9;border-color:#e7e8ea;box-shadow:0 10px 24px rgba(85,96,116,.07)}
+#youngerPosition #traceCanvas{background:#fffefa;border-color:#e7e8ee}
+#youngerPosition .traceStrokeSteps{gap:7px;margin-top:8px}
+#youngerPosition .traceStrokeStep{min-width:64px;height:32px;padding:0 10px;border-radius:999px;font-size:13px;box-shadow:none}
+@media(max-width:700px){#youngerPosition .traceCanvasWrap{padding:7px}}
+</style>
+<style id="v220-expression">
+#expression{max-width:1120px;margin:0 auto}
+.exprHero{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 24px;background:linear-gradient(115deg,#f6f8ff,#fffaf2);border:1px solid #e5e8f2;border-radius:24px;margin-bottom:16px}
+.exprEyebrow{font-weight:950;color:#667cae;font-size:14px;margin-bottom:7px}.exprHero h2{font-size:27px;margin:0 0 8px;color:#364660}.exprHero p{color:#758097;line-height:1.8;margin:0;max-width:680px}
+.exprDaily{flex-shrink:0;min-width:206px;padding:13px;background:#fff;border:1px solid #dfe7f6;border-radius:18px;display:flex;flex-direction:column;gap:5px}
+.exprDaily b{font-size:22px;color:#4c6694}.exprDaily small,.exprDaily span{font-size:12px;line-height:1.65;color:#718096}
+.exprModes{display:flex;flex-wrap:wrap;gap:9px;margin:0 0 17px}.exprModeBtn{border:1px solid #dde5f2;background:#fff;padding:10px 15px;border-radius:999px;font-size:15px;color:#64728d;cursor:pointer;font-weight:850}
+.exprModeBtn.active{color:#4b65a1;background:#edf2ff;border-color:#aabced;box-shadow:0 0 0 3px rgba(139,163,227,.1)}
+.exprLayout{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:14px;align-items:start}
+.exprTask,.exprSide{border:1px solid #e2e8f0;background:#fff;border-radius:23px;padding:22px;box-shadow:0 9px 22px rgba(69,88,130,.045)}
+.exprTaskTop{display:flex;align-items:start;justify-content:space-between;gap:10px}.exprTaskTop small{font-weight:850;color:#7083af}.exprTaskTop h3{font-size:22px;color:#34455f;margin:6px 0 14px}.exprTag{font-size:12px;border-radius:999px;background:#f0f4fb;padding:7px 11px;color:#71829f;white-space:nowrap}
+.exprOriginal{background:#f7f9fe;border-left:4px solid #a4b9e6;border-radius:12px;padding:15px 16px;font-size:19px;font-weight:750;line-height:1.75;color:#344862}
+.exprOriginal small{display:block;color:#7d8aa6;font-size:12px;font-weight:800;margin-bottom:3px}
+.exprPrompt{font-size:18px;line-height:1.8;color:#465a76;margin:17px 0 9px;font-weight:850}
+.exprConstraints{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px}.exprConstraint{font-size:13px;color:#80694e;background:#fff8e8;padding:7px 10px;border-radius:10px;border:1px solid #f2e3c0}
+.exprTextLink{border:0;background:none;font-size:14px;color:#4b70a7;padding:8px 0;cursor:pointer;font-weight:850}.exprHint{background:#eef7f8;border:1px solid #cce4e9;border-radius:13px;color:#53737c;line-height:1.75;padding:11px 13px;margin:6px 0 14px}.exprLabel{display:block;color:#495e78;font-weight:950;font-size:16px;margin:15px 0 8px}
+.exprTextarea{display:block;width:100%;min-height:124px;padding:14px;border-radius:14px;border:2px solid #dce5f2;background:#fff;resize:vertical;font:inherit;font-size:18px;line-height:1.75;color:#354962;box-sizing:border-box}
+.exprTextarea:focus{outline:none;border-color:#8ca9df;box-shadow:0 0 0 3px rgba(126,164,230,.12)}.exprActions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}.exprInlineMsg{font-size:14px;color:#9b644e;min-height:18px}
+.exprCheckHeader{font-size:18px;font-weight:950;color:#506482;margin:18px 0 10px}.exprSelfCheck{display:grid;grid-template-columns:1fr 1fr;gap:8px}.exprSelfCheck span{background:#f5f8fc;border-radius:11px;padding:10px;font-size:14px;color:#71829a;line-height:1.55}
+.exprResult{margin-top:15px;padding-top:16px;border-top:1px solid #e6edf4}.exprResult h3{margin:0 0 4px;color:#47765b}.exprResult>p{color:#718095;font-size:14px;line-height:1.7}.exprSample{background:#f7fbf7;border:1px solid #dbebdf;border-radius:15px;padding:16px;margin-top:12px;line-height:1.8}.exprSample small{color:#548365;font-size:13px;font-weight:900}.exprSample>div{font-size:18px;color:#345741;font-weight:850;margin:7px 0}.exprSample p{font-size:14px;color:#647b68;margin:5px 0 0}
+.exprSide h3{margin:0 0 16px;font-size:18px;color:#425a80}.exprSideItem{display:flex;flex-direction:column;gap:4px;border-top:1px solid #e7edf5;padding:13px 0}.exprSideItem b{font-size:15px;color:#54749b}.exprSideItem span,.exprSideNote{color:#778398;font-size:13px;line-height:1.7}.exprSideNote{background:#f6f8fc;padding:11px;border-radius:12px}
+.exprLaunch{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#f8faff;border:1px solid #dce8f5;border-radius:17px;padding:13px 15px;margin:14px 0}.exprLaunch>div{display:flex;flex-direction:column;gap:5px}.exprLaunch strong{color:#46638d}.exprLaunch span{font-size:13px;color:#7b879b;line-height:1.5}
+.exprParentStats{display:flex;gap:9px;flex-wrap:wrap;margin:13px 0}.exprParentStats span{border:1px solid #dfe7f2;border-radius:12px;padding:10px 12px;background:#f7faff;color:#566c8c;font-weight:850;font-size:13px}.exprParentRecords{display:grid;gap:14px;margin-top:12px}.exprReviewCard{border:1px solid #e0e8f1;border-radius:16px;padding:15px;background:#fff}.exprReviewTop{display:flex;gap:9px;justify-content:space-between;flex-wrap:wrap}.exprReviewTop b{color:#465c7b}.exprReviewTop small{color:#7d8997}.exprReviewCard blockquote{margin:10px 0;background:#f8fafc;border-radius:10px;padding:10px 12px;border-left:3px solid #b4c6df;white-space:pre-wrap;line-height:1.7;color:#4c6076}.exprReviewCard blockquote strong{display:block;margin-bottom:4px;font-size:12px;color:#7a8ca4}.exprReviewRubric{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}.exprReviewRubric label{font-size:13px;line-height:1.5;display:flex;gap:5px;align-items:start;color:#576981}.exprReviewRubric input{margin-top:3px}.exprReviewNote{width:100%;border:1px solid #dce5f0;border-radius:10px;padding:9px;font:inherit;box-sizing:border-box}.exprReviewActions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.exprReviewActions button{border:0;border-radius:11px;padding:10px 13px;cursor:pointer;background:#e9f1fd;color:#526ca0;font-weight:900}.exprReviewActions button:last-child{background:#f8efe7;color:#946b52}.exprStatus{display:inline-block;background:#f4f6fb;border-radius:999px;padding:5px 9px;font-size:12px;color:#71819e}
+@media(max-width:850px){.exprLayout{grid-template-columns:1fr}.exprSide{display:none}.exprHero{flex-direction:column;align-items:stretch}.exprDaily{min-width:0}.exprSelfCheck{grid-template-columns:1fr}.exprTask{padding:17px}.exprReviewRubric{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -4019,6 +4107,7 @@ body.younger-mode main{
         <button type="button" data-page="youngerStars">⭐ 我的星星</button>
 
     <button type="button" class="olderOnly" data-page="chinese">📖 國文</button>
+    <button type="button" class="olderOnly" data-page="expression">✍️ 表達訓練</button>
     <button type="button" class="olderOnly" data-page="math">🧮 數學</button>
     <button type="button" class="olderOnly" data-page="english">英文</button>
     <button type="button" class="olderOnly" data-page="history">📚 歷屆題</button>
@@ -4032,7 +4121,7 @@ body.younger-mode main{
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V21.0</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V22.3</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -4184,7 +4273,8 @@ body.younger-mode main{
       <span class="tag warn" id="chTypeTag">準備開始</span>
     </div>
 
-    <div class="topicRail">
+    <div class="exprLaunch"><div><strong>✍️ 成語不只會選，也要會寫</strong><span>一句多變、五感描寫、複句、書面語、成語入句；初稿 → 修訂 → 參考。</span></div><button class="btn" type="button" onclick="go('expression')">開始表達訓練 →</button></div>
+<div class="topicRail">
       <button type="button" class="topicChip active" data-filter="all">混合</button>
       <button type="button" class="topicChip recognitionChip" data-filter="認字加強">認字加強</button>
       <button type="button" class="topicChip" data-filter="字音">字音</button>
@@ -4224,6 +4314,43 @@ body.younger-mode main{
       <tr><td>句子重組</td><td>語序與語感</td></tr>
       <tr><td>短寫作</td><td>摘要與表達</td></tr>
     </table>
+  </div>
+</section>
+
+<section id="expression" class="page olderOnly">
+  <div class="exprHero">
+    <div><div class="exprEyebrow">✍️ 哥哥｜語詞與成語表達</div><h2>把知道的詞，寫成得體的句子</h2>
+      <p>先寫自己的句子，再看提示、修訂和參考句。改寫必須保留原意，不是把句子寫長就算好。</p></div>
+    <div class="exprDaily"><b id="exprDailyCount">今日 0 / 2</b><small>每天約 10 分鐘；短文整合每週一次</small><span id="exprDailyBadge">完成＋修訂就算練習完成</span></div>
+  </div>
+  <div class="exprModes" id="exprModes" aria-label="選擇表達訓練題型"></div>
+  <div class="exprLayout">
+    <div class="exprTask">
+      <div class="exprTaskTop"><div><small id="exprModeLabel">一句多變</small><h3 id="exprTaskTitle">選擇一種練習開始</h3></div><span class="exprTag" id="exprTaskNum">預備中</span></div>
+      <div class="exprOriginal"><small id="exprSceneLabel">情境／原句</small><div id="exprScene"></div></div>
+      <div class="exprPrompt" id="exprPrompt"></div><div class="exprConstraints" id="exprConstraints"></div>
+      <button class="exprTextLink" type="button" id="exprHintBtn">需要提示？先看一個線索 ▾</button><div id="exprHint" class="exprHint hidden"></div>
+      <div id="exprEditor"><label class="exprLabel" for="exprDraft">第一步｜先獨立寫一句</label>
+        <textarea id="exprDraft" class="exprTextarea" rows="4" placeholder="先寫下自己的句子，不必一開始就寫得完美。"></textarea>
+        <div class="exprActions"><button type="button" class="btn" id="exprDraftSubmit">完成初稿，進入修訂 →</button><button type="button" class="btn secondary" id="exprSkip">換一道題</button></div>
+        <p class="exprInlineMsg" id="exprDraftMsg" role="status"></p>
+      </div>
+      <div id="exprRevision" class="hidden"><div class="exprCheckHeader">第二步｜檢查自己的句子</div>
+        <div class="exprSelfCheck" id="exprSelfCheck"><span>□ 原意和事件結果沒有改變</span><span>□ 關聯詞及成語符合情境</span><span>□ 句子完整、語意連貫</span><span>□ 用詞自然，不只是堆砌形容詞</span></div>
+        <label class="exprLabel" for="exprRevised">修訂後的句子</label><textarea id="exprRevised" class="exprTextarea" rows="4" placeholder="可以保留寫得好的部分，把需要調整的地方改清楚。"></textarea>
+        <div class="exprActions"><button type="button" class="btn" id="exprRevisionSubmit">交出修訂稿，查看參考 →</button><button type="button" class="btn secondary" id="exprBackEdit">返回修改初稿</button></div>
+        <p class="exprInlineMsg" id="exprRevisionMsg" role="status"></p>
+      </div>
+      <div id="exprResult" class="exprResult hidden"><h3>已完成初稿與修訂</h3><p>這是參考寫法，不是唯一答案。語意、用詞與句型的實際品質，交由家長檢視。</p>
+        <div class="exprSample"><small>參考句</small><div id="exprSampleText"></div><p id="exprSampleReason"></p></div>
+        <div class="exprActions"><button type="button" class="btn" id="exprNext">下一道練習 →</button><button type="button" class="btn secondary" id="exprToChinese">回國文練習</button></div>
+      </div>
+    </div>
+    <div class="exprSide"><h3>本次練習方法</h3><div class="exprSideItem"><b>① 先寫</b><span>先用自己的語句表達，不直接抄參考答案。</span></div>
+      <div class="exprSideItem"><b>② 再修</b><span>檢查原意、語詞搭配、句子完整度與書面語。</span></div>
+      <div class="exprSideItem"><b>③ 最後對照</b><span>參考句是比較用，不會用字串比對判定作文對錯。</span></div>
+      <div class="exprSideNote">成語選擇題與「能獨立造句」分開記錄；用了提示也可以完成練習。</div>
+    </div>
   </div>
 </section>
 
@@ -4904,10 +5031,10 @@ body.younger-mode main{
       <div class="kidPrompt" id="tracePrompt">描小寫 a</div>
       <div class="traceCoach" aria-live="polite">
         <div class="traceCoachText">
-          <b id="traceStepBadge">第 1 筆</b>
-          <span id="traceStepHint">看 1、2、3 的順序，跟著虛線描。</span>
+          <b id="traceStepBadge">現在描：第 1 筆</b>
+          <span id="traceStepHint">先看亮起來的步驟，再沿著橘色筆畫描。</span>
         </div>
-        <button type="button" class="traceDemoBtn" id="traceDemoBtn">▶ 看筆順示範</button>
+        <button type="button" class="traceDemoBtn" id="traceDemoBtn">▶ 慢速看筆順</button>
       </div>
       <div class="traceStrokeSteps" id="traceStrokeSteps" aria-label="筆畫進度"></div>
       <div class="traceCanvasWrap">
@@ -4922,7 +5049,7 @@ body.younger-mode main{
       </div>
     </div>
 
-    <div class="youngerFeedback kidFeedback">🐻 看 1、2、3 的順序，跟著虛線描。</div>
+    <div class="youngerFeedback kidFeedback">🐻 先描現在亮起來的這一筆，再換下一筆。</div>
     <div class="kidGameBottom">
       <button type="button" class="kidNextBtn youngerNextAction hidden" id="nextTraceLetterBtn">下一個字母 →</button>
       <span class="youngerRoundProgress">本關 0 / 4</span>
@@ -5097,6 +5224,7 @@ body.younger-mode main{
       <button type="button" class="backendTab" data-backtab="wrongs">錯題</button>
       <button type="button" class="backendTab" data-backtab="paper">🖨️ 出題列印</button>
       <button type="button" class="backendTab" data-backtab="dm">大滿貫</button>
+      <button type="button" class="backendTab" data-backtab="expression">✍️ 表達</button>
       <button type="button" class="backendTab" data-backtab="settings">設定</button>
     </div>
 
@@ -5304,7 +5432,12 @@ body.younger-mode main{
       </div>
     </div>
 
-    <div id="back-settings" class="backendPanel">
+    <div class="backendPanel" id="back-expression"><div class="card">
+  <h3>✍️ 哥哥｜表達訓練紀錄</h3><p class="muted">成語、語詞辨識仍計入原本國文題目；這裡只記錄實際造句／改寫。網站不會因為字數或出現成語就自動判定寫得正確。</p>
+  <div class="exprParentStats"><span id="exprParentToday">今天：0 篇</span><span id="exprParentPending">待檢視：0 篇</span><span id="exprParentIndependent">未看提示完成：0 篇</span><span id="exprParentMastered">家長確認可運用：0 篇</span></div>
+  <div id="exprParentRecords" class="exprParentRecords">目前還沒有練習紀錄。</div>
+  </div></div>
+<div id="back-settings" class="backendPanel">
       <div class="card">
         <h3>家長設定</h3>
         <div class="microTask">
@@ -8683,7 +8816,7 @@ document.documentElement.dataset.backendTabsReady=String(
 
 function runFamilySiteSelfCheck(){
   const requiredIds=[
-    "back-overview","back-progress","back-wrongs","back-paper","back-dm","back-settings",
+    "back-overview","back-progress","back-wrongs","back-paper","back-dm","back-expression","back-settings",
     "paperSubject","paperCount","paperMode","paperStructure","paperGenerateBtn","paperRerollBtn","paperPrintBtn",
     "youngerHome","youngerPhonics","youngerWords","phonicsChoices",
     "youngerBubble","bubbleField","youngerTreasureBtn","youngerEggBtn","youngerWardrobeBtn",
@@ -8711,7 +8844,7 @@ function runFamilySiteSelfCheck(){
   }
 
   const result={
-    ok:missing.length===0&&missingPanels.length===0&&tabs.length===6&&caseletOk&&mathPoolsOk&&paperCoreOk,
+    ok:missing.length===0&&missingPanels.length===0&&tabs.length===7&&caseletOk&&mathPoolsOk&&paperCoreOk,
     missing,missingPanels,tabs:tabs.length,caselets:PAPER_MATH_CASELETS.length,paperCoreOk
   };
   window.__familySiteSelfTest=result;
@@ -10402,8 +10535,7 @@ let traceDemoToken=0;
 const tracePathCache=new Map();
 let traceState={letter:"a",strokes:TRACE_STROKE_DATA.a,index:0,ink:[],drawing:false,last:null,accepted:false,demoInk:null,demoIndex:null};
 function traceCtx(){return document.getElementById("traceCanvas")?.getContext("2d")||null;}
-function tracePathInfo(index=traceState.index){
-  const spec=traceState.strokes?.[index];
+function traceRawPath(spec){
   const svg=document.getElementById("traceGeometrySvg");
   if(!spec||!svg)return null;
   let cached=tracePathCache.get(spec[0]);
@@ -10412,10 +10544,32 @@ function tracePathInfo(index=traceState.index){
     path.setAttribute("d",spec[0]);svg.appendChild(path);
     const total=path.getTotalLength();
     if(!Number.isFinite(total)||total<=0){path.remove();return null;}
-    cached={path,total};tracePathCache.set(spec[0],cached);
+    cached={path,total,box:path.getBBox()};
+    tracePathCache.set(spec[0],cached);
   }
-  const {path,total}=cached;
-  return {total,at:f=>path.getPointAtLength(Math.max(0,Math.min(total,total*f))),spec};
+  return cached;
+}
+function traceLetterLayout(){
+  const canvas=document.getElementById("traceCanvas");
+  const w=canvas?.width||760,h=canvas?.height||360;
+  const boxes=(traceState.strokes||[]).map(traceRawPath).filter(Boolean).map(x=>x.box);
+  if(!boxes.length)return {scale:1,tx:0,ty:0};
+  const minX=Math.min(...boxes.map(x=>x.x)),maxX=Math.max(...boxes.map(x=>x.x+x.width));
+  const minY=Math.min(...boxes.map(x=>x.y)),maxY=Math.max(...boxes.map(x=>x.y+x.height));
+  // Maintain each original letter's proportions; center ALL its strokes as one glyph.
+  const scale=Math.min(2.2, 286/Math.max(1,maxY-minY), 295/Math.max(1,maxX-minX));
+  return {scale,tx:w/2-(minX+maxX)*scale/2,ty:h/2-(minY+maxY)*scale/2,
+    minX,maxX,minY,maxY};
+}
+function tracePathInfo(index=traceState.index){
+  const spec=traceState.strokes?.[index],raw=traceRawPath(spec);
+  if(!raw)return null;
+  const layout=traceLetterLayout();
+  return {total:raw.total*layout.scale,
+    at:f=>{
+      const p=raw.path.getPointAtLength(Math.max(0,Math.min(raw.total,raw.total*f)));
+      return {x:p.x*layout.scale+layout.tx,y:p.y*layout.scale+layout.ty};
+    },spec,layout};
 }
 function traceDrawLine(ctx,points,color,width){
   if(!points?.length)return;
@@ -10427,82 +10581,113 @@ function traceDrawLine(ctx,points,color,width){
   else ctx.stroke();
   ctx.restore();
 }
-function traceDrawArrow(ctx,info,color="#8f8f8f",scale=1){
-  if(!info)return;
-  const a=info.at(.76),b=info.at(.84),ang=Math.atan2(b.y-a.y,b.x-a.x);
+function traceDrawArrow(ctx,info,color="#e58b69"){
+  if(!info || info.spec[2]==="dot")return;
+  const a=info.at(.78),b=info.at(.85),ang=Math.atan2(b.y-a.y,b.x-a.x);
   ctx.save();ctx.translate(b.x,b.y);ctx.rotate(ang);ctx.fillStyle=color;
-  ctx.beginPath();ctx.moveTo(14*scale,0);ctx.lineTo(-6*scale,-8*scale);ctx.lineTo(-2*scale,0);ctx.lineTo(-6*scale,8*scale);ctx.closePath();ctx.fill();ctx.restore();
+  ctx.beginPath();ctx.moveTo(12,0);ctx.lineTo(-5,-7);ctx.lineTo(-2,0);
+  ctx.lineTo(-5,7);ctx.closePath();ctx.fill();ctx.restore();
 }
-function traceDrawStepDot(ctx,x,y,n,active=false){
+function roundedRectPath(ctx,x,y,w,h,r){
+  const rr=Math.min(r,w/2,h/2);ctx.beginPath();
+  ctx.moveTo(x+rr,y);ctx.lineTo(x+w-rr,y);ctx.quadraticCurveTo(x+w,y,x+w,y+rr);
+  ctx.lineTo(x+w,y+h-rr);ctx.quadraticCurveTo(x+w,y+h,x+w-rr,y+h);
+  ctx.lineTo(x+rr,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-rr);
+  ctx.lineTo(x,y+rr);ctx.quadraticCurveTo(x,y,x+rr,y);ctx.closePath();
+}
+function traceDrawStepDot(ctx,x,y,n,active=false,done=false){
+  const label=`第${n}筆`;
   ctx.save();
-  ctx.beginPath();ctx.arc(x,y,18,0,Math.PI*2);
-  ctx.fillStyle=active?"#8a8a8a":"#9f9f9f";
-  ctx.fill();
-  ctx.strokeStyle="#ffffff";ctx.lineWidth=3;ctx.stroke();
-  ctx.fillStyle="#ffffff";ctx.font="bold 18px system-ui, sans-serif";
-  ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(String(n),x,y+1);
+  ctx.font="bold 13px system-ui, sans-serif";
+  const padX=11,padY=7,rad=11;
+  const w=Math.max(40,ctx.measureText(label).width+padX*2),h=28;
+  const bx=x-w/2, by=y-42;
+  const fill=active?"#ffe8de":done?"#eef7f0":"#ffffff";
+  const stroke=active?"#eea98a":done?"#9dc3a6":"#d7dde5";
+  const textColor=active?"#9f5236":done?"#557b5e":"#6d7990";
+  roundedRectPath(ctx,bx,by,w,h,rad);ctx.fillStyle=fill;ctx.fill();ctx.strokeStyle=stroke;ctx.lineWidth=2;ctx.stroke();
+  ctx.beginPath();ctx.moveTo(x,by+h);ctx.lineTo(x,y-16);ctx.strokeStyle=stroke;ctx.lineWidth=2;ctx.stroke();
+  ctx.fillStyle=textColor;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(label,x,by+h/2+1);
   ctx.restore();
+}
+function traceNumberPositions(){
+  const result=[];
+  traceState.strokes.forEach((spec,i)=>{
+    const info=tracePathInfo(i);
+    if(!info)return;
+    let chosen=info.at(.02);
+    // Shared starts (for example a, g, q) need separate, readable numbers.
+    for(const f of [.02,.12,.22,.32,.43,.55]){
+      const p=info.at(f);
+      if(result.every(q=>Math.hypot(q.x-p.x,q.y-p.y)>=39)){chosen=p;break;}
+    }
+    result.push(chosen);
+  });
+  return result;
+}
+function tracePaintPath(ctx,spec,layout,color,width,dash=[]){
+  ctx.save();ctx.translate(layout.tx,layout.ty);ctx.scale(layout.scale,layout.scale);
+  ctx.strokeStyle=color;ctx.lineWidth=width/layout.scale;
+  ctx.lineCap="round";ctx.lineJoin="round";
+  ctx.setLineDash(dash.map(x=>x/layout.scale));
+  ctx.stroke(new Path2D(spec[0]));ctx.restore();
 }
 function drawTraceGuide(){
   const canvas=document.getElementById("traceCanvas"),ctx=traceCtx();
   if(!canvas||!ctx)return;
   ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.save();ctx.fillStyle="#fffefa";ctx.fillRect(0,0,canvas.width,canvas.height);
+  // Quiet ruled-paper guides sit BEHIND the letter, without dictating its shape.
+  [canvas.height*.13,canvas.height*.36,canvas.height*.73,canvas.height*.91].forEach((y,i)=>{
+    ctx.save();ctx.strokeStyle=i===1?"#dbe6f4":"#e9eef6";
+    ctx.lineWidth=1.6;ctx.setLineDash(i===1?[7,9]:[]);
+    ctx.beginPath();ctx.moveTo(32,y);ctx.lineTo(canvas.width-32,y);ctx.stroke();ctx.restore();
+  });ctx.restore();
 
-  // 背景
-  ctx.save();
-  ctx.fillStyle="#fafafa";
-  ctx.fillRect(0,0,canvas.width,canvas.height);
-  ctx.restore();
-
-  // 參考字母外框：改成灰階描字格式
-  ctx.save();
-  ctx.font='250px "Arial Rounded MT Bold","Trebuchet MS",Arial,sans-serif';
-  ctx.textAlign="center";
-  ctx.textBaseline="middle";
-  ctx.lineJoin="round";
-  ctx.lineCap="round";
-  ctx.strokeStyle="#9d9d9d";
-  ctx.lineWidth=10;
-  ctx.strokeText(traceState.letter,canvas.width/2,188);
-  ctx.fillStyle="#f9f9f9";
-  ctx.fillText(traceState.letter,canvas.width/2,188);
-  ctx.restore();
-
+  const layout=traceLetterLayout();
+  // NO strokeText/fillText glyph: the glyph and every tracing line share
+  // TRACE_STROKE_DATA and an identical coordinate transform.
+  traceState.strokes.forEach(spec=>{
+    tracePaintPath(ctx,spec,layout,"#e3e6ec",32);
+  });
+  traceState.strokes.forEach(spec=>{
+    tracePaintPath(ctx,spec,layout,"#fffefa",23);
+  });
   const activeIndex=traceState.demoIndex??traceState.index;
-
-  // 每一筆：灰色虛線 + 箭頭 + 數字
   traceState.strokes.forEach((spec,i)=>{
-    const info=tracePathInfo(i);
-    if(!info)return;
     const done=i<traceState.index;
     const active=i===activeIndex && !traceState.accepted;
-    ctx.save();
-    ctx.lineCap="round";ctx.lineJoin="round";
-    const path=new Path2D(spec[0]);
-    ctx.strokeStyle=done?"#8f8f8f":active?"#8f8f8f":"#b6b6b6";
-    ctx.lineWidth=8;
-    ctx.setLineDash([12,14]);
-    ctx.stroke(path);
-    ctx.restore();
-
-    const p=info.at(0.02);
-    traceDrawStepDot(ctx,p.x,p.y,i+1,active);
-    traceDrawArrow(ctx,info,done||active?"#8c8c8c":"#adadad",1);
+    tracePaintPath(ctx,spec,layout,done?"#7fbe8d":active?"#e58b69":"#bcc6d3",8,
+      spec[2]==="dot"?[]:done?[]:[8,12]);
   });
-
-  // 示範筆跡
-  if(traceState.demoInk)traceDrawLine(ctx,traceState.demoInk,"rgba(121,121,121,.9)",12);
-
-  // 使用者描寫：保留互動，但顏色柔和
-  traceState.ink.forEach(points=>traceDrawLine(ctx,points,"rgba(100,132,193,.95)",12));
+  // Keep only the current callout inside the letter. All strokes are
+  // shown separately in the step cards above, avoiding overlapping labels.
+  if(activeIndex<traceState.strokes.length && !traceState.accepted){
+    const p=traceNumberPositions()[activeIndex];
+    if(p)traceDrawStepDot(ctx,p.x,p.y,activeIndex+1,true,false);
+    traceDrawArrow(ctx,tracePathInfo(activeIndex));
+  }
+  if(traceState.demoInk)traceDrawLine(ctx,traceState.demoInk,"#ee8c67",11);
+  traceState.ink.forEach(points=>traceDrawLine(ctx,points,"#5f8df0",12));
+}
+function renderTraceStepCards(focusIndex=traceState.index,demo=false){
+  const steps=document.getElementById("traceStrokeSteps");
+  if(!steps)return;
+  steps.innerHTML=traceState.strokes.map((sp,i)=>{
+    const completed=i<focusIndex,active=i===focusIndex && focusIndex<traceState.strokes.length;
+    const state=active?(demo?"示範中":"現在描"):(completed?(demo?"已示範":"已完成"):(demo?"稍後":"待描"));
+    const title=`第 ${i+1} 筆`;
+    return `<div class="traceStrokeStep ${completed?'done':active?'active':''}" ${active?'aria-current="step"':''}>`+
+      `<div class="traceStepCardHead"><span class="traceStepOrdinal">${title}</span><span class="traceStepState">${state}</span></div>`+
+      `<div class="traceStepDesc">${sp[1]}</div></div>`;
+  }).join("");
 }
 function updateTraceCoach(){
   const total=traceState.strokes.length,done=traceState.index>=total;
   const badge=document.getElementById("traceStepBadge"),hint=document.getElementById("traceStepHint");
-  if(badge)badge.textContent=done?"筆畫完成 ✓":`第 ${traceState.index+1} 筆／共 ${total} 筆`;
-  if(hint)hint.textContent=done?"全部描完了！可以按綠色按鈕。":`${traceState.strokes[traceState.index][1]}。從數字開始，跟著箭頭描。`;
-  const steps=document.getElementById("traceStrokeSteps");
-  if(steps)steps.innerHTML=traceState.strokes.map((sp,i)=>`<span class="traceStrokeStep ${i<traceState.index?'done':i===traceState.index?'active':''}">${i<traceState.index?'✓':i+1}</span>`).join("");
+  if(badge)badge.textContent=done?"描寫完成 ✓":`現在描：第 ${Math.min(traceState.index+1,total)} 筆`;
+  if(hint)hint.textContent=done?"描好了，可以按綠色按鈕完成。":"先看亮起來的步驟，再沿著橘色筆畫描。";
+  renderTraceStepCards();
   const btn=document.getElementById("finishTraceBtn");
   if(btn){
     btn.disabled=!done||traceState.accepted;
@@ -10516,16 +10701,25 @@ function resetTraceMetrics(){
   traceDemoToken++;
   traceState.index=0;traceState.ink=traceState.strokes.map(()=>[]);
   traceState.drawing=false;traceState.last=null;traceState.accepted=false;traceState.demoInk=null;traceState.demoIndex=null;
-  const demo=document.getElementById("traceDemoBtn");if(demo){demo.disabled=false;demo.textContent="▶ 看筆順示範";}
+  const demo=document.getElementById("traceDemoBtn");if(demo){demo.disabled=false;demo.textContent="▶ 慢速看筆順";}
   updateTraceCoach();
 }
+function tracePrepareCanvas(){
+  const canvas=document.getElementById("traceCanvas");
+  if(!canvas)return;
+  // Narrow screens use a taller writing sheet, not a horizontally squashed desktop canvas.
+  const narrow=window.matchMedia?.("(max-width:700px)")?.matches||false;
+  const w=narrow?460:760,h=narrow?500:360;
+  if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;}
+}
 function startTraceLetter(){
+  tracePrepareCanvas();
   const item=nextPositionLetter();
   traceState.letter=item.letter;
   traceState.strokes=TRACE_STROKE_DATA[item.letter]||TRACE_STROKE_DATA.a;
   resetTraceMetrics();
   const p=document.getElementById("tracePrompt");if(p)p.textContent=`描小寫 ${item.letter}`;
-  drawTraceGuide();setKidFeedback("🐻 沿著淡淡的字母慢慢描，從 1 開始。");
+  drawTraceGuide();setKidFeedback("🐻 先看示範，再沿著灰色虛線慢慢描。");
 }
 function tracePointFromEvent(e){
   const canvas=document.getElementById("traceCanvas"),r=canvas.getBoundingClientRect();
@@ -10559,10 +10753,10 @@ function initTraceCanvas(){
   canvas.addEventListener("pointerdown",e=>{
     if(traceState.accepted||traceState.index>=traceState.strokes.length)return;
     traceDemoToken++;traceState.demoInk=null;traceState.demoIndex=null;
-    const demo=document.getElementById("traceDemoBtn");if(demo){demo.disabled=false;demo.textContent="▶ 看筆順示範";}
+    const demo=document.getElementById("traceDemoBtn");if(demo){demo.disabled=false;demo.textContent="▶ 慢速看筆順";}
     const p=tracePointFromEvent(e),info=tracePathInfo();
     if(!info||traceDistance(p,info.at(0))>56){
-      setKidFeedback(`🐻 先從黃色的 ${traceState.index+1} 開始喔。`);
+      setKidFeedback(`🐻 請從第 ${traceState.index+1} 筆的小圓點開始。`);
       drawTraceGuide();return;
     }
     traceState.drawing=true;
@@ -10591,7 +10785,7 @@ function initTraceCanvas(){
       setKidBearMood(true);
     }else{
       traceState.ink[traceState.index]=[];drawTraceGuide();
-      setKidFeedback("🐻 再試一次，從黃點沿著藍線描到尾端。");
+      setKidFeedback("🐻 再試一次，從小圓點沿著虛線描到尾端。");
     }
     e.preventDefault();
   };
@@ -10602,28 +10796,39 @@ function clearTrace(){
 }
 async function showTraceDemo(){
   if(traceState.accepted)return;
+  // 慢速示範：每一筆約 2.2 秒，筆畫之間稍作停頓，方便跟著看。
+  const TRACE_DEMO_FRAME_MS=60,TRACE_DEMO_STROKE_PAUSE_MS=420;
   const btn=document.getElementById("traceDemoBtn");const token=++traceDemoToken;
   if(btn){btn.disabled=true;btn.textContent="示範中…";}
-  traceState.drawing=false;traceState.demoInk=null;traceState.demoIndex=0;
+  traceState.drawing=false;
+  const savedInk=(traceState.ink||[]).map(points=>(points||[]).map(p=>({x:p.x,y:p.y})));
+  const savedLast=traceState.last?{x:traceState.last.x,y:traceState.last.y}:null;
+  traceState.demoInk=null;traceState.demoIndex=0;
+  traceState.ink=traceState.strokes.map(()=>[]);
   const badge=document.getElementById("traceStepBadge"),hint=document.getElementById("traceStepHint");
   try{
     for(let i=0;i<traceState.strokes.length;i++){
       if(token!==traceDemoToken)return;
       traceState.demoIndex=i;
       const info=tracePathInfo(i);if(!info)continue;
-      if(badge)badge.textContent=`示範第 ${i+1} 筆／共 ${traceState.strokes.length} 筆`;
-      if(hint)hint.textContent=traceState.strokes[i][1];
+      if(badge)badge.textContent=`慢速示範：第 ${i+1} 筆`;
+      if(hint)hint.textContent="先看亮起的步驟與筆畫方向。";
+      renderTraceStepCards(i,true);
       const parts=info.spec[2]==="dot"?3:35;
       for(let j=0;j<=parts;j++){
         if(token!==traceDemoToken)return;
         traceState.demoInk=Array.from({length:j+1},(_,k)=>info.at(k/parts));
-        drawTraceGuide();await new Promise(resolve=>setTimeout(resolve,25));
+        drawTraceGuide();await new Promise(resolve=>setTimeout(resolve,TRACE_DEMO_FRAME_MS));
       }
-      await new Promise(resolve=>setTimeout(resolve,180));
+      await new Promise(resolve=>setTimeout(resolve,TRACE_DEMO_STROKE_PAUSE_MS));
     }
   }finally{
-    if(token===traceDemoToken){traceState.demoInk=null;traceState.demoIndex=null;updateTraceCoach();drawTraceGuide();
-      if(btn){btn.disabled=false;btn.textContent="▶ 再看一次";}}
+    if(token===traceDemoToken){
+      traceState.ink=savedInk;
+      traceState.last=savedLast;
+      traceState.demoInk=null;traceState.demoIndex=null;updateTraceCoach();drawTraceGuide();
+      if(btn){btn.disabled=false;btn.textContent="▶ 慢速再看一次";}
+    }
   }
 }
 function finishTrace(){
@@ -11266,6 +11471,152 @@ document.getElementById("histNext")?.addEventListener("click",()=>{
   if(histState.idx>=histState.questions.length)finishHistoryQuiz();
   else renderHistoryQuestion();
 });
+
+
+
+// ===== V22.0 哥哥：表達訓練（與國文辨識成績完全分離） =====
+const EXPR_MODES={parallel:"一句多變",sensory:"五感＋心理",layered:"複句拉伸",formal:"書面語改寫",idiom:"成語入句",integrated:"每週短文"};
+const EXPR_TASKS=[{"id":"para01","mode":"parallel","title":"雨天的戶外計畫","scene":"小明原本想出去玩，外面雨勢很大，因此他最後留在家中。","prompt":"改用「雖然……但是……」寫出相同事件。","sample":"雖然小明很想出門遊玩，但是外面雨勢過大，他最後仍留在家中。","why":"轉折句仍須保留「想出去、雨大、留在家」三件事。","hint":"先寫原本的願望，再寫外在阻礙與結果。","constraints":["必用：雖然／但是","不得改成已經出門"]},{"id":"para02","mode":"parallel","title":"準備讀書報告","scene":"小芸先查閱相關資料，再整理重點，因此順利完成讀書報告。","prompt":"改用「因為……所以……」重新組織因果。","sample":"因為小芸先查閱相關資料並整理重點，所以她順利完成了讀書報告。","why":"把「準備的方法」放在原因，「完成報告」放在結果。","hint":"先確認哪一段是原因，哪一段才是結果。","constraints":["必用：因為／所以","不能省略查資料與整理重點"]},{"id":"para03","mode":"parallel","title":"校車改道","scene":"道路施工使校車必須改道，但校車最後仍準時到校。","prompt":"改用「儘管……仍然……」寫成完整書面句。","sample":"儘管道路施工使校車必須改道，校車最後仍然準時到校。","why":"把阻礙與未改變的結果放入同一句。","hint":"想想「儘管」後面應該放阻礙，還是結果。","constraints":["必用：儘管／仍然","準時到校的結果不變"]},{"id":"para04","mode":"parallel","title":"第一次上臺","scene":"阿哲起初十分緊張；經過多次練習後，他終於能順利完成報告。","prompt":"改成「起初……然而……最終……」的句型。","sample":"起初，阿哲因即將上臺而十分緊張；然而，經過多次練習後，他最終順利完成了報告。","why":"前後保留心情變化及練習後的結果。","hint":"用「然而」連接前後不同的狀態。","constraints":["必用：起初／然而／最終","不可寫成完全沒有緊張"]},{"id":"para05","mode":"parallel","title":"下雨的運動會","scene":"原定在操場舉行的活動因下雨改到室內，但仍照原訂時間開始。","prompt":"改用「雖然……但……仍……」，保持時間與地點資訊。","sample":"雖然下雨使活動必須從操場移至室內，但活動仍依原訂時間開始。","why":"地點改變，開始時間沒有改變。","hint":"先分清楚「變了什麼」和「沒變什麼」。","constraints":["必用：雖然／但／仍","不得改成取消活動"]},{"id":"sense01","mode":"sensory","title":"期待週末的妹妹","scene":"妹妹聽說週末可以去遊樂園，心裡十分高興。","prompt":"不用「高興、開心、興奮」，改用兩個具體動作或表情呈現情緒。","sample":"聽見週末可以去遊樂園，妹妹的眼睛頓時亮了起來，立刻拉著母親追問出發的時間。","why":"動作和表情使讀者推知情緒，不靠形容詞直接交代。","hint":"從眼睛、嘴角、動作中選兩個，不必把五感全部塞進一句。","constraints":["避免：高興／開心／興奮","情境仍是得知週末去遊樂園"]},{"id":"sense02","mode":"sensory","title":"上臺前的緊張","scene":"輪到阿哲上臺報告時，他感到非常緊張。","prompt":"用身體反應與一個動作描寫緊張，不直接使用「緊張」。","sample":"輪到阿哲上臺報告時，他握著講稿的手微微出汗，站在臺前深吸了一口氣，才開口說話。","why":"具體反應比反覆使用「非常」更容易讓讀者感受人物處境。","hint":"先想手、呼吸或說話的速度會有什麼變化。","constraints":["避免：緊張／非常","不要把他寫成逃離講臺"]},{"id":"sense03","mode":"sensory","title":"雨後的校園","scene":"雨後的校園十分安靜，空氣也很清新。","prompt":"選用聽覺與嗅覺各一個細節，呈現雨後氛圍。","sample":"雨停後，校園裡只聽見樹葉上偶爾滴落的水聲；微風拂過，帶來泥土與青草的氣息。","why":"聲音與氣味共同構成情境；不必使用誇張的比喻。","hint":"想想雨停時最容易聽見和聞見的是什麼。","constraints":["至少兩個具體感官細節","不要增添不合理的天候變化"]},{"id":"sense04","mode":"sensory","title":"剛出爐的麵包","scene":"烘焙社的麵包剛出爐，大家都覺得很香。","prompt":"改用氣味及現場人物反應描寫，不直接使用「很香」。","sample":"麵包剛從烤箱取出，溫熱的奶油香氣便飄散開來，幾位同學不約而同地走向烘焙桌。","why":"描述可感知的氣味與動作，就能表現原句的感受。","hint":"不要堆疊「超香、超好吃」，挑一種味道與一個反應。","constraints":["避免：很香／超香","維持剛出爐的情境"]},{"id":"sense05","mode":"sensory","title":"等待比賽結果","scene":"宣布比賽結果前，隊員們心裡忐忑不安。","prompt":"用細節表現等待時的心理，不要直接寫出「忐忑不安」。","sample":"主持人正準備宣布結果，隊員們不約而同地安靜下來，有人握緊衣角，目光始終沒有離開舞臺。","why":"用細節呈現心理，但不要替人物新增結果。","hint":"想想等待中的眼神、手勢及周遭聲音。","constraints":["不直接使用忐忑不安","不能先透露比賽輸贏"]},{"id":"layer01","mode":"layered","title":"科學課的實驗","scene":"小晴事先查閱資料；實驗時器材出現故障；她仍完成觀察紀錄。","prompt":"合用轉折與因果，寫出「準備—阻礙—結果」的層次。","sample":"儘管實驗器材一度故障，但因為小晴事先查閱過相關資料，她仍完成了觀察紀錄。","why":"用「儘管」指出阻礙，「因為」交代原有準備，不替換結果。","hint":"先找出哪件事是阻礙，哪件事是幫助她繼續的條件。","constraints":["至少兩種邏輯關係","完成紀錄的結果不得改變"]},{"id":"layer02","mode":"layered","title":"數學考試","scene":"他平日準備充分；這次數學試題難度很高；最後仍未達到自己的預期目標。","prompt":"用「雖然……但因為……仍……」保留三項已知事實。","sample":"雖然他平日準備充分，但因為這次數學試題難度很高，最後仍未達到自己的預期目標。","why":"不能為了讓句子更精彩，就把「未達目標」改成「獲得高分」。","hint":"把「準備充分」和「題目很難」各放進一種關係詞。","constraints":["必用：雖然／因為／仍","不得改成考試取得高分"]},{"id":"layer03","mode":"layered","title":"班級成果展","scene":"展覽前一天，海報仍有幾處錯誤；同學重新核對資料；最後如期完成布置。","prompt":"運用「儘管……仍……，因此……」把事情寫得有層次。","sample":"儘管展覽前一天海報仍有幾處錯誤，同學們仍仔細核對資料，因此最後如期完成了布置。","why":"句子需交代困難、處理方式及結果三層，不必堆砌形容詞。","hint":"先確定哪件事情發生在前，哪件發生在後。","constraints":["必用：儘管／仍／因此","如期完成的結果不變"]},{"id":"layer04","mode":"layered","title":"雨天的閱讀活動","scene":"圖書館外下起大雨；參加閱讀活動的人仍準時抵達；活動如期開始。","prompt":"用「雖然……但……，因此……」連接兩個事實與結果。","sample":"雖然圖書館外下起大雨，但參加閱讀活動的人仍準時抵達，因此活動得以如期開始。","why":"雨勢與準時抵達形成轉折，活動如期開始承接結果。","hint":"避免寫成大家因為下雨而缺席。","constraints":["至少兩個關聯詞","活動須如期開始"]},{"id":"formal01","mode":"formal","title":"用詞更精確","scene":"這家店的排骨飯很好吃：排骨外皮酥脆，肉質鮮嫩，米飯也熱騰騰。","prompt":"不用「很好吃」，改寫成自然的書面介紹句。","sample":"這家店的排骨飯外皮酥脆、肉質鮮嫩，搭配熱騰騰的米飯，口感層次十分鮮明。","why":"保留原有觀察，讓口感細節支撐評價。","hint":"選原句中已有的口感細節，別新增沒有吃到的味道。","constraints":["避免：很好吃／超讚","不得捏造新的食材或口感"]},{"id":"formal02","mode":"formal","title":"整理資料的方法","scene":"這個整理方法很讚，大家覺得很方便，因為可以省下很多時間。","prompt":"改成簡潔得體的書面說法，保留「節省時間」的理由。","sample":"這套整理方法能有效縮短作業時間，因此大家認為十分便利。","why":"把口語評價轉成具體效果，避免無意義的高級詞彙。","hint":"先寫方法帶來的實際效果，再交代大家的評價。","constraints":["避免：很讚／超方便","保留節省時間的原因"]},{"id":"formal03","mode":"formal","title":"課堂秩序","scene":"有些同學上課一直講話，老師對這個情況很生氣。","prompt":"改成適合寫在觀察紀錄中的書面句，不增添未發生的處罰。","sample":"課堂上部分同學持續交談，老師對此情況感到不滿。","why":"保持客觀、明確，不要自行加上「老師罰站」等新事件。","hint":"將「一直講話」換成較精確的詞語。","constraints":["避免：一直講話／很生氣","不可新增處罰情節"]},{"id":"formal04","mode":"formal","title":"團隊的態度","scene":"這次比賽我們輸得很慘，但大家都沒有放棄。","prompt":"換成正式書面語，呈現失利與態度的對照。","sample":"儘管這次比賽結果不如預期，隊員們仍未放棄。","why":"「失利」與「未放棄」是原句重點，不必擅自補寫下一場獲勝。","hint":"把「輸得很慘」改成不失原意的客觀表達。","constraints":["避免：輸得很慘","不得寫成最後逆轉勝"]},{"id":"formal05","mode":"formal","title":"綠意盎然的公園","scene":"那個公園真的很漂亮，到處都是樹，走進去覺得很舒服。","prompt":"用簡潔、具體的書面描寫，取代重複的「很」。","sample":"公園內綠樹成蔭，漫步其中，令人感到舒適而寧靜。","why":"使用一個精確的景物詞即可，不必堆砌華麗成語。","hint":"先寫景物，再寫人在環境中的感受。","constraints":["避免：真的很／很漂亮／很舒服","場景仍是樹木繁茂的公園"]},{"id":"idiom01","mode":"idiom","title":"按部就班","scene":"班上製作展覽海報，先決定主題，再蒐集資料，最後安排版面。","prompt":"用「按部就班」寫出完整的書面句。","sample":"同學們按部就班地完成展覽海報：先確認主題、蒐集資料，再進行版面安排。","why":"這個成語強調遵循順序與步驟，不是單純指動作很慢。","hint":"請把做事的順序寫清楚，讓成語自然地出現在句中。","constraints":["必用：按部就班","不要把成語當成「緩慢」"]},{"id":"idiom02","mode":"idiom","title":"一絲不苟","scene":"小晴做實驗時，仔細記下每一次測量數值，並核對紀錄。","prompt":"用「一絲不苟」描寫她的做事態度。","sample":"小晴以一絲不苟的態度進行實驗，不僅記錄每一次測量數值，也仔細核對資料。","why":"適用於認真、細緻，不宜用來形容單純跑得快。","hint":"讓成語和具體的仔細行動搭配。","constraints":["必用：一絲不苟","不要只說「她很一絲不苟」"]},{"id":"idiom03","mode":"idiom","title":"鍥而不捨","scene":"阿哲第一次搭建模型失敗後，多次調整結構，最後完成作品。","prompt":"把「鍥而不捨」放入這個情境，保留先失敗再完成。","sample":"模型第一次搭建失敗後，阿哲仍鍥而不捨地調整結構，最後完成了作品。","why":"成語用於持續努力而不放棄，必須有持續行動的線索。","hint":"想想「反覆調整」和這個成語的關係。","constraints":["必用：鍥而不捨","不能刪除第一次失敗"]},{"id":"idiom04","mode":"idiom","title":"因噎廢食","scene":"弟弟因為一次朗讀失誤，就打算從此不再參加朗讀活動。","prompt":"用「因噎廢食」提醒他，不要把一次失誤擴大成全面放棄。","sample":"僅因一次朗讀失誤就打算從此不再參加活動，未免有些因噎廢食。","why":"成語強調因擔心局部風險而停止原本值得做的事，不等於單純怕失敗。","hint":"先交代「一次失誤」，再寫「打算完全停止」。","constraints":["必用：因噎廢食","勿寫成已經退出所有活動"]},{"id":"idiom05","mode":"idiom","title":"畫蛇添足","scene":"海報原本內容已經清楚，同學又加上大量裝飾，反而使重點難以辨認。","prompt":"用「畫蛇添足」概括多餘裝飾造成的問題。","sample":"海報內容原已清楚，卻因額外加入大量裝飾而畫蛇添足，反而模糊了重點。","why":"成語中的「多做」必須造成多餘或不必要的結果。","hint":"指出原本已經足夠，新增的部分反而帶來壞處。","constraints":["必用：畫蛇添足","不能把裝飾說成使海報更清楚"]},{"id":"essay01","mode":"integrated","title":"班級科學展：一次修正","scene":"科學展前，阿哲的模型在測試時失敗；他和同學核對數據、調整設計，最後完成展示。","prompt":"寫約 80～120 字的短文，交代困難、修正過程與人物心情；恰當使用一個成語。","sample":"科學展前夕，阿哲的模型在測試時意外失敗，他原本十分沮喪，卻沒有因此放棄。經過與同學討論，他們仔細核對數據，找出設計上的問題，再逐步調整結構。兩人鍥而不捨地嘗試，終於完成展示，也明白了修正錯誤的重要。","why":"短文範例可加入合理的心理描寫，但不能違背題目設定的結果。","hint":"先分成「發生什麼事—怎麼處理—最後結果」，再補人物心理。","constraints":["約80～120字","至少一個關聯詞與一個恰當成語"]},{"id":"essay02","mode":"integrated","title":"雨天的圖書館","scene":"班級原定於週五舉辦閱讀分享；下午突然下雨，部分同學到場較晚，活動仍順利完成。","prompt":"以 80～120 字描寫雨天的場景、活動過程及自己的感受，保持事件結果不變。","sample":"週五下午，窗外忽然下起大雨，雨點敲打玻璃的聲音清晰可聞。幾位同學因此較晚抵達，但大家仍在圖書館耐心等候。待人員到齊後，閱讀分享順利展開。雖然活動開始前有些波折，聽見同學分享各自的閱讀心得，我仍覺得這個下午格外充實。","why":"把感官描寫放在事件開始時，後面依序交代波折與結果。","hint":"先寫雨聲，再寫到場較晚，最後回到完成活動。","constraints":["約80～120字","至少一個感官細節","活動最終順利完成"]}];
+const EXPR_KEY="older_expression_practice_v220";
+function exprToday(){return new Date().toLocaleDateString("sv-SE")}
+function exprRead(){
+  let data={};try{data=JSON.parse(SafeStore.get(EXPR_KEY,"{}")||"{}")||{}}catch(_){data={}}
+  return {records:Array.isArray(data.records)?data.records.filter(x=>x&&x.id&&x.taskId).slice(-120):[],recent:data.recent&&typeof data.recent==="object"?data.recent:{}};
+}
+let exprData=exprRead(),exprMode="parallel",exprCurrent=null,exprHinted=false,exprPhase="draft",exprDraft="";
+function exprSave(){SafeStore.set(EXPR_KEY,JSON.stringify(exprData))}
+function exprEl(id){return document.getElementById(id)}
+function exprEsc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"})[c])}
+function exprDailyDone(){return exprData.records.filter(r=>r.date===exprToday()&&r.mode!=="integrated").length}
+function exprUpdateCount(){
+  const n=exprDailyDone();exprEl("exprDailyCount").textContent=`今日 ${Math.min(n,2)} / 2`;
+  exprEl("exprDailyBadge").textContent=n>=2?"今日完成，想多練也可以":"完成＋修訂就算練習完成";
+}
+function exprChoose(mode){
+  const pool=EXPR_TASKS.filter(t=>t.mode===mode);
+  const last=exprData.recent[mode]||[];
+  let candidates=pool.filter(t=>!last.includes(t.id));
+  if(!candidates.length){candidates=pool.slice();exprData.recent[mode]=[]}
+  const ranked=candidates.map(t=>({t,n:exprData.records.filter(r=>r.taskId===t.id).length,random:Math.random()}))
+    .sort((a,b)=>a.n-b.n||a.random-b.random);
+  return ranked[0]?.t||pool[0];
+}
+function exprHasUnsaved(){
+  return (exprPhase==="draft"&&!!exprEl("exprDraft")?.value.trim())||
+    (exprPhase==="revision"&&!!exprEl("exprRevised")?.value.trim());
+}
+function exprSetMode(mode){
+  if(!EXPR_MODES[mode]||mode===exprMode)return;
+  if(exprHasUnsaved()&&!window.confirm("這次草稿尚未完成，確定切換題型嗎？"))return;
+  exprMode=mode;exprRenderModes();exprNewTask(true);
+}
+function exprRenderModes(){
+  const wrap=exprEl("exprModes");wrap.innerHTML="";
+  Object.entries(EXPR_MODES).forEach(([key,label])=>{
+    const b=document.createElement("button");b.type="button";
+    b.className="exprModeBtn"+(exprMode===key?" active":"");b.textContent=label;
+    b.setAttribute("aria-pressed",exprMode===key?"true":"false");
+    b.addEventListener("click",()=>exprSetMode(key));wrap.appendChild(b);
+  });
+}
+function exprNewTask(force=false){
+  if(!force&&exprHasUnsaved()&&!window.confirm("草稿尚未完成，確定換題嗎？"))return;
+  exprCurrent=exprChoose(exprMode);exprHinted=false;exprDraft="";exprPhase="draft";
+  const t=exprCurrent;if(!t)return;
+  exprEl("exprModeLabel").textContent=EXPR_MODES[exprMode];
+  exprEl("exprTaskTitle").textContent=t.title;
+  exprEl("exprTaskNum").textContent=exprMode==="integrated"?"每週整合":"本次 1 題";
+  exprEl("exprSceneLabel").textContent=exprMode==="sensory"?"情境原句":"原句／已知情境";
+  exprEl("exprScene").textContent=t.scene;
+  exprEl("exprPrompt").textContent=t.prompt;
+  exprEl("exprConstraints").innerHTML=t.constraints.map(c=>`<span class="exprConstraint">${exprEsc(c)}</span>`).join("");
+  exprEl("exprHint").textContent=t.hint;exprEl("exprHint").classList.add("hidden");
+  exprEl("exprHintBtn").textContent="需要提示？先看一個線索 ▾";
+  exprEl("exprDraft").value="";exprEl("exprRevised").value="";
+  exprEl("exprDraftMsg").textContent="";exprEl("exprRevisionMsg").textContent="";
+  exprEl("exprEditor").classList.remove("hidden");
+  exprEl("exprRevision").classList.add("hidden");exprEl("exprResult").classList.add("hidden");
+  exprEl("exprHintBtn").classList.remove("hidden");
+  exprUpdateCount();
+}
+function exprShowHint(){
+  if(!exprCurrent)return;exprHinted=true;
+  exprEl("exprHint").classList.remove("hidden");
+  exprEl("exprHintBtn").textContent="已顯示提示 ✓";
+}
+function exprDraftSubmit(){
+  if(!exprCurrent||exprPhase!=="draft")return;
+  const value=exprEl("exprDraft").value.trim();
+  const min=exprMode==="integrated"?35:12;
+  if([...value].length<min){exprEl("exprDraftMsg").textContent=exprMode==="integrated"?"先寫出完整的一段，再進入修訂。":"請先寫出完整句子，再進入修訂。";return;}
+  exprDraft=value;exprPhase="revision";
+  exprEl("exprRevised").value=value;exprEl("exprEditor").classList.add("hidden");
+  exprEl("exprRevision").classList.remove("hidden");exprEl("exprDraftMsg").textContent="";
+}
+function exprBackEdit(){if(exprPhase!=="revision")return;exprPhase="draft";exprEl("exprDraft").value=exprDraft;exprEl("exprEditor").classList.remove("hidden");exprEl("exprRevision").classList.add("hidden")}
+function exprRevisionSubmit(){
+  if(!exprCurrent||exprPhase!=="revision")return;
+  const revised=exprEl("exprRevised").value.trim(),min=exprMode==="integrated"?35:12;
+  if([...revised].length<min){exprEl("exprRevisionMsg").textContent="請先把句子修訂完整，再查看參考。";return;}
+  const rec={id:"e"+Date.now().toString(36)+Math.random().toString(36).slice(2,6),taskId:exprCurrent.id,
+    title:exprCurrent.title,mode:exprCurrent.mode,date:exprToday(),createdAt:Date.now(),
+    draft:exprDraft,revised,hinted:exprHinted,review:"pending",rubric:[false,false,false,false],note:""};
+  exprData.records.push(rec);exprData.records=exprData.records.slice(-120);
+  const recent=exprData.recent[exprMode]||[];
+  exprData.recent[exprMode]=[...recent.filter(id=>id!==exprCurrent.id),exprCurrent.id].slice(-8);
+  exprSave();exprPhase="result";
+  exprEl("exprRevision").classList.add("hidden");exprEl("exprResult").classList.remove("hidden");
+  exprEl("exprSampleText").textContent=exprCurrent.sample;
+  exprEl("exprSampleReason").textContent=exprCurrent.why;
+  exprEl("exprHintBtn").classList.add("hidden");exprUpdateCount();exprRenderParent();
+}
+const EXPR_RUBRIC=["保留原意與事件結果","詞語／成語使用符合情境","句意完整、結構清楚","書面語自然、不堆砌詞藻"];
+function exprRenderParent(){
+  const records=exprData.records.slice().reverse();
+  const pending=records.filter(r=>r.review==="pending"),independent=records.filter(r=>!r.hinted),mastered=records.filter(r=>r.review==="pass");
+  const today=records.filter(r=>r.date===exprToday());
+  exprEl("exprParentToday").textContent=`今天完成：${today.length} 篇`;
+  exprEl("exprParentPending").textContent=`待檢視：${pending.length} 篇`;
+  exprEl("exprParentIndependent").textContent=`未看提示完成：${independent.length} 篇（非正確率）`;
+  exprEl("exprParentMastered").textContent=`家長確認可運用：${mastered.length} 篇`;
+  const root=exprEl("exprParentRecords");root.innerHTML="";
+  if(!records.length){root.textContent="目前還沒有練習紀錄。";return}
+  records.slice(0,30).forEach(r=>{
+    const card=document.createElement("article");card.className="exprReviewCard";card.dataset.recordId=r.id;
+    const status=r.review==="pass"?"家長確認可運用":r.review==="redo"?"需要再練":"待家長檢視";
+    const checkboxes=EXPR_RUBRIC.map((label,i)=>`<label><input type="checkbox" data-criterion="${i}" ${r.rubric?.[i]?"checked":""} />${exprEsc(label)}</label>`).join("");
+    card.innerHTML=`<div class="exprReviewTop"><b>${exprEsc(r.title)}｜${exprEsc(EXPR_MODES[r.mode]||r.mode)}</b><small>${exprEsc(r.date)} · ${r.hinted?"使用過提示":"未使用提示"} <span class="exprStatus">${status}</span></small></div>
+      <blockquote><strong>初稿</strong>${exprEsc(r.draft)}</blockquote><blockquote><strong>修訂稿</strong>${exprEsc(r.revised)}</blockquote>
+      <div class="exprReviewRubric">${checkboxes}</div>
+      <textarea class="exprReviewNote" rows="2" placeholder="家長備註（可填，例如哪個詞語搭配需要調整）">${exprEsc(r.note||"")}</textarea>
+      <div class="exprReviewActions"><button type="button" data-expr-review="pass">四項確認完成</button><button type="button" data-expr-review="redo">標記需要再練</button></div><p class="exprInlineMsg" role="status"></p>`;
+    root.appendChild(card);
+  });
+}
+function exprSaveReview(id,review,card){
+  const r=exprData.records.find(x=>x.id===id);if(!r||!card)return;
+  const rubric=[...card.querySelectorAll("input[data-criterion]")].map(x=>x.checked);
+  if(review==="pass"&&!rubric.every(Boolean)){
+    card.querySelector(".exprInlineMsg").textContent="請先核對四項；若仍有問題，請標記需要再練。";return;
+  }
+  r.rubric=rubric;r.review=review;r.note=card.querySelector(".exprReviewNote")?.value.trim()||"";
+  exprSave();exprRenderParent();
+}
+(function bindExpression(){
+  exprEl("exprHintBtn").addEventListener("click",exprShowHint);
+  exprEl("exprDraftSubmit").addEventListener("click",exprDraftSubmit);
+  exprEl("exprRevisionSubmit").addEventListener("click",exprRevisionSubmit);
+  exprEl("exprBackEdit").addEventListener("click",exprBackEdit);
+  exprEl("exprSkip").addEventListener("click",()=>exprNewTask());
+  exprEl("exprNext").addEventListener("click",()=>exprNewTask());
+  exprEl("exprToChinese").addEventListener("click",()=>go("chinese"));
+  exprEl("exprParentRecords").addEventListener("click",e=>{
+    const btn=e.target.closest("button[data-expr-review]");if(!btn)return;
+    const card=btn.closest(".exprReviewCard");
+    exprSaveReview(card?.dataset.recordId,btn.dataset.exprReview,card);
+  });
+  exprRenderModes();exprNewTask();exprRenderParent();
+})();
 
 </script>
 
