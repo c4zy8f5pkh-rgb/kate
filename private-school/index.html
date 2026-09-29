@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V22.3｜復旦 × 六和</title>
+<title>兄弟學習基地 V22.4｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -4121,7 +4121,7 @@ body.younger-mode main{
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V22.3</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V22.4</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -10506,7 +10506,7 @@ window.addEventListener("resize",()=>{
 const TRACE_STROKE_DATA={
   a:[["M 407 160 C 377 144 339 163 337 201 C 335 243 370 269 397 247 C 414 230 413 188 407 160","先繞一圈"],["M 410 160 L 410 260","再往下畫"]],
   b:[["M 349 72 L 349 260","先從上往下"],["M 350 193 C 369 151 415 153 425 197 C 438 242 402 274 350 247","再畫右邊的肚子"]],
-  c:[["M 422 164 C 389 143 346 158 339 200 C 329 246 376 276 422 251","從右上繞到右下"]],
+  c:[["M 419 168 C 403 154 381 150 363 159 C 337 171 332 190 332 210 C 332 236 346 255 370 260 C 391 265 407 255 422 244","從右上繞到右下"]],
   d:[["M 406 163 C 378 144 341 164 339 200 C 336 242 372 270 401 249 C 418 236 416 186 406 163","先繞一圈"],["M 411 74 L 411 260","再從上往下"]],
   e:[["M 340 210 L 421 205 C 419 163 389 148 365 159 C 335 173 329 229 359 251 C 378 268 400 259 422 243","先畫中間，再繞一圈"]],
   f:[["M 409 94 C 390 67 358 78 358 114 L 358 260","先畫彎下的長線"],["M 335 162 L 411 162","再畫橫線"]],
@@ -10532,6 +10532,7 @@ const TRACE_STROKE_DATA={
   z:[["M 342 164 L 420 164 L 343 260 L 422 260","上橫、斜線、下橫"]]
 };
 let traceDemoToken=0;
+let traceDemoPlaying=false;
 const tracePathCache=new Map();
 let traceState={letter:"a",strokes:TRACE_STROKE_DATA.a,index:0,ink:[],drawing:false,last:null,accepted:false,demoInk:null,demoIndex:null};
 function traceCtx(){return document.getElementById("traceCanvas")?.getContext("2d")||null;}
@@ -10556,10 +10557,21 @@ function traceLetterLayout(){
   if(!boxes.length)return {scale:1,tx:0,ty:0};
   const minX=Math.min(...boxes.map(x=>x.x)),maxX=Math.max(...boxes.map(x=>x.x+x.width));
   const minY=Math.min(...boxes.map(x=>x.y)),maxY=Math.max(...boxes.map(x=>x.y+x.height));
-  // Maintain each original letter's proportions; center ALL its strokes as one glyph.
-  const scale=Math.min(2.2, 286/Math.max(1,maxY-minY), 295/Math.max(1,maxX-minX));
-  return {scale,tx:w/2-(minX+maxX)*scale/2,ty:h/2-(minY+maxY)*scale/2,
-    minX,maxX,minY,maxY};
+  // All 26 letters share the same ruled-paper lanes.  Short letters sit
+  // between midline and baseline; ascenders/descenders use their own zones.
+  const lanes={top:h*.12,mid:h*.30,base:h*.78,desc:h*.94};
+  const ch=traceState.letter;
+  let targetTop=lanes.mid,targetBottom=lanes.base;
+  if("bdfhkl".includes(ch))targetTop=lanes.top;
+  if(ch==="t")targetTop=h*.22;
+  if(ch==="i")targetTop=h*.21;
+  if("gpqy".includes(ch))targetBottom=lanes.desc;
+  if(ch==="j"){targetTop=h*.21;targetBottom=lanes.desc;}
+  const bw=Math.max(1,maxX-minX),bh=Math.max(1,maxY-minY);
+  const scale=Math.min((targetBottom-targetTop)/bh,Math.min(295,w*.67)/bw);
+  const tx=w/2-(minX+maxX)*scale/2;
+  const ty=targetBottom-maxY*scale;
+  return {scale,tx,ty,minX,maxX,minY,maxY,lanes,targetTop,targetBottom};
 }
 function tracePathInfo(index=traceState.index){
   const spec=traceState.strokes?.[index],raw=traceRawPath(spec);
@@ -10583,10 +10595,10 @@ function traceDrawLine(ctx,points,color,width){
 }
 function traceDrawArrow(ctx,info,color="#e58b69"){
   if(!info || info.spec[2]==="dot")return;
-  const a=info.at(.78),b=info.at(.85),ang=Math.atan2(b.y-a.y,b.x-a.x);
+  const a=info.at(.23),b=info.at(.30),ang=Math.atan2(b.y-a.y,b.x-a.x);
   ctx.save();ctx.translate(b.x,b.y);ctx.rotate(ang);ctx.fillStyle=color;
-  ctx.beginPath();ctx.moveTo(12,0);ctx.lineTo(-5,-7);ctx.lineTo(-2,0);
-  ctx.lineTo(-5,7);ctx.closePath();ctx.fill();ctx.restore();
+  ctx.beginPath();ctx.moveTo(9,0);ctx.lineTo(-5,-5.5);ctx.lineTo(-2,0);
+  ctx.lineTo(-5,5.5);ctx.closePath();ctx.fill();ctx.restore();
 }
 function roundedRectPath(ctx,x,y,w,h,r){
   const rr=Math.min(r,w/2,h/2);ctx.beginPath();
@@ -10596,18 +10608,25 @@ function roundedRectPath(ctx,x,y,w,h,r){
   ctx.lineTo(x,y+rr);ctx.quadraticCurveTo(x,y,x+rr,y);ctx.closePath();
 }
 function traceDrawStepDot(ctx,x,y,n,active=false,done=false){
-  const label=`第${n}筆`;
+  const canvas=ctx.canvas;
+  const side=x>=canvas.width/2?1:-1;
+  const label=`第 ${n} 筆`;
   ctx.save();
   ctx.font="bold 13px system-ui, sans-serif";
-  const padX=11,padY=7,rad=11;
-  const w=Math.max(40,ctx.measureText(label).width+padX*2),h=28;
-  const bx=x-w/2, by=y-42;
-  const fill=active?"#ffe8de":done?"#eef7f0":"#ffffff";
-  const stroke=active?"#eea98a":done?"#9dc3a6":"#d7dde5";
-  const textColor=active?"#9f5236":done?"#557b5e":"#6d7990";
-  roundedRectPath(ctx,bx,by,w,h,rad);ctx.fillStyle=fill;ctx.fill();ctx.strokeStyle=stroke;ctx.lineWidth=2;ctx.stroke();
-  ctx.beginPath();ctx.moveTo(x,by+h);ctx.lineTo(x,y-16);ctx.strokeStyle=stroke;ctx.lineWidth=2;ctx.stroke();
-  ctx.fillStyle=textColor;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(label,x,by+h/2+1);
+  const bw=Math.max(56,ctx.measureText(label).width+18),bh=28;
+  const cx=Math.max(bw/2+12,Math.min(canvas.width-bw/2-12,x+side*(bw/2+30)));
+  const cy=Math.max(24,Math.min(canvas.height-24,y-24));
+  const bx=cx-bw/2,by=cy-bh/2;
+  const color=active?"#dc896a":"#a8b7c8";
+  ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+side*17,y-8);
+  ctx.lineTo(cx-side*bw/2,cy+5);ctx.strokeStyle=color;ctx.lineWidth=1.8;ctx.stroke();
+  ctx.beginPath();ctx.arc(x,y,5,0,Math.PI*2);ctx.fillStyle=active?"#e58b69":"#a6b5c7";ctx.fill();
+  ctx.beginPath();ctx.arc(x,y,2,0,Math.PI*2);ctx.fillStyle="#fff";ctx.fill();
+  roundedRectPath(ctx,bx,by,bw,bh,12);
+  ctx.fillStyle=active?"#fff2eb":"#fff";ctx.fill();
+  ctx.strokeStyle=active?"#e7ae96":"#d9e1e8";ctx.lineWidth=1.5;ctx.stroke();
+  ctx.fillStyle=active?"#9d5439":"#607185";
+  ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(label,cx,cy+1);
   ctx.restore();
 }
 function traceNumberPositions(){
@@ -10638,13 +10657,12 @@ function drawTraceGuide(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
   ctx.save();ctx.fillStyle="#fffefa";ctx.fillRect(0,0,canvas.width,canvas.height);
   // Quiet ruled-paper guides sit BEHIND the letter, without dictating its shape.
-  [canvas.height*.13,canvas.height*.36,canvas.height*.73,canvas.height*.91].forEach((y,i)=>{
-    ctx.save();ctx.strokeStyle=i===1?"#dbe6f4":"#e9eef6";
+  const layout=traceLetterLayout();
+  [layout.lanes.top,layout.lanes.mid,layout.lanes.base,layout.lanes.desc].forEach((y,i)=>{
+    ctx.save();ctx.strokeStyle=i===1?"#d6e1f2":"#e9eef6";
     ctx.lineWidth=1.6;ctx.setLineDash(i===1?[7,9]:[]);
     ctx.beginPath();ctx.moveTo(32,y);ctx.lineTo(canvas.width-32,y);ctx.stroke();ctx.restore();
   });ctx.restore();
-
-  const layout=traceLetterLayout();
   // NO strokeText/fillText glyph: the glyph and every tracing line share
   // TRACE_STROKE_DATA and an identical coordinate transform.
   traceState.strokes.forEach(spec=>{
@@ -10663,9 +10681,12 @@ function drawTraceGuide(){
   // Keep only the current callout inside the letter. All strokes are
   // shown separately in the step cards above, avoiding overlapping labels.
   if(activeIndex<traceState.strokes.length && !traceState.accepted){
-    const p=traceNumberPositions()[activeIndex];
-    if(p)traceDrawStepDot(ctx,p.x,p.y,activeIndex+1,true,false);
-    traceDrawArrow(ctx,tracePathInfo(activeIndex));
+    const info=tracePathInfo(activeIndex);
+    if(info){
+      const p=info.at(0);
+      traceDrawStepDot(ctx,p.x,p.y,activeIndex+1,true,false);
+      traceDrawArrow(ctx,info);
+    }
   }
   if(traceState.demoInk)traceDrawLine(ctx,traceState.demoInk,"#ee8c67",11);
   traceState.ink.forEach(points=>traceDrawLine(ctx,points,"#5f8df0",12));
@@ -10698,7 +10719,7 @@ function updateTraceCoach(){
   if(next)next.classList.toggle("hidden",!traceState.accepted);
 }
 function resetTraceMetrics(){
-  traceDemoToken++;
+  traceDemoToken++;traceDemoPlaying=false;
   traceState.index=0;traceState.ink=traceState.strokes.map(()=>[]);
   traceState.drawing=false;traceState.last=null;traceState.accepted=false;traceState.demoInk=null;traceState.demoIndex=null;
   const demo=document.getElementById("traceDemoBtn");if(demo){demo.disabled=false;demo.textContent="▶ 慢速看筆順";}
@@ -10751,6 +10772,7 @@ function initTraceCanvas(){
   const canvas=document.getElementById("traceCanvas");if(!canvas||canvas.dataset.bound==="1")return;
   canvas.dataset.bound="1";
   canvas.addEventListener("pointerdown",e=>{
+    if(traceDemoPlaying){e.preventDefault();return;}
     if(traceState.accepted||traceState.index>=traceState.strokes.length)return;
     traceDemoToken++;traceState.demoInk=null;traceState.demoIndex=null;
     const demo=document.getElementById("traceDemoBtn");if(demo){demo.disabled=false;demo.textContent="▶ 慢速看筆順";}
@@ -10795,11 +10817,12 @@ function clearTrace(){
   resetTraceMetrics();drawTraceGuide();setKidFeedback("🐻 從第 1 筆重新來。" );
 }
 async function showTraceDemo(){
-  if(traceState.accepted)return;
+  if(traceState.accepted||traceDemoPlaying)return;
   // 慢速示範：每一筆約 2.2 秒，筆畫之間稍作停頓，方便跟著看。
   const TRACE_DEMO_FRAME_MS=60,TRACE_DEMO_STROKE_PAUSE_MS=420;
   const btn=document.getElementById("traceDemoBtn");const token=++traceDemoToken;
   if(btn){btn.disabled=true;btn.textContent="示範中…";}
+  traceDemoPlaying=true;
   traceState.drawing=false;
   const savedInk=(traceState.ink||[]).map(points=>(points||[]).map(p=>({x:p.x,y:p.y})));
   const savedLast=traceState.last?{x:traceState.last.x,y:traceState.last.y}:null;
@@ -10824,6 +10847,7 @@ async function showTraceDemo(){
     }
   }finally{
     if(token===traceDemoToken){
+      traceDemoPlaying=false;
       traceState.ink=savedInk;
       traceState.last=savedLast;
       traceState.demoInk=null;traceState.demoIndex=null;updateTraceCoach();drawTraceGuide();
@@ -10985,7 +11009,7 @@ function pulseListen(on){
 }
 function youngerTaskIntro(type){
   if(type==="case")setYoungerCompanion("🐻","連連看","把大寫連到小寫。","連連看","用手指拉線。",true);
-  else if(type==="position")setYoungerCompanion("🐻","描字母","從黃點開始，一筆一筆描。","描字母","按筆畫順序慢慢描。",true);
+  else if(type==="position")setYoungerCompanion("🐻","描字母","從小起點開始，一筆一筆描。","描字母","按筆畫順序慢慢描。",true);
   else if(type==="look")setYoungerCompanion("👀","找一樣","看方向。","找一樣","找跟上面一樣的。",true);
   else if(type==="listen")setYoungerCompanion("👂","聽一聽","聽到什麼，就點圖片。","聽音","只念 1 個英文單字。",true);
 }
