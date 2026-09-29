@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V20.9｜復旦 × 六和</title>
+<title>兄弟學習基地 V21.0｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -3966,6 +3966,31 @@ body.younger-mode main{
 }
 </style>
 
+
+<style id="v210-trace-stroke-order">
+/* 手機寬度：避免原本 1fr 的最小內容寬度把側邊選擇器撐到螢幕外。 */
+@media(max-width:950px){.app{grid-template-columns:minmax(0,1fr)}aside,main{min-width:0}}
+#youngerPosition .tracePlayBoard{min-height:500px}
+#youngerPosition .traceCoach{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;max-width:760px;margin:12px auto 4px;padding:12px 14px;border-radius:18px;background:#fffaf0;border:1px solid #f2e3bd}
+#youngerPosition .traceCoachText{display:flex;align-items:center;flex-wrap:wrap;gap:8px;font-size:17px;color:#58657a;font-weight:850}
+#youngerPosition #traceStepBadge{border-radius:999px;padding:7px 12px;background:#ffe6a0;color:#775621;font-weight:1000;white-space:nowrap}
+#youngerPosition .traceDemoBtn{min-height:48px;border-radius:15px;border:2px solid #cbdff5;background:#f2f9ff;color:#386b9b;padding:9px 15px;font-size:16px;font-weight:1000;cursor:pointer}
+#youngerPosition .traceDemoBtn:disabled{opacity:.6;cursor:default}
+#youngerPosition .traceStrokeSteps{display:flex;justify-content:center;align-items:center;gap:10px;margin:12px auto 0;flex-wrap:wrap}
+#youngerPosition .traceStrokeStep{min-height:39px;display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:6px 12px;background:#f2f5fb;border:1px solid #dce5f4;color:#758297;font-size:15px;font-weight:950}
+#youngerPosition .traceStrokeStep.active{background:#e9f3ff;border-color:#8ab9ee;color:#326fa8;box-shadow:0 0 0 3px rgba(116,179,242,.14)}
+#youngerPosition .traceStrokeStep.done{background:#e7f8ed;border-color:#a7d7b9;color:#37754d}
+#youngerPosition .traceCanvasWrap{margin:12px auto 14px;border-color:#d8e6f5;background:#fffefb}
+#youngerPosition #traceCanvas{display:block;max-width:100%;touch-action:none}
+#youngerPosition #finishTraceBtn:not(:disabled){background:#4b9b73;box-shadow:0 5px 0 rgba(45,118,81,.13)}
+@media(max-width:700px){
+ #youngerPosition .traceCoach{padding:10px;gap:8px}
+ #youngerPosition .traceCoachText{font-size:15px}
+ #youngerPosition .traceDemoBtn{width:100%;font-size:16px}
+ #youngerPosition .traceActions{gap:9px}
+ #youngerPosition .traceBtn{min-width:0;flex:1;font-size:16px;padding:8px}
+}
+</style>
 </head>
 <body>
 <div class="app">
@@ -4007,7 +4032,7 @@ body.younger-mode main{
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V20.9</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V21.0</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -4877,18 +4902,29 @@ body.younger-mode main{
 
     <div class="kidPlayBoard tracePlayBoard">
       <div class="kidPrompt" id="tracePrompt">描小寫 a</div>
-      <div class="traceCanvasWrap">
-        <canvas id="traceCanvas" width="760" height="360" aria-label="字母描寫區"></canvas>
+      <div class="traceCoach" aria-live="polite">
+        <div class="traceCoachText">
+          <b id="traceStepBadge">第 1 筆</b>
+          <span id="traceStepHint">從黃色圓點開始，沿著藍線描。</span>
+        </div>
+        <button type="button" class="traceDemoBtn" id="traceDemoBtn">▶ 看筆順示範</button>
       </div>
+      <div class="traceStrokeSteps" id="traceStrokeSteps" aria-label="筆畫進度"></div>
+      <div class="traceCanvasWrap">
+        <canvas id="traceCanvas" width="760" height="360" aria-label="逐筆描寫區：從黃色起點開始，按筆畫順序描寫"></canvas>
+      </div>
+      <svg id="traceGeometrySvg" aria-hidden="true" viewBox="0 0 760 360" width="1" height="1" style="position:absolute;left:-10000px;top:0;pointer-events:none;overflow:visible">
+        <path id="traceGeometryPath" fill="none" stroke="none"></path>
+      </svg>
       <div class="traceActions">
         <button type="button" class="traceBtn secondary" id="clearTraceBtn">↻ 重畫</button>
-        <button type="button" class="traceBtn" id="finishTraceBtn">✓ 畫好了</button>
+        <button type="button" class="traceBtn hidden" id="finishTraceBtn" disabled>✓ 完成這個字母</button>
       </div>
     </div>
 
     <div class="youngerFeedback kidFeedback">🐻 沿著字母慢慢描。</div>
     <div class="kidGameBottom">
-      <button type="button" class="kidNextBtn youngerNextAction">下一個字母 →</button>
+      <button type="button" class="kidNextBtn youngerNextAction hidden" id="nextTraceLetterBtn">下一個字母 →</button>
       <span class="youngerRoundProgress">本關 0 / 4</span>
     </div>
   </div>
@@ -10177,8 +10213,11 @@ function nextLookSet(){
   return lookSets.find(x=>x.target===id)||lookSets[0];
 }
 function nextPositionLetter(){
-  const id=nextUniqueYoungerId("position",positionLetters.map(x=>x.letter),8);
-  return positionLetters.find(x=>x.letter===id)||positionLetters[0];
+  // 描字也跟家長的課程進度，不把 K 以後的字母提早出給教到 J 的孩子。
+  const pool=positionLetters.filter(x=>youngerIsAllowedLetter(x.letter));
+  const available=pool.length?pool:positionLetters.slice(0,1);
+  const id=nextUniqueYoungerId("position",available.map(x=>x.letter),Math.min(8,Math.max(1,available.length-1)));
+  return available.find(x=>x.letter===id)||available[0];
 }
 function nextListenWord(){
   const id=nextUniqueYoungerId("listen",beginnerListenWords.map(x=>x.word),8);
@@ -10329,143 +10368,242 @@ window.addEventListener("resize",()=>{
 });
 
 
-let traceState={
-  letter:"a",
-  drawing:false,
-  points:0,
-  length:0,
-  last:null,
-  bbox:null,
-  accepted:false
+// 以固定的印刷體路徑當作「底圖＋筆順」，避免字型輪廓和提示箭頭對不齊。
+// 小寫字母採常見基礎手寫筆順；若學校採不同字形，應以老師教材為準。
+const TRACE_STROKE_DATA={
+  a:[["M 407 160 C 377 144 339 163 337 201 C 335 243 370 269 397 247 C 414 230 413 188 407 160","先繞一圈"],["M 410 160 L 410 260","再往下畫"]],
+  b:[["M 349 72 L 349 260","先從上往下"],["M 350 193 C 369 151 415 153 425 197 C 438 242 402 274 350 247","再畫右邊的肚子"]],
+  c:[["M 422 164 C 389 143 346 158 339 200 C 329 246 376 276 422 251","從右上繞到右下"]],
+  d:[["M 406 163 C 378 144 341 164 339 200 C 336 242 372 270 401 249 C 418 236 416 186 406 163","先繞一圈"],["M 411 74 L 411 260","再從上往下"]],
+  e:[["M 340 210 L 421 205 C 419 163 389 148 365 159 C 335 173 329 229 359 251 C 378 268 400 259 422 243","先畫中間，再繞一圈"]],
+  f:[["M 409 94 C 390 67 358 78 358 114 L 358 260","先畫彎下的長線"],["M 335 162 L 411 162","再畫橫線"]],
+  g:[["M 407 160 C 377 142 342 162 340 202 C 335 239 365 264 395 248 C 413 236 416 187 407 160","先繞一圈"],["M 411 162 L 409 293 C 406 332 365 340 340 314","再往下彎回來"]],
+  h:[["M 349 73 L 349 260","先畫長直線"],["M 350 202 C 371 156 416 159 418 207 L 418 260","再畫右邊的彎線"]],
+  i:[["M 381 160 L 381 260","先畫短直線"],["M 381 106 L 381 119","再點上面的點","dot"]],
+  j:[["M 409 161 L 409 295 C 408 333 375 339 353 313","先往下，再彎回來"],["M 410 106 L 410 119","再點上面的點","dot"]],
+  k:[["M 347 73 L 347 260","先畫長直線"],["M 423 164 L 349 218","再從右上斜向中間"],["M 382 195 L 428 260","最後向右下畫"]],
+  l:[["M 378 74 L 378 260","從上往下畫"]],
+  m:[["M 312 164 L 312 260","先畫短直線"],["M 313 204 C 333 157 371 159 371 205 L 371 260","再畫第一個彎"],["M 371 205 C 394 159 433 162 434 209 L 434 260","最後畫第二個彎"]],
+  n:[["M 348 162 L 348 260","先畫短直線"],["M 349 204 C 368 159 417 157 418 210 L 418 260","再畫右邊的彎"]],
+  o:[["M 402 161 C 367 143 338 168 338 210 C 338 252 373 271 405 249 C 434 229 433 178 402 161 Z","繞一圈回到起點"]],
+  p:[["M 352 163 L 352 328","先向下畫長直線"],["M 353 192 C 373 151 419 160 426 202 C 433 244 402 272 353 246","再畫右邊的肚子"]],
+  q:[["M 408 161 C 379 144 343 160 339 202 C 336 240 369 266 398 248 C 415 238 419 188 408 161","先繞一圈"],["M 412 163 L 412 330","再往下畫長線"]],
+  r:[["M 352 162 L 352 260","先畫短直線"],["M 353 208 C 371 170 397 159 423 174","再往右上彎"]],
+  s:[["M 416 169 C 397 151 363 150 348 173 C 327 205 411 209 416 235 C 421 262 370 272 342 250","從上往下彎兩次"]],
+  t:[["M 381 103 L 381 235 C 381 261 398 266 416 254","先畫長直線"],["M 347 163 L 413 163","再畫橫線"]],
+  u:[["M 344 163 L 344 220 C 343 266 405 268 414 222 L 414 163","先向下，彎向右"],["M 414 166 L 414 261","再往下畫"]],
+  v:[["M 340 163 L 379 261 L 422 163","左下右上的一筆"]],
+  w:[["M 310 164 L 340 258 L 377 188 L 412 258 L 447 164","從左到右折著畫"]],
+  x:[["M 343 164 L 421 260","先向右下斜"],["M 421 164 L 343 260","再向左下斜"]],
+  y:[["M 342 162 L 382 256","先向右下斜"],["M 420 162 L 375 289 C 366 317 347 332 325 312","再從右上往左下彎"]],
+  z:[["M 342 164 L 420 164 L 343 260 L 422 260","上橫、斜線、下橫"]]
 };
-
+let traceDemoToken=0;
+const tracePathCache=new Map();
+let traceState={letter:"a",strokes:TRACE_STROKE_DATA.a,index:0,ink:[],drawing:false,last:null,accepted:false,demoInk:null,demoIndex:null};
 function traceCtx(){return document.getElementById("traceCanvas")?.getContext("2d")||null;}
-function resetTraceMetrics(){
-  traceState.drawing=false;
-  traceState.points=0;
-  traceState.length=0;
-  traceState.last=null;
-  traceState.bbox=null;
-  traceState.accepted=false;
-  const btn=document.getElementById("finishTraceBtn");
-  if(btn){btn.disabled=false;btn.textContent="✓ 畫好了";}
+function tracePathInfo(index=traceState.index){
+  const spec=traceState.strokes?.[index];
+  const svg=document.getElementById("traceGeometrySvg");
+  if(!spec||!svg)return null;
+  let cached=tracePathCache.get(spec[0]);
+  if(!cached){
+    const path=document.createElementNS("http://www.w3.org/2000/svg","path");
+    path.setAttribute("d",spec[0]);svg.appendChild(path);
+    const total=path.getTotalLength();
+    if(!Number.isFinite(total)||total<=0){path.remove();return null;}
+    cached={path,total};tracePathCache.set(spec[0],cached);
+  }
+  const {path,total}=cached;
+  return {total,at:f=>path.getPointAtLength(Math.max(0,Math.min(total,total*f))),spec};
+}
+function traceDrawLine(ctx,points,color,width){
+  if(!points?.length)return;
+  ctx.save();ctx.strokeStyle=color;ctx.fillStyle=color;ctx.lineWidth=width;
+  ctx.lineCap="round";ctx.lineJoin="round";
+  ctx.beginPath();ctx.moveTo(points[0].x,points[0].y);
+  for(let i=1;i<points.length;i++)ctx.lineTo(points[i].x,points[i].y);
+  if(points.length===1){ctx.arc(points[0].x,points[0].y,width/2,0,Math.PI*2);ctx.fill();}
+  else ctx.stroke();
+  ctx.restore();
+}
+function traceDrawArrow(ctx,info){
+  if(!info)return;
+  const a=info.at(.70),b=info.at(.75),ang=Math.atan2(b.y-a.y,b.x-a.x);
+  ctx.save();ctx.translate(b.x,b.y);ctx.rotate(ang);ctx.fillStyle="#328dcc";
+  ctx.beginPath();ctx.moveTo(22,0);ctx.lineTo(-10,-14);ctx.lineTo(-5,0);ctx.lineTo(-10,14);ctx.closePath();ctx.fill();ctx.restore();
 }
 function drawTraceGuide(){
   const canvas=document.getElementById("traceCanvas"),ctx=traceCtx();
   if(!canvas||!ctx)return;
   ctx.clearRect(0,0,canvas.width,canvas.height);
-
-  // 四線格
-  ctx.save();
-  ctx.strokeStyle="#c7d2e8";
-  ctx.lineWidth=2;
-  [72,145,218,291].forEach(y=>{
-    ctx.beginPath();ctx.moveTo(52,y);ctx.lineTo(canvas.width-52,y);ctx.stroke();
+  // 四線格：高字母從上線開始，有尾巴的字母可以延伸到下線。
+  ctx.save();ctx.lineWidth=2;
+  [72,145,260,331].forEach((y,i)=>{
+    ctx.beginPath();ctx.setLineDash(i===1?[7,8]:[]);
+    ctx.strokeStyle=i===2?"#a7c9de":"#d6dfef";
+    ctx.moveTo(52,y);ctx.lineTo(canvas.width-52,y);ctx.stroke();
+  });ctx.restore();
+  const activeIndex=traceState.demoIndex??traceState.index;
+  traceState.strokes.forEach((spec,i)=>{
+    ctx.save();ctx.lineCap="round";ctx.lineJoin="round";
+    ctx.lineWidth=i===activeIndex?14:11;
+    ctx.strokeStyle=i<traceState.index?"#a9dac0":i===activeIndex?"#84b9ec":"#d6e1ed";
+    ctx.setLineDash(i===activeIndex?[6,12]:[3,13]);
+    ctx.stroke(new Path2D(spec[0]));ctx.restore();
   });
-  ctx.restore();
-
-  // 淡淡字母
-  ctx.save();
-  ctx.font='230px "Arial Rounded MT Bold","Trebuchet MS",Arial,sans-serif';
-  ctx.textAlign="center";
-  ctx.textBaseline="middle";
-  ctx.setLineDash([8,10]);
-  ctx.strokeStyle="#d4dcf0";
-  ctx.lineWidth=5;
-  ctx.strokeText(traceState.letter,canvas.width/2,190);
-  ctx.setLineDash([]);
-  ctx.fillStyle="rgba(215,222,239,.14)";
-  ctx.fillText(traceState.letter,canvas.width/2,190);
-  ctx.restore();
+  traceState.ink.forEach(points=>traceDrawLine(ctx,points,"#597cdf",14));
+  if(traceState.demoInk)traceDrawLine(ctx,traceState.demoInk,"#34a685",18);
+  if(activeIndex<traceState.strokes.length){
+    const info=tracePathInfo(activeIndex);
+    if(info){
+      const p=info.at(0);
+      ctx.save();ctx.beginPath();ctx.arc(p.x,p.y,19,0,Math.PI*2);
+      ctx.fillStyle="#ffe38b";ctx.fill();ctx.strokeStyle="#c8942c";ctx.lineWidth=2;ctx.stroke();
+      ctx.fillStyle="#614414";ctx.font="bold 21px system-ui, sans-serif";
+      ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(String(activeIndex+1),p.x,p.y+1);
+      ctx.restore();traceDrawArrow(ctx,info);
+    }
+  }
+}
+function updateTraceCoach(){
+  const total=traceState.strokes.length,done=traceState.index>=total;
+  const badge=document.getElementById("traceStepBadge"),hint=document.getElementById("traceStepHint");
+  if(badge)badge.textContent=done?"筆畫完成 ✓":`第 ${traceState.index+1} 筆／共 ${total} 筆`;
+  if(hint)hint.textContent=done?"全部描完了！按下面的綠色按鈕。":`${traceState.strokes[traceState.index][1]}。從黃色圓點開始。`;
+  const steps=document.getElementById("traceStrokeSteps");
+  if(steps)steps.innerHTML=traceState.strokes.map((sp,i)=>`<span class="traceStrokeStep ${i<traceState.index?'done':i===traceState.index?'active':''}">${i<traceState.index?'✓':i+1} ${sp[1]}</span>`).join("");
+  const btn=document.getElementById("finishTraceBtn");
+  if(btn){
+    btn.disabled=!done||traceState.accepted;
+    btn.classList.toggle("hidden",!done||traceState.accepted);
+    btn.textContent="✓ 完成這個字母";
+  }
+  const next=document.getElementById("nextTraceLetterBtn");
+  if(next)next.classList.toggle("hidden",!traceState.accepted);
+}
+function resetTraceMetrics(){
+  traceDemoToken++;
+  traceState.index=0;traceState.ink=traceState.strokes.map(()=>[]);
+  traceState.drawing=false;traceState.last=null;traceState.accepted=false;traceState.demoInk=null;traceState.demoIndex=null;
+  const demo=document.getElementById("traceDemoBtn");if(demo){demo.disabled=false;demo.textContent="▶ 看筆順示範";}
+  updateTraceCoach();
 }
 function startTraceLetter(){
   const item=nextPositionLetter();
   traceState.letter=item.letter;
+  traceState.strokes=TRACE_STROKE_DATA[item.letter]||TRACE_STROKE_DATA.a;
   resetTraceMetrics();
-  const p=document.getElementById("tracePrompt");
-  if(p)p.textContent=`描小寫 ${item.letter}`;
-  drawTraceGuide();
-  setKidFeedback("🐻 沿著淡淡的字母描。");
+  const p=document.getElementById("tracePrompt");if(p)p.textContent=`描小寫 ${item.letter}`;
+  drawTraceGuide();setKidFeedback("🐻 從黃色的 1 開始，跟著箭頭描。");
 }
 function tracePointFromEvent(e){
-  const canvas=document.getElementById("traceCanvas");
-  const r=canvas.getBoundingClientRect();
-  return {
-    x:(e.clientX-r.left)*(canvas.width/r.width),
-    y:(e.clientY-r.top)*(canvas.height/r.height)
-  };
+  const canvas=document.getElementById("traceCanvas"),r=canvas.getBoundingClientRect();
+  return {x:(e.clientX-r.left)*canvas.width/r.width,y:(e.clientY-r.top)*canvas.height/r.height};
 }
-function updateTraceBox(p){
-  if(!traceState.bbox)traceState.bbox={minX:p.x,maxX:p.x,minY:p.y,maxY:p.y};
-  else{
-    traceState.bbox.minX=Math.min(traceState.bbox.minX,p.x);
-    traceState.bbox.maxX=Math.max(traceState.bbox.maxX,p.x);
-    traceState.bbox.minY=Math.min(traceState.bbox.minY,p.y);
-    traceState.bbox.maxY=Math.max(traceState.bbox.maxY,p.y);
+function traceDistance(a,b){return Math.hypot(a.x-b.x,a.y-b.y);}
+function traceSegmentDistance(p,a,b){
+  const vx=b.x-a.x,vy=b.y-a.y,len=vx*vx+vy*vy;
+  const t=len?Math.max(0,Math.min(1,((p.x-a.x)*vx+(p.y-a.y)*vy)/len)):0;
+  return Math.hypot(p.x-a.x-t*vx,p.y-a.y-t*vy);
+}
+function traceStrokeCovered(points,info){
+  if(!points?.length||!info)return false;
+  if(info.spec[2]==="dot")return traceDistance(points[0],info.at(0))<=54;
+  if(points.length<3)return false;
+  const start=info.at(0),end=info.at(1);
+  if(traceDistance(points[0],start)>56||traceDistance(points[points.length-1],end)>65)return false;
+  let travel=0;
+  for(let i=1;i<points.length;i++)travel+=traceDistance(points[i-1],points[i]);
+  if(travel<info.total*.58)return false;
+  let covered=0;
+  for(let k=0;k<=28;k++){
+    const p=info.at(k/28);
+    if(points.some((x,i)=>i>0&&traceSegmentDistance(p,points[i-1],x)<=38))covered++;
   }
+  return covered>=20;
 }
 function initTraceCanvas(){
-  const canvas=document.getElementById("traceCanvas");
-  if(!canvas||canvas.dataset.bound==="1")return;
+  const canvas=document.getElementById("traceCanvas");if(!canvas||canvas.dataset.bound==="1")return;
   canvas.dataset.bound="1";
-
   canvas.addEventListener("pointerdown",e=>{
+    if(traceState.accepted||traceState.index>=traceState.strokes.length)return;
+    traceDemoToken++;traceState.demoInk=null;traceState.demoIndex=null;
+    const demo=document.getElementById("traceDemoBtn");if(demo){demo.disabled=false;demo.textContent="▶ 看筆順示範";}
+    const p=tracePointFromEvent(e),info=tracePathInfo();
+    if(!info||traceDistance(p,info.at(0))>56){
+      setKidFeedback(`🐻 先從黃色的 ${traceState.index+1} 開始喔。`);
+      drawTraceGuide();return;
+    }
     traceState.drawing=true;
-    traceState.last=tracePointFromEvent(e);
-    traceState.points++;
-    updateTraceBox(traceState.last);
-    canvas.setPointerCapture?.(e.pointerId);
-    e.preventDefault();
+    traceState.ink[traceState.index]=[p];traceState.last=p;
+    try{canvas.setPointerCapture(e.pointerId);}catch(_){}
+    drawTraceGuide();e.preventDefault();
   });
-
   canvas.addEventListener("pointermove",e=>{
     if(!traceState.drawing)return;
-    const p=tracePointFromEvent(e),last=traceState.last,ctx=traceCtx();
-    if(!ctx||!last)return;
-    ctx.save();
-    ctx.strokeStyle="#5f79dc";
-    ctx.lineWidth=18;
-    ctx.lineCap="round";ctx.lineJoin="round";
-    ctx.beginPath();ctx.moveTo(last.x,last.y);ctx.lineTo(p.x,p.y);ctx.stroke();
-    ctx.restore();
-
-    const dx=p.x-last.x,dy=p.y-last.y;
-    traceState.length+=Math.sqrt(dx*dx+dy*dy);
-    traceState.points++;
-    updateTraceBox(p);
-    traceState.last=p;
-    e.preventDefault();
+    const p=tracePointFromEvent(e),last=traceState.last;if(!last)return;
+    const length=traceDistance(p,last),steps=Math.max(1,Math.ceil(length/8));
+    for(let j=1;j<=steps;j++)traceState.ink[traceState.index].push({x:last.x+(p.x-last.x)*j/steps,y:last.y+(p.y-last.y)*j/steps});
+    traceState.last=p;drawTraceGuide();e.preventDefault();
   });
-
   const end=e=>{
-    traceState.drawing=false;
-    traceState.last=null;
-    try{canvas.releasePointerCapture?.(e.pointerId)}catch(_){}
+    if(!traceState.drawing)return;
+    traceState.drawing=false;traceState.last=null;
+    try{canvas.releasePointerCapture(e.pointerId);}catch(_){}
+    const info=tracePathInfo(),points=traceState.ink[traceState.index];
+    if(traceStrokeCovered(points,info)){
+      traceState.index++;
+      updateTraceCoach();drawTraceGuide();
+      setKidFeedback(traceState.index<traceState.strokes.length?
+        `🐻 第 ${traceState.index} 筆完成！接著描第 ${traceState.index+1} 筆。`:
+        "🐻 筆畫都描完了！按綠色按鈕完成。" );
+      setKidBearMood(true);
+    }else{
+      traceState.ink[traceState.index]=[];drawTraceGuide();
+      setKidFeedback("🐻 再試一次，從黃點沿著藍線描到尾端。");
+    }
+    e.preventDefault();
   };
-  canvas.addEventListener("pointerup",end);
-  canvas.addEventListener("pointercancel",end);
+  canvas.addEventListener("pointerup",end);canvas.addEventListener("pointercancel",end);
 }
 function clearTrace(){
-  resetTraceMetrics();
-  drawTraceGuide();
-  setKidFeedback("🐻 再畫一次。");
+  resetTraceMetrics();drawTraceGuide();setKidFeedback("🐻 從第 1 筆重新來。" );
+}
+async function showTraceDemo(){
+  if(traceState.accepted)return;
+  const btn=document.getElementById("traceDemoBtn");const token=++traceDemoToken;
+  if(btn){btn.disabled=true;btn.textContent="示範中…";}
+  traceState.drawing=false;traceState.demoInk=null;traceState.demoIndex=0;
+  const badge=document.getElementById("traceStepBadge"),hint=document.getElementById("traceStepHint");
+  try{
+    for(let i=0;i<traceState.strokes.length;i++){
+      if(token!==traceDemoToken)return;
+      traceState.demoIndex=i;
+      const info=tracePathInfo(i);if(!info)continue;
+      if(badge)badge.textContent=`示範第 ${i+1} 筆／共 ${traceState.strokes.length} 筆`;
+      if(hint)hint.textContent=traceState.strokes[i][1];
+      const parts=info.spec[2]==="dot"?3:35;
+      for(let j=0;j<=parts;j++){
+        if(token!==traceDemoToken)return;
+        traceState.demoInk=Array.from({length:j+1},(_,k)=>info.at(k/parts));
+        drawTraceGuide();await new Promise(resolve=>setTimeout(resolve,25));
+      }
+      await new Promise(resolve=>setTimeout(resolve,180));
+    }
+  }finally{
+    if(token===traceDemoToken){traceState.demoInk=null;traceState.demoIndex=null;updateTraceCoach();drawTraceGuide();
+      if(btn){btn.disabled=false;btn.textContent="▶ 再看一次";}}
+  }
 }
 function finishTrace(){
   if(traceState.accepted)return;
-  const b=traceState.bbox;
-  const w=b?b.maxX-b.minX:0,h=b?b.maxY-b.minY:0;
-  const enough=traceState.length>=110 && traceState.points>=6 && (w>=35 || h>=55);
-  if(!enough){
-    setKidFeedback("🐻 再多描一點。");
-    setKidBearMood(false);
-    return;
+  if(traceState.index<traceState.strokes.length){
+    setKidFeedback(`🐻 先描完第 ${traceState.index+1} 筆。`);return;
   }
-  traceState.accepted=true;
-  const btn=document.getElementById("finishTraceBtn");
-  if(btn){btn.disabled=true;btn.textContent="✓ 完成";}
-  setKidFeedback(`🐻 很好！${traceState.letter}`);
-  setKidBearMood(true);
-  recordYounger(true);
+  traceState.accepted=true;updateTraceCoach();
+  setKidFeedback(`🐻 ${traceState.letter} 描好了！`);
+  setKidBearMood(true);recordYounger(true);
 }
 
 function youngerTaskLabel(task){
@@ -10612,7 +10750,7 @@ function pulseListen(on){
 }
 function youngerTaskIntro(type){
   if(type==="case")setYoungerCompanion("🐻","連連看","把大寫連到小寫。","連連看","用手指拉線。",true);
-  else if(type==="position")setYoungerCompanion("🐻","描字母","沿著淡淡的字寫。","描字母","用手指慢慢描。",true);
+  else if(type==="position")setYoungerCompanion("🐻","描字母","從黃點開始，一筆一筆描。","描字母","按筆畫順序慢慢描。",true);
   else if(type==="look")setYoungerCompanion("👀","找一樣","看方向。","找一樣","找跟上面一樣的。",true);
   else if(type==="listen")setYoungerCompanion("👂","聽一聽","聽到什麼，就點圖片。","聽音","只念 1 個英文單字。",true);
 }
@@ -10784,6 +10922,7 @@ document.querySelectorAll(".youngerNextAction").forEach(btn=>btn.addEventListene
 document.getElementById("newMatchBoardBtn")?.addEventListener("click",nextCaseBoard);
 document.getElementById("clearTraceBtn")?.addEventListener("click",clearTrace);
 document.getElementById("finishTraceBtn")?.addEventListener("click",finishTrace);
+document.getElementById("traceDemoBtn")?.addEventListener("click",showTraceDemo);
 
 
 document.getElementById("saveYoungerCourse")?.addEventListener("click",saveYoungerLearningSettingsFromBackend);
