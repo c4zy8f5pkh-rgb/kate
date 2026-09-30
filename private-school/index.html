@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V22.8｜ V22.6｜復旦 × 六和</title>
+<title>兄弟學習基地 V22.9｜ V22.6｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -4278,6 +4278,58 @@ body.younger-mode main{
 }
 </style>
 
+
+<style id="v229-checkup-flow">
+.checkStepFlow{
+  display:grid;grid-template-columns:auto 1fr auto 1fr auto;align-items:center;
+  gap:9px;margin:8px 0 20px;padding:11px 14px;border-radius:16px;
+  background:#f8faff;border:1px solid #e4e9f2
+}
+.checkStep{display:flex;align-items:center;gap:7px;color:#9aa4b4;font-size:13px;font-weight:850;white-space:nowrap}
+.checkStep span{width:27px;height:27px;border-radius:50%;display:grid;place-items:center;background:#eef1f6;color:#929cac;font-weight:950}
+.checkStep.active{color:#4c6595}.checkStep.active span{background:#dfe9ff;color:#4d6697}
+.checkStep.done{color:#4f805e}.checkStep.done span{background:#e2f2e6;color:#4d835e}
+.checkStepFlow>i{height:3px;background:#e4e8ef;border-radius:999px}.checkStepFlow>i.done{background:#b9d9c1}
+#checkPrimaryStage{transition:.2s ease}
+#checkPrimaryStage.is-complete{opacity:.45;pointer-events:none}
+.checkAnswerSummary{
+  margin:10px 0 16px;padding:13px 15px;border-radius:15px;
+  background:#f2f7f3;border:1px solid #c8dfcf;color:#466653;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap
+}
+.checkAnswerSummary .answerMain{display:flex;align-items:center;gap:9px;font-weight:900}
+.checkAnswerSummary .answerIcon{width:29px;height:29px;border-radius:50%;display:grid;place-items:center;background:#dcefe1;color:#4a7e59}
+.checkAnswerSummary.bad{background:#fff4ef;border-color:#e5b8a7;color:#8f5b48}
+.checkAnswerSummary.bad .answerIcon{background:#f8ddd3;color:#9a5b43}
+.checkAnswerSummary.unsure{background:#fffaf0;border-color:#ead7ad;color:#80693d}
+.checkAnswerSummary.unsure .answerIcon{background:#f4e6bf;color:#8c6d2a}
+.checkAnswerSummary small{color:#7c8798;font-size:12px}
+.checkFollow{
+  margin-top:10px;border-radius:20px;padding:18px;background:#fffaf0;border:2px solid #ead5a8;
+  box-shadow:0 8px 18px rgba(125,96,43,.05)
+}
+.checkFollowHead{display:flex;align-items:center;gap:9px;margin-bottom:9px}
+.checkFollowHead span{padding:5px 9px;border-radius:999px;background:#f2dfaf;color:#775d25;font-size:12px;font-weight:950}
+.checkFollowHead b{color:#635331;font-size:17px}
+.checkFollowPrompt{font-size:19px;font-weight:850;line-height:1.65;color:#3f4a5d;margin-bottom:13px}
+.checkFeedback{
+  margin-top:16px;border-radius:18px;padding:16px 18px;background:#f4f8ff;border:1px solid #d5e1f1;
+  color:#4e5e75;line-height:1.75
+}
+.checkFeedback .feedbackTitle{font-size:18px;font-weight:950;margin-bottom:7px}
+.checkFeedback .feedbackMeta{margin-top:9px;padding-top:9px;border-top:1px solid rgba(100,120,150,.15);font-size:13px;color:#7a8697}
+.checkActions{margin-top:18px;display:flex;justify-content:flex-end}
+#checkNextBtn{min-width:150px;min-height:48px;font-size:16px}
+@media(max-width:780px){
+  .checkStepFlow{grid-template-columns:auto 1fr auto 1fr auto;padding:9px 10px;gap:6px}
+  .checkStep b{display:none}
+  .checkStep span{width:26px;height:26px}
+  .checkAnswerSummary{display:block}
+  .checkAnswerSummary small{display:block;margin-top:6px}
+  #checkNextBtn{width:100%}
+}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -4321,7 +4373,7 @@ body.younger-mode main{
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V22.8</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V22.9</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -5472,21 +5524,34 @@ body.younger-mode main{
         <span id="checkProgress">第 1 / 8 題</span>
         <span id="checkTypeBadge">選擇題</span>
       </div>
-      <div class="checkSkill" id="checkSkill">成語／語詞</div>
-      <div class="checkQuestion" id="checkQuestion"></div>
-      <div class="checkChoices" id="checkChoices"></div>
-      <button type="button" class="checkUnsureBtn" id="checkUnsureBtn">我不確定</button>
 
-      <div class="checkFeedback hidden" id="checkFeedback"></div>
+      <div class="checkStepFlow" id="checkStepFlow">
+        <div class="checkStep active" id="checkStepOne"><span>1</span><b>先作答</b></div>
+        <i></i>
+        <div class="checkStep" id="checkStepTwo"><span>2</span><b>說明原因</b></div>
+        <i></i>
+        <div class="checkStep" id="checkStepThree"><span>3</span><b>看解析</b></div>
+      </div>
+
+      <div id="checkPrimaryStage">
+        <div class="checkSkill" id="checkSkill">成語／語詞</div>
+        <div class="checkQuestion" id="checkQuestion"></div>
+        <div class="checkChoices" id="checkChoices"></div>
+        <button type="button" class="checkUnsureBtn" id="checkUnsureBtn">我不確定</button>
+      </div>
+
+      <div class="checkAnswerSummary hidden" id="checkAnswerSummary"></div>
 
       <div class="checkFollow hidden" id="checkFollow">
-        <div class="checkFollowHead">🔎 再確認一下</div>
+        <div class="checkFollowHead"><span>第 2 步</span><b>你為什麼這樣判斷？</b></div>
         <div class="checkFollowPrompt" id="checkFollowPrompt"></div>
         <div class="checkFollowChoices" id="checkFollowChoices"></div>
       </div>
 
+      <div class="checkFeedback hidden" id="checkFeedback"></div>
+
       <div class="checkActions">
-        <button type="button" class="btn secondary hidden" id="checkNextBtn">下一題 →</button>
+        <button type="button" class="btn hidden" id="checkNextBtn">下一題 →</button>
       </div>
     </div>
 
@@ -12272,6 +12337,35 @@ function checkStart(){
   document.getElementById("checkQuestionWrap")?.classList.remove("hidden");
   checkRender();
 }
+
+function checkSetStep(step){
+  const one=document.getElementById("checkStepOne");
+  const two=document.getElementById("checkStepTwo");
+  const three=document.getElementById("checkStepThree");
+  const bars=[...document.querySelectorAll("#checkStepFlow > i")];
+  [one,two,three].forEach(x=>x?.classList.remove("active","done"));
+  bars.forEach(x=>x.classList.remove("done"));
+  if(step===1){one?.classList.add("active")}
+  if(step===2){one?.classList.add("done");two?.classList.add("active");if(bars[0])bars[0].classList.add("done")}
+  if(step===3){
+    one?.classList.add("done");two?.classList.add("done");three?.classList.add("active");
+    bars.forEach(x=>x.classList.add("done"));
+  }
+}
+function checkAnswerLabel(q,idx,unsure){
+  if(unsure)return "我不確定";
+  const text=q.choices[idx]??"";
+  return q.type==="tf"?text:`${String.fromCharCode(65+idx)}. ${text}`;
+}
+function checkShowAnswerSummary(q,idx,unsure,correct,ms){
+  const el=document.getElementById("checkAnswerSummary");if(!el)return;
+  el.className=`checkAnswerSummary ${unsure?"unsure":correct?"":"bad"}`;
+  const icon=unsure?"?":correct?"✓":"×";
+  const label=checkAnswerLabel(q,idx,unsure);
+  el.innerHTML=`<div class="answerMain"><span class="answerIcon">${icon}</span><span>你的首答：${label}</span></div><small>${(ms/1000).toFixed(1)} 秒完成</small>`;
+  el.classList.remove("hidden");
+}
+
 function checkRender(){
   const q=checkSession.items[checkSession.index];
   if(!q){checkFinish();return}
@@ -12281,6 +12375,13 @@ function checkRender(){
   document.getElementById("checkTypeBadge").textContent=q.type==="tf"?"是非題":"選擇題";
   document.getElementById("checkSkill").textContent=`${checkSubjectName(q.subject)}｜${q.skill}`;
   document.getElementById("checkQuestion").textContent=q.q;
+
+  const primary=document.getElementById("checkPrimaryStage");
+  primary?.classList.remove("is-complete");
+  const summary=document.getElementById("checkAnswerSummary");
+  summary?.classList.add("hidden");
+  if(summary)summary.innerHTML="";
+
   const choices=document.getElementById("checkChoices");
   choices.innerHTML="";
   q.choices.forEach((c,i)=>{
@@ -12292,9 +12393,10 @@ function checkRender(){
   });
   document.getElementById("checkUnsureBtn").disabled=false;
   document.getElementById("checkFeedback").className="checkFeedback hidden";
-  document.getElementById("checkFeedback").textContent="";
+  document.getElementById("checkFeedback").innerHTML="";
   document.getElementById("checkFollow").classList.add("hidden");
   document.getElementById("checkNextBtn").classList.add("hidden");
+  checkSetStep(1);
   checkSession.startedAt=performance.now();
 }
 function checkAnswer(idx,btn,unsure){
@@ -12307,17 +12409,10 @@ function checkAnswer(idx,btn,unsure){
   if(correct)checkSession.summary.correct++;
   if(unsure)checkSession.summary.unsure++;
 
-  document.querySelectorAll("#checkChoices .checkChoice").forEach((b,i)=>{
-    b.disabled=true;
-    if(i===q.a)b.classList.add("good");
-    else if(!unsure&&i===idx)b.classList.add("bad");
-  });
+  document.querySelectorAll("#checkChoices .checkChoice").forEach(b=>b.disabled=true);
   document.getElementById("checkUnsureBtn").disabled=true;
-
-  const fb=document.getElementById("checkFeedback");
-  fb.classList.remove("hidden");
-  fb.classList.add(correct?"good":"bad");
-  fb.innerHTML=`<b>${unsure?"你選了「我不確定」":correct?"首答正確":"首答需要再確認"}</b><br>${q.explain}`;
+  document.getElementById("checkPrimaryStage")?.classList.add("is-complete");
+  checkShowAnswerSummary(q,idx,unsure,correct,ms);
 
   const requireFollow=unsure || !correct || fast || (checkSession.index%2===1);
   const row={
@@ -12329,12 +12424,31 @@ function checkAnswer(idx,btn,unsure){
 
   if(requireFollow){
     checkSession.summary.follow++;
+    checkSetStep(2);
     checkShowFollow(q);
+    document.getElementById("checkFollow")?.scrollIntoView({behavior:"smooth",block:"center"});
   }else{
     checkCommitLog();
-    document.getElementById("checkNextBtn").classList.remove("hidden");
+    checkSetStep(3);
+    checkShowFinalExplanation(q,correct,unsure,null);
   }
 }
+function checkShowFinalExplanation(q,correct,unsure,followOk){
+  const fb=document.getElementById("checkFeedback");if(!fb)return;
+  fb.className=`checkFeedback ${correct?"good":unsure?"":"bad"}`;
+  let title="";
+  if(unsure)title="這題原本不確定，現在一起看清楚";
+  else if(correct)title="首答正確，觀念整理";
+  else title="這題需要再釐清";
+  let followText="";
+  if(followOk===true)followText="追問也答對了，代表不只認得答案。";
+  if(followOk===false)followText="追問沒有答對，這個觀念之後會再回收。";
+  fb.innerHTML=`<div class="feedbackTitle">${title}</div><div>${q.explain}</div>${followText?`<div class="feedbackMeta">${followText}</div>`:""}`;
+  fb.classList.remove("hidden");
+  document.getElementById("checkNextBtn")?.classList.remove("hidden");
+  fb.scrollIntoView({behavior:"smooth",block:"center"});
+}
+
 function checkShowFollow(q){
   const f=document.getElementById("checkFollow");
   f.classList.remove("hidden");
@@ -12355,10 +12469,14 @@ function checkFollowAnswer(q,idx,btn){
   });
   checkCurrentLog.followCorrect=ok;
   if(ok)checkSession.summary.followOk++;
-  const fb=document.getElementById("checkFeedback");
-  fb.innerHTML+=`<br><b>${ok?"追問也答對了":"追問仍需要再練"}</b>`;
   checkCommitLog();
-  document.getElementById("checkNextBtn").classList.remove("hidden");
+
+  const follow=document.getElementById("checkFollow");
+  if(follow){
+    follow.classList.add("hidden");
+  }
+  checkSetStep(3);
+  checkShowFinalExplanation(q,checkCurrentLog.correct,checkCurrentLog.unsure,ok);
 }
 function checkCommitLog(){
   if(!checkCurrentLog||checkCurrentLog.saved)return;
