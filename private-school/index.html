@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V22.6｜復旦 × 六和</title>
+<title>兄弟學習基地 V22.7｜ V22.6｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -4233,6 +4233,29 @@ body.younger-mode main{
   #youngerPosition .traceHeroCopy p{font-size:11px}
 }
 </style>
+
+<style id="v227-checkup">
+#checkup{max-width:1120px;margin:0 auto}
+.checkHero{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 24px;background:linear-gradient(115deg,#f3f7ff,#fff9ef);border:1px solid #e0e7f3;border-radius:24px;margin-bottom:16px}
+.checkEyebrow{font-size:14px;font-weight:950;color:#6378a7;margin-bottom:6px}.checkHero h2{margin:0 0 8px;font-size:27px;color:#35465e}.checkHero p{margin:0;color:#738096;line-height:1.75;max-width:720px}
+.checkToday{min-width:190px;padding:13px 15px;border-radius:18px;background:#fff;border:1px solid #dfe7f3;display:flex;flex-direction:column;gap:4px}.checkToday b{font-size:21px;color:#526a99}.checkToday small,.checkToday span{font-size:12px;color:#738096;line-height:1.5}
+.checkControls{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.checkSubjectTabs{display:flex;gap:8px;flex-wrap:wrap}.checkSubjectBtn{border:1px solid #dce4f0;background:#fff;color:#67758e;padding:9px 15px;border-radius:999px;cursor:pointer;font-weight:850}.checkSubjectBtn.active{background:#edf3ff;border-color:#aabde8;color:#4f679b}
+.checkBoard{background:#fff;border:1px solid #e1e7ef;border-radius:24px;padding:24px;box-shadow:0 9px 24px rgba(64,83,123,.045);min-height:360px}
+.checkEmpty{text-align:center;padding:42px 20px;color:#758096;display:flex;flex-direction:column;align-items:center;gap:9px}.checkEmptyIcon{font-size:52px}.checkEmpty b{font-size:20px;color:#42536d}.checkEmpty span{max-width:660px;line-height:1.7}
+.checkTopline{display:flex;justify-content:space-between;gap:10px;color:#77849a;font-size:13px;font-weight:850}.checkTypeBadge{padding:5px 9px;border-radius:999px;background:#f0f4fb;color:#657691}.checkSkill{font-size:13px;font-weight:900;color:#7a6b4f;margin-top:14px}.checkQuestion{font-size:22px;font-weight:850;line-height:1.7;color:#33465f;margin:8px 0 16px}
+.checkChoices,.checkFollowChoices{display:grid;grid-template-columns:1fr 1fr;gap:10px}.checkChoice,.checkFollowChoice{border:1px solid #dfe6f1;background:#fbfcff;border-radius:16px;min-height:58px;padding:12px 14px;text-align:left;font:inherit;font-size:16px;color:#43536d;cursor:pointer;font-weight:760}.checkChoice:hover,.checkFollowChoice:hover{border-color:#b9c8e7;background:#f6f9ff}.checkChoice.good,.checkFollowChoice.good{background:#edf8f0;border-color:#9bc5a6;color:#3f7250}.checkChoice.bad,.checkFollowChoice.bad{background:#fff1ed;border-color:#e3a793;color:#955c47}
+.checkUnsureBtn{margin-top:12px;border:1px dashed #cfd7e4;background:#fff;color:#78859a;padding:10px 15px;border-radius:14px;cursor:pointer;font-weight:850}
+.checkFeedback{margin-top:16px;border-radius:16px;padding:14px 16px;background:#f7f9fc;border:1px solid #e2e7ef;color:#536177;line-height:1.7}.checkFeedback.good{background:#eef8f1;border-color:#b7d8bf}.checkFeedback.bad{background:#fff4ef;border-color:#e6bdad}
+.checkFollow{margin-top:16px;border-radius:18px;padding:16px;background:#fffaf0;border:1px solid #ead9b5}.checkFollowHead{font-weight:950;color:#725f39;margin-bottom:7px}.checkFollowPrompt{font-size:17px;font-weight:800;line-height:1.6;color:#4d5667;margin-bottom:11px}
+.checkActions{margin-top:15px;display:flex;justify-content:flex-end}.checkDone{text-align:center;padding:22px}.checkDoneIcon{font-size:52px}.checkDone h3{font-size:24px}.checkDoneGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:620px;margin:16px auto}.checkDoneGrid div{background:#f8faff;border:1px solid #e2e8f2;border-radius:18px;padding:15px}.checkDoneGrid b{display:block;font-size:27px;color:#4d6697}.checkDoneGrid span{font-size:12px;color:#778399}
+.checkParentStats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}.checkSignalBox{margin-top:14px;padding:14px 16px;border-radius:16px;background:#f7f9fc;border:1px solid #e2e7ef;color:#59667a;line-height:1.65}.checkParentLegend{display:flex;gap:10px;flex-wrap:wrap;font-size:12px;color:#778399;margin:10px 0}.checkParentRecords{display:grid;gap:9px}.checkRecord{display:grid;grid-template-columns:115px 85px 90px minmax(0,1fr) 100px;gap:8px;align-items:center;padding:10px 12px;border-radius:13px;background:#fafbfe;border:1px solid #e6ebf2;font-size:13px;color:#58667c}.checkRecord b{color:#40516b}.checkRecord .ok{color:#4d835e}.checkRecord .no{color:#a25f4c}.checkRecord .warn{color:#a0742d}
+.hidden{display:none!important}
+@media(max-width:780px){
+ .checkHero{display:block}.checkToday{margin-top:14px;min-width:0}.checkChoices,.checkFollowChoices{grid-template-columns:1fr}.checkDoneGrid{grid-template-columns:1fr}.checkParentStats{grid-template-columns:1fr 1fr}.checkRecord{grid-template-columns:1fr 1fr}.checkRecord .wide{grid-column:1/-1}
+}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -4262,6 +4285,7 @@ body.younger-mode main{
 
     <button type="button" class="olderOnly" data-page="chinese">📖 國文</button>
     <button type="button" class="olderOnly" data-page="expression">✍️ 表達訓練</button>
+    <button type="button" class="olderOnly" data-page="checkup">🧠 理解檢查</button>
     <button type="button" class="olderOnly" data-page="math">🧮 數學</button>
     <button type="button" class="olderOnly" data-page="english">英文</button>
     <button type="button" class="olderOnly" data-page="history">📚 歷屆題</button>
@@ -4275,7 +4299,7 @@ body.younger-mode main{
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V22.4</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V22.7</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -5348,6 +5372,74 @@ body.younger-mode main{
   </div>
 </section>
 
+
+<section id="checkup" class="page olderOnly">
+  <div class="checkHero">
+    <div>
+      <div class="checkEyebrow">🧠 哥哥｜理解檢查試用</div>
+      <h2>不是只看選對，而是確認真的懂</h2>
+      <p>選擇題、是非題會混合出題；答太快、答錯或系統抽查時，會再追問「為什麼」。不知道可以直接按「我不確定」，不把猜對當成學會。</p>
+    </div>
+    <div class="checkToday">
+      <b id="checkTodayCount">今日 0 題</b>
+      <small>建議一次 8 題</small>
+      <span>首答＋追問分開記錄</span>
+    </div>
+  </div>
+
+  <div class="checkControls">
+    <div class="checkSubjectTabs" id="checkSubjectTabs">
+      <button type="button" class="checkSubjectBtn active" data-subject="mixed">混合</button>
+      <button type="button" class="checkSubjectBtn" data-subject="chinese">國文</button>
+      <button type="button" class="checkSubjectBtn" data-subject="math">數學</button>
+    </div>
+    <button type="button" class="btn" id="checkStartBtn">開始 8 題理解檢查</button>
+  </div>
+
+  <div class="checkBoard" id="checkBoard">
+    <div class="checkEmpty" id="checkEmpty">
+      <div class="checkEmptyIcon">🧩</div>
+      <b>先選科目，再開始</b>
+      <span>不是考試分數；這裡主要看是否真的理解、是否需要提示，以及隔一層追問後還會不會。</span>
+    </div>
+
+    <div id="checkQuestionWrap" class="hidden">
+      <div class="checkTopline">
+        <span id="checkProgress">第 1 / 8 題</span>
+        <span id="checkTypeBadge">選擇題</span>
+      </div>
+      <div class="checkSkill" id="checkSkill">成語／語詞</div>
+      <div class="checkQuestion" id="checkQuestion"></div>
+      <div class="checkChoices" id="checkChoices"></div>
+      <button type="button" class="checkUnsureBtn" id="checkUnsureBtn">我不確定</button>
+
+      <div class="checkFeedback hidden" id="checkFeedback"></div>
+
+      <div class="checkFollow hidden" id="checkFollow">
+        <div class="checkFollowHead">🔎 再確認一下</div>
+        <div class="checkFollowPrompt" id="checkFollowPrompt"></div>
+        <div class="checkFollowChoices" id="checkFollowChoices"></div>
+      </div>
+
+      <div class="checkActions">
+        <button type="button" class="btn secondary hidden" id="checkNextBtn">下一題 →</button>
+      </div>
+    </div>
+
+    <div id="checkDone" class="checkDone hidden">
+      <div class="checkDoneIcon">✅</div>
+      <h3>這一輪完成</h3>
+      <div class="checkDoneGrid">
+        <div><b id="checkDoneAccuracy">—</b><span>首答正確</span></div>
+        <div><b id="checkDoneUnsure">—</b><span>我不確定</span></div>
+        <div><b id="checkDoneFollow">—</b><span>追問答對</span></div>
+      </div>
+      <p class="muted">家長後台會另外保存作答時間、快速作答與追問結果；孩子這裡不顯示「敷衍」判定。</p>
+      <button type="button" class="btn" id="checkRestartBtn">再做 8 題</button>
+    </div>
+  </div>
+</section>
+
 <section id="parent" class="page">
   <div id="parentGate" class="parentGate">
     <div class="muted">🔒 家長專區</div>
@@ -5389,6 +5481,7 @@ body.younger-mode main{
       <button type="button" class="backendTab" data-backtab="paper">🖨️ 出題列印</button>
       <button type="button" class="backendTab" data-backtab="dm">大滿貫</button>
       <button type="button" class="backendTab" data-backtab="expression">✍️ 表達</button>
+      <button type="button" class="backendTab" data-backtab="checkup">🧠 理解檢查</button>
       <button type="button" class="backendTab" data-backtab="settings">設定</button>
     </div>
 
@@ -5601,6 +5694,34 @@ body.younger-mode main{
   <div class="exprParentStats"><span id="exprParentToday">今天：0 篇</span><span id="exprParentPending">待檢視：0 篇</span><span id="exprParentIndependent">未看提示完成：0 篇</span><span id="exprParentMastered">家長確認可運用：0 篇</span></div>
   <div id="exprParentRecords" class="exprParentRecords">目前還沒有練習紀錄。</div>
   </div></div>
+
+<div id="back-checkup" class="backendPanel">
+  <div class="card">
+    <h3>🧠 哥哥｜理解檢查與作答跡象</h3>
+    <p class="muted">這裡不直接貼「敷衍」標籤，而是列出客觀跡象：首答正確率、我不確定、快速作答、快速答錯與追問表現。</p>
+    <div class="checkParentStats">
+      <div class="backendStat"><div class="muted">近 7 天首答正確</div><div class="big" id="checkParentAccuracy">—</div></div>
+      <div class="backendStat"><div class="muted">我不確定</div><div class="big" id="checkParentUnsure">—</div></div>
+      <div class="backendStat"><div class="muted">快速作答</div><div class="big" id="checkParentFast">—</div></div>
+      <div class="backendStat"><div class="muted">快速且答錯</div><div class="big" id="checkParentFastWrong">—</div></div>
+      <div class="backendStat"><div class="muted">追問答對</div><div class="big" id="checkParentFollow">—</div></div>
+      <div class="backendStat"><div class="muted">累積題數</div><div class="big" id="checkParentTotal">—</div></div>
+    </div>
+    <div class="checkSignalBox" id="checkParentSignal">目前資料還不多，先累積幾次練習再看趨勢。</div>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <h3>最近作答紀錄</h3>
+    <div class="checkParentLegend">
+      <span>⚡ 快速作答：4 秒內</span>
+      <span>○ 首答正確</span>
+      <span>△ 我不確定</span>
+      <span>🔎 有追問</span>
+    </div>
+    <div id="checkParentRecords" class="checkParentRecords">尚未有理解檢查紀錄。</div>
+  </div>
+</div>
+
 <div id="back-settings" class="backendPanel">
       <div class="card">
         <h3>家長設定</h3>
@@ -11908,6 +12029,358 @@ function exprSaveReview(id,review,card){
   <span>✋</span><b>High five!</b><small>連續答對</small>
 </button>
 <div class="cuteConfettiLayer" id="cuteConfettiLayer" aria-hidden="true"></div>
+
+
+<script id="v227-checkup-js">
+(()=>{
+const CHECK_KEY="older_comprehension_check_v227";
+const CHECK_RECENT_KEY="older_comprehension_recent_v227";
+
+const CHECK_BANK=[
+  {id:"ch01",subject:"chinese",skill:"成語／語詞",type:"mc",
+   q:"下列哪一句使用「鍥而不捨」最恰當？",
+   choices:["他只試了一次就決定放棄。","她每天練習長笛，即使進步緩慢仍持續修正。","因為怕下雨，他整天都不出門。","看到新玩具，他立刻改變主意。"],a:1,
+   explain:"「鍥而不捨」強調持續努力、不輕易放棄。",
+   followQ:"為什麼第 2 句適合使用「鍥而不捨」？",
+   follow:["因為句子寫到長笛。","因為即使進步緩慢，仍持續練習與修正。","因為她每天都很忙。"],fa:1},
+  {id:"ch02",subject:"chinese",skill:"成語／語詞",type:"tf",
+   q:"「因噎廢食」可以用來形容：因為一次不好的經驗，就把原本應該做的事情也完全放棄。",choices:["是","否"],a:0,
+   explain:"意思接近「因為怕再出問題，連原本應做的事也停止」，重點是過度因小失大。",
+   followQ:"下面哪個情境最接近「因噎廢食」？",
+   follow:["一次考差後，從此不再複習任何科目。","考差後找出錯題再訂正。","下雨時改在室內運動。"],fa:0},
+  {id:"ch03",subject:"chinese",skill:"書面表達",type:"mc",
+   q:"如果要把「他超冷靜地把事情弄完」改成較正式的書面語，哪一句最好？",
+   choices:["他很酷地把事情做完。","他沉著地處理問題，最後順利完成任務。","他就是沒有很慌。","他慢慢的就做完啦。"],a:1,
+   explain:"書面語要避免「超、啦」等口語詞，並把動作與結果說清楚。",
+   followQ:"哪一個詞最能取代口語的「超冷靜」？",
+   follow:["沉著","隨便","熱鬧"],fa:0},
+  {id:"ch04",subject:"chinese",skill:"關聯複句",type:"mc",
+   q:"哪一句最正確使用「儘管……仍然……」？",
+   choices:["儘管天氣炎熱，他仍然完成了全程練習。","儘管他很努力，所以考得很好。","儘管下雨，而且我帶傘。","儘管我喜歡閱讀，因為書很多。"],a:0,
+   explain:"「儘管……仍然……」表示前項存在阻礙，後項結果依然發生。",
+   followQ:"這個句型主要表達哪一種關係？",
+   follow:["轉折：有阻礙但結果仍發生","單純列舉兩件事","時間先後"],fa:0},
+  {id:"ch05",subject:"chinese",skill:"成語／語詞",type:"mc",
+   q:"「畫蛇添足」最適合形容哪一種情況？",
+   choices:["事情已完成，卻又多做不必要的修改，反而弄壞了。","為了進步而反覆練習。","遇到問題先請教別人。","做事前先規畫步驟。"],a:0,
+   explain:"「畫蛇添足」指多做了不必要的事，反而造成負面結果。",
+   followQ:"這個成語的重點是哪一個？",
+   follow:["做得越多越好","多餘的行動反而破壞原本結果","一定要畫圖"],fa:1},
+  {id:"ch06",subject:"chinese",skill:"語句層次",type:"tf",
+   q:"「雖然題目很難，但是他仍然仔細檢查每一個步驟。」是一個合理的轉折複句。",choices:["是","否"],a:0,
+   explain:"前面是困難條件，後面是在困難下仍持續的行動，轉折關係成立。",
+   followQ:"句中的轉折點是什麼？",
+   follow:["題目很難，但他仍仔細檢查","他喜歡數學，所以檢查","題目簡單，因此很快寫完"],fa:0},
+  {id:"ch07",subject:"chinese",skill:"詞義應用",type:"mc",
+   q:"「井然有序」最適合形容下列哪一個畫面？",
+   choices:["教室裡的書本分類整齊，大家依序領取。","操場上突然下大雨，大家四處奔跑。","抽屜裡塞滿沒有分類的紙張。","比賽開始後所有人同時搶著發言。"],a:0,
+   explain:"「井然有序」表示條理清楚、秩序整齊。",
+   followQ:"哪一個詞最接近「井然有序」？",
+   follow:["雜亂無章","條理分明","漫不經心"],fa:1},
+  {id:"ch08",subject:"chinese",skill:"成語／語詞",type:"mc",
+   q:"下列哪一句的「全神貫注」使用最自然？",
+   choices:["他全神貫注地聽老師說明實驗步驟。","他全神貫注地忘記帶鉛筆。","天空全神貫注地下著雨。","桌子全神貫注地放在教室裡。"],a:0,
+   explain:"「全神貫注」用來形容人的注意力高度集中。",
+   followQ:"「全神貫注」最接近哪一種狀態？",
+   follow:["注意力高度集中","速度非常快","聲音非常大"],fa:0},
+  {id:"ch09",subject:"chinese",skill:"書面表達",type:"mc",
+   q:"「這家店的排骨飯很好吃。」如果不能使用「好吃」，哪一句描寫比較具體？",
+   choices:["這家店的排骨飯真的很讚。","排骨一端上桌便香氣四溢，外層微酥、肉質柔嫩。","這家店就是很好。","反正吃了就知道。"],a:1,
+   explain:"具體描寫會用嗅覺、口感與食物特徵取代抽象形容詞。",
+   followQ:"這一句主要用了哪兩種具體線索？",
+   follow:["香氣與口感","價格與地址","時間與人物"],fa:0},
+  {id:"ch10",subject:"chinese",skill:"關聯複句",type:"tf",
+   q:"「除非你先把資料整理完成，否則很難開始分析。」這個句子的條件關係合理。",choices:["是","否"],a:0,
+   explain:"「除非……否則……」表示若前面的必要條件沒有達成，後面的結果通常不會發生。",
+   followQ:"「除非……否則……」較接近哪一種關係？",
+   follow:["必要條件","單純因果","並列"],fa:0},
+
+  {id:"ma01",subject:"math",skill:"因數／倍數",type:"tf",
+   q:"兩個正整數的最小公倍數，一定都比這兩個數本身大。",choices:["是","否"],a:1,
+   explain:"不一定。例如 4 和 8 的最小公倍數是 8，並沒有比 8 大。",
+   followQ:"哪一組數字最能證明這句話不成立？",
+   follow:["4 和 8","5 和 7","6 和 10"],fa:0},
+  {id:"ma02",subject:"math",skill:"分數",type:"mc",
+   q:"3/4 + 1/8 = ?",
+   choices:["4/12","7/8","1/2","5/8"],a:1,
+   explain:"3/4 = 6/8，所以 6/8 + 1/8 = 7/8。",
+   followQ:"第一步為什麼要把 3/4 改成 6/8？",
+   follow:["為了讓兩個分數的分母相同","因為分子一定要變大","因為 8 比 4 大"],fa:0},
+  {id:"ma03",subject:"math",skill:"小數",type:"mc",
+   q:"2.4 × 0.5 的答案是多少？",
+   choices:["12","1.2","0.12","2.9"],a:1,
+   explain:"乘以 0.5 等於取一半，2.4 的一半是 1.2。",
+   followQ:"哪一個想法可以快速檢查答案？",
+   follow:["乘以 0.5 就是取一半","乘以小數一定變大","把小數點直接去掉"],fa:0},
+  {id:"ma04",subject:"math",skill:"因數／倍數",type:"tf",
+   q:"1 是任何兩個正整數的公因數。",choices:["是","否"],a:0,
+   explain:"1 可以整除所有正整數，所以一定是共同因數。",
+   followQ:"為什麼 1 一定是公因數？",
+   follow:["因為 1 可以整除所有正整數","因為 1 是質數","因為每個數都等於 1"],fa:0},
+  {id:"ma05",subject:"math",skill:"幾何",type:"mc",
+   q:"一個長方形周長是 28 公分，長是 8 公分，寬是多少公分？",
+   choices:["4","6","10","12"],a:1,
+   explain:"2 × (長＋寬)=28，所以長＋寬=14，寬=14−8=6。",
+   followQ:"先把 28 ÷ 2 的原因是什麼？",
+   follow:["因為周長包含兩個長和兩個寬","因為長方形有兩條對角線","因為 28 是偶數"],fa:0},
+  {id:"ma06",subject:"math",skill:"單位換算",type:"mc",
+   q:"2.5 公尺等於多少公分？",
+   choices:["25 公分","250 公分","2500 公分","2.5 公分"],a:1,
+   explain:"1 公尺=100 公分，所以 2.5×100=250 公分。",
+   followQ:"公尺換成公分時，數值通常怎麼變？",
+   follow:["乘以 100","除以 100","完全不變"],fa:0},
+  {id:"ma07",subject:"math",skill:"應用／多步驟",type:"mc",
+   q:"一盒有 24 枝筆，買 3 盒後送出 17 枝，還剩多少枝？",
+   choices:["55","72","89","41"],a:0,
+   explain:"先算 24×3=72，再算 72−17=55。",
+   followQ:"這題正確的運算順序是哪一個？",
+   follow:["先乘再減","先減再乘","只需要做減法"],fa:0},
+  {id:"ma08",subject:"math",skill:"平均",type:"mc",
+   q:"4 次測驗分數是 80、90、70、100，平均是多少？",
+   choices:["80","85","90","340"],a:1,
+   explain:"總分 340，再除以 4，平均是 85。",
+   followQ:"平均數的基本做法是什麼？",
+   follow:["總和 ÷ 個數","最大值 − 最小值","全部相乘"],fa:0},
+  {id:"ma09",subject:"math",skill:"四則與規律",type:"tf",
+   q:"25 × 16 可以改寫成 25 × (8 × 2)，再利用 25 × 8 × 2 計算，結果不變。",choices:["是","否"],a:0,
+   explain:"乘法結合律允許改變分組方式，乘積不變。",
+   followQ:"這裡主要利用哪一個概念？",
+   follow:["乘法結合律","加法交換律","減法規則"],fa:0},
+  {id:"ma10",subject:"math",skill:"多步驟",type:"mc",
+   q:"1400 ÷ 5 − 10 × 14 = ?",
+   choices:["140","280","420","130"],a:0,
+   explain:"先算除法與乘法：1400÷5=280，10×14=140，再算 280−140=140。",
+   followQ:"為什麼不能直接從左到右把所有符號依序算完？",
+   follow:["因為乘除要先於加減","因為減法永遠最後","因為 1400 最大"],fa:0}
+];
+
+function checkLoad(){
+  try{return JSON.parse(localStorage.getItem(CHECK_KEY)||"[]")}catch(e){return []}
+}
+function checkSave(rows){localStorage.setItem(CHECK_KEY,JSON.stringify(rows.slice(-300)))}
+function checkRecentLoad(){
+  try{return JSON.parse(localStorage.getItem(CHECK_RECENT_KEY)||"[]")}catch(e){return []}
+}
+function checkRecentSave(a){localStorage.setItem(CHECK_RECENT_KEY,JSON.stringify(a.slice(-20)))}
+function checkShuffle(a){
+  const x=a.slice();
+  for(let i=x.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[x[i],x[j]]=[x[j],x[i]]}
+  return x;
+}
+function checkDayKey(){return new Date().toLocaleDateString("sv-SE")}
+function checkSubjectName(s){return s==="chinese"?"國文":s==="math"?"數學":"混合"}
+
+let checkSubject="mixed";
+let checkSession={items:[],index:0,startedAt:0,answered:false,summary:{correct:0,unsure:0,follow:0,followOk:0}};
+let checkCurrentLog=null;
+
+function checkPick(subject,count=8){
+  let pool=CHECK_BANK.filter(q=>subject==="mixed"||q.subject===subject);
+  const recent=checkRecentLoad();
+  pool.sort((a,b)=>{
+    const ar=recent.includes(a.id)?1:0, br=recent.includes(b.id)?1:0;
+    if(ar!==br)return ar-br;
+    return Math.random()-.5;
+  });
+  let picked=[];
+  if(subject==="mixed"){
+    const ch=checkShuffle(pool.filter(q=>q.subject==="chinese"));
+    const ma=checkShuffle(pool.filter(q=>q.subject==="math"));
+    for(let i=0;picked.length<count;i++){
+      if(ch[i])picked.push(ch[i]);
+      if(picked.length<count&&ma[i])picked.push(ma[i]);
+      if(!ch[i]&&!ma[i])break;
+    }
+    picked=checkShuffle(picked);
+  }else{
+    picked=checkShuffle(pool).slice(0,count);
+  }
+  return picked.slice(0,count);
+}
+function checkTodayCount(){
+  const n=checkLoad().filter(r=>r.day===checkDayKey()).length;
+  const el=document.getElementById("checkTodayCount");if(el)el.textContent=`今日 ${n} 題`;
+}
+function checkStart(){
+  checkSession={items:checkPick(checkSubject,8),index:0,startedAt:0,answered:false,summary:{correct:0,unsure:0,follow:0,followOk:0}};
+  document.getElementById("checkEmpty")?.classList.add("hidden");
+  document.getElementById("checkDone")?.classList.add("hidden");
+  document.getElementById("checkQuestionWrap")?.classList.remove("hidden");
+  checkRender();
+}
+function checkRender(){
+  const q=checkSession.items[checkSession.index];
+  if(!q){checkFinish();return}
+  checkSession.answered=false;
+  checkCurrentLog=null;
+  document.getElementById("checkProgress").textContent=`第 ${checkSession.index+1} / ${checkSession.items.length} 題`;
+  document.getElementById("checkTypeBadge").textContent=q.type==="tf"?"是非題":"選擇題";
+  document.getElementById("checkSkill").textContent=`${checkSubjectName(q.subject)}｜${q.skill}`;
+  document.getElementById("checkQuestion").textContent=q.q;
+  const choices=document.getElementById("checkChoices");
+  choices.innerHTML="";
+  q.choices.forEach((c,i)=>{
+    const b=document.createElement("button");
+    b.type="button";b.className="checkChoice";
+    b.textContent=q.type==="tf"?c:`${String.fromCharCode(65+i)}. ${c}`;
+    b.onclick=()=>checkAnswer(i,b,false);
+    choices.appendChild(b);
+  });
+  document.getElementById("checkUnsureBtn").disabled=false;
+  document.getElementById("checkFeedback").className="checkFeedback hidden";
+  document.getElementById("checkFeedback").textContent="";
+  document.getElementById("checkFollow").classList.add("hidden");
+  document.getElementById("checkNextBtn").classList.add("hidden");
+  checkSession.startedAt=performance.now();
+}
+function checkAnswer(idx,btn,unsure){
+  if(checkSession.answered)return;
+  const q=checkSession.items[checkSession.index];
+  const ms=Math.round(performance.now()-checkSession.startedAt);
+  const fast=ms<4000;
+  const correct=!unsure && idx===q.a;
+  checkSession.answered=true;
+  if(correct)checkSession.summary.correct++;
+  if(unsure)checkSession.summary.unsure++;
+
+  document.querySelectorAll("#checkChoices .checkChoice").forEach((b,i)=>{
+    b.disabled=true;
+    if(i===q.a)b.classList.add("good");
+    else if(!unsure&&i===idx)b.classList.add("bad");
+  });
+  document.getElementById("checkUnsureBtn").disabled=true;
+
+  const fb=document.getElementById("checkFeedback");
+  fb.classList.remove("hidden");
+  fb.classList.add(correct?"good":"bad");
+  fb.innerHTML=`<b>${unsure?"你選了「我不確定」":correct?"首答正確":"首答需要再確認"}</b><br>${q.explain}`;
+
+  const requireFollow=unsure || !correct || fast || (checkSession.index%2===1);
+  const row={
+    id:`${Date.now()}_${Math.random().toString(36).slice(2,7)}`,
+    day:checkDayKey(),ts:new Date().toISOString(),qid:q.id,subject:q.subject,skill:q.skill,type:q.type,
+    choice:unsure?null:idx,correct,unsure,ms,fast,followRequired:requireFollow,followCorrect:null
+  };
+  checkCurrentLog=row;
+
+  if(requireFollow){
+    checkSession.summary.follow++;
+    checkShowFollow(q);
+  }else{
+    checkCommitLog();
+    document.getElementById("checkNextBtn").classList.remove("hidden");
+  }
+}
+function checkShowFollow(q){
+  const f=document.getElementById("checkFollow");
+  f.classList.remove("hidden");
+  document.getElementById("checkFollowPrompt").textContent=q.followQ;
+  const wrap=document.getElementById("checkFollowChoices");
+  wrap.innerHTML="";
+  q.follow.forEach((c,i)=>{
+    const b=document.createElement("button");b.type="button";b.className="checkFollowChoice";
+    b.textContent=`${String.fromCharCode(65+i)}. ${c}`;
+    b.onclick=()=>checkFollowAnswer(q,i,b);
+    wrap.appendChild(b);
+  });
+}
+function checkFollowAnswer(q,idx,btn){
+  const ok=idx===q.fa;
+  document.querySelectorAll("#checkFollowChoices .checkFollowChoice").forEach((b,i)=>{
+    b.disabled=true;if(i===q.fa)b.classList.add("good");else if(i===idx)b.classList.add("bad");
+  });
+  checkCurrentLog.followCorrect=ok;
+  if(ok)checkSession.summary.followOk++;
+  const fb=document.getElementById("checkFeedback");
+  fb.innerHTML+=`<br><b>${ok?"追問也答對了":"追問仍需要再練"}</b>`;
+  checkCommitLog();
+  document.getElementById("checkNextBtn").classList.remove("hidden");
+}
+function checkCommitLog(){
+  if(!checkCurrentLog||checkCurrentLog.saved)return;
+  checkCurrentLog.saved=true;
+  const rows=checkLoad();rows.push(checkCurrentLog);checkSave(rows);
+  const recent=checkRecentLoad();recent.push(checkCurrentLog.qid);checkRecentSave(recent);
+  checkTodayCount();checkRenderParent();
+}
+function checkNext(){
+  checkSession.index++;
+  if(checkSession.index>=checkSession.items.length){checkFinish();return}
+  checkRender();
+}
+function checkFinish(){
+  document.getElementById("checkQuestionWrap")?.classList.add("hidden");
+  const done=document.getElementById("checkDone");done?.classList.remove("hidden");
+  const total=checkSession.items.length||1,s=checkSession.summary;
+  document.getElementById("checkDoneAccuracy").textContent=`${Math.round(s.correct/total*100)}%`;
+  document.getElementById("checkDoneUnsure").textContent=`${s.unsure}`;
+  document.getElementById("checkDoneFollow").textContent=s.follow?`${Math.round(s.followOk/s.follow*100)}%`:"—";
+}
+function checkRenderParent(){
+  const rows=checkLoad();
+  const now=Date.now(),week=7*86400000;
+  const w=rows.filter(r=>now-new Date(r.ts).getTime()<=week);
+  const pct=(a,b)=>b?`${Math.round(a/b*100)}%`:"—";
+  const correct=w.filter(r=>r.correct).length;
+  const unsure=w.filter(r=>r.unsure).length;
+  const fast=w.filter(r=>r.fast).length;
+  const fastWrong=w.filter(r=>r.fast&&!r.correct&&!r.unsure).length;
+  const follows=w.filter(r=>r.followRequired);
+  const followOk=follows.filter(r=>r.followCorrect===true).length;
+  const set=(id,val)=>{const e=document.getElementById(id);if(e)e.textContent=val};
+  set("checkParentAccuracy",pct(correct,w.length));
+  set("checkParentUnsure",`${unsure}`);
+  set("checkParentFast",`${fast}`);
+  set("checkParentFastWrong",`${fastWrong}`);
+  set("checkParentFollow",pct(followOk,follows.length));
+  set("checkParentTotal",`${w.length}`);
+
+  const signal=document.getElementById("checkParentSignal");
+  if(signal){
+    let msg="目前資料還不多，先累積幾次練習再看趨勢。";
+    if(w.length>=8){
+      const fr=fastWrong/w.length,ur=unsure/w.length,cr=correct/w.length;
+      if(fr>=.25)msg="⚡ 近 7 天有較多「很快作答但答錯」的紀錄，建議先觀察是否有看完題目再作答。";
+      else if(cr>=.85 && follows.length>=3 && followOk/follows.length>=.8)msg="✓ 首答與追問都相對穩定；目前比較像是真的理解，不只是選項辨識。";
+      else if(ur>=.3)msg="△ 「我不確定」使用較多，但這比亂猜更有價值；可以針對不確定的能力回頭補強。";
+      else msg="目前沒有單一明顯異常；建議繼續看首答、追問與一週後保留率是否一起提升。";
+    }
+    signal.textContent=msg;
+  }
+
+  const rec=document.getElementById("checkParentRecords");
+  if(rec){
+    const recent=rows.slice(-20).reverse();
+    if(!recent.length){rec.textContent="尚未有理解檢查紀錄。";return}
+    rec.innerHTML=recent.map(r=>{
+      const sec=(r.ms/1000).toFixed(1);
+      const result=r.unsure?"△ 不確定":r.correct?"○ 正確":"× 錯誤";
+      const follow=r.followRequired?(r.followCorrect===true?"🔎 追問對":r.followCorrect===false?"🔎 追問錯":"🔎 待追問"):"—";
+      return `<div class="checkRecord">
+        <span>${new Date(r.ts).toLocaleString("zh-TW",{month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit"})}</span>
+        <b>${checkSubjectName(r.subject)}</b>
+        <span>${r.type==="tf"?"是非":"選擇"}</span>
+        <span class="wide">${r.skill}｜<span class="${r.correct?"ok":r.unsure?"warn":"no"}">${result}</span> ${r.fast?"⚡":""}</span>
+        <span>${sec}s｜${follow}</span>
+      </div>`;
+    }).join("");
+  }
+}
+function bindCheckup(){
+  document.querySelectorAll(".checkSubjectBtn").forEach(b=>b.addEventListener("click",()=>{
+    document.querySelectorAll(".checkSubjectBtn").forEach(x=>x.classList.remove("active"));
+    b.classList.add("active");checkSubject=b.dataset.subject;
+  }));
+  document.getElementById("checkStartBtn")?.addEventListener("click",checkStart);
+  document.getElementById("checkRestartBtn")?.addEventListener("click",checkStart);
+  document.getElementById("checkNextBtn")?.addEventListener("click",checkNext);
+  document.getElementById("checkUnsureBtn")?.addEventListener("click",()=>checkAnswer(null,null,true));
+  checkTodayCount();
+  checkRenderParent();
+}
+bindCheckup();
+})();
+</script>
 
 </body>
 </html>
