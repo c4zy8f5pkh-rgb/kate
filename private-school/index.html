@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V22.5｜復旦 × 六和</title>
+<title>兄弟學習基地 V22.6｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -9414,7 +9414,8 @@ function nextBubbleRound(){
   bubbleGame.locked=false;
   document.getElementById("bubbleBottomBar")?.classList.remove("hidden");
   const allowed=bubbleAllowedLetters();
-  const target=allowed[Math.floor(Math.random()*allowed.length)];
+  // 不再每一題獨立亂數：先輪完已學字母，再優先抽較久沒看到的。
+  const target=nextSpacedYoungerLetter("bubble",allowed).toUpperCase();
   bubbleGame.target=target;
 
   phonicsSetText?.("bubbleTarget",target);
@@ -10509,11 +10510,93 @@ function nextLookSet(){
   const id=nextUniqueYoungerId("look",lookSets.map(x=>x.target),6);
   return lookSets.find(x=>x.target===id)||lookSets[0];
 }
+// V22.6: 共用字母間隔輪替。描字、泡泡各自完成一整輪，並共同避開今天剛看到的字母。
+// 與「課程目前教到哪裡」分開記錄；改課程設定、換天或重開網頁都不會洗掉歷史。
+const YOUNGER_SPACED_LETTERS_KEY="younger_spaced_letters_v226";
+function youngerSpacedDay(){return new Date().toLocaleDateString("sv-SE")}
+function freshYoungerLetterTrack(){return {seen:[],history:[],counts:{}}}
+function loadYoungerSpacedLetters(){
+  let saved=null;
+  try{saved=JSON.parse(SafeStore.get(YOUNGER_SPACED_LETTERS_KEY,"null")||"null")}catch(e){}
+  if(saved && saved.position && saved.bubble){
+    return {
+      day:typeof saved.day==="string"?saved.day:youngerSpacedDay(),
+      dayLetters:Array.isArray(saved.dayLetters)?saved.dayLetters:[],
+      globalHistory:Array.isArray(saved.globalHistory)?saved.globalHistory:[],
+      position:saved.position,
+      bubble:saved.bubble
+    };
+  }
+  // 首次升級承接舊版描字抽題袋，不要突然把已做過的 A～J 全當成新字母。
+  const legacy=youngerRotation?.position||{used:[],recent:[]};
+  const seen=Array.isArray(legacy.used)?[...new Set(legacy.used)]:[];
+  const history=Array.isArray(legacy.recent)?legacy.recent.slice(-26):[];
+  const counts={};
+  seen.forEach(letter=>{counts[letter]=Math.max(1,counts[letter]||0)});
+  return {
+    day:youngerSpacedDay(),dayLetters:[],globalHistory:history.slice(),
+    position:{seen,history,counts},bubble:freshYoungerLetterTrack()
+  };
+}
+let youngerSpacedLetters=loadYoungerSpacedLetters();
+function saveYoungerSpacedLetters(){
+  SafeStore.set(YOUNGER_SPACED_LETTERS_KEY,JSON.stringify(youngerSpacedLetters));
+}
+function nextSpacedYoungerLetter(game,letters){
+  const allowed=[...new Set(letters.map(x=>String(x||"").toLowerCase()).filter(x=>/^[a-z]$/.test(x)))];
+  if(!allowed.length)return "a";
+  const today=youngerSpacedDay();
+  if(youngerSpacedLetters.day!==today){
+    youngerSpacedLetters.day=today;
+    youngerSpacedLetters.dayLetters=[];
+  }
+  let track=youngerSpacedLetters[game];
+  if(!track || !Array.isArray(track.seen) || !Array.isArray(track.history) || !track.counts || typeof track.counts!=="object"){
+    track=freshYoungerLetterTrack();youngerSpacedLetters[game]=track;
+  }
+  // 保留仍然已學的紀錄，升級 K 或縮回 F 時只調整候選，不重置全部歷史。
+  track.seen=[...new Set(track.seen.filter(x=>allowed.includes(x)))];
+  track.history=track.history.filter(x=>allowed.includes(x)).slice(-52);
+  youngerSpacedLetters.dayLetters=youngerSpacedLetters.dayLetters.filter(x=>/^[a-z]$/.test(x));
+  youngerSpacedLetters.globalHistory=youngerSpacedLetters.globalHistory.filter(x=>/^[a-z]$/.test(x)).slice(-52);
+
+  let candidates=allowed.filter(x=>!track.seen.includes(x));
+  if(!candidates.length){
+    // 所有已開放字母都練過一輪，才開新一輪。
+    track.seen=[];candidates=allowed.slice();
+  }
+  // 同一天兩種遊戲先盡量不碰到相同字母；若字母總數不足才允許回收。
+  const notToday=candidates.filter(x=>!youngerSpacedLetters.dayLetters.includes(x));
+  if(notToday.length)candidates=notToday;
+  // 題庫足夠時避免剛做過的字母再次出現，包括前一天和另一個遊戲。
+  const windowSize=Math.min(Math.max(0,allowed.length-1),Math.max(3,Math.floor(allowed.length*.6)));
+  const recent=new Set(youngerSpacedLetters.globalHistory.slice(-windowSize));
+  const spaced=candidates.filter(x=>!recent.has(x));
+  if(spaced.length)candidates=spaced;
+
+  const counts=track.counts;
+  const minCount=Math.min(...candidates.map(x=>Number(counts[x]||0)));
+  const balanced=candidates.filter(x=>Number(counts[x]||0)===minCount);
+  // 少練過優先；同樣練習次數時，從較久未出現的字母中隨機選。
+  const recency=x=>youngerSpacedLetters.globalHistory.lastIndexOf(x);
+  const ranked=balanced.slice().sort((a,b)=>recency(a)-recency(b));
+  const shortlist=ranked.slice(0,Math.min(4,ranked.length));
+  const chosen=shortlist[Math.floor(Math.random()*shortlist.length)];
+
+  track.seen.push(chosen);
+  track.history.push(chosen);track.history=track.history.slice(-52);
+  track.counts[chosen]=Number(track.counts[chosen]||0)+1;
+  youngerSpacedLetters.globalHistory.push(chosen);
+  youngerSpacedLetters.globalHistory=youngerSpacedLetters.globalHistory.slice(-52);
+  youngerSpacedLetters.dayLetters.push(chosen);
+  saveYoungerSpacedLetters();
+  return chosen;
+}
 function nextPositionLetter(){
-  // 描字也跟家長的課程進度，不把 K 以後的字母提早出給教到 J 的孩子。
+  // 描字仍只從家長指定的已學字母出題，不為了降低重複而偷跑到 K 以後。
   const pool=positionLetters.filter(x=>youngerIsAllowedLetter(x.letter));
   const available=pool.length?pool:positionLetters.slice(0,1);
-  const id=nextUniqueYoungerId("position",available.map(x=>x.letter),Math.min(8,Math.max(1,available.length-1)));
+  const id=nextSpacedYoungerLetter("position",available.map(x=>x.letter));
   return available.find(x=>x.letter===id)||available[0];
 }
 function nextListenWord(){
