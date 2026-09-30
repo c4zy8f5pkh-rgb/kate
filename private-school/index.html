@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V22.9｜ V22.6｜復旦 × 六和</title>
+<title>兄弟學習基地 V22.10｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -4257,26 +4257,6 @@ body.younger-mode main{
 </style>
 
 
-<style id="v228-integrated-layout">
-.olderHubCard{margin-bottom:16px;padding:20px 22px;background:linear-gradient(135deg,#f8fbff,#fffdf7)}
-.olderHubHead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:14px}
-.olderHubEyebrow{font-size:13px;font-weight:900;color:#6f7d95;margin-bottom:6px}
-.olderHubHead h3{margin:0 0 6px;font-size:26px;color:#334861}
-.olderHubGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.olderHubItem{border:1px solid #dfe6f1;border-radius:20px;padding:16px;background:#fff;display:flex;flex-direction:column;gap:10px;min-height:190px;box-shadow:0 8px 18px rgba(53,73,111,.04)}
-.olderHubIcon{width:52px;height:52px;border-radius:16px;background:#f4f7fd;display:flex;align-items:center;justify-content:center;font-size:25px}
-.olderHubBody{display:flex;flex-direction:column;gap:5px}
-.olderHubBody strong{font-size:20px;color:#334861}
-.olderHubBody span{font-size:14px;line-height:1.65;color:#5b6b83}
-.olderHubBody small{font-size:12px;color:#8a96aa;line-height:1.5}
-.integratedTip{margin:12px 0 14px;padding:10px 14px;border-radius:14px;background:#fffaf0;border:1px solid #ecdcb8;color:#7b6748;font-size:13px;line-height:1.6}
-@media (max-width: 980px){
-  .olderHubGrid{grid-template-columns:1fr}
-  .olderHubItem{min-height:auto}
-  .olderHubHead{display:block}
-  .olderHubHead .tag{display:inline-flex;margin-top:10px}
-}
-</style>
 
 
 <style id="v229-checkup-flow">
@@ -4373,7 +4353,7 @@ body.younger-mode main{
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V22.9</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V22.10</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -4504,49 +4484,6 @@ body.younger-mode main{
   </div>
 
   
-  <div class="card olderHubCard kidOnly">
-    <div class="olderHubHead">
-      <div>
-        <div class="olderHubEyebrow">哥哥｜今天怎麼練比較順</div>
-        <h3>把練習整合成 3 區，不要功能塞在一起</h3>
-        <div class="muted">先做國文題，再補表達，最後用理解檢查確認不是亂猜。</div>
-      </div>
-      <span class="tag">整合版入口</span>
-    </div>
-
-    <div class="olderHubGrid">
-      <div class="olderHubItem">
-        <div class="olderHubIcon">📖</div>
-        <div class="olderHubBody">
-          <strong>國文實戰</strong>
-          <span>認字、字音、字形、字義、閱讀與短寫作。</span>
-          <small>主練題區｜維持原本練習節奏</small>
-        </div>
-        <button type="button" class="btn" onclick="document.getElementById('chStart').scrollIntoView({behavior:'smooth',block:'center'})">開始國文題</button>
-      </div>
-
-      <div class="olderHubItem">
-        <div class="olderHubIcon">✍️</div>
-        <div class="olderHubBody">
-          <strong>表達訓練</strong>
-          <span>一句多變、五感描寫、成語入句、書面語改寫。</span>
-          <small>補「會選不一定會寫」這一塊</small>
-        </div>
-        <button type="button" class="btn secondary" onclick="go('expression')">去表達訓練</button>
-      </div>
-
-      <div class="olderHubItem">
-        <div class="olderHubIcon">🧠</div>
-        <div class="olderHubBody">
-          <strong>理解檢查</strong>
-          <span>選擇題、是非題、我不確定、追問為什麼。</span>
-          <small>用來看有沒有亂猜、是不是真的懂</small>
-        </div>
-        <button type="button" class="btn secondary" onclick="go('checkup')">去理解檢查</button>
-      </div>
-    </div>
-  </div>
-
 <div class="battleMini kidOnly">
   <div class="adventureBattle" data-battle="chinese">
     <div class="monsterStage"><div class="monsterFace" data-monster-face>🧩</div></div>
