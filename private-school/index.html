@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V22.13｜復旦 × 六和</title>
+<title>兄弟學習基地 V22.14｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -4364,7 +4364,7 @@ body.younger-mode main{
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V22.13</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V22.14</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -5856,7 +5856,7 @@ body.younger-mode main{
 
         <div class="microTask questionCountSettings">
           <b>每日題目數</b>
-          <div class="muted" style="margin-top:5px">家長可以依當天狀況調整。設定會保留，下次開啟網站仍會沿用。</div>
+          <div class="muted" style="margin-top:5px">家長可以依當天狀況調整。設定會保留，下次開啟網站仍會沿用。</div><div class="muted" style="margin-top:5px">V22.14 起：配對、找一樣、聽音、描字、泡泡與拼音都依這個題數完成，不再各自寫死題數。</div>
 
           <div class="countSettingGrid" style="margin-top:12px">
             <label class="countSettingItem">
@@ -5888,7 +5888,7 @@ body.younger-mode main{
             </label>
 
             <label class="countSettingItem">
-              <span><b>弟弟｜其他小遊戲</b><small>每一關答對幾題算完成</small></span>
+              <span><b>弟弟｜小遊戲／拼音／泡泡</b><small>每一關答對幾題算完成</small></span>
               <select id="setYoungerMiniCount">
                 <option value="3">3 題</option>
                 <option value="4">4 題</option>
@@ -6073,7 +6073,7 @@ function youngerModeName(){
   return youngerLearningMode()==="preschool"?"幼兒啟蒙":"小一基礎";
 }
 function phonicsQuestionTarget(){
-  return youngerLearningMode()==="preschool"?6:8;
+  return youngerMiniTarget();
 }
 
 function syncYoungerLearningControls(){
@@ -9595,12 +9595,13 @@ function bubbleMotion(field){
 }
 function startBubbleGame(){
   go("youngerBubble");
-  bubbleGame={round:0,correct:0,target:"",locked:false};
+  bubbleGame={round:0,correct:0,target:"",locked:false,completionSpoken:false};
   document.getElementById("bubbleBottomBar")?.classList.remove("hidden");
   nextBubbleRound();
 }
 function nextBubbleRound(){
-  if(bubbleGame.round>=5){
+  const targetCount=youngerMiniTarget();
+  if(bubbleGame.round>=targetCount){
     const field=document.getElementById("bubbleField");
     if(field)field.innerHTML=`<div style="text-align:center;padding:25px"><div style="font-size:70px">🫧⭐</div><h2>泡泡任務完成！</h2><p class="muted">今天找到 ${bubbleGame.correct} 個字母。</p><button type="button" class="kidPrimaryBtn" onclick="go('youngerHome')">回今天任務</button></div>`;
     const next=document.getElementById("bubbleNextBtn");next?.classList.add("hidden");
@@ -9609,6 +9610,10 @@ function nextBubbleRound(){
     saveYoungerCuteRewards();
     renderYoungerCuteRewards();
     burstCuteConfetti();
+    if(!bubbleGame.completionSpoken){
+      bubbleGame.completionSpoken=true;
+      speakYoungerCompletion();
+    }
     return;
   }
 
@@ -9622,8 +9627,8 @@ function nextBubbleRound(){
 
   phonicsSetText?.("bubbleTarget",target);
   phonicsSetText?.("bubbleTargetPair",`${target} ${target.toLowerCase()}`);
-  phonicsSetText?.("bubbleScore",`${bubbleGame.correct} / 5`);
-  phonicsSetText?.("bubbleRoundText",`第 ${bubbleGame.round} / 5 題`);
+  phonicsSetText?.("bubbleScore",`${bubbleGame.correct} / ${targetCount}`);
+  phonicsSetText?.("bubbleRoundText",`第 ${bubbleGame.round} / ${targetCount} 題`);
   phonicsSetText?.("bubbleFeedback","找到正確泡泡，它會自己帶你去下一題。");
   phonicsSetText?.("bubbleBuddyTitle","找找看 "+target);
   phonicsSetText?.("bubbleBuddyText","戳對後會自動換下一題，不用再按按鈕。");
@@ -9673,7 +9678,7 @@ function answerBubble(letter,btn){
     bubbleGame.correct++;
     btn.classList.add("pop");
     phonicsSetText?.("bubbleFeedback","啵！找到了！");
-    phonicsSetText?.("bubbleScore",`${bubbleGame.correct} / 5`);
+    phonicsSetText?.("bubbleScore",`${bubbleGame.correct} / ${youngerMiniTarget()}`);
     setKidBearMood?.(true);
     playBubblePopSound();
     youngerEmotionVoice(true);
@@ -9919,6 +9924,54 @@ const PHONICS_INITIAL_BANK=[
   {id:"piJ",type:"initial",letter:"J",word:"juice",zh:"果汁",emoji:"🧃",pattern:"_ uice",segments:["j","uice"],explain:"juice 的開頭是 J / j。"}
 ];
 
+
+const PHONICS_INITIAL_EXTRA=[
+  {id:"piA2",type:"initial",letter:"A",word:"ant",zh:"螞蟻",emoji:"🐜",pattern:"_ nt",segments:["a","nt"],explain:"ant 的開頭是 A / a。"},
+  {id:"piA3",type:"initial",letter:"A",word:"airplane",zh:"飛機",emoji:"✈️",pattern:"_ irplane",segments:["a","irplane"],explain:"airplane 的開頭是 A / a。"},
+  {id:"piA4",type:"initial",letter:"A",word:"arm",zh:"手臂",emoji:"💪",pattern:"_ rm",segments:["a","rm"],explain:"arm 的開頭是 A / a。"},
+
+  {id:"piB2",type:"initial",letter:"B",word:"bag",zh:"袋子",emoji:"👜",pattern:"_ ag",segments:["b","ag"],explain:"bag 的開頭是 B / b。"},
+  {id:"piB3",type:"initial",letter:"B",word:"book",zh:"書",emoji:"📘",pattern:"_ ook",segments:["b","ook"],explain:"book 的開頭是 B / b。"},
+  {id:"piB4",type:"initial",letter:"B",word:"bus",zh:"公車",emoji:"🚌",pattern:"_ us",segments:["b","us"],explain:"bus 的開頭是 B / b。"},
+
+  {id:"piC2",type:"initial",letter:"C",word:"cap",zh:"帽子",emoji:"🧢",pattern:"_ ap",segments:["c","ap"],explain:"cap 的開頭是 C / c。"},
+  {id:"piC3",type:"initial",letter:"C",word:"cup",zh:"杯子",emoji:"🥤",pattern:"_ up",segments:["c","up"],explain:"cup 的開頭是 C / c。"},
+  {id:"piC4",type:"initial",letter:"C",word:"car",zh:"汽車",emoji:"🚗",pattern:"_ ar",segments:["c","ar"],explain:"car 的開頭是 C / c。"},
+  {id:"piC5",type:"initial",letter:"C",word:"cake",zh:"蛋糕",emoji:"🍰",pattern:"_ ake",segments:["c","ake"],explain:"cake 的開頭是 C / c。"},
+
+  {id:"piD2",type:"initial",letter:"D",word:"duck",zh:"鴨子",emoji:"🦆",pattern:"_ uck",segments:["d","uck"],explain:"duck 的開頭是 D / d。"},
+  {id:"piD3",type:"initial",letter:"D",word:"drum",zh:"鼓",emoji:"🥁",pattern:"_ rum",segments:["d","rum"],explain:"drum 的開頭是 D / d。"},
+  {id:"piD4",type:"initial",letter:"D",word:"door",zh:"門",emoji:"🚪",pattern:"_ oor",segments:["d","oor"],explain:"door 的開頭是 D / d。"},
+  {id:"piD5",type:"initial",letter:"D",word:"desk",zh:"書桌",emoji:"🪑",pattern:"_ esk",segments:["d","esk"],explain:"desk 的開頭是 D / d。"},
+
+  {id:"piE2",type:"initial",letter:"E",word:"ear",zh:"耳朵",emoji:"👂",pattern:"_ ar",segments:["e","ar"],explain:"ear 的開頭是 E / e。"},
+  {id:"piE3",type:"initial",letter:"E",word:"eye",zh:"眼睛",emoji:"👁️",pattern:"_ ye",segments:["e","ye"],explain:"eye 的開頭是 E / e。"},
+  {id:"piE4",type:"initial",letter:"E",word:"elephant",zh:"大象",emoji:"🐘",pattern:"_ lephant",segments:["e","lephant"],explain:"elephant 的開頭是 E / e。"},
+
+  {id:"piF2",type:"initial",letter:"F",word:"fan",zh:"扇子",emoji:"🪭",pattern:"_ an",segments:["f","an"],explain:"fan 的開頭是 F / f。"},
+  {id:"piF3",type:"initial",letter:"F",word:"frog",zh:"青蛙",emoji:"🐸",pattern:"_ rog",segments:["f","rog"],explain:"frog 的開頭是 F / f。"},
+  {id:"piF4",type:"initial",letter:"F",word:"fox",zh:"狐狸",emoji:"🦊",pattern:"_ ox",segments:["f","ox"],explain:"fox 的開頭是 F / f。"},
+  {id:"piF5",type:"initial",letter:"F",word:"flower",zh:"花",emoji:"🌼",pattern:"_ lower",segments:["f","lower"],explain:"flower 的開頭是 F / f。"},
+
+  {id:"piG2",type:"initial",letter:"G",word:"gift",zh:"禮物",emoji:"🎁",pattern:"_ ift",segments:["g","ift"],explain:"gift 的開頭是 G / g。"},
+  {id:"piG3",type:"initial",letter:"G",word:"girl",zh:"女孩",emoji:"👧",pattern:"_ irl",segments:["g","irl"],explain:"girl 的開頭是 G / g。"},
+  {id:"piG4",type:"initial",letter:"G",word:"game",zh:"遊戲",emoji:"🎮",pattern:"_ ame",segments:["g","ame"],explain:"game 的開頭是 G / g。"},
+  {id:"piG5",type:"initial",letter:"G",word:"grape",zh:"葡萄",emoji:"🍇",pattern:"_ rape",segments:["g","rape"],explain:"grape 的開頭是 G / g。"},
+
+  {id:"piH2",type:"initial",letter:"H",word:"hand",zh:"手",emoji:"✋",pattern:"_ and",segments:["h","and"],explain:"hand 的開頭是 H / h。"},
+  {id:"piH3",type:"initial",letter:"H",word:"hen",zh:"母雞",emoji:"🐔",pattern:"_ en",segments:["h","en"],explain:"hen 的開頭是 H / h。"},
+  {id:"piH4",type:"initial",letter:"H",word:"house",zh:"房子",emoji:"🏠",pattern:"_ ouse",segments:["h","ouse"],explain:"house 的開頭是 H / h。"},
+  {id:"piH5",type:"initial",letter:"H",word:"horse",zh:"馬",emoji:"🐴",pattern:"_ orse",segments:["h","orse"],explain:"horse 的開頭是 H / h。"},
+
+  {id:"piI2",type:"initial",letter:"I",word:"ice",zh:"冰",emoji:"🧊",pattern:"_ ce",segments:["i","ce"],explain:"ice 的開頭是 I / i。"},
+  {id:"piI3",type:"initial",letter:"I",word:"ink",zh:"墨水",emoji:"🖋️",pattern:"_ nk",segments:["i","nk"],explain:"ink 的開頭是 I / i。"},
+  {id:"piI4",type:"initial",letter:"I",word:"igloo",zh:"雪屋",emoji:"🧊",pattern:"_ gloo",segments:["i","gloo"],explain:"igloo 的開頭是 I / i。"},
+
+  {id:"piJ2",type:"initial",letter:"J",word:"jeans",zh:"牛仔褲",emoji:"👖",pattern:"_ eans",segments:["j","eans"],explain:"jeans 的開頭是 J / j。"},
+  {id:"piJ3",type:"initial",letter:"J",word:"jam",zh:"果醬",emoji:"🍓",pattern:"_ am",segments:["j","am"],explain:"jam 的開頭是 J / j。"},
+  {id:"piJ4",type:"initial",letter:"J",word:"jet",zh:"噴射機",emoji:"🛩️",pattern:"_ et",segments:["j","et"],explain:"jet 的開頭是 J / j。"}
+];
+
 const PHONICS_VOWEL_BANK=[
   {id:"pv01",type:"middle",word:"cat",zh:"貓",emoji:"🐱",vowel:"a",pattern:"c _ t",segments:["c","a","t"],explain:"cat 的中間是 a。"},
   {id:"pv02",type:"middle",word:"bag",zh:"袋子",emoji:"👜",vowel:"a",pattern:"b _ g",segments:["b","a","g"],explain:"bag 的中間是 a。"},
@@ -9935,9 +9988,34 @@ const PHONICS_VOWEL_BANK=[
   {id:"pv13",type:"middle",word:"sun",zh:"太陽",emoji:"☀️",vowel:"u",pattern:"s _ n",segments:["s","u","n"],explain:"sun 的中間是 u。"},
   {id:"pv14",type:"middle",word:"bus",zh:"公車",emoji:"🚌",vowel:"u",pattern:"b _ s",segments:["b","u","s"],explain:"bus 的中間是 u。"},
   {id:"pv15",type:"middle",word:"cup",zh:"杯子",emoji:"🥤",vowel:"u",pattern:"c _ p",segments:["c","u","p"],explain:"cup 的中間是 u。"}
+
+  ,{id:"pv16",type:"middle",word:"can",zh:"罐子",emoji:"🥫",vowel:"a",pattern:"c _ n",segments:["c","a","n"],explain:"can 的中間是 a。"}
+  ,{id:"pv17",type:"middle",word:"jam",zh:"果醬",emoji:"🍓",vowel:"a",pattern:"j _ m",segments:["j","a","m"],explain:"jam 的中間是 a。"}
+  ,{id:"pv18",type:"middle",word:"hat",zh:"帽子",emoji:"🎩",vowel:"a",pattern:"h _ t",segments:["h","a","t"],explain:"hat 的中間是 a。"}
+  ,{id:"pv19",type:"middle",word:"fan",zh:"扇子",emoji:"🪭",vowel:"a",pattern:"f _ n",segments:["f","a","n"],explain:"fan 的中間是 a。"}
+
+  ,{id:"pv20",type:"middle",word:"hen",zh:"母雞",emoji:"🐔",vowel:"e",pattern:"h _ n",segments:["h","e","n"],explain:"hen 的中間是 e。"}
+  ,{id:"pv21",type:"middle",word:"red",zh:"紅色",emoji:"🔴",vowel:"e",pattern:"r _ d",segments:["r","e","d"],explain:"red 的中間是 e。"}
+  ,{id:"pv22",type:"middle",word:"leg",zh:"腿",emoji:"🦵",vowel:"e",pattern:"l _ g",segments:["l","e","g"],explain:"leg 的中間是 e。"}
+  ,{id:"pv23",type:"middle",word:"jet",zh:"噴射機",emoji:"🛩️",vowel:"e",pattern:"j _ t",segments:["j","e","t"],explain:"jet 的中間是 e。"}
+
+  ,{id:"pv24",type:"middle",word:"lip",zh:"嘴唇",emoji:"👄",vowel:"i",pattern:"l _ p",segments:["l","i","p"],explain:"lip 的中間是 i。"}
+  ,{id:"pv25",type:"middle",word:"win",zh:"贏",emoji:"🏆",vowel:"i",pattern:"w _ n",segments:["w","i","n"],explain:"win 的中間是 i。"}
+  ,{id:"pv26",type:"middle",word:"kid",zh:"小孩",emoji:"🧒",vowel:"i",pattern:"k _ d",segments:["k","i","d"],explain:"kid 的中間是 i。"}
+  ,{id:"pv27",type:"middle",word:"six",zh:"六",emoji:"6️⃣",vowel:"i",pattern:"s _ x",segments:["s","i","x"],explain:"six 的中間是 i。"}
+
+  ,{id:"pv28",type:"middle",word:"hot",zh:"熱的",emoji:"🔥",vowel:"o",pattern:"h _ t",segments:["h","o","t"],explain:"hot 的中間是 o。"}
+  ,{id:"pv29",type:"middle",word:"top",zh:"頂端",emoji:"🔝",vowel:"o",pattern:"t _ p",segments:["t","o","p"],explain:"top 的中間是 o。"}
+  ,{id:"pv30",type:"middle",word:"pot",zh:"鍋子",emoji:"🍲",vowel:"o",pattern:"p _ t",segments:["p","o","t"],explain:"pot 的中間是 o。"}
+  ,{id:"pv31",type:"middle",word:"log",zh:"木頭",emoji:"🪵",vowel:"o",pattern:"l _ g",segments:["l","o","g"],explain:"log 的中間是 o。"}
+
+  ,{id:"pv32",type:"middle",word:"run",zh:"跑",emoji:"🏃",vowel:"u",pattern:"r _ n",segments:["r","u","n"],explain:"run 的中間是 u。"}
+  ,{id:"pv33",type:"middle",word:"mug",zh:"馬克杯",emoji:"☕",vowel:"u",pattern:"m _ g",segments:["m","u","g"],explain:"mug 的中間是 u。"}
+  ,{id:"pv34",type:"middle",word:"bug",zh:"小蟲",emoji:"🐞",vowel:"u",pattern:"b _ g",segments:["b","u","g"],explain:"bug 的中間是 u。"}
+  ,{id:"pv35",type:"middle",word:"nut",zh:"堅果",emoji:"🥜",vowel:"u",pattern:"n _ t",segments:["n","u","t"],explain:"nut 的中間是 u。"}
 ];
 
-function phonicsAllBank(){return [...PHONICS_INITIAL_BANK,...PHONICS_VOWEL_BANK]}
+function phonicsAllBank(){return [...PHONICS_INITIAL_BANK,...PHONICS_INITIAL_EXTRA,...PHONICS_VOWEL_BANK]}
 function phonicsCorrect(item){
   return item?.type==="initial"
     ? String(item.letter||"").toLowerCase()
@@ -9954,7 +10032,7 @@ function phonicsValidItem(item){
   return false;
 }
 function currentPhonicsPool(){
-  const initials=PHONICS_INITIAL_BANK.filter(x=>youngerIsAllowedLetter(x.letter));
+  const initials=[...PHONICS_INITIAL_BANK,...PHONICS_INITIAL_EXTRA].filter(x=>youngerIsAllowedLetter(x.letter));
   return youngerLearningMode()==="preschool"
     ? initials
     : [...initials,...PHONICS_VOWEL_BANK];
@@ -9969,6 +10047,7 @@ function loadPhonicsProgress(){
     p.date=phonicsDayKey();
     p.todayCorrect=0;
     p.todayAttempts=0;
+    p.completionSpokenDate="";
   }
   p.todayCorrect=Number(p.todayCorrect||0);
   p.todayAttempts=Number(p.todayAttempts||0);
@@ -9976,9 +10055,10 @@ function loadPhonicsProgress(){
   p.totalAttempts=Number(p.totalAttempts||0);
   const validIds=new Set(phonicsAllBank().map(x=>x.id));
   p.bag=Array.isArray(p.bag)?p.bag.filter(id=>validIds.has(id)):[];
-  p.recent=Array.isArray(p.recent)?p.recent.filter(id=>validIds.has(id)).slice(-8):[];
+  p.recent=Array.isArray(p.recent)?p.recent.filter(id=>validIds.has(id)).slice(-16):[];
   p.byVowel=p.byVowel&&typeof p.byVowel==="object"?p.byVowel:{};
   p.byLetter=p.byLetter&&typeof p.byLetter==="object"?p.byLetter:{};
+  p.completionSpokenDate=typeof p.completionSpokenDate==="string"?p.completionSpokenDate:"";
   return p;
 }
 let phonicsProgress=loadPhonicsProgress();
@@ -10026,7 +10106,7 @@ function nextPhonicsItem(){
   if(idx<0)idx=0;
 
   const id=phonicsProgress.bag.splice(idx,1)[0];
-  phonicsProgress.recent=[...(phonicsProgress.recent||[]),id].slice(-8);
+  phonicsProgress.recent=[...(phonicsProgress.recent||[]),id].slice(-16);
   savePhonicsProgress();
   return phonicsAllBank().find(x=>x.id===id) || currentPhonicsPool()[0];
 }
@@ -10142,6 +10222,11 @@ function nextPhonicsQuestion(){
       </div>`;
     }
     updatePhonicsProgressUI();
+    if(phonicsProgress.completionSpokenDate!==phonicsDayKey()){
+      phonicsProgress.completionSpokenDate=phonicsDayKey();
+      savePhonicsProgress();
+      speakYoungerCompletion();
+    }
     if(typeof renderYoungerProgress==="function")renderYoungerProgress();
     return;
   }
@@ -10641,7 +10726,7 @@ function startWordBridgeQuiz(){
 }
 function speakYoungerCompletion(){
   try{
-    playSound("youngerGood");
+    playSound("youngerDone");
     speechSynthesis.cancel();
     const u=new SpeechSynthesisUtterance("好棒喔！恭喜，完成！");
     u.lang="zh-TW";
@@ -10807,12 +10892,36 @@ function nextUniqueYoungerId(task,ids,recentLimit=6){
   return chosen;
 }
 function nextCasePair(){
-  const id=nextUniqueYoungerId("case",casePairs.map(x=>x[0]),8);
-  return casePairs.find(x=>x[0]===id)||casePairs[0];
+  const pool=casePairs.filter(x=>youngerIsAllowedLetter(x[0]));
+  const safe=pool.length?pool:casePairs.slice(0,1);
+  const id=nextUniqueYoungerId("case",safe.map(x=>x[0]),Math.min(10,Math.max(3,safe.length-1)));
+  return safe.find(x=>x[0]===id)||safe[0];
+}
+function currentLookSets(){
+  const allowed=youngerAllowedLetters();
+  const symbols=allowed.flatMap(x=>[x,x.toLowerCase()]);
+  const preferred={
+    a:["o","e","c"],b:["d","p","q"],c:["e","o","a"],d:["b","q","p"],e:["c","o","a"],
+    f:["t","l","i"],g:["q","p","y"],h:["n","b","r"],i:["l","j","t"],j:["i","l","g"],
+    k:["h","x","l"],l:["i","t","j"],m:["n","w","u"],n:["m","h","r"],o:["c","a","e"],
+    p:["q","b","d"],q:["p","d","g"],r:["n","v","h"],s:["c","z","o"],t:["f","l","i"],
+    u:["v","n","w"],v:["u","w","y"],w:["m","v","u"],x:["k","z","v"],y:["v","g","j"],z:["s","x","n"]
+  };
+  const make=(letter,upper)=>{
+    const target=upper?letter:letter.toLowerCase();
+    const pref=(preferred[letter.toLowerCase()]||[])
+      .filter(x=>youngerIsAllowedLetter(x))
+      .map(x=>upper?x.toUpperCase():x.toLowerCase());
+    const sameCourse=symbols.filter(x=>x!==target);
+    const distract=[...new Set([...pref,...sameCourse])].slice(0,3);
+    return {id:`${upper?"U":"L"}_${letter}`,target,choices:[target,...distract]};
+  };
+  return allowed.flatMap(x=>[make(x,true),make(x,false)]);
 }
 function nextLookSet(){
-  const id=nextUniqueYoungerId("look",lookSets.map(x=>x.target),6);
-  return lookSets.find(x=>x.target===id)||lookSets[0];
+  const pool=currentLookSets();
+  const id=nextUniqueYoungerId("look",pool.map(x=>x.id),Math.min(12,Math.max(4,pool.length-1)));
+  return pool.find(x=>x.id===id)||pool[0];
 }
 // V22.6: 共用字母間隔輪替。描字、泡泡各自完成一整輪，並共同避開今天剛看到的字母。
 // 與「課程目前教到哪裡」分開記錄；改課程設定、換天或重開網頁都不會洗掉歷史。
@@ -10903,9 +11012,14 @@ function nextPositionLetter(){
   const id=nextSpacedYoungerLetter("position",available.map(x=>x.letter));
   return available.find(x=>x.letter===id)||available[0];
 }
+function currentListenPool(){
+  const allowed=allowedYoungerWordItems().map(x=>({word:x.word,emoji:x.emoji,letter:x.letter}));
+  return allowed.length?allowed:beginnerListenWords.slice(0,4);
+}
 function nextListenWord(){
-  const id=nextUniqueYoungerId("listen",beginnerListenWords.map(x=>x.word),8);
-  return beginnerListenWords.find(x=>x.word===id)||beginnerListenWords[0];
+  const pool=currentListenPool();
+  const id=nextUniqueYoungerId("listen",pool.map(x=>x.word),Math.min(16,Math.max(5,pool.length-1)));
+  return pool.find(x=>x.word===id)||pool[0];
 }
 
 function shuffle(a){return [...a].sort(()=>Math.random()-.5);}
@@ -10971,6 +11085,15 @@ function tryMatch(rightBtn){
     setKidFeedback(`🐻 對！${left.textContent} → ${rightBtn.textContent}`);
     setKidBearMood(true);
     recordYounger(true);
+    setTimeout(()=>{
+      const nodes=[...document.querySelectorAll("#matchLeft .matchNode")];
+      const allDone=nodes.length>0&&nodes.every(x=>x.classList.contains("matched"));
+      const done=!!youngerProgress.completed.case;
+      if(allDone&&!done){
+        setKidFeedback("🐻 這一組完成！換一組新的。");
+        setTimeout(nextCaseBoard,520);
+      }
+    },80);
   }else{
     left.classList.add("wrong");
     rightBtn.classList.add("wrong");
@@ -10989,7 +11112,8 @@ function nextCaseBoard(){
   matchState={pairs:[],leftSelected:null,dragging:false,tempLine:null};
 
   const selected=[];
-  for(let i=0;i<4;i++){
+  const desiredPairs=Math.max(1,Math.min(4,youngerAllowedLetters().length));
+  for(let i=0;i<desiredPairs;i++){
     let pair=nextCasePair();
     let guard=0;
     while(selected.some(x=>x[0]===pair[0]) && guard<20){
@@ -11592,7 +11716,7 @@ function recordYounger(ok){
     s.ok++;
     youngerProgress.streak=(youngerProgress.streak||0)+1;
     youngerProgress.maxStreak=Math.max(youngerProgress.maxStreak||0,youngerProgress.streak);
-    youngerProgress.roundCorrect[youngerTask]=Math.min(4,(youngerProgress.roundCorrect[youngerTask]||0)+1);
+    youngerProgress.roundCorrect[youngerTask]=Math.min(youngerMiniTarget(),(youngerProgress.roundCorrect[youngerTask]||0)+1);
     playSound("youngerGood");
     youngerEmotionVoice(true);
     setYoungerCompanion("😄","答對了","很好。","很好","再一題。",true);
@@ -11617,6 +11741,7 @@ function recordYounger(ok){
 
   saveYoungerProgress();
   if(!wasCompleted && youngerProgress.completed[youngerTask]){
+    speakYoungerCompletion();
     awardMissionCuteReward();
   }
   renderYoungerProgress();
@@ -11654,7 +11779,8 @@ function nextYoungerQuestion(){
     youngerCurrent={answer:item.target};
     const target=document.getElementById("lookTarget");
     if(target)target.textContent=item.target;
-    const choices=placeChoices("look",item.target,item.choices.filter(v=>v!==item.target),4);
+    const lookTotal=Math.max(2,Math.min(4,item.choices.length));
+    const choices=placeChoices("look",item.target,item.choices.filter(v=>v!==item.target),lookTotal);
     const wrap=document.getElementById("lookChoices");
     if(wrap){wrap.innerHTML="";choices.forEach(v=>{
       const b=document.createElement("button");b.type="button";b.className="letterChoice";b.textContent=v;
@@ -11673,16 +11799,18 @@ function nextYoungerQuestion(){
     const item=nextListenWord();
     youngerCurrent={answer:item.word};
 
-    const others=beginnerListenWords.filter(x=>x.word!==item.word);
+    const listenPool=currentListenPool();
+    const others=listenPool.filter(x=>x.word!==item.word);
     const distract=shuffle(others).slice(0,3);
     const rawChoices=[item,...distract];
+    const listenTotal=Math.max(2,Math.min(4,1+distract.length));
     const choiceWords=placeChoices(
       "listen",
       item.word,
       distract.map(x=>x.word),
-      4
+      listenTotal
     );
-    const choices=choiceWords.map(w=>rawChoices.find(x=>x.word===w) || beginnerListenWords.find(x=>x.word===w));
+    const choices=choiceWords.map(w=>rawChoices.find(x=>x.word===w) || listenPool.find(x=>x.word===w)).filter(Boolean);
 
     const wrap=document.getElementById("listenChoices");
 
