@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V22.10｜復旦 × 六和</title>
+<title>兄弟學習基地 V22.13｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -4310,6 +4310,17 @@ body.younger-mode main{
 }
 </style>
 
+
+<style id="v2211-history-rotation">
+.histRotationInfo{
+  margin-top:10px;padding:11px 14px;border-radius:14px;background:#f7f9fd;
+  border:1px solid #e0e6f0;display:flex;align-items:center;justify-content:space-between;
+  gap:12px;flex-wrap:wrap;color:#65738a;font-size:13px
+}
+.histRotationInfo span{font-weight:900;color:#526a98}
+.histRotationInfo b{font-weight:800;color:#6d788a}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -4353,7 +4364,7 @@ body.younger-mode main{
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V22.10</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V22.13</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -4737,7 +4748,11 @@ body.younger-mode main{
 
     <div class="callout" style="margin-top:14px">
       <b>目前版本：</b>尚未匯入你手上的復旦／六和真實歷屆試卷，所以現在會用本站題庫產生「校準類題」。
-      之後只要匯入真題，就可以直接換成真正歷屆題，不需要重做這個測驗介面。
+      <br><span class="muted">輪替規則：同一份不出重複原題；優先避開最近做過的原題，也會避開「只換數字、題型模板相同」的類題。</span>
+    </div>
+    <div class="histRotationInfo" id="histRotationInfo">
+      <span>🔄 題目輪替</span>
+      <b id="histRotationText">尚未開始；開始後會優先分散題型與近期紀錄。</b>
     </div>
   </div>
 
@@ -4866,13 +4881,13 @@ body.younger-mode main{
 
     <button type="button" class="wordGardenFeature" id="wordGardenEntry">
       <div class="wordGardenFeatureArt">
-        <span class="wgLetter">A a</span>
-        <span class="wgEmoji">🍎</span>
+        <span class="wgLetter">Aa</span>
+        <span class="wgEmoji">🌱</span>
       </div>
       <div class="wordGardenFeatureText">
         <small>🌱 今天推薦先玩</small>
         <b>字母單字樂園</b>
-        <span>A a → apple → 蘋果 · 單字輪流出</span>
+        <span>字母 → 圖片 → 單字 → 中文 · 每次輪替</span>
       </div>
       <div class="wordGardenFeatureGo">
         <strong id="wordGardenHomeProgress">今日 0 / 8</strong>
@@ -5109,10 +5124,10 @@ body.younger-mode main{
 
     <div class="wordGardenBoard">
       <div class="wordLearnCard">
-        <div class="wordLetterPair" id="wordLetterPair">A a</div>
-        <div class="wordPicture" id="wordPicture">🍎</div>
-        <div class="wordEnglish" id="wordEnglish">apple</div>
-        <div class="wordChinese" id="wordChinese">蘋果</div>
+        <div class="wordLetterPair" id="wordLetterPair">Aa</div>
+        <div class="wordPicture" id="wordPicture">🌟</div>
+        <div class="wordEnglish" id="wordEnglish">ready</div>
+        <div class="wordChinese" id="wordChinese">準備開始</div>
       </div>
 
       <div class="wordActionRow" id="wordLearnActions">
@@ -6070,7 +6085,7 @@ function syncYoungerLearningControls(){
   const explain=document.getElementById("youngerModeExplain");
   if(explain){
     explain.textContent=youngerLearningMode()==="preschool"
-      ? `幼兒啟蒙：以 A～${youngerCurrentLetter()} 的字母辨識、聽完整單字找開頭、配對與描字為主。`
+      ? `幼兒啟蒙：以 A～${youngerCurrentLetter()} 的字母辨識、聽完整單字找開頭、配對與描字為主；答對／答錯會有溫柔語音陪伴。`
       : `小一基礎：複習 A～${youngerCurrentLetter()}，並穿插 a/e/i/o/u 短母音；不會自動超前到下一個字母。`;
   }
 }
@@ -9661,6 +9676,7 @@ function answerBubble(letter,btn){
     phonicsSetText?.("bubbleScore",`${bubbleGame.correct} / 5`);
     setKidBearMood?.(true);
     playBubblePopSound();
+    youngerEmotionVoice(true);
 
     // 正確泡泡消失後，題目自動連動到下一題。
     // 留一小段時間讓孩子看見「答對」回饋，不需要再按下一題。
@@ -9674,6 +9690,7 @@ function answerBubble(letter,btn){
     phonicsSetText?.("bubbleFeedback","差一點，再找 "+bubbleGame.target+"。");
     setKidBearMood?.(false);
     playSound?.("youngerRetry");
+    youngerEmotionVoice(false);
     setTimeout(()=>{
       btn.classList.remove("wrong");
       btn.style.animationPlayState="running";
@@ -9791,6 +9808,50 @@ function playSound(kind){
   else if(kind==="olderRetry"){tone(260,.07,"triangle",.018);tone(220,.09,"sine",.014,.06)}
   else if(kind==="olderChest"){tone(392,.08,"triangle",.03);tone(523,.10,"triangle",.03,.08);tone(659,.12,"triangle",.028,.17);tone(784,.18,"sine",.025,.27)}
 }
+
+const PRESCHOOL_GOOD_VOICES=[
+  "答對了！好棒喔！",
+  "對了！你找到了！",
+  "太棒了！再來一題！",
+  "答對了！你好厲害！",
+  "做得很好！小熊幫你拍拍手！"
+];
+const PRESCHOOL_RETRY_VOICES=[
+  "答錯了，沒關係，再試一次！",
+  "差一點點，再看看喔！",
+  "沒關係，我們再試一次！",
+  "再想一下，你一定可以！",
+  "差一點點，小熊陪你再找一次！"
+];
+let youngerEmotionVoiceLast={good:-1,retry:-1,time:0};
+
+function youngerEmotionVoice(ok,options={}){
+  if(youngerLearningMode?.()!=="preschool" || !soundEnabled)return;
+  if(options.complete)return speakYoungerCompletion?.();
+
+  const now=Date.now();
+  if(now-youngerEmotionVoiceLast.time<500)return;
+  youngerEmotionVoiceLast.time=now;
+
+  const list=ok?PRESCHOOL_GOOD_VOICES:PRESCHOOL_RETRY_VOICES;
+  const key=ok?"good":"retry";
+  let idx=Math.floor(Math.random()*list.length);
+  if(list.length>1 && idx===youngerEmotionVoiceLast[key]){
+    idx=(idx+1+Math.floor(Math.random()*(list.length-1)))%list.length;
+  }
+  youngerEmotionVoiceLast[key]=idx;
+
+  try{
+    speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(list[idx]);
+    u.lang="zh-TW";
+    u.rate=.84;
+    u.pitch=1.12;
+    u.volume=.95;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+
 function updateSoundButton(){
   const b=document.getElementById("soundToggle");if(!b)return;
   b.textContent=soundEnabled?"開啟":"關閉";b.classList.toggle("on",soundEnabled);
@@ -10140,11 +10201,13 @@ function answerPhonics(value,btn){
     phonicsProgress.todayCorrect++;
     phonicsProgress.totalCorrect++;
     if(typeof setKidBearMood==="function")setKidBearMood(true);
+    youngerEmotionVoice(true);
     phonicsSetText("phonicsBuddyTitle","答對了 ⭐");
     phonicsSetText("phonicsBuddyText","小熊跳一下，再看它怎麼拆。");
   }else{
     if(btn)btn.classList.add("bad");
     if(typeof setKidBearMood==="function")setKidBearMood(false);
+    youngerEmotionVoice(false);
     phonicsSetText("phonicsBuddyTitle","再聽一次");
     phonicsSetText("phonicsBuddyText","先看正確答案，不急。");
   }
@@ -10164,6 +10227,8 @@ const beginnerWordBridge=[
 
   {letter:"A",word:"apple",zh:"蘋果",emoji:"🍎"},
   {letter:"A",word:"ant",zh:"螞蟻",emoji:"🐜"},
+  {letter:"A",word:"airplane",zh:"飛機",emoji:"✈️"},
+  {letter:"A",word:"arm",zh:"手臂",emoji:"💪"},
   {letter:"B",word:"ball",zh:"球",emoji:"⚽"},
   {letter:"B",word:"bag",zh:"袋子",emoji:"👜"},
   {letter:"B",word:"book",zh:"書",emoji:"📘"},
@@ -10177,21 +10242,34 @@ const beginnerWordBridge=[
   {letter:"D",word:"duck",zh:"鴨子",emoji:"🦆"},
   {letter:"D",word:"drum",zh:"鼓",emoji:"🥁"},
   {letter:"D",word:"door",zh:"門",emoji:"🚪"},
+  {letter:"D",word:"desk",zh:"書桌",emoji:"🪑"},
   {letter:"E",word:"egg",zh:"蛋",emoji:"🥚"},
   {letter:"E",word:"ear",zh:"耳朵",emoji:"👂"},
+  {letter:"E",word:"eye",zh:"眼睛",emoji:"👁️"},
+  {letter:"E",word:"elephant",zh:"大象",emoji:"🐘"},
   {letter:"F",word:"fish",zh:"魚",emoji:"🐟"},
   {letter:"F",word:"fan",zh:"扇子",emoji:"🪭"},
   {letter:"F",word:"frog",zh:"青蛙",emoji:"🐸"},
+  {letter:"F",word:"fox",zh:"狐狸",emoji:"🦊"},
+  {letter:"F",word:"flower",zh:"花",emoji:"🌼"},
   {letter:"G",word:"gift",zh:"禮物",emoji:"🎁"},
   {letter:"G",word:"girl",zh:"女孩",emoji:"👧"},
   {letter:"G",word:"goat",zh:"山羊",emoji:"🐐"},
+  {letter:"G",word:"game",zh:"遊戲",emoji:"🎮"},
+  {letter:"G",word:"grape",zh:"葡萄",emoji:"🍇"},
   {letter:"H",word:"hand",zh:"手",emoji:"✋"},
   {letter:"H",word:"hat",zh:"帽子",emoji:"🎩"},
   {letter:"H",word:"hen",zh:"母雞",emoji:"🐔"},
+  {letter:"H",word:"house",zh:"房子",emoji:"🏠"},
+  {letter:"H",word:"horse",zh:"馬",emoji:"🐴"},
   {letter:"I",word:"ice",zh:"冰",emoji:"🧊"},
   {letter:"I",word:"insect",zh:"昆蟲",emoji:"🐞"},
+  {letter:"I",word:"ink",zh:"墨水",emoji:"🖋️"},
+  {letter:"I",word:"igloo",zh:"雪屋",emoji:"🧊"},
   {letter:"J",word:"juice",zh:"果汁",emoji:"🧃"},
   {letter:"J",word:"jeans",zh:"牛仔褲",emoji:"👖"},
+  {letter:"J",word:"jam",zh:"果醬",emoji:"🍓"},
+  {letter:"J",word:"jet",zh:"噴射機",emoji:"🛩️"},
   {letter:"K",word:"kite",zh:"風箏",emoji:"🪁"},
   {letter:"K",word:"key",zh:"鑰匙",emoji:"🔑"},
   {letter:"L",word:"lion",zh:"獅子",emoji:"🦁"},
@@ -10233,6 +10311,9 @@ function loadWordBridgeProgress(){
     p.date=wordDayKey();
     p.todayCorrect=0;
     p.todayAttempts=0;
+    p.todayWords=[];
+    p.todayLetters=[];
+    p.completionSpokenDate="";
   }
   p.todayCorrect=Number(p.todayCorrect||0);
   p.todayAttempts=Number(p.todayAttempts||0);
@@ -10240,14 +10321,15 @@ function loadWordBridgeProgress(){
   p.totalAttempts=Number(p.totalAttempts||0);
   p.spellCorrect=Number(p.spellCorrect||0);
   p.spellAttempts=Number(p.spellAttempts||0);
-
-  // V16.6：使用「洗牌袋」降低重複。
-  // 一整輪單字原則上都走過後，才重新洗牌。
   p.wordBag=Array.isArray(p.wordBag)?p.wordBag.filter(w=>beginnerWordBridge.some(x=>x.word===w)):[];
   p.cycleUsed=Array.isArray(p.cycleUsed)?p.cycleUsed.filter(w=>beginnerWordBridge.some(x=>x.word===w)):[];
-  p.recent=Array.isArray(p.recent)?p.recent.slice(-12):[];
+  p.recent=Array.isArray(p.recent)?p.recent.filter(w=>beginnerWordBridge.some(x=>x.word===w)).slice(-20):[];
+  p.todayWords=Array.isArray(p.todayWords)?p.todayWords:[];
+  p.todayLetters=Array.isArray(p.todayLetters)?p.todayLetters:[];
+  p.seenCounts=p.seenCounts&&typeof p.seenCounts==="object"?p.seenCounts:{};
   p.lastWord=typeof p.lastWord==="string"?p.lastWord:"";
   p.lastLetter=typeof p.lastLetter==="string"?p.lastLetter:"";
+  p.completionSpokenDate=typeof p.completionSpokenDate==="string"?p.completionSpokenDate:"";
   return p;
 }
 let wordBridgeProgress=loadWordBridgeProgress();
@@ -10278,55 +10360,72 @@ function allowedYoungerWordItems(){
   const allowed=new Set(youngerAllowedLetters());
   return beginnerWordBridge.filter(x=>allowed.has(x.letter));
 }
+function normalizeWordBridgeForCurrentCourse(){
+  const allowed=allowedYoungerWordItems();
+  const words=new Set(allowed.map(x=>x.word));
+  const letters=new Set(allowed.map(x=>x.letter));
+  wordBridgeProgress.wordBag=(wordBridgeProgress.wordBag||[]).filter(w=>words.has(w));
+  wordBridgeProgress.cycleUsed=(wordBridgeProgress.cycleUsed||[]).filter(w=>words.has(w));
+  wordBridgeProgress.recent=(wordBridgeProgress.recent||[]).filter(w=>words.has(w)).slice(-20);
+  wordBridgeProgress.todayWords=(wordBridgeProgress.todayWords||[]).filter(w=>words.has(w));
+  wordBridgeProgress.todayLetters=(wordBridgeProgress.todayLetters||[]).filter(l=>letters.has(l));
+  if(!words.has(wordBridgeProgress.lastWord))wordBridgeProgress.lastWord="";
+  if(!letters.has(wordBridgeProgress.lastLetter))wordBridgeProgress.lastLetter="";
+  saveWordBridgeProgress();
+  return allowed;
+}
 function refillWordBridgeBag(){
-  const all=allowedYoungerWordItems().map(x=>x.word);
-  let bag=shuffle([...all]);
-
-  // 新一輪第一題不要跟上一題相同，並盡量避開同一個開頭字母。
-  if(bag.length>1 && wordBridgeProgress.lastWord && bag[0]===wordBridgeProgress.lastWord){
-    const i=bag.findIndex(w=>w!==wordBridgeProgress.lastWord);
-    if(i>0)[bag[0],bag[i]]=[bag[i],bag[0]];
-  }
-  if(bag.length>1 && wordBridgeProgress.lastLetter){
-    const i=bag.findIndex(w=>{
-      const obj=beginnerWordBridge.find(x=>x.word===w);
-      return obj && obj.letter!==wordBridgeProgress.lastLetter && w!==wordBridgeProgress.lastWord;
-    });
-    if(i>0)[bag[0],bag[i]]=[bag[i],bag[0]];
-  }
-
-  wordBridgeProgress.wordBag=bag;
+  const allowed=normalizeWordBridgeForCurrentCourse();
+  const all=allowed.map(x=>x.word);
+  const seen=wordBridgeProgress.seenCounts||{};
+  wordBridgeProgress.wordBag=all.slice().sort((a,b)=>{
+    const d=Number(seen[a]||0)-Number(seen[b]||0);
+    return d || (Math.random()-.5);
+  });
   wordBridgeProgress.cycleUsed=[];
 }
 
 function pickWordBridgeItem(){
-  if(!Array.isArray(wordBridgeProgress.wordBag) || !wordBridgeProgress.wordBag.length){
-    refillWordBridgeBag();
-  }
+  const allowed=normalizeWordBridgeForCurrentCourse();
+  if(!allowed.length)return beginnerWordBridge[0];
+  const allowedByWord=new Map(allowed.map(x=>[x.word,x]));
+  const allowedLetters=[...new Set(allowed.map(x=>x.letter))];
 
-  // 優先：不要出最近 12 題，也不要連續同一個字母開頭。
-  let idx=wordBridgeProgress.wordBag.findIndex(w=>{
-    const obj=beginnerWordBridge.find(x=>x.word===w);
-    return obj &&
-      !(wordBridgeProgress.recent||[]).includes(w) &&
-      obj.letter!==wordBridgeProgress.lastLetter;
+  // 先清掉舊課程留下的題目，避免找不到時落回 apple。
+  wordBridgeProgress.wordBag=(wordBridgeProgress.wordBag||[]).filter(w=>allowedByWord.has(w));
+  if(!wordBridgeProgress.wordBag.length)refillWordBridgeBag();
+
+  const recent=new Set((wordBridgeProgress.recent||[]).slice(-Math.min(20,Math.max(4,allowed.length-1))));
+  const todayLetters=new Set(wordBridgeProgress.todayLetters||[]);
+  const unusedLetterExists=allowedLetters.some(l=>!todayLetters.has(l));
+  const seen=wordBridgeProgress.seenCounts||{};
+
+  const candidates=wordBridgeProgress.wordBag.map((w,idx)=>({idx,w,item:allowedByWord.get(w)})).filter(x=>x.item);
+  candidates.forEach(c=>{
+    let score=Number(seen[c.w]||0)*18;
+    if(recent.has(c.w))score+=500;
+    if(c.item.letter===wordBridgeProgress.lastLetter)score+=140;
+    if(c.w===wordBridgeProgress.lastWord)score+=1000;
+    if(unusedLetterExists && todayLetters.has(c.item.letter))score+=85;
+    score+=Math.random()*10;
+    c.score=score;
   });
-
-  // 若袋子快空了，至少不要跟上一題完全相同。
-  if(idx<0){
-    idx=wordBridgeProgress.wordBag.findIndex(w=>w!==wordBridgeProgress.lastWord);
+  candidates.sort((a,b)=>a.score-b.score);
+  const chosen=candidates[0] || null;
+  if(!chosen){
+    refillWordBridgeBag();
+    return pickWordBridgeItem();
   }
-  if(idx<0)idx=0;
 
-  const word=wordBridgeProgress.wordBag.splice(idx,1)[0];
-  const item=allowedYoungerWordItems().find(x=>x.word===word) || allowedYoungerWordItems()[0] || beginnerWordBridge[0];
-
-  wordBridgeProgress.cycleUsed.push(item.word);
-  wordBridgeProgress.recent.push(item.word);
-  wordBridgeProgress.recent=wordBridgeProgress.recent.slice(-12);
+  wordBridgeProgress.wordBag.splice(chosen.idx,1);
+  const item=chosen.item;
+  wordBridgeProgress.cycleUsed=[...(wordBridgeProgress.cycleUsed||[]),item.word];
+  wordBridgeProgress.recent=[...(wordBridgeProgress.recent||[]),item.word].slice(-20);
+  wordBridgeProgress.todayWords=[...(wordBridgeProgress.todayWords||[]),item.word];
+  wordBridgeProgress.todayLetters=[...(wordBridgeProgress.todayLetters||[]),item.letter];
+  wordBridgeProgress.seenCounts[item.word]=Number(wordBridgeProgress.seenCounts[item.word]||0)+1;
   wordBridgeProgress.lastWord=item.word;
   wordBridgeProgress.lastLetter=item.letter;
-
   saveWordBridgeProgress();
   return item;
 }
@@ -10540,11 +10639,23 @@ function startWordBridgeQuiz(){
   setKidFeedback("🐻 找一找中文意思。");
   speakWordBridge();
 }
+function speakYoungerCompletion(){
+  try{
+    playSound("youngerGood");
+    speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance("好棒喔！恭喜，完成！");
+    u.lang="zh-TW";
+    u.rate=.82;
+    u.pitch=1.12;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
 function answerWordBridge(value,btn){
   if(wordBridgeState.answered)return;
   const item=wordBridgeState.item;if(!item)return;
   wordBridgeState.answered=true;
   const ok=value===item.zh;
+  const beforeCorrect=wordBridgeProgress.todayCorrect||0;
   wordBridgeProgress.todayAttempts++;
   wordBridgeProgress.totalAttempts++;
   if(ok){
@@ -10553,6 +10664,7 @@ function answerWordBridge(value,btn){
     btn?.classList.add("good");
     setKidFeedback(`🐻 對！${item.word} 是「${item.zh}」`);
     setKidBearMood(true);
+    youngerEmotionVoice(true);
   }else{
     btn?.classList.add("bad");
     document.querySelectorAll(".wordChineseChoice").forEach(x=>{
@@ -10560,6 +10672,11 @@ function answerWordBridge(value,btn){
     });
     setKidFeedback(`🐻 看一下：${item.word} 是「${item.zh}」`);
     setKidBearMood(false);
+    youngerEmotionVoice(false);
+  }
+  if(beforeCorrect<youngerWordTarget() && wordBridgeProgress.todayCorrect>=youngerWordTarget() && wordBridgeProgress.completionSpokenDate!==wordDayKey()){
+    wordBridgeProgress.completionSpokenDate=wordDayKey();
+    speakYoungerCompletion();
   }
   saveWordBridgeProgress();
   updateWordBridgeProgressUI();
@@ -11477,11 +11594,13 @@ function recordYounger(ok){
     youngerProgress.maxStreak=Math.max(youngerProgress.maxStreak||0,youngerProgress.streak);
     youngerProgress.roundCorrect[youngerTask]=Math.min(4,(youngerProgress.roundCorrect[youngerTask]||0)+1);
     playSound("youngerGood");
+    youngerEmotionVoice(true);
     setYoungerCompanion("😄","答對了","很好。","很好","再一題。",true);
   }else{
     s.bad++;
     youngerProgress.streak=0;
     playSound("youngerRetry");
+    youngerEmotionVoice(false);
     setYoungerCompanion("🤗","再試一次","沒關係。","再一次","慢慢看。",true);
   }
 
@@ -11626,7 +11745,7 @@ document.getElementById("setYoungerLearningMode")?.addEventListener("change",e=>
   if(explain){
     const l=letter?.value||"F";
     explain.textContent=e.target.value==="preschool"
-      ? `幼兒啟蒙：以 A～${l} 的字母辨識、聽完整單字找開頭、配對與描字為主。`
+      ? `幼兒啟蒙：以 A～${l} 的字母辨識、聽完整單字找開頭、配對與描字為主；答對／答錯會有溫柔語音陪伴。`
       : `小一基礎：複習 A～${l}，並穿插 a/e/i/o/u 短母音；不會自動超前。`;
   }
 });
@@ -11821,31 +11940,231 @@ const historyChineseBank=[
  {id:"hc8",skill:"閱讀推論",passage:"下課後，教室裡只剩下幾張椅子沒有推回桌下。小恩走到門口後又折返回來，把椅子一張張推好才離開。",q:"從文章最能推論小恩具有哪種特質？",choices:["粗心","負責","膽小","急躁"],a:1,why:"他主動折返整理椅子，可看出有責任感。"}
 ];
 
+
+const HISTORY_ROTATION_KEY="older_history_rotation_v2211";
+
+function historyRotationLoad(){
+  try{
+    const x=JSON.parse(SafeStore.get(HISTORY_ROTATION_KEY,"null"));
+    return x&&typeof x==="object"?x:{};
+  }catch(e){return {}}
+}
+function historyRotationSave(x){
+  SafeStore.set(HISTORY_ROTATION_KEY,JSON.stringify(x));
+}
+function historySubjectRotation(subject){
+  const all=historyRotationLoad();
+  if(!all[subject])all[subject]={recentIds:[],recentTemplates:[],recentSkills:[],wrongBySkill:{},seen:{}};
+  const s=all[subject];
+  s.recentIds=Array.isArray(s.recentIds)?s.recentIds:[];
+  s.recentTemplates=Array.isArray(s.recentTemplates)?s.recentTemplates:[];
+  s.recentSkills=Array.isArray(s.recentSkills)?s.recentSkills:[];
+  s.wrongBySkill=s.wrongBySkill&&typeof s.wrongBySkill==="object"?s.wrongBySkill:{};
+  s.seen=s.seen&&typeof s.seen==="object"?s.seen:{};
+  return {all,s};
+}
+function historyTemplateKey(item){
+  const normalize=v=>String(v||"")
+    .toLowerCase()
+    .replace(/\d+(?:\.\d+)?(?:\/\d+)?/g,"#")
+    .replace(/[０-９]/g,"#")
+    .replace(/\s+/g,"")
+    .replace(/[，。！？、：；,.!?;:（）()「」『』]/g,"")
+    .slice(0,180);
+  return `${item.skill||item.type||"其他"}|${normalize(item.q)}|${normalize(item.passage||"")}`;
+}
+function historyShuffleChoices(item){
+  if(!Array.isArray(item.choices)||item.choices.length<2||!Number.isInteger(item.a))return item;
+  const pairs=item.choices.map((c,i)=>({c,correct:i===item.a}));
+  for(let i=pairs.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [pairs[i],pairs[j]]=[pairs[j],pairs[i]];
+  }
+  return {...item,choices:pairs.map(x=>x.c),a:pairs.findIndex(x=>x.correct)};
+}
+function historyMathDistractors(correct){
+  const raw=String(correct??"").trim();
+  const uniq=a=>[...new Set(a.map(x=>String(x)).filter(x=>x&&String(x)!==raw))];
+
+  if(/^-?\d+(?:\.\d+)?$/.test(raw)){
+    const n=Number(raw), decimals=(raw.split(".")[1]||"").length;
+    const fmt=v=>{
+      if(decimals){
+        return Number(v).toFixed(decimals).replace(/\.0+$/,"");
+      }
+      return String(Math.round(v));
+    };
+    let delta=decimals?Math.max(.1,Math.pow(10,-decimals)):Math.max(1,Math.round(Math.abs(n)*.08));
+    return uniq([fmt(n+delta),fmt(n-delta),fmt(n+delta*2),fmt(n-delta*2),fmt(n*2),fmt(n/2)])
+      .filter(x=>!(n>=0&&Number(x)<0)).slice(0,6);
+  }
+  const m=raw.match(/^(\d+)\/(\d+)$/);
+  if(m){
+    const a=Number(m[1]),b=Number(m[2]);
+    return uniq([
+      `${a+1}/${b}`,`${Math.max(1,a-1)}/${b}`,`${a}/${b+1}`,
+      `${a}/${Math.max(1,b-1)}`,`${b}/${a}`
+    ]).slice(0,6);
+  }
+  return [];
+}
+function historyMathFromMain(item){
+  if(!item||!item.q)return null;
+  const correct=String(item.show??(Array.isArray(item.a)?item.a[0]:item.a??"")).trim();
+  if(!correct)return null;
+  const distract=historyMathDistractors(correct);
+  if(distract.length<3)return null;
+
+  const skill=PAPER_MATH_LABELS[paperMathCat(item)]||item.type||"數學";
+  const base={
+    id:`hmx_${item.id||Math.random().toString(36).slice(2)}`,
+    skill,q:item.q,passage:item.passage||"",
+    choices:[correct,...distract.slice(0,3)],a:0,
+    why:item.why||`正確答案是 ${correct}。`,
+    sourceType:"site",source:"本站數學類題",
+    level:Number(item.level||2)
+  };
+  base._template=historyTemplateKey(base);
+  return historyShuffleChoices(base);
+}
+function historyChineseFromMain(item){
+  if(!item||!item.q||!Array.isArray(item.choices)||item.choices.length<2||!Number.isInteger(item.a))return null;
+  if(item.open||item.textAnswer)return null;
+  const base={
+    id:`hcx_${item.id}`,
+    skill:item.skill||item.type||"國文",
+    q:item.q,passage:item.passage||"",
+    choices:item.choices.slice(),a:item.a,
+    why:item.why||"",
+    sourceType:item.sourceType||"site",
+    source:item.source||"本站國文類題",
+    level:Number(item.level||2)
+  };
+  base._template=historyTemplateKey(base);
+  return historyShuffleChoices(base);
+}
+function historyBuildCandidatePool(subject){
+  const base=(subject==="國文"?historyChineseBank:historyMathBank).map(x=>{
+    const item={...x,id:`hist_${x.id}`,level:Number(x.level||2)};
+    item._template=historyTemplateKey(item);
+    return item;
+  });
+
+  let extra=[];
+  if(subject==="國文"){
+    extra=(chineseBank||[]).map(historyChineseFromMain).filter(Boolean);
+  }else{
+    let mathSource=[];
+    try{ mathSource=paperMathExpandedBank(PAPER_MATH_CATEGORIES); }
+    catch(e){ mathSource=mathBank||[]; }
+    extra=mathSource.map(historyMathFromMain).filter(Boolean);
+  }
+
+  const qSeen=new Set(),idSeen=new Set(),out=[];
+  [...base,...extra].forEach(item=>{
+    const q=String(item.q||"").trim();
+    if(!q||qSeen.has(q)||idSeen.has(item.id))return;
+    qSeen.add(q);idSeen.add(item.id);
+    out.push(item);
+  });
+  return out;
+}
+function historyBalancePick(pool,count,subject,mode){
+  const {s}=historySubjectRotation(subject);
+  const recentIds=new Set(s.recentIds.slice(-60));
+  const recentTemplates=new Set(s.recentTemplates.slice(-40));
+  const recentSkills=s.recentSkills.slice(-14);
+  const usedIds=new Set(),usedTemplates=new Set(),skillCounts={};
+  const weak=s.wrongBySkill||{};
+  const chosen=[];
+
+  const score=item=>{
+    const skill=item.skill||"其他";
+    const template=item._template||historyTemplateKey(item);
+    let v=0;
+    if(recentIds.has(item.id))v+=1200;
+    if(recentTemplates.has(template))v+=450;
+    v+=Number(s.seen[item.id]||0)*20;
+    v+=(skillCounts[skill]||0)*95;
+    v+=recentSkills.filter(x=>x===skill).length*10;
+    if(mode==="repair")v-=Math.min(Number(weak[skill]||0),8)*28;
+    if(mode==="mock")v-=Math.min(Number(item.level||2),4)*2;
+    return v+Math.random()*9;
+  };
+
+  while(chosen.length<count){
+    let options=pool.filter(x=>!usedIds.has(x.id)&&!usedTemplates.has(x._template||historyTemplateKey(x)));
+    if(!options.length)options=pool.filter(x=>!usedIds.has(x.id));
+    if(!options.length)break;
+    options.sort((a,b)=>score(a)-score(b));
+
+    let pick=options[0];
+    const prev=chosen.length?chosen[chosen.length-1].skill:null;
+    if(prev&&pick&&pick.skill===prev){
+      const alt=options.find(x=>x.skill!==prev);
+      if(alt)pick=alt;
+    }
+    if(!pick)break;
+
+    usedIds.add(pick.id);
+    usedTemplates.add(pick._template||historyTemplateKey(pick));
+    skillCounts[pick.skill]=(skillCounts[pick.skill]||0)+1;
+    chosen.push(historyShuffleChoices(pick));
+  }
+  return chosen;
+}
+function historyRecordSeen(item,ok,subject){
+  if(!item)return;
+  const {all,s}=historySubjectRotation(subject);
+  const template=item._template||historyTemplateKey(item);
+
+  s.recentIds=[...s.recentIds.filter(x=>x!==item.id),item.id].slice(-60);
+  s.recentTemplates=[...s.recentTemplates.filter(x=>x!==template),template].slice(-40);
+  s.recentSkills=[...s.recentSkills,item.skill||"其他"].slice(-14);
+  s.seen[item.id]=Number(s.seen[item.id]||0)+1;
+
+  if(ok){
+    s.wrongBySkill[item.skill]=Math.max(0,Number(s.wrongBySkill[item.skill]||0)-.35);
+  }else{
+    s.wrongBySkill[item.skill]=Number(s.wrongBySkill[item.skill]||0)+1;
+  }
+  historyRotationSave(all);
+}
+function historyRotationSummary(subject,pool,selected){
+  const {s}=historySubjectRotation(subject);
+  const skills=new Set(selected.map(x=>x.skill)).size;
+  return `候選題庫 ${pool.length} 題｜本輪 ${selected.length} 題、${skills} 種能力｜已記錄近期 ${s.recentIds.length} 題；優先避開近期原題與同模板類題。`;
+}
+
 let histState={questions:[],idx:0,correct:0,weak:{},answered:false};
 
 function historyModeName(v){
   return v==="calibrate"?"校準測驗":v==="repair"?"補洞測驗":"模擬測驗";
 }
-function shuffled(arr){return [...arr].sort(()=>Math.random()-.5)}
+function shuffled(arr){
+  const a=[...arr];
+  for(let i=a.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
 
 function buildHistoryQuiz(){
   const school=document.getElementById("histSchool").value;
   const subject=document.getElementById("histSubject").value;
   const mode=document.getElementById("histMode").value;
-  const bank=subject==="國文"?historyChineseBank:historyMathBank;
-  let pool=shuffled(bank);
-
-  if(mode==="repair"){
-    // 補洞模式：目前先以題型輪替，後續接正式能力樹弱點權重
-    pool=pool.sort((a,b)=>(histState.weak[b.skill]||0)-(histState.weak[a.skill]||0));
-  }
+  const pool=historyBuildCandidatePool(subject);
   const count=mode==="mock"?8:5;
-  histState={questions:pool.slice(0,Math.min(count,pool.length)),idx:0,correct:0,weak:{},answered:false,saved:false,school,subject,mode};
+  const questions=historyBalancePick(pool,Math.min(count,pool.length),subject,mode);
+
+  histState={questions,idx:0,correct:0,weak:{},answered:false,saved:false,school,subject,mode};
 
   document.getElementById("histQuizCard").style.display="block";
   document.getElementById("histResultCard").style.display="none";
   document.getElementById("histStatusTag").textContent="測驗進行中";
   document.getElementById("histMeta").textContent=`${school}｜${subject}｜${historyModeName(mode)}`;
+  document.getElementById("histRotationText").textContent=historyRotationSummary(subject,pool,questions);
   renderHistoryQuestion();
 }
 
@@ -11856,6 +12175,8 @@ function renderHistoryQuestion(){
   document.getElementById("histProgressTitle").textContent=`第 ${histState.idx+1} 題 / ${histState.questions.length} 題`;
   document.getElementById("histBar").style.width=`${Math.round(histState.idx/histState.questions.length*100)}%`;
   document.getElementById("histQuestion").textContent=item.q;
+  const histBadge=document.getElementById("histSourceBadge");
+  if(histBadge)histBadge.textContent=item.sourceType==="moe"?"教育部來源類題":(item.source||"本站校準類題");
   document.getElementById("histPassage").innerHTML=item.passage?`<div class="chPassage">${item.passage}</div>`:"";
   const wrap=document.getElementById("histChoices"); wrap.innerHTML="";
   const fb=document.getElementById("histFeedback"); fb.style.display="none"; fb.innerHTML="";
@@ -11868,6 +12189,7 @@ function renderHistoryQuestion(){
       if(histState.answered)return;
       histState.answered=true;
       const ok=i===item.a;
+      historyRecordSeen(item,ok,histState.subject);
       b.classList.add(ok?"correct":"wrong");
       if(ok){
         histState.correct++;
