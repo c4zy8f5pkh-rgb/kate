@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>兄弟學習基地 V22.23｜復旦 × 六和</title>
+<title>兄弟學習基地 V22.25｜復旦 × 六和</title>
 <style>
 :root{
   --bg:#f5f7fb;--panel:#fff;--ink:#25324a;--muted:#7a879c;--line:#e5eaf2;
@@ -4332,7 +4332,7 @@ body.younger-mode main{
 
 
 <style id="v2215-look-cleanup">
-/* V22.23｜找一樣：只保留標題旁的放大鏡，小熊旁不再掛道具 */
+/* V22.25｜找一樣：只保留標題旁的放大鏡，小熊旁不再掛道具 */
 #youngerLook .kidBearRow{
   grid-template-columns:100px minmax(0,1fr);
   gap:18px;
@@ -4368,7 +4368,7 @@ body.younger-mode main{
 
 
 <style id="v2216-match-ui-fix">
-/* V22.23｜Aa 連連看：調整連線視覺，避免畫面看起來歪斜 */
+/* V22.25｜Aa 連連看：調整連線視覺，避免畫面看起來歪斜 */
 .matchPlayBoard{min-height:440px}
 .matchBoard{
   max-width:820px;
@@ -4421,7 +4421,7 @@ body.younger-mode main{
 
 
 <style id="v2218-case-friend">
-/* V22.23｜Aa 找朋友：拿掉拉線，改成單題配對 */
+/* V22.25｜Aa 找朋友：拿掉拉線，改成單題配對 */
 #youngerCase .cssBear::before{
   content:"Aa";
   left:-10px;
@@ -4567,7 +4567,7 @@ body.younger-mode main{
 
 
 <style id="v2220-bear-outfits">
-/* V22.23｜真正整套換裝：圖片造型取代原本單一 emoji 配件 */
+/* V22.25｜真正整套換裝：圖片造型取代原本單一 emoji 配件 */
 .cssBear.bearOutfitActive > .bearEar,
 .cssBear.bearOutfitActive > .bearHead,
 .cssBear.bearOutfitActive > .bearBody,
@@ -5027,6 +5027,71 @@ body.younger-mode main{
 }
 </style>
 
+
+<style id="v2224-fit-polish">
+.customBearStage{width:292px}
+.customItemCard{transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease}
+.customItemCard.selected{box-shadow:0 8px 20px rgba(168,137,58,.10)}
+.customItemCard.locked{opacity:.72}
+.customItemCard.locked .customItemThumb{opacity:.28}
+</style>
+
+
+<style id="v2225-separated-stickers">
+.olderStickerHero{
+  display:flex;justify-content:space-between;align-items:flex-start;gap:18px;
+  background:linear-gradient(135deg,#f7f9ff,#fffdf6)
+}
+.olderStickerHero h2{margin:5px 0 7px;color:#35445e}
+.olderStickerHero p{margin:0;color:#758198;line-height:1.7;max-width:760px}
+.olderStickerStats{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.olderStickerStats span{
+  padding:8px 11px;border-radius:999px;background:#fff;border:1px solid #e2e7f0;
+  color:#5d6b82;font-size:12px;font-weight:900
+}
+.olderStickerSourceRow{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0
+}
+.olderStickerSourceRow>div{
+  min-height:86px;border:1px solid #e4e9f2;border-radius:18px;background:#fff;
+  display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;
+  column-gap:10px;align-items:center;padding:13px 15px
+}
+.olderStickerSourceRow span{grid-row:1/3;font-size:30px}
+.olderStickerSourceRow b{font-size:15px;color:#44536e}
+.olderStickerSourceRow small{font-size:11px;color:#8b95a6}
+.olderStickerBook{margin-top:0}
+.olderStickerGrid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-top:14px}
+.olderStickerItem{
+  min-height:112px;border-radius:18px;border:1px dashed #dde3ed;background:#f8f9fb;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8px;gap:4px;
+  position:relative
+}
+.olderStickerItem.got{background:#fff9e5;border-style:solid;border-color:#ead486}
+.olderStickerItem .emoji{font-size:34px}
+.olderStickerItem b{font-size:11px;color:#53617a}
+.olderStickerItem small{font-size:9px;color:#929baa}
+.olderStickerItem .count{
+  position:absolute;right:7px;top:7px;padding:3px 6px;border-radius:999px;background:#fff;
+  border:1px solid #e7dfbf;color:#8a6a24;font-size:9px;font-weight:950
+}
+.themeSticker .stickerCount{
+  position:absolute;right:4px;top:4px;min-width:20px;height:20px;padding:0 4px;border-radius:999px;
+  display:grid;place-items:center;background:#fff;border:1px solid #ead486;color:#8b6a25;font-size:8px;font-weight:950
+}
+.themeSticker{position:relative}
+.themeAlbumCard.repeatActive{box-shadow:0 0 0 3px rgba(109,137,218,.12);border-color:#91a7e8}
+@media(max-width:900px){
+  .olderStickerHero{display:block}
+  .olderStickerStats{justify-content:flex-start;margin-top:12px}
+  .olderStickerGrid{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+@media(max-width:620px){
+  .olderStickerSourceRow{grid-template-columns:1fr}
+  .olderStickerGrid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -5060,6 +5125,7 @@ body.younger-mode main{
     <button type="button" class="olderOnly" data-page="math">🧮 數學</button>
     <button type="button" class="olderOnly" data-page="english">英文</button>
     <button type="button" class="olderOnly" data-page="history">📚 歷屆題</button>
+    <button type="button" class="olderOnly" data-page="olderStickers">📒 哥哥貼紙冊</button>
     <button type="button" class="olderOnly" data-page="damankuan">📘 大滿貫</button>
     <button type="button" class="olderOnly" data-page="wrong">🔁 三科弱點</button>
     <button type="button" data-page="parent">🔒 家長中心</button>
@@ -5070,7 +5136,7 @@ body.younger-mode main{
 <div class="top">
   <div class="olderOnly">
     <h1>一個入口，三科分工。</h1>
-    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V22.23</div>
+    <div class="muted">英文 V6.83 完整保留；國文、數學與私中訓練往外擴充。｜學習基地 V22.25</div>
   </div>
   <div class="youngerOnly">
     <h1>先把基礎長穩，再慢慢往上接。</h1>
@@ -6249,7 +6315,7 @@ body.younger-mode main{
     <div class="card stickerAlbumCard" style="margin-top:14px">
       <div class="cuteCollectionHead">
         <span>📚</span>
-        <div><b>主題收藏冊</b><small>今天寶箱的貼紙會放進目前正在收集的主題；集滿一冊才會開下一冊。</small></div>
+        <div><b>弟弟專屬主題收藏冊</b><small>和哥哥完全分開。重新開啟網站後，貼紙、道具、套裝與搭配都會保留。</small></div>
       </div>
       <div class="albumJourneyStatus" id="albumJourneyStatus"></div>
       <div class="themeAlbumGrid" id="themeAlbumGrid"></div>
@@ -6269,6 +6335,38 @@ body.younger-mode main{
   </div>
 </section>
 
+
+
+<section id="olderStickers" class="page olderOnly">
+  <div class="card olderStickerHero">
+    <div>
+      <div class="muted">📒 哥哥專屬收藏</div>
+      <h2>哥哥貼紙收集冊</h2>
+      <p>哥哥和弟弟使用不同的儲存資料。完成國文、數學或歷屆題的一次今日練習，就會得到該科 1 張貼紙；收集滿後仍會繼續累積 ×2、×3……</p>
+    </div>
+    <div class="olderStickerStats">
+      <span id="olderStickerTotal">共 0 張</span>
+      <span id="olderStickerKinds">0 / 18 種</span>
+    </div>
+  </div>
+
+  <div class="olderStickerSourceRow">
+    <div><span>📖</span><b>國文</b><small id="olderStickerDailyChinese">今天尚未取得</small></div>
+    <div><span>🧮</span><b>數學</b><small id="olderStickerDailyMath">今天尚未取得</small></div>
+    <div><span>📚</span><b>歷屆題</b><small id="olderStickerDailyHistory">今天尚未取得</small></div>
+  </div>
+
+  <div class="card olderStickerBook">
+    <div class="practiceTop">
+      <div>
+        <div class="muted">收藏會永久保留</div>
+        <h3>我的貼紙</h3>
+      </div>
+      <span class="tag" id="olderStickerRound">第 1 輪收藏</span>
+    </div>
+    <div class="olderStickerGrid" id="olderStickerGrid"></div>
+  </div>
+</section>
 
 <section id="checkup" class="page olderOnly">
   <div class="checkHero">
@@ -7684,6 +7782,7 @@ function nextChinese(){
     document.getElementById("chStart").style.display="none";
     document.getElementById("chNext").style.display="none";
     document.getElementById("chTypeTag").textContent="今日完成";
+    awardOlderSticker("chinese");
     renderChCounters();
     return;
   }
@@ -8119,6 +8218,7 @@ function showMathSessionSummary(){
   document.getElementById("mathStart").style.display="none";
   document.getElementById("mathTypeTag").textContent="今日完成";
   document.getElementById("mathSessionStep").textContent=`今日 ${mathSessionTarget()} / ${mathSessionTarget()}`;
+  awardOlderSticker("math");
   renderParentBackendData();
 }
 
@@ -10084,6 +10184,8 @@ if(document.getElementById("saveParentPin"))document.getElementById("saveParentP
   inp.value="";
 };
 
+setTimeout(renderOlderStickerAlbum,0);
+
 if(SafeStore.get(PARENT_SESSION_KEY,"0")==="1"){
   setTimeout(openParentBackend,0);
 }
@@ -10091,6 +10193,98 @@ if(SafeStore.get(PARENT_SESSION_KEY,"0")==="1"){
 
 // ===== V9.0 兄弟共用學習模式 =====
 const PROFILE_KEY="family_learning_profile_v90";
+
+const OLDER_STICKER_KEY="older_sticker_collection_v225";
+const OLDER_STICKER_CATALOG=[
+  {id:"ch01",group:"chinese",emoji:"📖",name:"閱讀之書"},
+  {id:"ch02",group:"chinese",emoji:"✍️",name:"妙筆"},
+  {id:"ch03",group:"chinese",emoji:"🀄",name:"成語高手"},
+  {id:"ch04",group:"chinese",emoji:"🔤",name:"字詞達人"},
+  {id:"ch05",group:"chinese",emoji:"🧠",name:"推論腦"},
+  {id:"ch06",group:"chinese",emoji:"🏮",name:"文言燈"},
+
+  {id:"ma01",group:"math",emoji:"➗",name:"計算徽章"},
+  {id:"ma02",group:"math",emoji:"📐",name:"幾何尺"},
+  {id:"ma03",group:"math",emoji:"🧩",name:"應用拼圖"},
+  {id:"ma04",group:"math",emoji:"🔢",name:"數字星"},
+  {id:"ma05",group:"math",emoji:"📊",name:"圖表眼"},
+  {id:"ma06",group:"math",emoji:"🏆",name:"解題盃"},
+
+  {id:"hi01",group:"history",emoji:"🎯",name:"校準靶心"},
+  {id:"hi02",group:"history",emoji:"📝",name:"模擬卷"},
+  {id:"hi03",group:"history",emoji:"🔎",name:"弱點偵探"},
+  {id:"hi04",group:"history",emoji:"🗂️",name:"整理夾"},
+  {id:"hi05",group:"history",emoji:"⚡",name:"挑戰閃電"},
+  {id:"hi06",group:"history",emoji:"🥇",name:"穩定金牌"}
+];
+function olderStickerDayKey(){return new Date().toLocaleDateString("sv-SE")}
+function loadOlderStickerState(){
+  let x={};
+  try{x=JSON.parse(SafeStore.get(OLDER_STICKER_KEY,"{}")||"{}")}catch(e){x={}}
+  return {
+    counts:x.counts&&typeof x.counts==="object"?x.counts:{},
+    daily:x.daily&&typeof x.daily==="object"?x.daily:{},
+    total:Number(x.total||0),
+    recent:Array.isArray(x.recent)?x.recent.slice(-60):[]
+  };
+}
+let olderStickerState=loadOlderStickerState();
+function saveOlderStickerState(){SafeStore.set(OLDER_STICKER_KEY,JSON.stringify(olderStickerState))}
+function olderStickerGroupLabel(group){return {chinese:"國文",math:"數學",history:"歷屆題"}[group]||"學習"}
+function awardOlderSticker(group){
+  const today=olderStickerDayKey();
+  if(olderStickerState.daily[group]===today)return null;
+
+  const pool=OLDER_STICKER_CATALOG.filter(x=>x.group===group);
+  if(!pool.length)return null;
+  const min=Math.min(...pool.map(x=>Number(olderStickerState.counts[x.id]||0)));
+  const candidates=pool.filter(x=>Number(olderStickerState.counts[x.id]||0)===min);
+  const reward=candidates[Math.floor(Math.random()*candidates.length)];
+
+  olderStickerState.counts[reward.id]=Number(olderStickerState.counts[reward.id]||0)+1;
+  olderStickerState.total=Number(olderStickerState.total||0)+1;
+  olderStickerState.daily[group]=today;
+  olderStickerState.recent.push({date:today,group,id:reward.id});
+  olderStickerState.recent=olderStickerState.recent.slice(-60);
+  saveOlderStickerState();
+  renderOlderStickerAlbum();
+  return reward;
+}
+function renderOlderStickerAlbum(){
+  const total=Number(olderStickerState.total||0);
+  const kinds=OLDER_STICKER_CATALOG.filter(x=>Number(olderStickerState.counts[x.id]||0)>0).length;
+  const totalEl=document.getElementById("olderStickerTotal");
+  const kindEl=document.getElementById("olderStickerKinds");
+  const roundEl=document.getElementById("olderStickerRound");
+  if(totalEl)totalEl.textContent=`共 ${total} 張`;
+  if(kindEl)kindEl.textContent=`${kinds} / ${OLDER_STICKER_CATALOG.length} 種`;
+  if(roundEl)roundEl.textContent=`第 ${Math.floor(total/OLDER_STICKER_CATALOG.length)+1} 輪收藏`;
+
+  const today=olderStickerDayKey();
+  const stateMap={
+    chinese:["olderStickerDailyChinese","國文"],
+    math:["olderStickerDailyMath","數學"],
+    history:["olderStickerDailyHistory","歷屆題"]
+  };
+  Object.entries(stateMap).forEach(([group,[id,label]])=>{
+    const el=document.getElementById(id);
+    if(el)el.textContent=olderStickerState.daily[group]===today?`今天已取得 1 張`:`完成今日${label}後取得`;
+  });
+
+  const grid=document.getElementById("olderStickerGrid");
+  if(grid){
+    grid.innerHTML=OLDER_STICKER_CATALOG.map(s=>{
+      const count=Number(olderStickerState.counts[s.id]||0);
+      return `<div class="olderStickerItem ${count?"got":""}">
+        ${count?`<span class="count">×${count}</span>`:""}
+        <span class="emoji">${count?s.emoji:"?"}</span>
+        <b>${count?s.name:"尚未取得"}</b>
+        <small>${olderStickerGroupLabel(s.group)}</small>
+      </div>`;
+    }).join("");
+  }
+}
+
 
 // ===== V20.1 弟弟可愛互動獎勵系統 =====
 const YOUNGER_CUTE_KEY="younger_cute_reward_v201";
@@ -10202,6 +10396,25 @@ function firstIncompleteAlbum(){
 function allAlbumsComplete(){
   return YOUNGER_ALBUMS.every(a=>albumComplete(a.id));
 }
+
+function youngerStickerCount(id){return Number(youngerCuteRewards.stickerCounts?.[id]||0)}
+function currentRepeatAlbum(){
+  const rc=youngerCuteRewards.repeatCollection||{round:2,albumIndex:0,progress:0};
+  return YOUNGER_ALBUMS[rc.albumIndex]||YOUNGER_ALBUMS[0];
+}
+function advanceRepeatCollection(){
+  const rc=youngerCuteRewards.repeatCollection;
+  rc.progress++;
+  if(rc.progress>=4){
+    rc.progress=0;
+    rc.albumIndex++;
+    if(rc.albumIndex>=YOUNGER_ALBUMS.length){
+      rc.albumIndex=0;
+      rc.round++;
+    }
+  }
+}
+
 function ensureRewardJourney(){
   youngerCuteRewards.albumStickers=youngerCuteRewards.albumStickers&&typeof youngerCuteRewards.albumStickers==="object"
     ?youngerCuteRewards.albumStickers:{};
@@ -10237,6 +10450,21 @@ function ensureRewardJourney(){
   youngerCuteRewards.selectedPet=YOUNGER_PETS.some(p=>p.id===youngerCuteRewards.selectedPet)
     ?youngerCuteRewards.selectedPet
     :(youngerCuteRewards.pets?.[0]||"");
+
+  youngerCuteRewards.stickerCounts=youngerCuteRewards.stickerCounts&&typeof youngerCuteRewards.stickerCounts==="object"
+    ?youngerCuteRewards.stickerCounts:{};
+  YOUNGER_ALBUMS.forEach(a=>a.stickers.forEach(s=>{
+    const base=youngerCuteRewards.albumStickers[a.id]?.includes(s.id)?1:0;
+    youngerCuteRewards.stickerCounts[s.id]=Math.max(base,Number(youngerCuteRewards.stickerCounts[s.id]||0));
+  }));
+
+  const rc=youngerCuteRewards.repeatCollection&&typeof youngerCuteRewards.repeatCollection==="object"
+    ?youngerCuteRewards.repeatCollection:{round:2,albumIndex:0,progress:0};
+  youngerCuteRewards.repeatCollection={
+    round:Math.max(2,Number(rc.round||2)),
+    albumIndex:Math.max(0,Math.min(YOUNGER_ALBUMS.length-1,Number(rc.albumIndex||0))),
+    progress:Math.max(0,Math.min(3,Number(rc.progress||0)))
+  };
   youngerCuteRewards.activeAlbum=firstIncompleteAlbum()?.id || "";
 }
 
@@ -10283,87 +10511,98 @@ const CUSTOM_PARTS=[
   `)},
   {id:"hat_crown",slot:"hat",label:"皇冠",album:"crown",count:1,src:customSvg(`
     <defs>
-      <linearGradient id="cg" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff2a5"/><stop offset=".45" stop-color="#f3c34f"/><stop offset="1" stop-color="#d99517"/></linearGradient>
-      <filter id="cs"><feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#8f6415" flood-opacity=".28"/></filter>
+      <linearGradient id="hcrown2" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff1a5"/><stop offset=".52" stop-color="#f0bf42"/><stop offset="1" stop-color="#d69118"/></linearGradient>
+      <filter id="hcrs2"><feDropShadow dx="0" dy="3" stdDeviation="2.2" flood-color="#8a5d13" flood-opacity=".25"/></filter>
     </defs>
-    <g filter="url(#cs)">
-      <path d="M112 83 L105 42 L137 58 L171 27 L204 59 L237 41 L230 84Z" fill="url(#cg)" stroke="#c78312" stroke-width="4"/>
-      <rect x="112" y="76" width="118" height="20" rx="9" fill="#efb72f" stroke="#c78312" stroke-width="4"/>
-      <path d="M171 48 l10 11-10 12-10-12z" fill="#d94a55" stroke="#a82e39" stroke-width="2"/>
-      <circle cx="132" cy="70" r="5" fill="#5aa7d9"/><circle cx="210" cy="70" r="5" fill="#5aa7d9"/>
-      <circle cx="151" cy="72" r="4" fill="#f4f0b0"/><circle cx="191" cy="72" r="4" fill="#f4f0b0"/>
+    <g filter="url(#hcrs2)">
+      <path d="M122 79 L116 48 L141 60 L171 35 L199 61 L226 47 L221 79Z" fill="url(#hcrown2)" stroke="#bd7b12" stroke-width="4"/>
+      <rect x="122" y="73" width="99" height="17" rx="8" fill="#eeb32c" stroke="#bd7b12" stroke-width="4"/>
+      <path d="M171 51 l8 8-8 9-8-9z" fill="#d64b54"/>
+      <circle cx="138" cy="67" r="4" fill="#55a5d6"/><circle cx="204" cy="67" r="4" fill="#55a5d6"/>
     </g>
   `)},
-
-  // ===== 臉部 =====
   {id:"face_none",slot:"face",label:"不戴眼鏡",free:true,src:""},
   {id:"face_round",slot:"face",label:"圓框眼鏡",free:true,src:customSvg(`
-    <defs><filter id="gs"><feDropShadow dx="0" dy="2" stdDeviation="1.4" flood-color="#261c18" flood-opacity=".22"/></filter></defs>
-    <g fill="none" stroke="#49382f" stroke-width="5.2" filter="url(#gs)">
-      <circle cx="126" cy="171" r="27"/><circle cx="217" cy="171" r="27"/>
-      <path d="M153 171 C163 164 179 164 190 171"/>
-      <path d="M98 165 l-18-6M245 165 l18-6" stroke-linecap="round"/>
+    <defs><filter id="frs2"><feDropShadow dx="0" dy="1.5" stdDeviation="1.2" flood-color="#251a15" flood-opacity=".22"/></filter></defs>
+    <g fill="none" stroke="#4b392e" stroke-width="4.6" filter="url(#frs2)">
+      <circle cx="127" cy="157" r="24"/><circle cx="216" cy="157" r="24"/>
+      <path d="M151 157 C162 151 181 151 192 157"/>
+      <path d="M103 153l-16-5M240 153l16-5" stroke-linecap="round"/>
     </g>
-    <path d="M111 155 q14-8 27 0M202 155 q14-8 27 0" fill="none" stroke="#ffffff" stroke-width="3" opacity=".45"/>
+    <path d="M114 144q13-7 25 0M203 144q13-7 25 0" fill="none" stroke="#fff" stroke-width="2.5" opacity=".42"/>
   `)},
-  {id:"face_star",slot:"face",label:"星星眼鏡",album:"magic",count:4,src:customSvg(`
-    <path d="M129 144 l11 22 25 4-18 18 5 25-23-12-23 12 5-25-18-18 25-4z" fill="#8a67d7" stroke="#5f45a4" stroke-width="5"/>
-    <path d="M215 144 l11 22 25 4-18 18 5 25-23-12-23 12 5-25-18-18 25-4z" fill="#8a67d7" stroke="#5f45a4" stroke-width="5"/>
-    <path d="M154 177h36" stroke="#5f45a4" stroke-width="7"/>
+  {id:"face_star",slot:"face",label:"魔法星框",album:"magic",count:4,src:customSvg(`
+    <defs><filter id="fss2"><feDropShadow dx="0" dy="2" stdDeviation="1.4" flood-color="#3c2a66" flood-opacity=".20"/></filter></defs>
+    <g fill="#8d73d8" fill-opacity=".12" stroke="#654aa7" stroke-width="3.8" filter="url(#fss2)">
+      <path d="M127 134 l6 12 14 2-10 10 2 14-12-6-12 6 2-14-10-10 14-2z"/>
+      <path d="M216 134 l6 12 14 2-10 10 2 14-12-6-12 6 2-14-10-10 14-2z"/>
+    </g>
+    <path d="M149 157h45" stroke="#654aa7" stroke-width="3.8"/>
   `)},
   {id:"face_mono",slot:"face",label:"偵探單眼鏡",album:"detective",count:4,src:customSvg(`
-    <circle cx="210" cy="174" r="41" fill="#dff4ff" fill-opacity=".22" stroke="#744b32" stroke-width="8"/>
-    <path d="M239 203 l36 54" stroke="#744b32" stroke-width="10" stroke-linecap="round"/>
-    <circle cx="210" cy="174" r="31" fill="none" stroke="#f8fdff" stroke-width="4" opacity=".7"/>
+    <defs><filter id="fms2"><feDropShadow dx="0" dy="2" stdDeviation="1.4" flood-color="#4b3426" flood-opacity=".20"/></filter></defs>
+    <g filter="url(#fms2)">
+      <circle cx="216" cy="157" r="26" fill="#dff4ff" fill-opacity=".14" stroke="#6f4b32" stroke-width="5"/>
+      <path d="M234 178 l18 31" stroke="#6f4b32" stroke-width="5.5" stroke-linecap="round"/>
+      <path d="M204 144q12-6 22 0" fill="none" stroke="#fff" stroke-width="2.3" opacity=".5"/>
+    </g>
   `)},
-
-  // ===== 衣服 =====
   {id:"clothes_none",slot:"clothes",label:"原本",free:true,src:""},
-  {id:"clothes_explorer",slot:"clothes",label:"探險服",album:"explorer",count:4,src:customSvg(`
-    <path d="M90 254 Q171 225 252 255 L268 350 Q221 383 171 382 Q121 383 74 350Z" fill="#d9b17c" stroke="#9d764a" stroke-width="5"/>
-    <path d="M171 240v138" stroke="#87603d" stroke-width="5"/><path d="M115 285h43v42h-43zM184 285h43v42h-43z" fill="#b78956" stroke="#8b633e" stroke-width="4"/>
-    <path d="M101 251 Q171 287 241 251" fill="none" stroke="#f2e2c9" stroke-width="14"/>
-    <rect x="112" y="344" width="118" height="16" rx="7" fill="#6d553d"/><rect x="162" y="341" width="20" height="22" rx="4" fill="#d7a83b"/>
+  {id:"clothes_explorer",slot:"clothes",label:"探險背心",album:"explorer",count:4,src:customSvg(`
+    <defs><linearGradient id="ce2" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#e0bc87"/><stop offset="1" stop-color="#bd8e59"/></linearGradient><filter id="ces2"><feDropShadow dx="0" dy="3" stdDeviation="2.2" flood-color="#795533" flood-opacity=".15"/></filter></defs>
+    <g filter="url(#ces2)">
+      <path d="M119 251 Q171 238 223 251 L229 333 Q203 347 171 347 Q139 347 113 333Z" fill="url(#ce2)" stroke="#9a7047" stroke-width="4"/>
+      <path d="M141 249 L171 279 L201 249" fill="#f3e1c8" stroke="#a67a4d" stroke-width="3"/>
+      <path d="M171 279v64" stroke="#805938" stroke-width="3"/>
+      <path d="M128 289h29v27h-29zM185 289h29v27h-29z" fill="#b98553" stroke="#8c643f" stroke-width="3"/>
+      <path d="M121 326 Q171 337 221 326" fill="none" stroke="#6e553f" stroke-width="7"/>
+    </g>
   `)},
   {id:"clothes_magic",slot:"clothes",label:"魔法外套",album:"magic",count:4,src:customSvg(`
-    <path d="M88 252 Q171 224 254 253 L271 357 Q227 386 171 382 Q115 386 72 357Z" fill="#3c315f" stroke="#251d43" stroke-width="5"/>
-    <path d="M171 239v142" stroke="#c6a56b" stroke-width="4"/>
-    <path d="M146 247 l25 24 25-24" fill="#b84250"/><circle cx="171" cy="275" r="6" fill="#e6c45b"/><circle cx="171" cy="301" r="6" fill="#e6c45b"/>
+    <defs><linearGradient id="cm2" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#594374"/><stop offset="1" stop-color="#352746"/></linearGradient><filter id="cms2"><feDropShadow dx="0" dy="3" stdDeviation="2.2" flood-color="#24192f" flood-opacity=".16"/></filter></defs>
+    <g filter="url(#cms2)">
+      <path d="M120 253 Q145 243 171 244 L154 340 Q132 338 116 329Z" fill="url(#cm2)" stroke="#2a1e38" stroke-width="4"/>
+      <path d="M222 253 Q197 243 171 244 L188 340 Q210 338 226 329Z" fill="url(#cm2)" stroke="#2a1e38" stroke-width="4"/>
+      <path d="M145 250 L171 274 L197 250" fill="#b94755"/>
+      <circle cx="171" cy="296" r="5" fill="#e3c35f"/><circle cx="171" cy="318" r="5" fill="#e3c35f"/>
+    </g>
   `)},
-  {id:"clothes_chef",slot:"clothes",label:"廚師服",album:"chef",count:2,src:customSvg(`
-    <path d="M90 250 Q171 228 252 250 L263 359 Q220 383 171 382 Q122 383 79 359Z" fill="#fffdfa" stroke="#ded8cc" stroke-width="5"/>
-    <path d="M171 243v138" stroke="#d7d0c6" stroke-width="4"/>
-    <path d="M146 247 Q171 268 196 247" fill="none" stroke="#c84349" stroke-width="13"/>
-    <path d="M104 315h134v61H104z" fill="#cf4b47"/><circle cx="150" cy="285" r="5" fill="#c6a16a"/><circle cx="193" cy="285" r="5" fill="#c6a16a"/>
+  {id:"clothes_chef",slot:"clothes",label:"廚師圍裙",album:"chef",count:2,src:customSvg(`
+    <defs><filter id="ccs2"><feDropShadow dx="0" dy="3" stdDeviation="2" flood-color="#9e8d78" flood-opacity=".14"/></filter></defs>
+    <g filter="url(#ccs2)">
+      <path d="M132 266 Q171 254 210 266 L214 340 Q193 350 171 350 Q149 350 128 340Z" fill="#fffdf9" stroke="#ddd6ca" stroke-width="4"/>
+      <path d="M145 266 Q171 280 197 266" fill="none" stroke="#c8474e" stroke-width="8"/>
+      <path d="M140 319h62v27h-62z" fill="#d45552" opacity=".92"/>
+    </g>
   `)},
-  {id:"clothes_space",slot:"clothes",label:"太空服",album:"astronaut",count:3,src:customSvg(`
-    <defs>
-      <linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffffff"/><stop offset="1" stop-color="#e6f2fc"/></linearGradient>
-      <filter id="ss"><feDropShadow dx="0" dy="3" stdDeviation="2.5" flood-color="#315b86" flood-opacity=".14"/></filter>
-    </defs>
-    <g filter="url(#ss)">
-      <path d="M101 252 Q171 231 241 252 L254 349 Q221 379 171 380 Q121 379 88 349Z" fill="url(#sg)" stroke="#5d92c5" stroke-width="5"/>
-      <path d="M112 259 Q171 284 230 259" fill="none" stroke="#3f78b3" stroke-width="9"/>
-      <path d="M111 272 L95 309M231 272 L247 309" stroke="#74a7d6" stroke-width="8" stroke-linecap="round"/>
-      <rect x="132" y="303" width="78" height="42" rx="10" fill="#d9ecfb" stroke="#5d92c5" stroke-width="3"/>
-      <rect x="141" y="312" width="60" height="10" rx="5" fill="#ffffff" opacity=".78"/>
-      <circle cx="150" cy="333" r="5" fill="#ef635b"/><circle cx="171" cy="333" r="5" fill="#f0c24f"/><circle cx="192" cy="333" r="5" fill="#62a978"/>
-      <path d="M111 354 Q171 366 231 354" fill="none" stroke="#386d9f" stroke-width="7"/>
+  {id:"clothes_space",slot:"clothes",label:"太空背心",album:"astronaut",count:3,src:customSvg(`
+    <defs><linearGradient id="cs2" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffffff"/><stop offset="1" stop-color="#e6f1fb"/></linearGradient><filter id="css2"><feDropShadow dx="0" dy="3" stdDeviation="2" flood-color="#386184" flood-opacity=".15"/></filter></defs>
+    <g filter="url(#css2)">
+      <path d="M126 258 Q171 246 216 258 L221 337 Q199 347 171 347 Q143 347 121 337Z" fill="url(#cs2)" stroke="#5b8db9" stroke-width="4"/>
+      <path d="M136 267 Q171 280 206 267" fill="none" stroke="#3b76ad" stroke-width="7"/>
+      <rect x="144" y="295" width="54" height="31" rx="7" fill="#d9eaf8" stroke="#5b8db9" stroke-width="3"/>
+      <circle cx="155" cy="311" r="4" fill="#ec5e57"/><circle cx="171" cy="311" r="4" fill="#ecc252"/><circle cx="187" cy="311" r="4" fill="#63a67a"/>
     </g>
   `)},
   {id:"clothes_detective",slot:"clothes",label:"偵探外套",album:"detective",count:2,src:customSvg(`
-    <path d="M88 252 Q171 226 254 252 L265 360 Q218 386 171 382 Q124 386 77 360Z" fill="#b88758" stroke="#704a31" stroke-width="5"/>
-    <path d="M121 250 l50 55 50-55" fill="#d8bd98" stroke="#7b573b" stroke-width="4"/>
-    <path d="M171 299v82" stroke="#69472f" stroke-width="4"/><circle cx="171" cy="320" r="5" fill="#e1bd61"/>
+    <defs><linearGradient id="cd2" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#bd8c5e"/><stop offset="1" stop-color="#98683f"/></linearGradient><filter id="cds2"><feDropShadow dx="0" dy="3" stdDeviation="2" flood-color="#5c3d29" flood-opacity=".15"/></filter></defs>
+    <g filter="url(#cds2)">
+      <path d="M122 256 Q146 246 171 247 L155 340 Q134 337 118 329Z" fill="url(#cd2)" stroke="#744d31" stroke-width="4"/>
+      <path d="M220 256 Q196 246 171 247 L187 340 Q208 337 224 329Z" fill="url(#cd2)" stroke="#744d31" stroke-width="4"/>
+      <path d="M144 252 L171 281 L198 252" fill="#d7b88f" stroke="#7b5638" stroke-width="3"/>
+      <circle cx="171" cy="306" r="5" fill="#d9ba65"/>
+    </g>
   `)},
   {id:"clothes_royal",slot:"clothes",label:"皇家禮服",album:"crown",count:4,src:customSvg(`
-    <path d="M86 251 Q171 222 256 251 L270 360 Q222 389 171 385 Q120 389 72 360Z" fill="#315eaf" stroke="#1e4389" stroke-width="6"/>
-    <path d="M113 253 Q171 287 229 253" fill="none" stroke="#f1d16d" stroke-width="12"/>
-    <path d="M171 243v140" stroke="#e9c65c" stroke-width="5"/><rect x="111" y="345" width="120" height="14" rx="7" fill="#6d513a"/>
-    <circle cx="171" cy="276" r="9" fill="#f1d16d"/>
+    <defs><linearGradient id="cr2" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#426ec2"/><stop offset="1" stop-color="#2d5193"/></linearGradient><filter id="crs2"><feDropShadow dx="0" dy="3" stdDeviation="2" flood-color="#203d72" flood-opacity=".15"/></filter></defs>
+    <g filter="url(#crs2)">
+      <path d="M125 257 Q171 245 217 257 L222 337 Q199 348 171 348 Q143 348 120 337Z" fill="url(#cr2)" stroke="#21427e" stroke-width="4"/>
+      <path d="M137 266 Q171 279 205 266" fill="none" stroke="#f0d06d" stroke-width="8"/>
+      <path d="M171 279v64" stroke="#e7c65d" stroke-width="4"/>
+      <path d="M130 329 Q171 337 212 329" fill="none" stroke="#6e5137" stroke-width="6"/>
+      <circle cx="171" cy="297" r="5" fill="#f0d06d"/>
+    </g>
   `)},
-
-  // ===== 背飾 =====
   {id:"back_none",slot:"back",label:"沒有背飾",free:true,src:""},
   {id:"back_explorer",slot:"back",label:"探險背包",album:"explorer",count:2,src:customSvg(`
     <rect x="54" y="244" width="62" height="104" rx="21" fill="#596b45" stroke="#39462d" stroke-width="6"/>
@@ -10398,31 +10637,42 @@ const CUSTOM_PARTS=[
   // ===== 手持物 =====
   {id:"hand_none",slot:"hand",label:"不拿東西",free:true,src:""},
   {id:"hand_map",slot:"hand",label:"探險地圖",album:"explorer",count:3,src:customSvg(`
-    <path d="M5 236 L90 219 L109 298 L24 315Z" fill="#f7e8bd" stroke="#9d7a49" stroke-width="5"/>
-    <path d="M29 260 Q55 242 78 270 T101 251" fill="none" stroke="#68a77b" stroke-width="5"/><circle cx="70" cy="280" r="7" fill="#db685d"/>
+    <defs><filter id="hmap2"><feDropShadow dx="0" dy="3" stdDeviation="2" flood-color="#74552e" flood-opacity=".17"/></filter></defs>
+    <g filter="url(#hmap2)" transform="rotate(-8 82 232)">
+      <path d="M45 207 L108 198 L118 260 L55 269Z" fill="#f7e7ba" stroke="#9b7748" stroke-width="4"/>
+      <path d="M62 224 Q77 211 93 229 T110 219" fill="none" stroke="#69a47b" stroke-width="4"/>
+      <circle cx="88" cy="244" r="5" fill="#d8665d"/>
+    </g>
   `)},
   {id:"hand_wand",slot:"hand",label:"魔法棒",album:"magic",count:3,src:customSvg(`
-    <defs><filter id="ws"><feDropShadow dx="0" dy="3" stdDeviation="2" flood-color="#42295d" flood-opacity=".25"/></filter></defs>
-    <g filter="url(#ws)">
-      <path d="M271 289 L315 196" stroke="#55326d" stroke-width="8" stroke-linecap="round"/>
-      <path d="M316 173 l8 16 18 3-13 12 3 18-16-8-16 8 3-18-13-12 18-3z" fill="#ffd967" stroke="#dda92f" stroke-width="3"/>
-      <circle cx="292" cy="210" r="3.5" fill="#fff0a4"/><circle cx="331" cy="225" r="3" fill="#fff0a4"/>
-      <path d="M333 184 l8-10M345 194 l10-3" stroke="#f2d978" stroke-width="3" stroke-linecap="round"/>
+    <defs><filter id="hw2"><feDropShadow dx="0" dy="3" stdDeviation="2" flood-color="#3d2a57" flood-opacity=".20"/></filter></defs>
+    <g filter="url(#hw2)">
+      <path d="M76 252 L92 174" stroke="#55336d" stroke-width="7" stroke-linecap="round"/>
+      <path d="M94 153 l7 14 16 2-12 11 3 16-14-8-14 8 3-16-12-11 16-2z" fill="#ffd762" stroke="#dda92e" stroke-width="3"/>
+      <circle cx="108" cy="188" r="3" fill="#fff0a3"/><circle cx="80" cy="184" r="2.5" fill="#fff0a3"/>
     </g>
   `)},
   {id:"hand_whisk",slot:"hand",label:"打蛋器",album:"chef",count:3,src:customSvg(`
-    <path d="M278 287 L312 218" stroke="#555a60" stroke-width="10" stroke-linecap="round"/>
-    <path d="M310 218 Q281 184 313 159 Q344 183 316 219M310 216 Q298 181 320 163M317 216 Q331 183 315 163" fill="none" stroke="#aab0b5" stroke-width="5"/>
+    <g transform="rotate(-8 83 228)">
+      <path d="M74 259 L90 207" stroke="#5e6267" stroke-width="7" stroke-linecap="round"/>
+      <path d="M90 207 Q75 184 91 166 Q108 184 93 207M90 205 Q83 183 97 169M93 205 Q101 183 92 169" fill="none" stroke="#aeb4b9" stroke-width="4"/>
+    </g>
   `)},
   {id:"hand_magnifier",slot:"hand",label:"放大鏡",album:"detective",count:3,src:customSvg(`
-    <circle cx="302" cy="202" r="35" fill="#dff4ff" fill-opacity=".23" stroke="#9c6d38" stroke-width="8"/>
-    <path d="M280 229 L252 285" stroke="#80552d" stroke-width="12" stroke-linecap="round"/>
-    <circle cx="292" cy="190" r="9" fill="#fff" opacity=".7"/>
+    <defs><filter id="hmg2"><feDropShadow dx="0" dy="3" stdDeviation="2" flood-color="#5b3d28" flood-opacity=".20"/></filter></defs>
+    <g filter="url(#hmg2)">
+      <circle cx="85" cy="182" r="27" fill="#dff4ff" fill-opacity=".16" stroke="#9b6a37" stroke-width="6"/>
+      <path d="M70 203 L55 246" stroke="#80552f" stroke-width="8" stroke-linecap="round"/>
+      <circle cx="76" cy="171" r="6" fill="#fff" opacity=".62"/>
+    </g>
   `)},
   {id:"hand_scepter",slot:"hand",label:"皇家權杖",album:"crown",count:3,src:customSvg(`
-    <path d="M282 302 L304 183" stroke="#d8a125" stroke-width="10" stroke-linecap="round"/>
-    <circle cx="307" cy="166" r="22" fill="#e2474f" stroke="#d9a329" stroke-width="7"/>
-    <path d="M286 164h42M307 143v46" stroke="#f4cf5d" stroke-width="5"/>
+    <defs><filter id="hsc2"><feDropShadow dx="0" dy="3" stdDeviation="2" flood-color="#7f5b14" flood-opacity=".20"/></filter></defs>
+    <g filter="url(#hsc2)">
+      <path d="M74 265 L90 180" stroke="#d2a02f" stroke-width="7" stroke-linecap="round"/>
+      <circle cx="93" cy="164" r="15" fill="#df4c55" stroke="#d0a032" stroke-width="5"/>
+      <path d="M81 164h24M93 152v24" stroke="#f0cb60" stroke-width="4"/>
+    </g>
   `)}
 ];
 
@@ -10624,12 +10874,20 @@ function loadYoungerCuteRewards(){
     lifetimeStars:Number(x.lifetimeStars||0),
     eggPoints:Number(x.eggPoints||0),
     pets:Array.isArray(x.pets)?x.pets.filter(id=>YOUNGER_PETS.some(p=>p.id===id)):[],
+    selectedPet:typeof x.selectedPet==="string"?x.selectedPet:"",
     stickers:Array.isArray(x.stickers)?x.stickers.filter(id=>YOUNGER_STICKERS.some(s=>s.id===id)):[],
+    albumStickers:x.albumStickers&&typeof x.albumStickers==="object"?x.albumStickers:{},
+    stickerCounts:x.stickerCounts&&typeof x.stickerCounts==="object"?x.stickerCounts:{},
+    repeatCollection:x.repeatCollection&&typeof x.repeatCollection==="object"
+      ?x.repeatCollection:{round:2,albumIndex:0,progress:0},
     chestDate:typeof x.chestDate==="string"?x.chestDate:"",
     outfit:YOUNGER_OUTFITS.some(a=>a.id===x.outfit)
-      ? x.outfit
-      : (x.accessory==="crown" ? "crown" : "base"),
+      ?x.outfit
+      :(x.accessory==="crown"?"crown":"base"),
     favoriteOutfit:YOUNGER_OUTFITS.some(a=>a.id===x.favoriteOutfit)?x.favoriteOutfit:"",
+    legacyOutfits:Array.isArray(x.legacyOutfits)?x.legacyOutfits.filter(id=>YOUNGER_OUTFITS.some(a=>a.id===id)):[],
+    rewardJourneyMigrated:!!x.rewardJourneyMigrated,
+    activeAlbum:typeof x.activeAlbum==="string"?x.activeAlbum:"",
     customLook:x.customLook&&typeof x.customLook==="object"?x.customLook:null,
     savedLooks:Array.isArray(x.savedLooks)?x.savedLooks.slice(0,3):[null,null,null],
     useCustom:!!x.useCustom,
@@ -10811,47 +11069,69 @@ function openYoungerTreasure(){
   if(done<4)return;
 
   if(youngerCuteRewards.chestDate===cuteDayKey()){
-    showCuteOverlay("🎁","今天開過囉","明天完成 4 關後，再來拿下一張主題貼紙。");
+    showCuteOverlay("🎁","今天開過囉","明天完成 4 關後，再來拿下一張收藏貼紙。");
     return;
   }
 
   const current=firstIncompleteAlbum();
-  if(!current){
-    showCuteOverlay("🏆","第一季收藏完成！","目前 6 本主題收藏冊都完成了，所有套裝都已開放。舊收藏不會消失。");
+
+  // 第一輪：優先補齊每冊未取得的貼紙，並解鎖道具／套裝。
+  if(current){
+    const got=albumProgress(current.id);
+    const remaining=current.stickers.filter(s=>!got.includes(s.id));
+    const reward=remaining[Math.floor(Math.random()*remaining.length)];
+
+    youngerCuteRewards.chestDate=cuteDayKey();
+    youngerCuteRewards.albumStickers[current.id]=[...got,reward.id];
+    youngerCuteRewards.stickerCounts[reward.id]=Number(youngerCuteRewards.stickerCounts[reward.id]||0)+1;
+    youngerCuteRewards.activeAlbum=firstIncompleteAlbum()?.id||"";
+
+    const completedNow=albumComplete(current.id);
+    const next=firstIncompleteAlbum();
+
+    saveYoungerCuteRewards();
+    burstCuteConfetti();
+    renderYoungerCuteRewards();
+
+    if(completedNow){
+      const outfit=YOUNGER_OUTFITS.find(x=>x.id===current.outfit);
+      showCuteOverlay(
+        "🎉",
+        `${current.label}收藏完成！`,
+        `拿到「${reward.name}」貼紙，${outfit?.label||current.label}小熊已解鎖。${next?`下一冊「${next.label}」已開啟！`:"第一輪完成！之後仍可繼續收集第 2 輪貼紙。"}`
+      );
+    }else{
+      const now=albumProgress(current.id).length;
+      const nextMilestone=current.stickers[now]?.unlock;
+      showCuteOverlay(
+        reward.emoji,
+        `得到「${reward.name}」貼紙！`,
+        `已放進「${current.label}」收藏冊：${now} / ${current.stickers.length}。${nextMilestone?`再收集 1 張，下一個目標是「${nextMilestone}」。`:""}`
+      );
+    }
     return;
   }
 
-  const got=albumProgress(current.id);
-  const remaining=current.stickers.filter(s=>!got.includes(s.id));
-  const reward=remaining[Math.floor(Math.random()*remaining.length)];
+  // 第二輪以後：持續收集，不清空第一輪，也不會讓既有道具消失。
+  const rc=youngerCuteRewards.repeatCollection;
+  const album=currentRepeatAlbum();
+  const reward=album.stickers[rc.progress]||album.stickers[0];
+  const roundBefore=rc.round;
+  const albumBefore=album.label;
 
   youngerCuteRewards.chestDate=cuteDayKey();
-  youngerCuteRewards.albumStickers[current.id]=[...got,reward.id];
-  youngerCuteRewards.activeAlbum=firstIncompleteAlbum()?.id||"";
-
-  const completedNow=albumComplete(current.id);
-  const next=firstIncompleteAlbum();
-
+  youngerCuteRewards.stickerCounts[reward.id]=Number(youngerCuteRewards.stickerCounts[reward.id]||0)+1;
+  advanceRepeatCollection();
   saveYoungerCuteRewards();
   burstCuteConfetti();
   renderYoungerCuteRewards();
 
-  if(completedNow){
-    const outfit=YOUNGER_OUTFITS.find(x=>x.id===current.outfit);
-    showCuteOverlay(
-      "🎉",
-      `${current.label}收藏完成！`,
-      `拿到「${reward.name}」貼紙，${outfit?.label||current.label}小熊已解鎖。${next?`下一冊「${next.label}」已開啟！`:"第一季全部收藏完成！"}`
-    );
-  }else{
-    const now=albumProgress(current.id).length;
-    const nextMilestone=current.stickers[now]?.unlock;
-    showCuteOverlay(
-      reward.emoji,
-      `得到「${reward.name}」貼紙！`,
-      `已放進「${current.label}」收藏冊：${now} / ${current.stickers.length}。${nextMilestone?`再收集 1 張，下一個目標是「${nextMilestone}」。`:""}`
-    );
-  }
+  const nextAlbum=currentRepeatAlbum();
+  showCuteOverlay(
+    reward.emoji,
+    `第 ${roundBefore} 輪得到「${reward.name}」！`,
+    `${albumBefore}貼紙目前累積 ×${youngerStickerCount(reward.id)}。收藏會一直保留；下一個進度：第 ${youngerCuteRewards.repeatCollection.round} 輪「${nextAlbum.label}」 ${youngerCuteRewards.repeatCollection.progress} / 4。`
+  );
 }
 function selectYoungerOutfit(id){
   const item=YOUNGER_OUTFITS.find(a=>a.id===id);
@@ -10879,7 +11159,7 @@ function renderWardrobeStudioMeta(){
   const entryProgress=document.getElementById("wardrobeEntryProgress");
   if(entryProgress)entryProgress.textContent=active
     ?`${active.label} ${albumProgress(active.id).length} / ${active.stickers.length}`
-    :"第一季套裝全解鎖";
+    :`第 ${youngerCuteRewards.repeatCollection.round} 輪收藏中`;
 
   const stars=document.getElementById("wardrobeStudioStars");
   if(stars)stars.textContent=`⭐ 成長 ${youngerCuteRewards.lifetimeStars||0}`;
@@ -10915,10 +11195,11 @@ function renderWardrobeStudioMeta(){
     }
     if(unlockNext)unlockNext.textContent=`集滿 ${active.stickers.length} 張 → 解鎖「${YOUNGER_OUTFITS.find(x=>x.id===active.outfit)?.label||active.label}小熊」→ 開啟下一本收藏冊。`;
   }else{
-    if(unlockTitle)unlockTitle.textContent="🏆 第一季收藏完成";
-    if(unlockDesc)unlockDesc.textContent="6 本主題收藏冊都已完成，套裝全部開放；收藏不會被清空。";
+    const ra=currentRepeatAlbum(),rc=youngerCuteRewards.repeatCollection;
+    if(unlockTitle)unlockTitle.textContent=`🏆 第一輪完成｜第 ${rc.round} 輪收藏中`;
+    if(unlockDesc)unlockDesc.textContent=`6 套主題已全部解鎖；現在繼續收集「${ra.label}」貼紙，舊貼紙與道具不會被清空。`;
     if(unlockMilestones)unlockMilestones.innerHTML="";
-    if(unlockNext)unlockNext.textContent="之後新增新的主題冊時，會接在這裡繼續，不會重置原本成果。";
+    if(unlockNext)unlockNext.textContent=`目前：${ra.label} ${rc.progress} / 4。完成後會接著下一本，持續累積收藏次數。`;
   }
 }
 function cycleWardrobeOutfit(step){
@@ -10955,11 +11236,14 @@ function renderYoungerCuteRewards(){
 
   const journey=document.getElementById("rewardJourneyCurrent");
   if(journey){
-    journey.textContent=allAlbumsComplete()
-      ?"目前：第一季收藏完成"
-      : done<4
+    if(allAlbumsComplete()){
+      const ra=currentRepeatAlbum();
+      journey.textContent=`目前：第 ${youngerCuteRewards.repeatCollection.round} 輪｜${ra.label} ${youngerCuteRewards.repeatCollection.progress} / 4`;
+    }else{
+      journey.textContent=done<4
         ?`目前：先完成今天 4 關（${done} / 4）`
         :`目前：可以開寶箱，收集「${active?.label||""}」`;
+    }
   }
 
   const stops=["case","position","look","listen"];
@@ -10974,17 +11258,18 @@ function renderYoungerCuteRewards(){
   const chestText=document.getElementById("youngerTreasureText");
   if(chest){
     const claimed=youngerCuteRewards.chestDate===cuteDayKey();
-    const finished=allAlbumsComplete();
-    chest.classList.toggle("locked",done<4||finished);
-    chest.classList.toggle("ready",done>=4&&!claimed&&!finished);
-    chest.classList.toggle("opened",claimed||finished);
-    chest.disabled=done<4||finished;
+    const firstDone=allAlbumsComplete();
+    const repeatAlbum=firstDone?currentRepeatAlbum():null;
+    chest.classList.toggle("locked",done<4);
+    chest.classList.toggle("ready",done>=4&&!claimed);
+    chest.classList.toggle("opened",claimed);
+    chest.disabled=done<4;
     if(chestText){
-      chestText.textContent=finished
-        ?"第一季完成"
-        :claimed
-          ?"今天已開"
-          :(done>=4?`${active?.label||"主題"}貼紙`:"完成 4 關");
+      chestText.textContent=claimed
+        ?"今天已開"
+        :(done>=4
+          ?(firstDone?`第 ${youngerCuteRewards.repeatCollection.round} 輪貼紙`:`${active?.label||"主題"}貼紙`)
+          :"完成 4 關");
     }
   }
 
@@ -11055,9 +11340,12 @@ function renderYoungerCuteRewards(){
 
   const status=document.getElementById("albumJourneyStatus");
   if(status){
-    status.textContent=active
-      ?`現在收集：${active.icon} ${active.label}｜${albumProgress(active.id).length} / ${active.stickers.length} 張。今天完成 4 關後，可以開一次寶箱。`
-      :"🏆 第一季 6 本收藏冊全部完成。所有收藏與套裝都會保留。";
+    if(active){
+      status.textContent=`現在收集：${active.icon} ${active.label}｜${albumProgress(active.id).length} / ${active.stickers.length} 張。今天完成 4 關後，可以開一次寶箱。`;
+    }else{
+      const ra=currentRepeatAlbum(),rc=youngerCuteRewards.repeatCollection;
+      status.textContent=`🏆 第一輪已完成並永久保留。現在繼續第 ${rc.round} 輪：${ra.icon} ${ra.label} ${rc.progress} / 4；貼紙會累積 ×2、×3……不會清空。`;
+    }
   }
 
   const grid=document.getElementById("themeAlbumGrid");
@@ -11068,7 +11356,8 @@ function renderYoungerCuteRewards(){
       const unlocked=albumUnlocked(a.id);
       const isActive=active?.id===a.id;
       const outfit=YOUNGER_OUTFITS.find(x=>x.id===a.outfit);
-      return `<div class="themeAlbumCard ${complete?"complete":isActive?"active":unlocked?"":"locked"}">
+      const repeatActive=allAlbumsComplete()&&currentRepeatAlbum().id===a.id;
+      return `<div class="themeAlbumCard ${complete?"complete":isActive?"active":unlocked?"":"locked"} ${repeatActive?"repeatActive":""}">
         <div class="themeAlbumTop">
           <div class="themeAlbumTitle"><span>${a.icon}</span><b>${a.label}</b></div>
           <small>${complete?"✓ 完成":`${got.length} / ${a.stickers.length}`}</small>
@@ -11076,14 +11365,18 @@ function renderYoungerCuteRewards(){
         <div class="themeStickerRow">
           ${a.stickers.map(s=>{
             const have=got.includes(s.id);
+            const count=youngerStickerCount(s.id);
             return `<div class="themeSticker ${have?"got":""}">
+              ${count>1?`<i class="stickerCount">×${count}</i>`:""}
               <span>${have?s.emoji:"?"}</span><small>${have?s.name:"未取得"}</small>
             </div>`;
           }).join("")}
         </div>
         <div class="themeAlbumReward">
           ${complete
-            ?`🎉 已解鎖 <b>${outfit?.label||a.label}小熊</b>`
+            ?(allAlbumsComplete()&&currentRepeatAlbum().id===a.id
+              ?`🎉 已解鎖 <b>${outfit?.label||a.label}小熊</b>｜第 ${youngerCuteRewards.repeatCollection.round} 輪 ${youngerCuteRewards.repeatCollection.progress} / 4`
+              :`🎉 已解鎖 <b>${outfit?.label||a.label}小熊</b>`)
             :unlocked
               ?`下一張貼紙：推進「<b>${a.stickers[Math.min(got.length,a.stickers.length-1)].unlock}</b>」`
               :"完成前一本後開啟"}
@@ -14011,6 +14304,7 @@ function finishHistoryQuiz(){
     histState.saved=true;
   }
 
+  awardOlderSticker("history");
   if(pct===100)playSound("olderChest");
   renderParentBackendData();
 }
